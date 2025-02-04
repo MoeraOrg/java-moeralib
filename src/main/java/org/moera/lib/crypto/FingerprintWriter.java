@@ -130,8 +130,8 @@ class FingerprintWriter implements AutoCloseable {
                         append(fingerprintValue, fieldWithSchema.getSchema());
                     } else {
                         throw new FingerprintException(
-                                fingerprint.getClass(),
-                                String.format("fingerprint field '%s' should be a Fingerprint", fieldName)
+                            fingerprint.getClass(),
+                            String.format("fingerprint field '%s' should be a Fingerprint", fieldName)
                         );
                     }
                 } else {
@@ -140,8 +140,8 @@ class FingerprintWriter implements AutoCloseable {
                         append(fingerprint.get(fieldName));
                     } else {
                         throw new FingerprintException(
-                                fingerprint.getClass(),
-                                "fingerprint schema element should be a String or a FieldWithSchema"
+                            fingerprint.getClass(),
+                            "fingerprint schema element should be a String or a FieldWithSchema"
                         );
                     }
                 }

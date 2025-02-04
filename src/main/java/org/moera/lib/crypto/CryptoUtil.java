@@ -5,20 +5,27 @@ import static org.moera.lib.Rules.PRIVATE_KEY_LENGTH;
 import static org.moera.lib.Rules.PUBLIC_KEY_LENGTH;
 
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
 
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.jcajce.provider.util.DigestFactory;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECParameterSpec;
 import org.bouncycastle.jce.spec.ECPrivateKeySpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 import org.bouncycastle.math.ec.ECPoint;
+import org.moera.lib.Rules;
+import org.moera.lib.util.LogUtil;
 import org.moera.lib.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,6 +118,36 @@ public class CryptoUtil {
         try (FingerprintWriter writer = new FingerprintWriter()) {
             writer.append(fingerprint, schema);
             return writer.toBytes();
+        }
+    }
+
+    public static byte[] digest(byte[] fingerprint) {
+        Digest digest = DigestFactory.getDigest(Rules.DIGEST_ALGORITHM);
+        digest.update(fingerprint, 0, fingerprint.length);
+        byte[] result = new byte[digest.getDigestSize()];
+        digest.doFinal(result, 0);
+        log.debug("Digest: " + LogUtil.format(result));
+        return result;
+    }
+
+    public static boolean verify(byte[] fingerprint, byte[] signature, byte[] publicKey) {
+        return verify(fingerprint, signature, toPublicKey(publicKey));
+    }
+
+    public static boolean verify(byte[] fingerprint, byte[] signature, ECPublicKey publicKey) {
+        try {
+            Signature sign = Signature.getInstance(Rules.SIGNATURE_ALGORITHM, "BC");
+            sign.initVerify(publicKey);
+            sign.update(fingerprint);
+            log.debug("Verifying signature: " + LogUtil.format(signature));
+            boolean correct = sign.verify(signature);
+            log.debug("Signature is {}", correct ? "correct" : "incorrect");
+            return correct;
+        } catch (SignatureException e) {
+            log.debug("Signature is incorrect: " + e.getMessage());
+            return false;
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
         }
     }
 
