@@ -6,8 +6,10 @@ import static org.moera.lib.Rules.PUBLIC_KEY_LENGTH;
 
 import java.math.BigInteger;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -17,6 +19,7 @@ import org.bouncycastle.jce.spec.ECParameterSpec;
 import org.bouncycastle.jce.spec.ECPrivateKeySpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 import org.bouncycastle.math.ec.ECPoint;
+import org.moera.lib.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,6 +94,23 @@ public class CryptoUtil {
             return (ECPrivateKey) KeyFactory.getInstance("EC", "BC").generatePrivate(keySpec);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NoSuchProviderException e) {
             throw new CryptoException(e);
+        }
+    }
+
+    public static String token() {
+        byte[] random = new byte[32];
+        try {
+            new SecureRandom().nextBytes(random);
+            return Util.base64urlencode(MessageDigest.getInstance("SHA-256", "BC").digest(random));
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+            throw new CryptoException(e);
+        }
+    }
+
+    public static byte[] fingerprint(Fingerprint fingerprint, Object[] schema) {
+        try (FingerprintWriter writer = new FingerprintWriter()) {
+            writer.append(fingerprint, schema);
+            return writer.toBytes();
         }
     }
 
