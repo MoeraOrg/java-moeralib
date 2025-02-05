@@ -130,6 +130,23 @@ public class CryptoUtil {
         return result;
     }
 
+    public static byte[] sign(byte[] fingerprint, byte[] privateKey) {
+        return sign(fingerprint, toPrivateKey(privateKey));
+    }
+
+    public static byte[] sign(byte[] fingerprint, ECPrivateKey privateKey) {
+        try {
+            Signature signature = Signature.getInstance(Rules.SIGNATURE_ALGORITHM, "BC");
+            signature.initSign(privateKey, new SecureRandom());
+            signature.update(fingerprint);
+            byte[] result = signature.sign();
+            log.debug("Signature: " + LogUtil.format(result));
+            return result;
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
+    }
+
     public static boolean verify(byte[] fingerprint, byte[] signature, byte[] publicKey) {
         return verify(fingerprint, signature, toPublicKey(publicKey));
     }
