@@ -16,25 +16,15 @@ public class Fingerprints {
     };
 
     public static byte[] putCall(
-            String name,
-            int generation,
-            byte[] updatingKey,
-            String nodeUri,
-            byte[] signingKey,
-            long validFrom,
-            byte[] previousDigest
+        String name, int generation, byte[] updatingKey, String nodeUri, byte[] signingKey, long validFrom,
+        byte[] previousDigest
     ) {
         return putCall0(name, generation, updatingKey, nodeUri, signingKey, validFrom, previousDigest);
     }
 
     public static byte[] putCall0(
-            String name,
-            int generation,
-            byte[] updatingKey,
-            String nodeUri,
-            byte[] signingKey,
-            long validFrom,
-            byte[] previousDigest
+        String name, int generation, byte[] updatingKey, String nodeUri, byte[] signingKey, long validFrom,
+        byte[] previousDigest
     ) {
         Fingerprint fingerprint = new Fingerprint(0);
         fingerprint.put("name", name);
