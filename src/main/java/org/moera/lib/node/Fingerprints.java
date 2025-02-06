@@ -7,138 +7,185 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.moera.lib.crypto.CryptoUtil;
+import org.moera.lib.crypto.FieldWithSchema;
 import org.moera.lib.crypto.Fingerprint;
 
 public class Fingerprints {
 
-    private static final Object[] ATTACHMENT0_SCHEMA = new Object[] {
-        "objectType",
-        "digest",
+    private static final FieldWithSchema[] ATTACHMENT0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("digest", "byte[]"),
     };
 
-    private static final Object[] CARTE2_SCHEMA = new Object[] {
-        "objectType",
-        "ownerName",
-        "address",
-        "beginning",
-        "deadline",
-        "nodeName",
-        "clientScope",
-        "adminScope",
-        "salt",
+    private static final FieldWithSchema[] CARTE2_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("address", "InetAddress"),
+        new FieldWithSchema("beginning", "Timestamp"),
+        new FieldWithSchema("deadline", "Timestamp"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("client_scope", "long"),
+        new FieldWithSchema("admin_scope", "long"),
+        new FieldWithSchema("salt", "byte[]"),
     };
 
-    private static final Object[] CARTE1_SCHEMA = new Object[] {
-        "objectType",
-        "ownerName",
-        "address",
-        "beginning",
-        "deadline",
-        "nodeName",
-        "authCategory",
-        "salt",
+    private static final FieldWithSchema[] CARTE1_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("address", "InetAddress"),
+        new FieldWithSchema("beginning", "Timestamp"),
+        new FieldWithSchema("deadline", "Timestamp"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("auth_category", "byte"),
+        new FieldWithSchema("salt", "byte[]"),
     };
 
-    private static final Object[] CARTE0_SCHEMA = new Object[] {
-        "objectType",
-        "ownerName",
-        "address",
-        "beginning",
-        "deadline",
-        "permissions",
-        "salt",
+    private static final FieldWithSchema[] CARTE0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("address", "InetAddress"),
+        new FieldWithSchema("beginning", "Timestamp"),
+        new FieldWithSchema("deadline", "Timestamp"),
+        new FieldWithSchema("permissions", "byte"),
+        new FieldWithSchema("salt", "byte[]"),
     };
 
-    private static final Object[] COMMENT0_SCHEMA = new Object[] {
-        "objectType",
-        "ownerName",
-        "postingFingerprint",
-        "repliedToFingerprint",
-        "bodySrcHash",
-        "bodySrcFormat",
-        "body",
-        "bodyFormat",
-        "createdAt",
-        "permissions",
-        "attachments",
+    private static final FieldWithSchema[] COMMENT0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("posting_fingerprint", "byte[]"),
+        new FieldWithSchema("replied_to_fingerprint", "byte[]"),
+        new FieldWithSchema("body_src_hash", "byte[]"),
+        new FieldWithSchema("body_src_format", "String"),
+        new FieldWithSchema("body", "String"),
+        new FieldWithSchema("body_format", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("permissions", "byte"),
+        new FieldWithSchema("attachments", "byte[][]"),
     };
 
-    private static final Object[] NOTIFICATION_PACKET1_SCHEMA = new Object[] {
-        "objectType",
-        "id",
-        "nodeName",
-        "fullName",
-        "createdAt",
-        "type",
-        "notification",
+    private static final FieldWithSchema[] NOTIFICATION_PACKET1_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("id", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("full_name", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("type", "String"),
+        new FieldWithSchema("notification", "String"),
     };
 
-    private static final Object[] NOTIFICATION_PACKET0_SCHEMA = new Object[] {
-        "objectType",
-        "id",
-        "nodeName",
-        "createdAt",
-        "type",
-        "notification",
+    private static final FieldWithSchema[] NOTIFICATION_PACKET0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("id", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("type", "String"),
+        new FieldWithSchema("notification", "String"),
     };
 
-    private static final Object[] POSTING1_SCHEMA = new Object[] {
-        "objectType",
-        "receiverName",
-        "ownerName",
-        "bodySrcHash",
-        "bodySrcFormat",
-        "body",
-        "bodyFormat",
-        "createdAt",
-        "permissions",
-        "attachments",
+    private static final FieldWithSchema[] POSTING1_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("receiver_name", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("body_src_hash", "byte[]"),
+        new FieldWithSchema("body_src_format", "String"),
+        new FieldWithSchema("body", "String"),
+        new FieldWithSchema("body_format", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("permissions", "byte"),
+        new FieldWithSchema("attachments", "byte[][]"),
     };
 
-    private static final Object[] POSTING0_SCHEMA = new Object[] {
-        "objectType",
-        "receiverName",
-        "ownerName",
-        "bodySrcHash",
-        "bodySrcFormat",
-        "body",
-        "bodyFormat",
-        "createdAt",
-        "permissions",
-        "attachments",
+    private static final FieldWithSchema[] POSTING0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("receiver_name", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("body_src_hash", "byte[]"),
+        new FieldWithSchema("body_src_format", "String"),
+        new FieldWithSchema("body", "String"),
+        new FieldWithSchema("body_format", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("permissions", "byte"),
+        new FieldWithSchema("attachments", "byte"),
     };
 
-    private static final Object[] PUSH_RELAY_MESSAGE0_SCHEMA = new Object[] {
-        "objectType",
-        "signedAt",
+    private static final FieldWithSchema[] PUSH_RELAY_MESSAGE0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("signed_at", "Timestamp"),
     };
 
-    private static final Object[] PUSH_RELAY_REGISTER0_SCHEMA = new Object[] {
-        "objectType",
-        "clientId",
-        "lang",
-        "signedAt",
+    private static final FieldWithSchema[] PUSH_RELAY_REGISTER0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("client_id", "String"),
+        new FieldWithSchema("lang", "String"),
+        new FieldWithSchema("signed_at", "Timestamp"),
     };
 
-    private static final Object[] REACTION0_SCHEMA = new Object[] {
-        "objectType",
-        "ownerName",
-        "entryFingerprint",
-        "negative",
-        "emoji",
+    private static final FieldWithSchema[] REACTION0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("entry_fingerprint", "byte[]"),
+        new FieldWithSchema("negative", "boolean"),
+        new FieldWithSchema("emoji", "int"),
     };
 
-    private static final Object[] SHERIFF_ORDER0_SCHEMA = new Object[] {
-        "objectType",
-        "sheriffName",
-        "nodeName",
-        "feedName",
-        "entryFingerprint",
-        "category",
-        "reasonCode",
-        "reasonDetails",
-        "createdAt",
+    private static final FieldWithSchema[] SHERIFF_ORDER0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("sheriff_name", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("feed_name", "String"),
+        new FieldWithSchema("entry_fingerprint", "byte[]"),
+        new FieldWithSchema("category", "String"),
+        new FieldWithSchema("reason_code", "String"),
+        new FieldWithSchema("reason_details", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
     };
+
+    public static FieldWithSchema[] getSchema(String objectType, int version) {
+        return switch (objectType) {
+            case "ATTACHMENT" -> switch (version) {
+                case 0 -> ATTACHMENT0_SCHEMA;
+                default -> null;
+            };
+            case "CARTE" -> switch (version) {
+                case 2 -> CARTE2_SCHEMA;
+                case 1 -> CARTE1_SCHEMA;
+                case 0 -> CARTE0_SCHEMA;
+                default -> null;
+            };
+            case "COMMENT" -> switch (version) {
+                case 0 -> COMMENT0_SCHEMA;
+                default -> null;
+            };
+            case "NOTIFICATION_PACKET" -> switch (version) {
+                case 1 -> NOTIFICATION_PACKET1_SCHEMA;
+                case 0 -> NOTIFICATION_PACKET0_SCHEMA;
+                default -> null;
+            };
+            case "POSTING" -> switch (version) {
+                case 1 -> POSTING1_SCHEMA;
+                case 0 -> POSTING0_SCHEMA;
+                default -> null;
+            };
+            case "PUSH_RELAY_MESSAGE" -> switch (version) {
+                case 0 -> PUSH_RELAY_MESSAGE0_SCHEMA;
+                default -> null;
+            };
+            case "PUSH_RELAY_REGISTER" -> switch (version) {
+                case 0 -> PUSH_RELAY_REGISTER0_SCHEMA;
+                default -> null;
+            };
+            case "REACTION" -> switch (version) {
+                case 0 -> REACTION0_SCHEMA;
+                default -> null;
+            };
+            case "SHERIFF_ORDER" -> switch (version) {
+                case 0 -> SHERIFF_ORDER0_SCHEMA;
+                default -> null;
+            };
+            default -> null;
+        };
+    }
 
     public static byte[] attachment(byte[] digest) {
         return attachment0(digest);
@@ -154,14 +201,14 @@ public class Fingerprints {
 
     public static byte[] carte(
         String ownerName, InetAddress address, Timestamp beginning, Timestamp deadline, String nodeName,
-        int clientScope, int adminScope, byte[] salt
+        long clientScope, long adminScope, byte[] salt
     ) {
         return carte2(ownerName, address, beginning, deadline, nodeName, clientScope, adminScope, salt);
     }
 
     public static byte[] carte2(
         String ownerName, InetAddress address, Timestamp beginning, Timestamp deadline, String nodeName,
-        int clientScope, int adminScope, byte[] salt
+        long clientScope, long adminScope, byte[] salt
     ) {
         Fingerprint fingerprint = new Fingerprint(2);
         fingerprint.put("object_type", "CARTE");

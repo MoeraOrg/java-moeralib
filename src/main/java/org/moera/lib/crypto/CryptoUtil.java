@@ -16,6 +16,7 @@ import java.security.SignatureException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
+import java.util.function.Function;
 
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.jcajce.provider.util.DigestFactory;
@@ -114,10 +115,21 @@ public class CryptoUtil {
         }
     }
 
-    public static byte[] fingerprint(Fingerprint fingerprint, Object[] schema) {
+    public static byte[] fingerprint(Fingerprint fingerprint, FieldWithSchema[] schema) {
         try (FingerprintWriter writer = new FingerprintWriter()) {
             writer.append(fingerprint, schema);
             return writer.toBytes();
+        }
+    }
+
+    public static RestoredFingerprint restore(byte[] bytes, FieldWithSchema[] schema) {
+        return restore(bytes, version -> schema);
+    }
+
+    public static RestoredFingerprint restore(byte[] bytes, Function<Integer, FieldWithSchema[]> schemaProvider) {
+        try (FingerprintReader reader = new FingerprintReader(bytes)) {
+            Fingerprint fingerprint = reader.read(schemaProvider);
+            return new RestoredFingerprint(fingerprint, reader.available());
         }
     }
 

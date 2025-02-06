@@ -40,18 +40,56 @@ def params_wrap(template: str, substitute: str, indent: int) -> str:
     return line
 
 
+FP_TYPES = {
+    'String': 'String',
+    'InetAddress': 'InetAddress',
+    'int': 'int',
+    'long': 'long',
+    'timestamp': 'Timestamp',
+    'byte': 'byte',
+    'byte[]': 'byte[]',
+    'boolean': 'boolean'
+}
+
+
 def generate_fingerprint_schema(schema: Any, name: str, version: int, ffile: TextIO) -> None:
-    ffile.write(f'{ind(1)}private static final Object[] {to_snake(name).upper()}{version}_SCHEMA = new Object[] {{\n')
+    ffile.write(
+        f'{ind(1)}private static final FieldWithSchema[] {to_snake(name).upper()}{version}_SCHEMA'
+        f' = new FieldWithSchema[] {{\n'
+    )
     for field in schema['fingerprint']:
-        field_name = field['field']
-        ffile.write(f'{ind(2)}"{field_name}",\n')
+        if 'type' in field:
+            field_type = FP_TYPES[field['type']]
+        else:
+            field_type = 'byte[]'
+        if field.get('array', False):
+            field_type += '[]'
+        field_name = to_snake(field['field'])
+        ffile.write(f'{ind(2)}new FieldWithSchema("{field_name}", "{field_type}"),\n')
     ffile.write(f'{ind(1)}}};\n\n')
+
+
+def generate_get_schema_function(fp: Any, ffile: TextIO) -> None:
+    ffile.write(f'{ind(1)}public static FieldWithSchema[] getSchema(String objectType, int version) {{\n')
+    ffile.write(f'{ind(2)}return switch (objectType) {{\n')
+    for object in fp['objects']:
+        name = to_snake(object['name']).upper()
+        ffile.write(f'{ind(3)}case "{name}" -> switch (version) {{\n')
+        for schema in object['versions']:
+            version = schema['version']
+            ffile.write(f'{ind(4)}case {version} -> {name}{version}_SCHEMA;\n')
+        ffile.write(f'{ind(4)}default -> null;\n')
+        ffile.write(f'{ind(3)}}};\n')
+    ffile.write(f'{ind(3)}default -> null;\n')
+    ffile.write(f'{ind(2)}}};\n')
+    ffile.write(f'{ind(1)}}}\n\n')
 
 
 PY_FP_TYPES = {
     'String': 'String',
     'InetAddress': 'InetAddress',
     'int': 'int',
+    'long': 'long',
     'timestamp': 'Timestamp',
     'byte': 'byte',
     'byte[]': 'byte[]',
@@ -116,6 +154,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.moera.lib.crypto.CryptoUtil;
+import org.moera.lib.crypto.FieldWithSchema;
 import org.moera.lib.crypto.Fingerprint;
 
 public class Fingerprints {
@@ -134,6 +173,7 @@ def generate_fingerprints(fp: Any, outdir: str) -> None:
             for schema in object['versions']:
                 version = schema['version']
                 generate_fingerprint_schema(schema, name, version, ffile)
+        generate_get_schema_function(fp, ffile)
         for object in fp['objects']:
             name = object['name']
             schema = object['versions'][0]

@@ -4,9 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.moera.lib.util.LogUtil;
+import org.moera.lib.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,42 +110,46 @@ class FingerprintWriter implements AutoCloseable {
             append(value);
         } else if (obj instanceof byte[] value) {
             append(value);
+        } else if (obj instanceof Timestamp value) {
+            append(Util.toEpochSecond(value));
         } else if (obj instanceof InetAddress value) {
             append(value.getAddress());
         } else if (obj instanceof List<?> value) {
             append(value);
         } else {
-            throw new FingerprintException(obj.getClass(), "class is not a primitive fingerprint element");
+            throw new FingerprintException(
+                String.format("%s is not a primitive fingerprint element", obj.getClass().getName())
+            );
         }
     }
 
-    public void append(Fingerprint fingerprint, Object[] schema) {
+    public void append(Fingerprint fingerprint, FieldWithSchema[] schema) {
         log.trace("Fingerprinting {} (ver {})", fingerprint.getClass().getName(), fingerprint.getVersion());
         append(fingerprint.getVersion());
         try {
-            for (Object field : schema) {
-                if (field instanceof FieldWithSchema fieldWithSchema) {
-                    String fieldName = fieldWithSchema.getName();
+            for (FieldWithSchema field : schema) {
+                if (field.schema().getClass().isArray()) {
+                    if (!FieldWithSchema.class.isAssignableFrom(field.schema().getClass().componentType())) {
+                        throw new FingerprintException(
+                            String.format(
+                                "fingerprint schema should be a String or a FieldWithSchema[], but got %s",
+                                field.schema().getClass()
+                            )
+                        );
+                    }
+                    String fieldName = field.name();
                     log.trace("field: {}", fieldName);
                     Object value = fingerprint.get(fieldName);
                     if (value instanceof Fingerprint fingerprintValue) {
-                        append(fingerprintValue, fieldWithSchema.getSchema());
+                        append(fingerprintValue, (FieldWithSchema[]) field.schema());
                     } else {
                         throw new FingerprintException(
-                            fingerprint.getClass(),
                             String.format("fingerprint field '%s' should be a Fingerprint", fieldName)
                         );
                     }
                 } else {
-                    if (field instanceof String fieldName) {
-                        log.trace("field: {}", fieldName);
-                        append(fingerprint.get(fieldName));
-                    } else {
-                        throw new FingerprintException(
-                            fingerprint.getClass(),
-                            "fingerprint schema element should be a String or a FieldWithSchema"
-                        );
-                    }
+                    log.trace("field: {}", field.name());
+                    append(fingerprint.get(field.name()));
                 }
             }
         } finally {
