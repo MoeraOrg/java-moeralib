@@ -1,4 +1,4 @@
-package org.moera.lib.naming.rpc;
+package org.moera.lib.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

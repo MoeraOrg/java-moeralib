@@ -1,6 +1,6 @@
 package org.moera.lib.naming;
 
-import org.moera.lib.naming.rpc.JsonRpcError;
+import org.moera.lib.jsonrpc.JsonRpcError;
 
 public class MoeraNamingApiException extends RuntimeException {
 

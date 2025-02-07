@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.moera.lib.naming.rpc.JsonRpcRequest;
-import org.moera.lib.naming.rpc.JsonRpcResponse;
+import org.moera.lib.jsonrpc.JsonRpcRequest;
+import org.moera.lib.jsonrpc.JsonRpcResponse;
 import org.moera.lib.naming.types.OperationStatusInfo;
 import org.moera.lib.naming.types.RegisteredNameInfo;
 import org.moera.lib.naming.types.SigningKeyInfo;

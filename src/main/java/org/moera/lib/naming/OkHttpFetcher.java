@@ -10,8 +10,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.moera.lib.naming.rpc.JsonRpcRequest;
-import org.moera.lib.naming.rpc.JsonRpcResponse;
+import org.moera.lib.jsonrpc.JsonRpcRequest;
+import org.moera.lib.jsonrpc.JsonRpcResponse;
 
 public class OkHttpFetcher implements Function<JsonRpcRequest, JsonRpcResponse> {
 
