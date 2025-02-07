@@ -8,12 +8,12 @@ public class NodeName {
     public NodeName() {
     }
 
-    public static NodeName parse(String registeredName) {
+    public static NodeName parse(String nodeName) {
         NodeName result = new NodeName();
-        if (registeredName == null || registeredName.isEmpty()) {
+        if (nodeName == null || nodeName.isEmpty()) {
             return result;
         }
-        String[] parts = registeredName.split("_");
+        String[] parts = nodeName.split("_");
         result.setName(parts[0]);
         if (parts.length > 1) {
             try {
@@ -25,18 +25,18 @@ public class NodeName {
         return result;
     }
 
-    public static String shorten(String registeredName) {
-        if (registeredName == null || registeredName.isEmpty()) {
-            return registeredName;
+    public static String shorten(String nodeName) {
+        if (nodeName == null || nodeName.isEmpty()) {
+            return nodeName;
         }
-        return parse(registeredName).toShortString();
+        return parse(nodeName).toShortString();
     }
 
-    public static String expand(String registeredName) {
-        if (registeredName == null || registeredName.isEmpty()) {
-            return registeredName;
+    public static String expand(String nodeName) {
+        if (nodeName == null || nodeName.isEmpty()) {
+            return nodeName;
         }
-        return parse(registeredName).toString();
+        return parse(nodeName).toString();
     }
 
     public String getName() {

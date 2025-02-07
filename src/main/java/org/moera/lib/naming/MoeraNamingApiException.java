@@ -1,22 +1,16 @@
 package org.moera.lib.naming;
 
 import org.moera.lib.jsonrpc.JsonRpcError;
+import org.moera.lib.jsonrpc.JsonRpcException;
 
-public class MoeraNamingApiException extends RuntimeException {
-
-    private final int rpcCode;
+public class MoeraNamingApiException extends JsonRpcException {
 
     public MoeraNamingApiException(int rpcCode, String message) {
-        super(message);
-        this.rpcCode = rpcCode;
+        super(rpcCode, message);
     }
 
     public MoeraNamingApiException(JsonRpcError jsonRpcError) {
-        this(jsonRpcError.getCode(), jsonRpcError.getMessage());
-    }
-
-    public int getRpcCode() {
-        return rpcCode;
+        super(jsonRpcError.getCode(), jsonRpcError.getMessage());
     }
 
 }

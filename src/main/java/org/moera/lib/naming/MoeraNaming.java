@@ -2,47 +2,40 @@ package org.moera.lib.naming;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.moera.lib.jsonrpc.JsonRpcClient;
+import org.moera.lib.jsonrpc.JsonRpcException;
 import org.moera.lib.jsonrpc.JsonRpcRequest;
 import org.moera.lib.jsonrpc.JsonRpcResponse;
 import org.moera.lib.naming.types.OperationStatusInfo;
 import org.moera.lib.naming.types.RegisteredNameInfo;
 import org.moera.lib.naming.types.SigningKeyInfo;
 
-public class MoeraNaming implements NamingApi {
+public class MoeraNaming extends JsonRpcClient implements NamingApi {
 
     public static final String MAIN_NAMING_SERVER = "https://naming.moera.org/moera-naming";
     public static final String DEV_NAMING_SERVER = "https://naming-dev.moera.org/moera-naming";
-
-    private final Function<JsonRpcRequest, JsonRpcResponse> fetcher;
-    private final AtomicInteger id = new AtomicInteger(0);
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public MoeraNaming() {
         this(MAIN_NAMING_SERVER);
     }
 
     public MoeraNaming(String url) {
-        this(new OkHttpFetcher(url));
+        super(url);
     }
 
     public MoeraNaming(Function<JsonRpcRequest, JsonRpcResponse> fetcher) {
-        this.fetcher = fetcher;
+        super(fetcher);
     }
 
-    private <T> T fetch(Class<T> result, String method, Object... parameters) {
-        JsonRpcRequest request = new JsonRpcRequest();
-        request.setId(id.incrementAndGet());
-        request.setMethod(method);
-        request.setParams(objectMapper.valueToTree(parameters));
-        JsonRpcResponse response = fetcher.apply(request);
-        if (response.getError() != null) {
-            throw new MoeraNamingApiException(response.getError());
+    @Override
+    protected <T> T fetch(Class<T> result, String method, Object... parameters) {
+        try {
+            return super.fetch(result, method, parameters);
+        } catch (JsonRpcException e) {
+            throw new MoeraNamingApiException(e.getRpcError());
         }
-        return objectMapper.convertValue(response.getResult(), result);
     }
 
     @Override
@@ -83,6 +76,7 @@ public class MoeraNaming implements NamingApi {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<SigningKeyInfo> getAllKeys(String name, int generation) {
         return fetch(List.class, "getAllKeys", name, generation);
     }
@@ -93,11 +87,13 @@ public class MoeraNaming implements NamingApi {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<RegisteredNameInfo> getAll(long at, int page, int size) {
         return fetch(List.class, "getAll", at, page, size);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<RegisteredNameInfo> getAllNewer(long at, int page, int size) {
         return fetch(List.class, "getAllNewer", at, page, size);
     }
