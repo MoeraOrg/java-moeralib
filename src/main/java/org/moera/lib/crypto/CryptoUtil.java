@@ -122,6 +122,13 @@ public class CryptoUtil {
         }
     }
 
+    public static byte[] fingerprint(String text) {
+        try (FingerprintWriter writer = new FingerprintWriter()) {
+            writer.append(text);
+            return writer.toBytes();
+        }
+    }
+
     public static RestoredFingerprint restore(byte[] bytes, FieldWithSchema[] schema) {
         return restore(bytes, version -> schema);
     }

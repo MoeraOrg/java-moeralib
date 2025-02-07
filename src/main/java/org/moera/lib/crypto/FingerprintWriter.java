@@ -91,7 +91,7 @@ class FingerprintWriter implements AutoCloseable {
         }
     }
 
-    private void append(Object obj) {
+    void append(Object obj) {
         if (obj == null) {
             appendNull();
             return;
