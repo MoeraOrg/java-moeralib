@@ -1,4 +1,4 @@
-package org.moera.lib.naming;
+package org.moera.lib.jsonrpc;
 
 import java.io.IOException;
 import java.util.function.Function;
@@ -10,8 +10,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.moera.lib.jsonrpc.JsonRpcRequest;
-import org.moera.lib.jsonrpc.JsonRpcResponse;
 
 public class OkHttpFetcher implements Function<JsonRpcRequest, JsonRpcResponse> {
 
@@ -39,14 +37,14 @@ public class OkHttpFetcher implements Function<JsonRpcRequest, JsonRpcResponse> 
                 .build();
             try (Response response = client.newCall(request).execute()) {
                 if (response.body() == null) {
-                    throw new MoeraNamingException("Request returned an empty result");
+                    throw new JsonRpcException("Request returned an empty result");
                 }
                 return objectMapper.readValue(response.body().string(), JsonRpcResponse.class);
             } catch (IOException e) {
-                throw new MoeraNamingConnectionException("Request failed", e);
+                throw new JsonRpcConnectionException("Request failed", e);
             }
         } catch (JsonProcessingException e) {
-            throw new MoeraNamingException("Error converting to JSON", e);
+            throw new JsonRpcException("Error converting to JSON", e);
         }
     }
 

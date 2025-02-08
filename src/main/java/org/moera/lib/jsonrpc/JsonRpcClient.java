@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.moera.lib.naming.OkHttpFetcher;
 
 public class JsonRpcClient {
 
@@ -27,9 +26,13 @@ public class JsonRpcClient {
         request.setParams(objectMapper.valueToTree(parameters));
         JsonRpcResponse response = fetcher.apply(request);
         if (response.getError() != null) {
-            throw new JsonRpcException(response.getError());
+            throw new JsonRpcApiException(response.getError());
         }
-        return objectMapper.convertValue(response.getResult(), result);
+        if (result != null && result != Void.class) {
+            return objectMapper.convertValue(response.getResult(), result);
+        } else {
+            return null;
+        }
     }
 
 }

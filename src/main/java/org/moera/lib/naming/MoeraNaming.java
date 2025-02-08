@@ -5,6 +5,8 @@ import java.util.UUID;
 import java.util.function.Function;
 
 import org.moera.lib.jsonrpc.JsonRpcClient;
+import org.moera.lib.jsonrpc.JsonRpcApiException;
+import org.moera.lib.jsonrpc.JsonRpcConnectionException;
 import org.moera.lib.jsonrpc.JsonRpcException;
 import org.moera.lib.jsonrpc.JsonRpcRequest;
 import org.moera.lib.jsonrpc.JsonRpcResponse;
@@ -34,6 +36,10 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
         try {
             return super.fetch(result, method, parameters);
         } catch (JsonRpcException e) {
+            throw new MoeraNamingException(e.getMessage());
+        } catch (JsonRpcConnectionException e) {
+            throw new MoeraNamingConnectionException(e.getMessage());
+        } catch (JsonRpcApiException e) {
             throw new MoeraNamingApiException(e.getRpcError());
         }
     }

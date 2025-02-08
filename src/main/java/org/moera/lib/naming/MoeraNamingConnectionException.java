@@ -1,6 +1,8 @@
 package org.moera.lib.naming;
 
-public class MoeraNamingConnectionException extends RuntimeException {
+import org.moera.lib.jsonrpc.JsonRpcConnectionException;
+
+public class MoeraNamingConnectionException extends JsonRpcConnectionException {
 
     public MoeraNamingConnectionException(String message) {
         super(message);
