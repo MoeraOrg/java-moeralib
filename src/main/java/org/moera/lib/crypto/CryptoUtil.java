@@ -16,6 +16,8 @@ import java.security.SignatureException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 import org.bouncycastle.crypto.Digest;
@@ -147,6 +149,10 @@ public class CryptoUtil {
         digest.doFinal(result, 0);
         log.debug("Digest: " + LogUtil.format(result));
         return result;
+    }
+
+    public static List<byte[]> digest(Collection<byte[]> fingerprint) {
+        return fingerprint != null ? fingerprint.stream().map(CryptoUtil::digest).toList() : null;
     }
 
     public static byte[] sign(byte[] fingerprint, byte[] privateKey) {
