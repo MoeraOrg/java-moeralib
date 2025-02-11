@@ -7,6 +7,7 @@ import static org.moera.lib.Rules.PUBLIC_KEY_LENGTH;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
@@ -50,6 +51,19 @@ public class CryptoUtil {
         byte[] r = new byte[e.length + 1];
         System.arraycopy(e, 0, r, r.length - e.length, e.length);
         return new BigInteger(r);
+    }
+
+    public static KeyPair generateKey() {
+        ECParameterSpec ecSpec = ECNamedCurveTable.getParameterSpec(EC_CURVE);
+        SecureRandom random = new SecureRandom();
+
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
+            keyPairGenerator.initialize(ecSpec, random);
+            return new KeyPair(keyPairGenerator.generateKeyPair());
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
     }
 
     public static byte[] toRawPublicKey(ECPublicKey publicKey) {
