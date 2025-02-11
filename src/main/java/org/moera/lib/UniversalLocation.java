@@ -75,8 +75,9 @@ public class UniversalLocation {
         this.fragment = uri.getFragment();
     }
 
-    public UniversalLocation(String nodeName, String scheme, String authority, String path, String query,
-                             String fragment) {
+    public UniversalLocation(
+        String nodeName, String scheme, String authority, String path, String query, String fragment
+    ) {
         setNodeName(nodeName);
         setScheme(scheme);
         setAuthority(authority);
