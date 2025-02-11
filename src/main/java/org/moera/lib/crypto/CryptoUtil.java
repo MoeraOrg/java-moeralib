@@ -21,6 +21,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
+import io.github.novacrypto.bip39.JavaxPbkdf2WithHmacSha512;
+import io.github.novacrypto.bip39.MnemonicGenerator;
+import io.github.novacrypto.bip39.SeedCalculator;
+import io.github.novacrypto.bip39.Words;
+import io.github.novacrypto.bip39.wordlists.English;
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.jcajce.provider.util.DigestFactory;
 import org.bouncycastle.jce.ECNamedCurveTable;
@@ -61,6 +66,63 @@ public class CryptoUtil {
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC", "BC");
             keyPairGenerator.initialize(ecSpec, random);
             return new KeyPair(keyPairGenerator.generateKeyPair());
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
+    }
+
+    public static MnemonicKey generateMnemonicKey() {
+        try {
+            SecureRandom random = new SecureRandom();
+
+            byte[] entropy = new byte[Words.TWENTY_FOUR.byteLength()];
+            ECParameterSpec ecSpec = ECNamedCurveTable.getParameterSpec(Rules.EC_CURVE);
+            KeyFactory keyFactory = KeyFactory.getInstance("EC", "BC");
+
+            String secret = null;
+            StringBuilder mnemonic = null;
+
+            BigInteger p = ecSpec.getCurve().getField().getCharacteristic();
+            BigInteger d = BigInteger.ZERO;
+            while (d.equals(BigInteger.ZERO)) {
+                random.nextBytes(entropy);
+
+                mnemonic = new StringBuilder();
+                new MnemonicGenerator(English.INSTANCE).createMnemonic(entropy, mnemonic::append);
+                byte[] seed = new SeedCalculator(JavaxPbkdf2WithHmacSha512.INSTANCE)
+                    .calculateSeed(mnemonic.toString(), "");
+                secret = Util.base64encode(entropy);
+
+                d = new BigInteger(1, seed).remainder(p);
+            }
+            ECPoint q = ecSpec.getG().multiply(d);
+            ECPublicKeySpec pubSpec = new ECPublicKeySpec(q, ecSpec);
+            ECPublicKey publicKey = (ECPublicKey) keyFactory.generatePublic(pubSpec);
+
+            return new MnemonicKey(secret, mnemonic.toString(), publicKey);
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
+    }
+
+    public static String secretToMnemonic(String secret) {
+        byte[] entropy = Util.base64decode(secret);
+        StringBuilder buf = new StringBuilder();
+        new MnemonicGenerator(English.INSTANCE).createMnemonic(entropy, buf::append);
+        return buf.toString();
+    }
+
+    public static ECPrivateKey mnemonicToPrivateKey(String mnemonic) {
+        byte[] seed = new SeedCalculator(JavaxPbkdf2WithHmacSha512.INSTANCE).calculateSeed(mnemonic, "");
+
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("EC", "BC");
+            ECParameterSpec ecSpec = ECNamedCurveTable.getParameterSpec(Rules.EC_CURVE);
+
+            BigInteger p = ecSpec.getCurve().getField().getCharacteristic();
+            BigInteger d = new BigInteger(1, seed).remainder(p);
+            ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(d, ecSpec);
+            return (ECPrivateKey) keyFactory.generatePrivate(privateKeySpec);
         } catch (GeneralSecurityException e) {
             throw new CryptoException(e);
         }
