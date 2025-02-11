@@ -23,12 +23,23 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
         this(MAIN_NAMING_SERVER);
     }
 
-    public MoeraNaming(String url) {
-        super(url);
+    public MoeraNaming(String server) {
+        super(server);
     }
 
     public MoeraNaming(Function<JsonRpcRequest, JsonRpcResponse> fetcher) {
         super(fetcher);
+    }
+
+    public static String resolve(String name) {
+        return resolve(name, MAIN_NAMING_SERVER);
+    }
+
+    public static String resolve(String name, String namingServer) {
+        NodeName nodeName = NodeName.parse(name);
+        MoeraNaming naming = new MoeraNaming(namingServer);
+        RegisteredNameInfo nameInfo = naming.getCurrent(nodeName.getName(), nodeName.getGeneration());
+        return nameInfo != null ? nameInfo.getNodeUri() : null;
     }
 
     @Override
