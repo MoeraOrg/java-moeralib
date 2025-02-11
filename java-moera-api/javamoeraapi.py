@@ -40,6 +40,90 @@ def params_wrap(template: str, substitute: str, indent: int) -> str:
     return line
 
 
+PREAMBLE_ENUM = '''package org.moera.lib.node.types;
+
+// This file is generated
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+'''
+
+CONCLUSION_ENUM = '''
+    @JsonValue
+    public String getValue() {
+        return name().toLowerCase().replace("__", "/").replace('_', '-');
+    }
+
+    public static String toValue(EnumType type) {
+        return type != null ? type.getValue() : null;
+    }
+
+    public static EnumType forValue(String value) {
+        try {
+            return parse(value);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
+
+    @JsonCreator
+    public static EnumType parse(String value) {
+        return valueOf(value.toUpperCase().replace('-', '_').replace("/", "__"));
+    }
+
+}
+'''
+
+EXCLUDED_ENUMS = ['BlockedEntryOperation', 'PrincipalFlag', 'Scope', 'SettingType']
+
+
+def generate_enum(enum: Any, outdir: str) -> None:
+    if enum['name'] in EXCLUDED_ENUMS:
+        return
+
+    with open(outdir + f'/node/types/{enum["name"]}.java', 'w+') as tfile:
+        tfile.write(PREAMBLE_ENUM)
+        tfile.write(f'public enum {enum["name"]} {{\n')
+        first = True
+        for item in enum['values']:
+            tfile.write('\n' if first else ',\n')
+            tfile.write(f'{ind(1)}{item["name"].replace("-", "_").replace("/", "__").upper()}')
+            first = False
+        tfile.write(';\n')
+        tfile.write(CONCLUSION_ENUM.replace('EnumType', enum['name']))
+
+
+class Structure:
+    data: Any
+    generated: bool = False
+    depends: list[str]
+
+    def __init__(self, data: Any) -> None:
+        self.data = data
+        self.depends = [field['struct'] for field in data['fields'] if 'struct' in field]
+
+    def get_name(self) -> str:
+        return self.data["name"]
+
+
+def scan_structures(api: Any) -> dict[str, Structure]:
+    structs: dict[str, Structure] = {struct['name']: Structure(struct) for struct in api['structures']}
+    return structs
+
+
+def generate_types(api: Any, outdir: str) -> None:
+    structs = scan_structures(api)
+
+    for enum in api['enums']:
+        generate_enum(enum, outdir)
+
+
 FP_TYPES = {
     'String': 'String',
     'InetAddress': 'InetAddress',
@@ -188,7 +272,7 @@ def generate_fingerprints(fp: Any, outdir: str) -> None:
 def generate_code(outdir: str) -> None:
     node_api = read_api(sys.argv[1])
     fp = read_api(sys.argv[2])
-    # generate_types(node_api, outdir)
+    generate_types(node_api, outdir)
     generate_fingerprints(fp, outdir)
 
 
