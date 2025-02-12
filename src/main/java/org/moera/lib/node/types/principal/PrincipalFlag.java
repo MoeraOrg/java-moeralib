@@ -1,4 +1,4 @@
-package org.moera.lib.node.types;
+package org.moera.lib.node.types.principal;
 
 import java.util.HashMap;
 import java.util.Map;

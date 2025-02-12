@@ -1,0 +1,184 @@
+package org.moera.lib.node.types;
+
+// This file is generated
+
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ReactionInfo {
+
+    private String ownerName;
+    private String ownerFullName;
+    private String ownerGender;
+    private AvatarImage ownerAvatar;
+    private String postingId;
+    private String postingRevisionId;
+    private String commentId;
+    private String commentRevisionId;
+    private Boolean negative;
+    private Integer emoji;
+    private Integer moment;
+    private Timestamp createdAt;
+    private Timestamp deadline;
+    private byte[] signature;
+    private Integer signatureVersion;
+    private ReactionOperations operations;
+    private ReactionOperations ownerOperations;
+    private ReactionOperations seniorOperations;
+    private ReactionOperations majorOperations;
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
+
+    public String getOwnerGender() {
+        return ownerGender;
+    }
+
+    public void setOwnerGender(String ownerGender) {
+        this.ownerGender = ownerGender;
+    }
+
+    public AvatarImage getOwnerAvatar() {
+        return ownerAvatar;
+    }
+
+    public void setOwnerAvatar(AvatarImage ownerAvatar) {
+        this.ownerAvatar = ownerAvatar;
+    }
+
+    public String getPostingId() {
+        return postingId;
+    }
+
+    public void setPostingId(String postingId) {
+        this.postingId = postingId;
+    }
+
+    public String getPostingRevisionId() {
+        return postingRevisionId;
+    }
+
+    public void setPostingRevisionId(String postingRevisionId) {
+        this.postingRevisionId = postingRevisionId;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getCommentRevisionId() {
+        return commentRevisionId;
+    }
+
+    public void setCommentRevisionId(String commentRevisionId) {
+        this.commentRevisionId = commentRevisionId;
+    }
+
+    public Boolean getNegative() {
+        return negative;
+    }
+
+    public void setNegative(Boolean negative) {
+        this.negative = negative;
+    }
+
+    public Integer getEmoji() {
+        return emoji;
+    }
+
+    public void setEmoji(Integer emoji) {
+        this.emoji = emoji;
+    }
+
+    public Integer getMoment() {
+        return moment;
+    }
+
+    public void setMoment(Integer moment) {
+        this.moment = moment;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Timestamp deadline) {
+        this.deadline = deadline;
+    }
+
+    public byte[] getSignature() {
+        return signature;
+    }
+
+    public void setSignature(byte[] signature) {
+        this.signature = signature;
+    }
+
+    public Integer getSignatureVersion() {
+        return signatureVersion;
+    }
+
+    public void setSignatureVersion(Integer signatureVersion) {
+        this.signatureVersion = signatureVersion;
+    }
+
+    public ReactionOperations getOperations() {
+        return operations;
+    }
+
+    public void setOperations(ReactionOperations operations) {
+        this.operations = operations;
+    }
+
+    public ReactionOperations getOwnerOperations() {
+        return ownerOperations;
+    }
+
+    public void setOwnerOperations(ReactionOperations ownerOperations) {
+        this.ownerOperations = ownerOperations;
+    }
+
+    public ReactionOperations getSeniorOperations() {
+        return seniorOperations;
+    }
+
+    public void setSeniorOperations(ReactionOperations seniorOperations) {
+        this.seniorOperations = seniorOperations;
+    }
+
+    public ReactionOperations getMajorOperations() {
+        return majorOperations;
+    }
+
+    public void setMajorOperations(ReactionOperations majorOperations) {
+        this.majorOperations = majorOperations;
+    }
+
+}

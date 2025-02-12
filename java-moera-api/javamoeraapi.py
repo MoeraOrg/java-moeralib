@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, TextIO
+from typing import Any, TextIO, Tuple, List
 
 import yaml
 from camel_converter import to_snake, to_camel
@@ -130,6 +130,60 @@ def generate_enum(enum: Any, outdir: str) -> None:
         tfile.write(CONCLUSION_ENUM.replace('EnumType', enum['name']))
 
 
+def generate_operations(operations: Any, outdir: str) -> None:
+    with open(outdir + f'/node/types/{operations["name"]}.java', 'w+') as tfile:
+        tfile.write('package org.moera.lib.node.types;\n\n')
+        tfile.write('// This file is generated\n\n')
+        tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
+        tfile.write('import org.moera.lib.node.types.principal.Principal;\n\n')
+        tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
+        tfile.write(f'public class {operations["name"]} {{\n\n')
+        for field in operations['fields']:
+            tfile.write(f'{ind(1)}private Principal {field["name"]};\n')
+        for field in operations['fields']:
+            name = field['name']
+            tfile.write(f'\n{ind(1)}public Principal get{cap_first(name)}() {{\n')
+            tfile.write(f'{ind(2)}return {name};\n')
+            tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}public void set{cap_first(name)}(Principal {name}) {{\n')
+            tfile.write(f'{ind(2)}this.{name} = {name};\n')
+            tfile.write(f'{ind(1)}}}\n')
+        tfile.write('\n}\n')
+
+
+JAVA_TYPES = {
+    'String': 'String',
+    'String[]': 'List<String>',
+    'int': 'int',
+    'float': 'float',
+    'boolean': 'boolean',
+    'timestamp': 'Timestamp',
+    'byte[]': 'byte[]',
+    'UUID': 'UUID',
+    'String -> int': 'Map<String, Integer>',
+}
+
+JAVA_OPTIONAL_TYPES = {
+    'String': 'String',
+    'String[]': 'List<String>',
+    'int': 'Integer',
+    'float': 'Float',
+    'boolean': 'Boolean',
+    'timestamp': 'Timestamp',
+    'byte[]': 'byte[]',
+    'UUID': 'UUID',
+    'String -> int': 'Map<String, Integer>',
+}
+
+
+def to_java_type(api_type: str, optional: bool) -> str:
+    java_type = (JAVA_OPTIONAL_TYPES if optional else JAVA_TYPES).get(api_type)
+    if java_type is None:
+        print('Unrecognized field type: ' + api_type)
+        exit(1)
+    return java_type
+
+
 class Structure:
     data: Any
     generated: bool = False
@@ -142,6 +196,51 @@ class Structure:
     def get_name(self) -> str:
         return self.data["name"]
 
+    def generate_class(self, outdir: str) -> None:
+        imports = set()
+        fields: List[Tuple[str, str]] = []
+        for field in self.data['fields']:
+            if 'struct' in field:
+                t = field['struct']
+            elif 'enum' in field:
+                t = field['enum'] if field['enum'] not in EXCLUDED_ENUMS else 'String'
+            else:
+                if field['type'] == 'any':
+                    continue
+                t = to_java_type(field['type'], field.get('optional', False))
+            if field.get('array', False):
+                t = f'List<{t}>'
+            if t.startswith('List<'):
+                imports.add('java.util.List')
+            if t.startswith('Map<'):
+                imports.add('java.util.Map')
+            if t == 'Timestamp':
+                imports.add('java.sql.Timestamp')
+            if t == 'UUID':
+                imports.add('java.util.UUID')
+            fields.append((t, field['name']))
+
+        with open(outdir + f'/node/types/{self.data["name"]}.java', 'w+') as tfile:
+            tfile.write('package org.moera.lib.node.types;\n\n')
+            tfile.write('// This file is generated\n\n')
+            if imports:
+                for imp in sorted(imports):
+                    tfile.write(f'import {imp};\n')
+                tfile.write('\n')
+            tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n\n')
+            tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
+            tfile.write(f'public class {self.data["name"]} {{\n\n')
+            for field in fields:
+                tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
+            for field in fields:
+                tfile.write(f'\n{ind(1)}public {field[0]} get{cap_first(field[1])}() {{\n')
+                tfile.write(f'{ind(2)}return {field[1]};\n')
+                tfile.write(f'{ind(1)}}}\n')
+                tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
+                tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
+                tfile.write(f'{ind(1)}}}\n')
+            tfile.write('\n}\n')
+
 
 def scan_structures(api: Any) -> dict[str, Structure]:
     structs: dict[str, Structure] = {struct['name']: Structure(struct) for struct in api['structures']}
@@ -153,7 +252,10 @@ def generate_types(api: Any, outdir: str) -> None:
 
     for enum in api['enums']:
         generate_enum(enum, outdir)
-
+    for operations in api['operations']:
+        generate_operations(operations, outdir)
+    for struct in structs.values():
+        struct.generate_class(outdir)
 
 FP_TYPES = {
     'String': 'String',
