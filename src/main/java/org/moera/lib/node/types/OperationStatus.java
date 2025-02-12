@@ -7,11 +7,29 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum OperationStatus {
 
+    /**
+     * The operation is waiting to be sent to the naming server.
+     */
     WAITING,
+    /**
+     * The operation was accepted by the naming server.
+     */
     ADDED,
+    /**
+     * The naming server started to proceed the operation.
+     */
     STARTED,
+    /**
+     * The operation completed successfully.
+     */
     SUCCEEDED,
+    /**
+     * The operation failed.
+     */
     FAILED,
+    /**
+     * The operation status is unknown.
+     */
     UNKNOWN;
 
     @JsonValue

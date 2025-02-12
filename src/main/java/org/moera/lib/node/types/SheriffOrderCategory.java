@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SheriffOrderCategory {
 
+    /**
+     * Hide the feed or the entry.
+     */
     VISIBILITY;
 
     @JsonValue

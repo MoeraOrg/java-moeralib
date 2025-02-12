@@ -7,7 +7,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum BodyFormat {
 
+    /**
+     * <code><a href="#Body">Body</a></code> structure.
+     */
     MESSAGE,
+    /**
+     * An application-specific structure.
+     */
     APPLICATION;
 
     @JsonValue

@@ -7,10 +7,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SubscriptionType {
 
+    /**
+     * Subscribe to new stories in the feed.
+     */
     FEED,
+    /**
+     * Subscribe to updates to the posting.
+     */
     POSTING,
+    /**
+     * Subscribe to new comments to the posting.
+     */
     POSTING_COMMENTS,
+    /**
+     * Subscribe to updates to the node profile.
+     */
     PROFILE,
+    /**
+     * Subscribe to updates to the user list (its name is passed in <code>feedName</code> field).
+     */
     USER_LIST;
 
     @JsonValue

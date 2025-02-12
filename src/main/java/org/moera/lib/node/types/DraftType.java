@@ -7,9 +7,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum DraftType {
 
+    /**
+     * Draft of a new posting.
+     */
     NEW_POSTING,
+    /**
+     * Draft of an update to a posting.
+     */
     POSTING_UPDATE,
+    /**
+     * Draft of a new comment.
+     */
     NEW_COMMENT,
+    /**
+     * Draft of an update to a comment.
+     */
     COMMENT_UPDATE;
 
     @JsonValue

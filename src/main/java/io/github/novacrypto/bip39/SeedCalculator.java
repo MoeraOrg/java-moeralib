@@ -49,7 +49,7 @@ public final class SeedCalculator {
 
     /**
      * Calculate the seed given a mnemonic and corresponding passphrase.
-     * The phrase is not checked for validity here, for that use a {@link MnemonicValidator}.
+     * The phrase is not checked for validity here.
      * <p>
      * Due to normalization, these need to be {@link String}, and not {@link CharSequence}, this is an open issue:
      * https://github.com/NovaCrypto/BIP39/issues/7

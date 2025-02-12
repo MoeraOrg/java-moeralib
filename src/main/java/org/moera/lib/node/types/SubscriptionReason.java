@@ -7,9 +7,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SubscriptionReason {
 
+    /**
+     * Node owner asked to subscribe.
+     */
     USER,
+    /**
+     * Node name was mentioned.
+     */
     MENTION,
+    /**
+     * Node owner commented the posting.
+     */
     COMMENT,
+    /**
+     * Node was subscribed automatically according to the settings.
+     */
     AUTO;
 
     @JsonValue

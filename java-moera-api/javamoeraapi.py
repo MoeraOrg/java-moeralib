@@ -6,8 +6,31 @@ from typing import Any, TextIO
 import yaml
 from camel_converter import to_snake, to_camel
 
+
 def ind(n: int) -> str:
     return n * 4 * ' '
+
+
+def doc_wrap(s: str, indent: int) -> str:
+    s = s.strip()
+    if '\n' in s:
+        return f'\n{ind(indent)}'.join(doc_wrap(c, indent) for c in s.split('\n'))
+
+    max_length = 120 - indent * 4 - 3
+    result = ''
+    while True:
+        if len(s) < max_length:
+            result += ' * ' + s
+            break
+        pos = 0
+        while True:
+            next = s.find(' ', pos + 1)
+            if next < 0 or next >= max_length:
+                break
+            pos = next
+        result += ' * ' + s[:pos] + '\n' + ind(indent)
+        s = s[pos + 1:]
+    return result
 
 
 def read_api(ifname: str) -> Any:
@@ -38,6 +61,10 @@ def params_wrap(template: str, substitute: str, indent: int) -> str:
     if len(line) > 119:
         line = template % ('\n' + ind(indent) + comma_wrap(substitute, indent) + '\n' + ind(indent - 1))
     return line
+
+
+def cap_first(s: str) -> str:
+    return s[:1].upper() + s[1:] if s else s
 
 
 PREAMBLE_ENUM = '''package org.moera.lib.node.types;
@@ -93,6 +120,10 @@ def generate_enum(enum: Any, outdir: str) -> None:
         first = True
         for item in enum['values']:
             tfile.write('\n' if first else ',\n')
+            if 'description' in item:
+                tfile.write(f'{ind(1)}/**\n')
+                tfile.write(ind(1) + doc_wrap(cap_first(item["description"]) + '.', 1))
+                tfile.write(f'\n{ind(1)} */\n')
             tfile.write(f'{ind(1)}{item["name"].replace("-", "_").replace("/", "__").upper()}')
             first = False
         tfile.write(';\n')

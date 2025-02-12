@@ -7,9 +7,21 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum VerificationStatus {
 
+    /**
+     * The verification is pending.
+     */
     RUNNING,
+    /**
+     * The signature is correct.
+     */
     CORRECT,
+    /**
+     * The signature is incorrect.
+     */
     INCORRECT,
+    /**
+     * The verification cannot be performed due to an error.
+     */
     ERROR;
 
     @JsonValue

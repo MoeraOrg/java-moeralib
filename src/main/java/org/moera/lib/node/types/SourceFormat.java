@@ -7,10 +7,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SourceFormat {
 
+    /**
+     * Plain text with newlines and paragraphs delimited by empty line.
+     */
     PLAIN_TEXT,
+    /**
+     * HTML-formatted text, the node may allow only limited set of tags.
+     */
     HTML,
+    /**
+     * Text in Markdown format.
+     */
     MARKDOWN,
+    /**
+     * HTML-formatted text, WYSIWYG editor.
+     */
     HTML__VISUAL,
+    /**
+     * Application-specific format.
+     */
     APPLICATION;
 
     @JsonValue

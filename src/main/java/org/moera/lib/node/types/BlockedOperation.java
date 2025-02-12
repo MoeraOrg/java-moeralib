@@ -7,10 +7,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum BlockedOperation {
 
+    /**
+     * Add reactions to entries on the node.
+     */
     REACTION,
+    /**
+     * Add comments to postings on the node.
+     */
     COMMENT,
+    /**
+     * Add postings to the node.
+     */
     POSTING,
+    /**
+     * Be visible to the node.
+     */
     VISIBILITY,
+    /**
+     * Be visible in stories added to the instants feed of the node.
+     */
     INSTANT;
 
     @JsonValue

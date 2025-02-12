@@ -7,8 +7,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PushContentType {
 
+    /**
+     * A story was added to a feed.
+     */
     STORY_ADDED,
+    /**
+     * A story was deleted from a feed.
+     */
     STORY_DELETED,
+    /**
+     * Feed status was updated.
+     */
     FEED_UPDATED;
 
     @JsonValue

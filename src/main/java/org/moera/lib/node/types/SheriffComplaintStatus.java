@@ -7,14 +7,41 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum SheriffComplaintStatus {
 
+    /**
+     * The group is just added.
+     */
     POSTED,
+    /**
+     * Automatic preprocessing is done.
+     */
     PREPARED,
+    /**
+     * Automatic preprocessing is failed.
+     */
     PREPARE_FAILED,
+    /**
+     * The entry the group is related to is not found.
+     */
     NOT_FOUND,
+    /**
+     * The entry the group is related to is specified incorrectly.
+     */
     INVALID_TARGET,
+    /**
+     * The posting the group is related to is a copy of the original posting.
+     */
     NOT_ORIGINAL,
+    /**
+     * The entry the group is related to is not under supervision of the sheriff.
+     */
     NOT_SHERIFF,
+    /**
+     * The group is approved by the sheriff.
+     */
     APPROVED,
+    /**
+     * The group is rejected by the sheriff.
+     */
     REJECTED;
 
     @JsonValue

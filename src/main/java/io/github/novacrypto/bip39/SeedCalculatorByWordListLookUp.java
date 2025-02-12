@@ -44,7 +44,7 @@ public final class SeedCalculatorByWordListLookUp {
 
     /**
      * Calculate the seed given a mnemonic and corresponding passphrase.
-     * The phrase is not checked for validity here, for that use a {@link MnemonicValidator}.
+     * The phrase is not checked for validity here.
      * <p>
      * The purpose of this method is to avoid constructing a mnemonic String if you have gathered a list of
      * words from the user and also to avoid having to normalize it, all words in the {@link WordList} are normalized

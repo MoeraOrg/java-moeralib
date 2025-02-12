@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum PushRelayType {
 
+    /**
+     * Google Firebase Cloud Messaging (FCM) relay.
+     */
     FCM;
 
     @JsonValue
