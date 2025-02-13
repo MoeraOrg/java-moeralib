@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingSourceText {
+public class PostingSourceText implements Cloneable {
 
     private AvatarDescription ownerAvatar;
     private Body bodySrc;
@@ -71,6 +71,15 @@ public class PostingSourceText {
 
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
+    }
+
+    @Override
+    public PostingSourceText clone() {
+        try {
+            return (PostingSourceText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedUsersChecksums {
+public class BlockedUsersChecksums implements Cloneable {
 
     private int visibility;
 
@@ -15,6 +15,15 @@ public class BlockedUsersChecksums {
 
     public void setVisibility(int visibility) {
         this.visibility = visibility;
+    }
+
+    @Override
+    public BlockedUsersChecksums clone() {
+        try {
+            return (BlockedUsersChecksums) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

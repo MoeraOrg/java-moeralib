@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionInfo {
+public class ReactionInfo implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -20,10 +18,10 @@ public class ReactionInfo {
     private Boolean negative;
     private Integer emoji;
     private Integer moment;
-    private Timestamp createdAt;
-    private Timestamp deadline;
+    private Long createdAt;
+    private Long deadline;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private ReactionOperations operations;
     private ReactionOperations ownerOperations;
     private ReactionOperations seniorOperations;
@@ -117,19 +115,19 @@ public class ReactionInfo {
         this.moment = moment;
     }
 
-    public Timestamp getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -141,11 +139,11 @@ public class ReactionInfo {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -179,6 +177,15 @@ public class ReactionInfo {
 
     public void setMajorOperations(ReactionOperations majorOperations) {
         this.majorOperations = majorOperations;
+    }
+
+    @Override
+    public ReactionInfo clone() {
+        try {
+            return (ReactionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -2,19 +2,17 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingSourceInfo {
+public class PostingSourceInfo implements Cloneable {
 
     private String nodeName;
     private String fullName;
     private AvatarImage avatar;
     private String feedName;
     private String postingId;
-    private Timestamp createdAt;
+    private long createdAt;
 
     public String getNodeName() {
         return nodeName;
@@ -56,12 +54,21 @@ public class PostingSourceInfo {
         this.postingId = postingId;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public PostingSourceInfo clone() {
+        try {
+            return (PostingSourceInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

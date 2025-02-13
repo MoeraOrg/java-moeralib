@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentInfo {
+public class CommentInfo implements Cloneable {
 
     private String id;
     private String ownerName;
@@ -29,14 +28,14 @@ public class CommentInfo {
     private String heading;
     private RepliedTo repliedTo;
     private int moment;
-    private Timestamp createdAt;
-    private Timestamp editedAt;
-    private Timestamp deletedAt;
-    private Timestamp revisionCreatedAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long editedAt;
+    private Long deletedAt;
+    private long revisionCreatedAt;
+    private Long deadline;
     private byte[] digest;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations ownerOperations;
@@ -200,43 +199,43 @@ public class CommentInfo {
         this.moment = moment;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getEditedAt() {
+    public Long getEditedAt() {
         return editedAt;
     }
 
-    public void setEditedAt(Timestamp editedAt) {
+    public void setEditedAt(Long editedAt) {
         this.editedAt = editedAt;
     }
 
-    public Timestamp getDeletedAt() {
+    public Long getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Timestamp deletedAt) {
+    public void setDeletedAt(Long deletedAt) {
         this.deletedAt = deletedAt;
     }
 
-    public Timestamp getRevisionCreatedAt() {
+    public long getRevisionCreatedAt() {
         return revisionCreatedAt;
     }
 
-    public void setRevisionCreatedAt(Timestamp revisionCreatedAt) {
+    public void setRevisionCreatedAt(long revisionCreatedAt) {
         this.revisionCreatedAt = revisionCreatedAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -256,11 +255,11 @@ public class CommentInfo {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -342,6 +341,15 @@ public class CommentInfo {
 
     public void setReactions(ReactionTotalsInfo reactions) {
         this.reactions = reactions;
+    }
+
+    @Override
+    public CommentInfo clone() {
+        try {
+            return (CommentInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

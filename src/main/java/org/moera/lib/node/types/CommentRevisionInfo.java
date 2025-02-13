@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentRevisionInfo {
+public class CommentRevisionInfo implements Cloneable {
 
     private String id;
     private String postingRevisionId;
@@ -17,12 +15,12 @@ public class CommentRevisionInfo {
     private Body body;
     private BodyFormat bodyFormat;
     private String heading;
-    private Timestamp createdAt;
-    private Timestamp deletedAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long deletedAt;
+    private Long deadline;
     private byte[] digest;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private ClientReactionInfo clientReaction;
     private ReactionTotalsInfo reactions;
 
@@ -90,27 +88,27 @@ public class CommentRevisionInfo {
         this.heading = heading;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getDeletedAt() {
+    public Long getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Timestamp deletedAt) {
+    public void setDeletedAt(Long deletedAt) {
         this.deletedAt = deletedAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -130,11 +128,11 @@ public class CommentRevisionInfo {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -152,6 +150,15 @@ public class CommentRevisionInfo {
 
     public void setReactions(ReactionTotalsInfo reactions) {
         this.reactions = reactions;
+    }
+
+    @Override
+    public CommentRevisionInfo clone() {
+        try {
+            return (CommentRevisionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

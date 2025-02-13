@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SettingMetaAttributes {
+public class SettingMetaAttributes implements Cloneable {
 
     private String name;
     private String defaultValue;
@@ -33,6 +33,15 @@ public class SettingMetaAttributes {
 
     public void setPrivileged(Boolean privileged) {
         this.privileged = privileged;
+    }
+
+    @Override
+    public SettingMetaAttributes clone() {
+        try {
+            return (SettingMetaAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

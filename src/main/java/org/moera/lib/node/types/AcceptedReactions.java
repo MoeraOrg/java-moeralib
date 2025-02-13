@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AcceptedReactions {
+public class AcceptedReactions implements Cloneable {
 
     private String positive;
     private String negative;
@@ -24,6 +24,15 @@ public class AcceptedReactions {
 
     public void setNegative(String negative) {
         this.negative = negative;
+    }
+
+    @Override
+    public AcceptedReactions clone() {
+        try {
+            return (AcceptedReactions) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

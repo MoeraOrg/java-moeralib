@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriberInfo {
+public class SubscriberInfo implements Cloneable {
 
     private String id;
     private SubscriptionType type;
@@ -15,7 +13,7 @@ public class SubscriberInfo {
     private String postingId;
     private String nodeName;
     private ContactInfo contact;
-    private Timestamp createdAt;
+    private long createdAt;
     private SubscriberOperations operations;
     private SubscriberOperations ownerOperations;
     private SubscriberOperations adminOperations;
@@ -68,11 +66,11 @@ public class SubscriberInfo {
         this.contact = contact;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -98,6 +96,15 @@ public class SubscriberInfo {
 
     public void setAdminOperations(SubscriberOperations adminOperations) {
         this.adminOperations = adminOperations;
+    }
+
+    @Override
+    public SubscriberInfo clone() {
+        try {
+            return (SubscriberInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

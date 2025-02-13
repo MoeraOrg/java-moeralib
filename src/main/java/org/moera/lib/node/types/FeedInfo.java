@@ -2,19 +2,18 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FeedInfo {
+public class FeedInfo implements Cloneable {
 
     private String feedName;
     private String title;
     private int total;
-    private Timestamp firstCreatedAt;
-    private Timestamp lastCreatedAt;
+    private Long firstCreatedAt;
+    private Long lastCreatedAt;
     private FeedOperations operations;
     private List<String> sheriffs;
     private List<SheriffMark> sheriffMarks;
@@ -43,19 +42,19 @@ public class FeedInfo {
         this.total = total;
     }
 
-    public Timestamp getFirstCreatedAt() {
+    public Long getFirstCreatedAt() {
         return firstCreatedAt;
     }
 
-    public void setFirstCreatedAt(Timestamp firstCreatedAt) {
+    public void setFirstCreatedAt(Long firstCreatedAt) {
         this.firstCreatedAt = firstCreatedAt;
     }
 
-    public Timestamp getLastCreatedAt() {
+    public Long getLastCreatedAt() {
         return lastCreatedAt;
     }
 
-    public void setLastCreatedAt(Timestamp lastCreatedAt) {
+    public void setLastCreatedAt(Long lastCreatedAt) {
         this.lastCreatedAt = lastCreatedAt;
     }
 
@@ -81,6 +80,15 @@ public class FeedInfo {
 
     public void setSheriffMarks(List<SheriffMark> sheriffMarks) {
         this.sheriffMarks = sheriffMarks;
+    }
+
+    @Override
+    public FeedInfo clone() {
+        try {
+            return (FeedInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

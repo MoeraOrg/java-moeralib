@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Features {
+public class Features implements Cloneable {
 
     private PostingFeatures posting;
     private List<String> plugins;
@@ -62,6 +62,15 @@ public class Features {
 
     public void setSubscribed(Boolean subscribed) {
         this.subscribed = subscribed;
+    }
+
+    @Override
+    public Features clone() {
+        try {
+            return (Features) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DomainAttributes {
+public class DomainAttributes implements Cloneable {
 
     private String name;
     private UUID nodeId;
@@ -26,6 +26,15 @@ public class DomainAttributes {
 
     public void setNodeId(UUID nodeId) {
         this.nodeId = nodeId;
+    }
+
+    @Override
+    public DomainAttributes clone() {
+        try {
+            return (DomainAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

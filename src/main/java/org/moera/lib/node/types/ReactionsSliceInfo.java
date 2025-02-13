@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionsSliceInfo {
+public class ReactionsSliceInfo implements Cloneable {
 
     private int before;
     private int after;
@@ -44,6 +44,15 @@ public class ReactionsSliceInfo {
 
     public void setReactions(List<ReactionInfo> reactions) {
         this.reactions = reactions;
+    }
+
+    @Override
+    public ReactionsSliceInfo clone() {
+        try {
+            return (ReactionsSliceInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

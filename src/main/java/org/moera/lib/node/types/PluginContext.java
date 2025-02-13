@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PluginContext {
+public class PluginContext implements Cloneable {
 
     private boolean rootAdmin;
     private boolean admin;
@@ -107,6 +107,15 @@ public class PluginContext {
 
     public void setOriginUrl(String originUrl) {
         this.originUrl = originUrl;
+    }
+
+    @Override
+    public PluginContext clone() {
+        try {
+            return (PluginContext) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

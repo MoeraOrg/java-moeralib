@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SheriffComplaintGroupInfo {
+public class SheriffComplaintGroupInfo implements Cloneable {
 
     private String id;
     private String remoteNodeName;
@@ -25,12 +23,12 @@ public class SheriffComplaintGroupInfo {
     private String remoteCommentOwnerFullName;
     private String remoteCommentOwnerGender;
     private String remoteCommentHeading;
-    private Timestamp createdAt;
-    private int moment;
+    private long createdAt;
+    private long moment;
     private SheriffComplaintStatus status;
     private SheriffOrderReason decisionCode;
     private String decisionDetails;
-    private Timestamp decidedAt;
+    private Long decidedAt;
     private Boolean anonymous;
 
     public String getId() {
@@ -161,19 +159,19 @@ public class SheriffComplaintGroupInfo {
         this.remoteCommentHeading = remoteCommentHeading;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public int getMoment() {
+    public long getMoment() {
         return moment;
     }
 
-    public void setMoment(int moment) {
+    public void setMoment(long moment) {
         this.moment = moment;
     }
 
@@ -201,11 +199,11 @@ public class SheriffComplaintGroupInfo {
         this.decisionDetails = decisionDetails;
     }
 
-    public Timestamp getDecidedAt() {
+    public Long getDecidedAt() {
         return decidedAt;
     }
 
-    public void setDecidedAt(Timestamp decidedAt) {
+    public void setDecidedAt(Long decidedAt) {
         this.decidedAt = decidedAt;
     }
 
@@ -215,6 +213,15 @@ public class SheriffComplaintGroupInfo {
 
     public void setAnonymous(Boolean anonymous) {
         this.anonymous = anonymous;
+    }
+
+    @Override
+    public SheriffComplaintGroupInfo clone() {
+        try {
+            return (SheriffComplaintGroupInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WhoAmI {
+public class WhoAmI implements Cloneable {
 
     private String nodeName;
     private Boolean nodeNameChanging;
@@ -69,6 +69,15 @@ public class WhoAmI {
 
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
+    }
+
+    @Override
+    public WhoAmI clone() {
+        try {
+            return (WhoAmI) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

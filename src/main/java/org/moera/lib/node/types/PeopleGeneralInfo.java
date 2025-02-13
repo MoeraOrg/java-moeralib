@@ -7,7 +7,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PeopleGeneralInfo {
+public class PeopleGeneralInfo implements Cloneable {
 
     private Integer feedSubscribersTotal;
     private Integer feedSubscriptionsTotal;
@@ -71,6 +71,15 @@ public class PeopleGeneralInfo {
 
     public void setOperations(PeopleOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public PeopleGeneralInfo clone() {
+        try {
+            return (PeopleGeneralInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RemoteFeed {
+public class RemoteFeed implements Cloneable {
 
     private String nodeName;
     private String feedName;
@@ -24,6 +24,15 @@ public class RemoteFeed {
 
     public void setFeedName(String feedName) {
         this.feedName = feedName;
+    }
+
+    @Override
+    public RemoteFeed clone() {
+        try {
+            return (RemoteFeed) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DeleteNodeText {
+public class DeleteNodeText implements Cloneable {
 
     private String message;
 
@@ -15,6 +15,15 @@ public class DeleteNodeText {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public DeleteNodeText clone() {
+        try {
+            return (DeleteNodeText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

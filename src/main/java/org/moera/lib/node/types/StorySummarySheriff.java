@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummarySheriff {
+public class StorySummarySheriff implements Cloneable {
 
     private String sheriffName;
     private String orderId;
@@ -33,6 +33,15 @@ public class StorySummarySheriff {
 
     public void setComplaintId(String complaintId) {
         this.complaintId = complaintId;
+    }
+
+    @Override
+    public StorySummarySheriff clone() {
+        try {
+            return (StorySummarySheriff) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

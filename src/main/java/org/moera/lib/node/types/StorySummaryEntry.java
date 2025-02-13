@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummaryEntry {
+public class StorySummaryEntry implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -62,6 +62,15 @@ public class StorySummaryEntry {
 
     public void setSheriffMarks(List<SheriffMark> sheriffMarks) {
         this.sheriffMarks = sheriffMarks;
+    }
+
+    @Override
+    public StorySummaryEntry clone() {
+        try {
+            return (StorySummaryEntry) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentsSliceInfo {
+public class CommentsSliceInfo implements Cloneable {
 
     private int before;
     private int after;
@@ -62,6 +62,15 @@ public class CommentsSliceInfo {
 
     public void setTotalInFuture(int totalInFuture) {
         this.totalInFuture = totalInFuture;
+    }
+
+    @Override
+    public CommentsSliceInfo clone() {
+        try {
+            return (CommentsSliceInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FriendOfInfo {
+public class FriendOfInfo implements Cloneable {
 
     private String remoteNodeName;
     private ContactInfo contact;
@@ -35,6 +35,15 @@ public class FriendOfInfo {
 
     public void setGroups(List<FriendGroupDetails> groups) {
         this.groups = groups;
+    }
+
+    @Override
+    public FriendOfInfo clone() {
+        try {
+            return (FriendOfInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

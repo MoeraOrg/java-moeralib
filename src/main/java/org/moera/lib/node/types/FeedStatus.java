@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FeedStatus {
+public class FeedStatus implements Cloneable {
 
     private int total;
     private int totalPinned;
@@ -69,6 +69,15 @@ public class FeedStatus {
 
     public void setNotReadMoment(Integer notReadMoment) {
         this.notReadMoment = notReadMoment;
+    }
+
+    @Override
+    public FeedStatus clone() {
+        try {
+            return (FeedStatus) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

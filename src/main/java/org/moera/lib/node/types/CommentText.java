@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentText {
+public class CommentText implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -20,11 +19,11 @@ public class CommentText {
     private Body body;
     private BodyFormat bodyFormat;
     private List<String> media;
-    private Timestamp createdAt;
+    private Long createdAt;
     private AcceptedReactions acceptedReactions;
     private String repliedToId;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
@@ -109,11 +108,11 @@ public class CommentText {
         this.media = media;
     }
 
-    public Timestamp getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -141,11 +140,11 @@ public class CommentText {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -171,6 +170,15 @@ public class CommentText {
 
     public void setSeniorOperations(CommentOperations seniorOperations) {
         this.seniorOperations = seniorOperations;
+    }
+
+    @Override
+    public CommentText clone() {
+        try {
+            return (CommentText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

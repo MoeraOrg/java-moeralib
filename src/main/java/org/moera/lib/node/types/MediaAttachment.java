@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MediaAttachment {
+public class MediaAttachment implements Cloneable {
 
     private PrivateMediaFileInfo media;
     private RemoteMediaInfo remoteMedia;
@@ -33,6 +33,15 @@ public class MediaAttachment {
 
     public void setEmbedded(boolean embedded) {
         this.embedded = embedded;
+    }
+
+    @Override
+    public MediaAttachment clone() {
+        try {
+            return (MediaAttachment) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

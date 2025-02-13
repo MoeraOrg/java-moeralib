@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummaryNode {
+public class StorySummaryNode implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -33,6 +33,15 @@ public class StorySummaryNode {
 
     public void setOwnerGender(String ownerGender) {
         this.ownerGender = ownerGender;
+    }
+
+    @Override
+    public StorySummaryNode clone() {
+        try {
+            return (StorySummaryNode) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

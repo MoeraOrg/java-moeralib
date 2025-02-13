@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FundraiserInfo {
+public class FundraiserInfo implements Cloneable {
 
     private String title;
     private String qrCode;
@@ -42,6 +42,15 @@ public class FundraiserInfo {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    @Override
+    public FundraiserInfo clone() {
+        try {
+            return (FundraiserInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

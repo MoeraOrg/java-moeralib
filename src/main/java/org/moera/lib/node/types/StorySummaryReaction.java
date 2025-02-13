@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummaryReaction {
+public class StorySummaryReaction implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -42,6 +42,15 @@ public class StorySummaryReaction {
 
     public void setEmoji(Integer emoji) {
         this.emoji = emoji;
+    }
+
+    @Override
+    public StorySummaryReaction clone() {
+        try {
+            return (StorySummaryReaction) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

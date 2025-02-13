@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CarteVerificationInfo {
+public class CarteVerificationInfo implements Cloneable {
 
     private boolean valid;
     private String clientName;
@@ -62,6 +62,15 @@ public class CarteVerificationInfo {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public CarteVerificationInfo clone() {
+        try {
+            return (CarteVerificationInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

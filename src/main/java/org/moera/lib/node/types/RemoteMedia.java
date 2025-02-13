@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RemoteMedia {
+public class RemoteMedia implements Cloneable {
 
     private String id;
     private String hash;
@@ -33,6 +33,15 @@ public class RemoteMedia {
 
     public void setDigest(String digest) {
         this.digest = digest;
+    }
+
+    @Override
+    public RemoteMedia clone() {
+        try {
+            return (RemoteMedia) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

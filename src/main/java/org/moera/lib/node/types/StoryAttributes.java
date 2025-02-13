@@ -2,15 +2,13 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StoryAttributes {
+public class StoryAttributes implements Cloneable {
 
     private String feedName;
-    private Timestamp publishAt;
+    private Long publishAt;
     private Boolean pinned;
     private Boolean viewed;
     private Boolean read;
@@ -24,11 +22,11 @@ public class StoryAttributes {
         this.feedName = feedName;
     }
 
-    public Timestamp getPublishAt() {
+    public Long getPublishAt() {
         return publishAt;
     }
 
-    public void setPublishAt(Timestamp publishAt) {
+    public void setPublishAt(Long publishAt) {
         this.publishAt = publishAt;
     }
 
@@ -62,6 +60,15 @@ public class StoryAttributes {
 
     public void setSatisfied(Boolean satisfied) {
         this.satisfied = satisfied;
+    }
+
+    @Override
+    public StoryAttributes clone() {
+        try {
+            return (StoryAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

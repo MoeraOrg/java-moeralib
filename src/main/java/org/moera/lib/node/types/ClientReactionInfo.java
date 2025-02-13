@@ -2,17 +2,15 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientReactionInfo {
+public class ClientReactionInfo implements Cloneable {
 
     private boolean negative;
     private int emoji;
-    private Timestamp createdAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long deadline;
 
     public boolean getNegative() {
         return negative;
@@ -30,20 +28,29 @@ public class ClientReactionInfo {
         this.emoji = emoji;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
+    }
+
+    @Override
+    public ClientReactionInfo clone() {
+        try {
+            return (ClientReactionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

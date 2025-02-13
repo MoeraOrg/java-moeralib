@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedInstantFilter {
+public class BlockedInstantFilter implements Cloneable {
 
     private StoryType storyType;
     private String entryId;
@@ -51,6 +51,15 @@ public class BlockedInstantFilter {
 
     public void setRemoteOwnerName(String remoteOwnerName) {
         this.remoteOwnerName = remoteOwnerName;
+    }
+
+    @Override
+    public BlockedInstantFilter clone() {
+        try {
+            return (BlockedInstantFilter) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

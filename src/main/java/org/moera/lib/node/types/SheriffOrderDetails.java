@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SheriffOrderDetails {
+public class SheriffOrderDetails implements Cloneable {
 
     private String id;
     private Boolean delete;
@@ -19,9 +17,9 @@ public class SheriffOrderDetails {
     private SheriffOrderCategory category;
     private SheriffOrderReason reasonCode;
     private String reasonDetails;
-    private Timestamp createdAt;
+    private long createdAt;
     private byte[] signature;
-    private int signatureVersion;
+    private short signatureVersion;
 
     public String getId() {
         return id;
@@ -103,11 +101,11 @@ public class SheriffOrderDetails {
         this.reasonDetails = reasonDetails;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -119,12 +117,21 @@ public class SheriffOrderDetails {
         this.signature = signature;
     }
 
-    public int getSignatureVersion() {
+    public short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(int signatureVersion) {
+    public void setSignatureVersion(short signatureVersion) {
         this.signatureVersion = signatureVersion;
+    }
+
+    @Override
+    public SheriffOrderDetails clone() {
+        try {
+            return (SheriffOrderDetails) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

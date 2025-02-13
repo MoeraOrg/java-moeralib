@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DraftText {
+public class DraftText implements Cloneable {
 
     private DraftType draftType;
     private String receiverName;
@@ -143,6 +143,15 @@ public class DraftText {
 
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
+    }
+
+    @Override
+    public DraftText clone() {
+        try {
+            return (DraftText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

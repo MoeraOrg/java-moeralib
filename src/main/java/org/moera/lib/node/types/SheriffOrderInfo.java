@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SheriffOrderInfo {
+public class SheriffOrderInfo implements Cloneable {
 
     private String id;
     private Boolean delete;
@@ -30,9 +28,9 @@ public class SheriffOrderInfo {
     private SheriffOrderCategory category;
     private SheriffOrderReason reasonCode;
     private String reasonDetails;
-    private Timestamp createdAt;
+    private long createdAt;
     private byte[] signature;
-    private int signatureVersion;
+    private short signatureVersion;
     private String complaintGroupId;
 
     public String getId() {
@@ -203,11 +201,11 @@ public class SheriffOrderInfo {
         this.reasonDetails = reasonDetails;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -219,11 +217,11 @@ public class SheriffOrderInfo {
         this.signature = signature;
     }
 
-    public int getSignatureVersion() {
+    public short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(int signatureVersion) {
+    public void setSignatureVersion(short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -233,6 +231,15 @@ public class SheriffOrderInfo {
 
     public void setComplaintGroupId(String complaintGroupId) {
         this.complaintGroupId = complaintGroupId;
+    }
+
+    @Override
+    public SheriffOrderInfo clone() {
+        try {
+            return (SheriffOrderInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

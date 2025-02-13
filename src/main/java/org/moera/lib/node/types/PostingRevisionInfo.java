@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingRevisionInfo {
+public class PostingRevisionInfo implements Cloneable {
 
     private String id;
     private String receiverId;
@@ -20,13 +19,13 @@ public class PostingRevisionInfo {
     private List<MediaAttachment> media;
     private String heading;
     private UpdateInfo updateInfo;
-    private Timestamp createdAt;
-    private Timestamp deletedAt;
-    private Timestamp receiverCreatedAt;
-    private Timestamp receiverDeletedAt;
+    private long createdAt;
+    private Long deletedAt;
+    private Long receiverCreatedAt;
+    private Long receiverDeletedAt;
     private byte[] digest;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private ClientReactionInfo clientReaction;
     private ReactionTotalsInfo reactions;
 
@@ -110,35 +109,35 @@ public class PostingRevisionInfo {
         this.updateInfo = updateInfo;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getDeletedAt() {
+    public Long getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Timestamp deletedAt) {
+    public void setDeletedAt(Long deletedAt) {
         this.deletedAt = deletedAt;
     }
 
-    public Timestamp getReceiverCreatedAt() {
+    public Long getReceiverCreatedAt() {
         return receiverCreatedAt;
     }
 
-    public void setReceiverCreatedAt(Timestamp receiverCreatedAt) {
+    public void setReceiverCreatedAt(Long receiverCreatedAt) {
         this.receiverCreatedAt = receiverCreatedAt;
     }
 
-    public Timestamp getReceiverDeletedAt() {
+    public Long getReceiverDeletedAt() {
         return receiverDeletedAt;
     }
 
-    public void setReceiverDeletedAt(Timestamp receiverDeletedAt) {
+    public void setReceiverDeletedAt(Long receiverDeletedAt) {
         this.receiverDeletedAt = receiverDeletedAt;
     }
 
@@ -158,11 +157,11 @@ public class PostingRevisionInfo {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -180,6 +179,15 @@ public class PostingRevisionInfo {
 
     public void setReactions(ReactionTotalsInfo reactions) {
         this.reactions = reactions;
+    }
+
+    @Override
+    public PostingRevisionInfo clone() {
+        try {
+            return (PostingRevisionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LinkPreview {
+public class LinkPreview implements Cloneable {
 
     private String siteName;
     private String url;
@@ -51,6 +51,15 @@ public class LinkPreview {
 
     public void setImageHash(String imageHash) {
         this.imageHash = imageHash;
+    }
+
+    @Override
+    public LinkPreview clone() {
+        try {
+            return (LinkPreview) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

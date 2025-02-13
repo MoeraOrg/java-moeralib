@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingFeatures {
+public class PostingFeatures implements Cloneable {
 
     private Boolean post;
     private boolean subjectPresent;
@@ -71,6 +71,15 @@ public class PostingFeatures {
 
     public void setImageFormats(List<String> imageFormats) {
         this.imageFormats = imageFormats;
+    }
+
+    @Override
+    public PostingFeatures clone() {
+        try {
+            return (PostingFeatures) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

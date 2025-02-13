@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionsFilter {
+public class ReactionsFilter implements Cloneable {
 
     private String ownerName;
     private List<String> postings;
@@ -26,6 +26,15 @@ public class ReactionsFilter {
 
     public void setPostings(List<String> postings) {
         this.postings = postings;
+    }
+
+    @Override
+    public ReactionsFilter clone() {
+        try {
+            return (ReactionsFilter) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

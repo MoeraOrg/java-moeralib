@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FeedStatusChange {
+public class FeedStatusChange implements Cloneable {
 
     private Boolean viewed;
     private Boolean read;
@@ -33,6 +33,15 @@ public class FeedStatusChange {
 
     public void setBefore(int before) {
         this.before = before;
+    }
+
+    @Override
+    public FeedStatusChange clone() {
+        try {
+            return (FeedStatusChange) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

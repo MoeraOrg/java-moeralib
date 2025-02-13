@@ -2,23 +2,21 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NotificationPacket {
+public class NotificationPacket implements Cloneable {
 
     private String id;
     private String nodeName;
     private String fullName;
     private String gender;
     private AvatarImage avatar;
-    private Timestamp createdAt;
+    private long createdAt;
     private String type;
     private String notification;
     private byte[] signature;
-    private int signatureVersion;
+    private short signatureVersion;
 
     public String getId() {
         return id;
@@ -60,11 +58,11 @@ public class NotificationPacket {
         this.avatar = avatar;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -92,12 +90,21 @@ public class NotificationPacket {
         this.signature = signature;
     }
 
-    public int getSignatureVersion() {
+    public short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(int signatureVersion) {
+    public void setSignatureVersion(short signatureVersion) {
         this.signatureVersion = signatureVersion;
+    }
+
+    @Override
+    public NotificationPacket clone() {
+        try {
+            return (NotificationPacket) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

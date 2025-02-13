@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SheriffComplaintDecisionText {
+public class SheriffComplaintDecisionText implements Cloneable {
 
     private boolean reject;
     private SheriffOrderReason decisionCode;
@@ -42,6 +42,15 @@ public class SheriffComplaintDecisionText {
 
     public void setAnonymous(Boolean anonymous) {
         this.anonymous = anonymous;
+    }
+
+    @Override
+    public SheriffComplaintDecisionText clone() {
+        try {
+            return (SheriffComplaintDecisionText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

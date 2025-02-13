@@ -2,17 +2,16 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DomainInfo {
+public class DomainInfo implements Cloneable {
 
     private String name;
     private UUID nodeId;
-    private Timestamp createdAt;
+    private long createdAt;
 
     public String getName() {
         return name;
@@ -30,12 +29,21 @@ public class DomainInfo {
         this.nodeId = nodeId;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public DomainInfo clone() {
+        try {
+            return (DomainInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

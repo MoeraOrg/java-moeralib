@@ -2,16 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FriendGroupDetails {
+public class FriendGroupDetails implements Cloneable {
 
     private String id;
     private String title;
-    private Timestamp addedAt;
+    private long addedAt;
     private FriendOperations operations;
 
     public String getId() {
@@ -30,11 +28,11 @@ public class FriendGroupDetails {
         this.title = title;
     }
 
-    public Timestamp getAddedAt() {
+    public long getAddedAt() {
         return addedAt;
     }
 
-    public void setAddedAt(Timestamp addedAt) {
+    public void setAddedAt(long addedAt) {
         this.addedAt = addedAt;
     }
 
@@ -44,6 +42,15 @@ public class FriendGroupDetails {
 
     public void setOperations(FriendOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public FriendGroupDetails clone() {
+        try {
+            return (FriendGroupDetails) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

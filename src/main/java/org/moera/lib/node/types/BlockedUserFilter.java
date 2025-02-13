@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedUserFilter {
+public class BlockedUserFilter implements Cloneable {
 
     private List<BlockedOperation> blockedOperations;
     private String nodeName;
@@ -62,6 +62,15 @@ public class BlockedUserFilter {
 
     public void setStrict(Boolean strict) {
         this.strict = strict;
+    }
+
+    @Override
+    public BlockedUserFilter clone() {
+        try {
+            return (BlockedUserFilter) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

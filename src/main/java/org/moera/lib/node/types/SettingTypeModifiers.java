@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SettingTypeModifiers {
+public class SettingTypeModifiers implements Cloneable {
 
     private String format;
     private String min;
@@ -71,6 +71,15 @@ public class SettingTypeModifiers {
 
     public void setPrincipals(List<String> principals) {
         this.principals = principals;
+    }
+
+    @Override
+    public SettingTypeModifiers clone() {
+        try {
+            return (SettingTypeModifiers) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PublicMediaFileInfo {
+public class PublicMediaFileInfo implements Cloneable {
 
     private String id;
     private String path;
@@ -60,6 +60,15 @@ public class PublicMediaFileInfo {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    @Override
+    public PublicMediaFileInfo clone() {
+        try {
+            return (PublicMediaFileInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

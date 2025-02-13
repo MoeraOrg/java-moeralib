@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SettingInfo {
+public class SettingInfo implements Cloneable {
 
     private String name;
     private String value;
@@ -24,6 +24,15 @@ public class SettingInfo {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public SettingInfo clone() {
+        try {
+            return (SettingInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

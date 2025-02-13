@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingInfo {
+public class PostingInfo implements Cloneable {
 
     private String id;
     private String revisionId;
@@ -33,18 +32,18 @@ public class PostingInfo {
     private List<MediaAttachment> media;
     private String heading;
     private UpdateInfo updateInfo;
-    private Timestamp createdAt;
-    private Timestamp editedAt;
-    private Timestamp deletedAt;
-    private Timestamp receiverCreatedAt;
-    private Timestamp receiverEditedAt;
-    private Timestamp receiverDeletedAt;
-    private Timestamp revisionCreatedAt;
-    private Timestamp receiverRevisionCreatedAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long editedAt;
+    private Long deletedAt;
+    private Long receiverCreatedAt;
+    private Long receiverEditedAt;
+    private Long receiverDeletedAt;
+    private long revisionCreatedAt;
+    private Long receiverRevisionCreatedAt;
+    private Long deadline;
     private byte[] digest;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private List<FeedReference> feedReferences;
     private List<BlockedPostingInstantInfo> blockedInstants;
     private PostingOperations operations;
@@ -246,75 +245,75 @@ public class PostingInfo {
         this.updateInfo = updateInfo;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getEditedAt() {
+    public Long getEditedAt() {
         return editedAt;
     }
 
-    public void setEditedAt(Timestamp editedAt) {
+    public void setEditedAt(Long editedAt) {
         this.editedAt = editedAt;
     }
 
-    public Timestamp getDeletedAt() {
+    public Long getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Timestamp deletedAt) {
+    public void setDeletedAt(Long deletedAt) {
         this.deletedAt = deletedAt;
     }
 
-    public Timestamp getReceiverCreatedAt() {
+    public Long getReceiverCreatedAt() {
         return receiverCreatedAt;
     }
 
-    public void setReceiverCreatedAt(Timestamp receiverCreatedAt) {
+    public void setReceiverCreatedAt(Long receiverCreatedAt) {
         this.receiverCreatedAt = receiverCreatedAt;
     }
 
-    public Timestamp getReceiverEditedAt() {
+    public Long getReceiverEditedAt() {
         return receiverEditedAt;
     }
 
-    public void setReceiverEditedAt(Timestamp receiverEditedAt) {
+    public void setReceiverEditedAt(Long receiverEditedAt) {
         this.receiverEditedAt = receiverEditedAt;
     }
 
-    public Timestamp getReceiverDeletedAt() {
+    public Long getReceiverDeletedAt() {
         return receiverDeletedAt;
     }
 
-    public void setReceiverDeletedAt(Timestamp receiverDeletedAt) {
+    public void setReceiverDeletedAt(Long receiverDeletedAt) {
         this.receiverDeletedAt = receiverDeletedAt;
     }
 
-    public Timestamp getRevisionCreatedAt() {
+    public long getRevisionCreatedAt() {
         return revisionCreatedAt;
     }
 
-    public void setRevisionCreatedAt(Timestamp revisionCreatedAt) {
+    public void setRevisionCreatedAt(long revisionCreatedAt) {
         this.revisionCreatedAt = revisionCreatedAt;
     }
 
-    public Timestamp getReceiverRevisionCreatedAt() {
+    public Long getReceiverRevisionCreatedAt() {
         return receiverRevisionCreatedAt;
     }
 
-    public void setReceiverRevisionCreatedAt(Timestamp receiverRevisionCreatedAt) {
+    public void setReceiverRevisionCreatedAt(Long receiverRevisionCreatedAt) {
         this.receiverRevisionCreatedAt = receiverRevisionCreatedAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -334,11 +333,11 @@ public class PostingInfo {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -468,6 +467,15 @@ public class PostingInfo {
 
     public void setTotalComments(Integer totalComments) {
         this.totalComments = totalComments;
+    }
+
+    @Override
+    public PostingInfo clone() {
+        try {
+            return (PostingInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

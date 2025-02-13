@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GrantChange {
+public class GrantChange implements Cloneable {
 
     private List<String> scope;
     private boolean revoke;
@@ -26,6 +26,15 @@ public class GrantChange {
 
     public void setRevoke(boolean revoke) {
         this.revoke = revoke;
+    }
+
+    @Override
+    public GrantChange clone() {
+        try {
+            return (GrantChange) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

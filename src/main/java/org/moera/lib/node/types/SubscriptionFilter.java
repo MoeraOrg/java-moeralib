@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriptionFilter {
+public class SubscriptionFilter implements Cloneable {
 
     private SubscriptionType type;
     private List<RemoteFeed> feeds;
@@ -35,6 +35,15 @@ public class SubscriptionFilter {
 
     public void setPostings(List<RemotePosting> postings) {
         this.postings = postings;
+    }
+
+    @Override
+    public SubscriptionFilter clone() {
+        try {
+            return (SubscriptionFilter) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

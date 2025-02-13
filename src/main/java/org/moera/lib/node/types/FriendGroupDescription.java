@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FriendGroupDescription {
+public class FriendGroupDescription implements Cloneable {
 
     private String title;
     private FriendGroupOperations operations;
@@ -24,6 +24,15 @@ public class FriendGroupDescription {
 
     public void setOperations(FriendGroupOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public FriendGroupDescription clone() {
+        try {
+            return (FriendGroupDescription) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

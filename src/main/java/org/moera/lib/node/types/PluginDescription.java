@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PluginDescription {
+public class PluginDescription implements Cloneable {
 
     private String name;
     private String title;
@@ -62,6 +62,15 @@ public class PluginDescription {
 
     public void setOptions(List<SettingDescriptor> options) {
         this.options = options;
+    }
+
+    @Override
+    public PluginDescription clone() {
+        try {
+            return (PluginDescription) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

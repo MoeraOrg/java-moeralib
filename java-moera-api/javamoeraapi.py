@@ -130,14 +130,27 @@ def generate_enum(enum: Any, outdir: str) -> None:
         tfile.write(CONCLUSION_ENUM.replace('EnumType', enum['name']))
 
 
+CLONE_METHOD = '''
+    @Override
+    public ClassName clone() {
+        try {
+            return (ClassName) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
+    }
+'''
+
+
 def generate_operations(operations: Any, outdir: str) -> None:
     with open(outdir + f'/node/types/{operations["name"]}.java', 'w+') as tfile:
         tfile.write('package org.moera.lib.node.types;\n\n')
         tfile.write('// This file is generated\n\n')
+        tfile.write('import java.util.Objects;\n\n')
         tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
         tfile.write('import org.moera.lib.node.types.principal.Principal;\n\n')
         tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
-        tfile.write(f'public class {operations["name"]} {{\n\n')
+        tfile.write(f'public class {operations["name"]} implements Cloneable {{\n\n')
         for field in operations['fields']:
             tfile.write(f'{ind(1)}private Principal {field["name"]};\n')
         for field in operations['fields']:
@@ -145,19 +158,39 @@ def generate_operations(operations: Any, outdir: str) -> None:
             tfile.write(f'\n{ind(1)}public Principal get{cap_first(name)}() {{\n')
             tfile.write(f'{ind(2)}return {name};\n')
             tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}public Principal get{cap_first(name)}(Principal defaultValue) {{\n')
+            tfile.write(f'{ind(2)}return {name} != null ? {name} : defaultValue;\n')
+            tfile.write(f'{ind(1)}}}\n')
+            tfile.write(
+                f'\n{ind(1)}public static Principal get{cap_first(name)}'
+                f'({operations["name"]} operations, Principal defaultValue) {{\n'
+            )
+            tfile.write(
+                f'{ind(2)}return operations != null ? operations.get{cap_first(name)}(defaultValue) : defaultValue;\n'
+            )
+            tfile.write(f'{ind(1)}}}\n')
             tfile.write(f'\n{ind(1)}public void set{cap_first(name)}(Principal {name}) {{\n')
             tfile.write(f'{ind(2)}this.{name} = {name};\n')
             tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}public void set{cap_first(name)}(Principal {name}, Principal defaultValue) {{\n')
+            line = f'{ind(2)}this.{name} = Objects.equals({name}, defaultValue) ? null : {name};\n'
+            if len(line) > 120:
+                line = line.replace('=', '=\n' + ind(3))
+            tfile.write(line)
+            tfile.write(f'{ind(1)}}}\n')
+        tfile.write(CLONE_METHOD.replace('ClassName', operations['name']))
         tfile.write('\n}\n')
 
 
 JAVA_TYPES = {
     'String': 'String',
     'String[]': 'List<String>',
+    'short': 'short',
     'int': 'int',
+    'long': 'long',
     'float': 'float',
     'boolean': 'boolean',
-    'timestamp': 'Timestamp',
+    'timestamp': 'long',
     'byte[]': 'byte[]',
     'UUID': 'UUID',
     'String -> int': 'Map<String, Integer>',
@@ -166,10 +199,12 @@ JAVA_TYPES = {
 JAVA_OPTIONAL_TYPES = {
     'String': 'String',
     'String[]': 'List<String>',
+    'short': 'Short',
     'int': 'Integer',
+    'long': 'Long',
     'float': 'Float',
     'boolean': 'Boolean',
-    'timestamp': 'Timestamp',
+    'timestamp': 'Long',
     'byte[]': 'byte[]',
     'UUID': 'UUID',
     'String -> int': 'Map<String, Integer>',
@@ -229,7 +264,7 @@ class Structure:
                 tfile.write('\n')
             tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
-            tfile.write(f'public class {self.data["name"]} {{\n\n')
+            tfile.write(f'public class {self.data["name"]} implements Cloneable {{\n\n')
             for field in fields:
                 tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
             for field in fields:
@@ -239,6 +274,7 @@ class Structure:
                 tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
                 tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
+            tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
             tfile.write('\n}\n')
 
 

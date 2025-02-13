@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriberOverride {
+public class SubscriberOverride implements Cloneable {
 
     private SubscriberOperations operations;
     private SubscriberOperations adminOperations;
@@ -24,6 +24,15 @@ public class SubscriberOverride {
 
     public void setAdminOperations(SubscriberOperations adminOperations) {
         this.adminOperations = adminOperations;
+    }
+
+    @Override
+    public SubscriberOverride clone() {
+        try {
+            return (SubscriberOverride) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

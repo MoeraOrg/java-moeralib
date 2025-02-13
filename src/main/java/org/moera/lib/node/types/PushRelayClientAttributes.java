@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PushRelayClientAttributes {
+public class PushRelayClientAttributes implements Cloneable {
 
     private PushRelayType type;
     private String clientId;
@@ -33,6 +33,15 @@ public class PushRelayClientAttributes {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    @Override
+    public PushRelayClientAttributes clone() {
+        try {
+            return (PushRelayClientAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

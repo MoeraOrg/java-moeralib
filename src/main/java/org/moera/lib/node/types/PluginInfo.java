@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PluginInfo {
+public class PluginInfo implements Cloneable {
 
     private String nodeId;
     private boolean local;
@@ -89,6 +89,15 @@ public class PluginInfo {
 
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
+    }
+
+    @Override
+    public PluginInfo clone() {
+        try {
+            return (PluginInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

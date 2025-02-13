@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentMassAttributes {
+public class CommentMassAttributes implements Cloneable {
 
     private CommentOperations seniorOperations;
 
@@ -15,6 +15,15 @@ public class CommentMassAttributes {
 
     public void setSeniorOperations(CommentOperations seniorOperations) {
         this.seniorOperations = seniorOperations;
+    }
+
+    @Override
+    public CommentMassAttributes clone() {
+        try {
+            return (CommentMassAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

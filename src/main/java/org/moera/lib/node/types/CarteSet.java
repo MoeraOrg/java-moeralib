@@ -2,17 +2,16 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CarteSet {
+public class CarteSet implements Cloneable {
 
     private String cartesIp;
     private List<CarteInfo> cartes;
-    private Timestamp createdAt;
+    private long createdAt;
 
     public String getCartesIp() {
         return cartesIp;
@@ -30,12 +29,21 @@ public class CarteSet {
         this.cartes = cartes;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public CarteSet clone() {
+        try {
+            return (CarteSet) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RemoteReactionVerificationInfo {
+public class RemoteReactionVerificationInfo implements Cloneable {
 
     private String id;
     private String nodeName;
@@ -69,6 +69,15 @@ public class RemoteReactionVerificationInfo {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public RemoteReactionVerificationInfo clone() {
+        try {
+            return (RemoteReactionVerificationInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

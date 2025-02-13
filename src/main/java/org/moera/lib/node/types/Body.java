@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Body {
+public class Body implements Cloneable {
 
     private String subject;
     private String text;
@@ -35,6 +35,15 @@ public class Body {
 
     public void setLinkPreviews(List<LinkPreview> linkPreviews) {
         this.linkPreviews = linkPreviews;
+    }
+
+    @Override
+    public Body clone() {
+        try {
+            return (Body) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

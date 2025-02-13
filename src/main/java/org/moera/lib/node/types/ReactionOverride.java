@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionOverride {
+public class ReactionOverride implements Cloneable {
 
     private ReactionOperations operations;
     private ReactionOperations seniorOperations;
@@ -33,6 +33,15 @@ public class ReactionOverride {
 
     public void setMajorOperations(ReactionOperations majorOperations) {
         this.majorOperations = majorOperations;
+    }
+
+    @Override
+    public ReactionOverride clone() {
+        try {
+            return (ReactionOverride) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

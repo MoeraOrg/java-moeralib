@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RemotePosting {
+public class RemotePosting implements Cloneable {
 
     private String nodeName;
     private String postingId;
@@ -24,6 +24,15 @@ public class RemotePosting {
 
     public void setPostingId(String postingId) {
         this.postingId = postingId;
+    }
+
+    @Override
+    public RemotePosting clone() {
+        try {
+            return (RemotePosting) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

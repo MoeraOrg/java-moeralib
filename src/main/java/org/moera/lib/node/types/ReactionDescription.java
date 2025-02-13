@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionDescription {
+public class ReactionDescription implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -14,7 +14,7 @@ public class ReactionDescription {
     private boolean negative;
     private int emoji;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private ReactionOperations operations;
 
     public String getOwnerName() {
@@ -73,11 +73,11 @@ public class ReactionDescription {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -87,6 +87,15 @@ public class ReactionDescription {
 
     public void setOperations(ReactionOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public ReactionDescription clone() {
+        try {
+            return (ReactionDescription) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

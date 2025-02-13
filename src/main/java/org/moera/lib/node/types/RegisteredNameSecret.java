@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RegisteredNameSecret {
+public class RegisteredNameSecret implements Cloneable {
 
     private String name;
     private List<String> mnemonic;
@@ -35,6 +35,15 @@ public class RegisteredNameSecret {
 
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    @Override
+    public RegisteredNameSecret clone() {
+        try {
+            return (RegisteredNameSecret) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

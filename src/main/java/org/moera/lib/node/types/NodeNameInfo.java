@@ -2,16 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NodeNameInfo {
+public class NodeNameInfo implements Cloneable {
 
     private String name;
     private OperationStatus operationStatus;
-    private Timestamp operationStatusUpdated;
+    private Long operationStatusUpdated;
     private String operationErrorCode;
     private String operationErrorMessage;
     private Boolean storedMnemonic;
@@ -33,11 +31,11 @@ public class NodeNameInfo {
         this.operationStatus = operationStatus;
     }
 
-    public Timestamp getOperationStatusUpdated() {
+    public Long getOperationStatusUpdated() {
         return operationStatusUpdated;
     }
 
-    public void setOperationStatusUpdated(Timestamp operationStatusUpdated) {
+    public void setOperationStatusUpdated(Long operationStatusUpdated) {
         this.operationStatusUpdated = operationStatusUpdated;
     }
 
@@ -71,6 +69,15 @@ public class NodeNameInfo {
 
     public void setOperations(NodeNameOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public NodeNameInfo clone() {
+        try {
+            return (NodeNameInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

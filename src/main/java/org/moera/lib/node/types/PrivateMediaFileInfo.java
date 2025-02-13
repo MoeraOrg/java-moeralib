@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PrivateMediaFileInfo {
+public class PrivateMediaFileInfo implements Cloneable {
 
     private String id;
     private String hash;
@@ -116,6 +116,15 @@ public class PrivateMediaFileInfo {
 
     public void setOperations(PrivateMediaFileOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public PrivateMediaFileInfo clone() {
+        try {
+            return (PrivateMediaFileInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

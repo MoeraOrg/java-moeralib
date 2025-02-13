@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CarteAttributes {
+public class CarteAttributes implements Cloneable {
 
     private List<String> clientScope;
     private List<String> adminScope;
@@ -44,6 +44,15 @@ public class CarteAttributes {
 
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    @Override
+    public CarteAttributes clone() {
+        try {
+            return (CarteAttributes) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

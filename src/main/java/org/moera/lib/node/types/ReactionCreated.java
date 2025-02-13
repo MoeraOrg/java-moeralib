@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionCreated {
+public class ReactionCreated implements Cloneable {
 
     private ReactionInfo reaction;
     private ReactionTotalsInfo totals;
@@ -24,6 +24,15 @@ public class ReactionCreated {
 
     public void setTotals(ReactionTotalsInfo totals) {
         this.totals = totals;
+    }
+
+    @Override
+    public ReactionCreated clone() {
+        try {
+            return (ReactionCreated) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

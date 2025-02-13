@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserListInfo {
+public class UserListInfo implements Cloneable {
 
     private String name;
     private int total;
@@ -24,6 +24,15 @@ public class UserListInfo {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    @Override
+    public UserListInfo clone() {
+        try {
+            return (UserListInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

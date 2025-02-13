@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedUserInfo {
+public class BlockedUserInfo implements Cloneable {
 
     private String id;
     private BlockedOperation blockedOperation;
@@ -16,8 +14,8 @@ public class BlockedUserInfo {
     private String entryId;
     private String entryNodeName;
     private String entryPostingId;
-    private Timestamp createdAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long deadline;
     private String reasonSrc;
     private SourceFormat reasonSrcFormat;
     private String reason;
@@ -78,19 +76,19 @@ public class BlockedUserInfo {
         this.entryPostingId = entryPostingId;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -116,6 +114,15 @@ public class BlockedUserInfo {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    @Override
+    public BlockedUserInfo clone() {
+        try {
+            return (BlockedUserInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

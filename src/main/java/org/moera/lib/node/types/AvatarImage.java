@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AvatarImage {
+public class AvatarImage implements Cloneable {
 
     private String mediaId;
     private String path;
@@ -51,6 +51,15 @@ public class AvatarImage {
 
     public void setShape(String shape) {
         this.shape = shape;
+    }
+
+    @Override
+    public AvatarImage clone() {
+        try {
+            return (AvatarImage) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

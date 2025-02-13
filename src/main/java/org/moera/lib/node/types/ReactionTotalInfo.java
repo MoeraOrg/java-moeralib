@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionTotalInfo {
+public class ReactionTotalInfo implements Cloneable {
 
     private int emoji;
     private Integer total;
@@ -33,6 +33,15 @@ public class ReactionTotalInfo {
 
     public void setShare(Float share) {
         this.share = share;
+    }
+
+    @Override
+    public ReactionTotalInfo clone() {
+        try {
+            return (ReactionTotalInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DraftInfo {
+public class DraftInfo implements Cloneable {
 
     private String id;
     private DraftType draftType;
@@ -16,9 +15,9 @@ public class DraftInfo {
     private String receiverPostingId;
     private String receiverCommentId;
     private String repliedToId;
-    private Timestamp createdAt;
-    private Timestamp editedAt;
-    private Timestamp deadline;
+    private long createdAt;
+    private Long editedAt;
+    private Long deadline;
     private String ownerFullName;
     private AvatarImage ownerAvatar;
     private AcceptedReactions acceptedReactions;
@@ -81,27 +80,27 @@ public class DraftInfo {
         this.repliedToId = repliedToId;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getEditedAt() {
+    public Long getEditedAt() {
         return editedAt;
     }
 
-    public void setEditedAt(Timestamp editedAt) {
+    public void setEditedAt(Long editedAt) {
         this.editedAt = editedAt;
     }
 
-    public Timestamp getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 
@@ -207,6 +206,15 @@ public class DraftInfo {
 
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
+    }
+
+    @Override
+    public DraftInfo clone() {
+        try {
+            return (DraftInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

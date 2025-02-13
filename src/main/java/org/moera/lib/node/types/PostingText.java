@@ -2,13 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingText {
+public class PostingText implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -20,12 +19,12 @@ public class PostingText {
     private Body body;
     private BodyFormat bodyFormat;
     private List<String> media;
-    private Timestamp createdAt;
+    private Long createdAt;
     private AcceptedReactions acceptedReactions;
     private List<StoryAttributes> publications;
     private UpdateInfo updateInfo;
     private byte[] signature;
-    private Integer signatureVersion;
+    private Short signatureVersion;
     private PostingOperations operations;
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
@@ -111,11 +110,11 @@ public class PostingText {
         this.media = media;
     }
 
-    public Timestamp getCreatedAt() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -151,11 +150,11 @@ public class PostingText {
         this.signature = signature;
     }
 
-    public Integer getSignatureVersion() {
+    public Short getSignatureVersion() {
         return signatureVersion;
     }
 
-    public void setSignatureVersion(Integer signatureVersion) {
+    public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
     }
 
@@ -189,6 +188,15 @@ public class PostingText {
 
     public void setCommentReactionOperations(ReactionOperations commentReactionOperations) {
         this.commentReactionOperations = commentReactionOperations;
+    }
+
+    @Override
+    public PostingText clone() {
+        try {
+            return (PostingText) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

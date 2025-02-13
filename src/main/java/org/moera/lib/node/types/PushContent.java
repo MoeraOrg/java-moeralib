@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PushContent {
+public class PushContent implements Cloneable {
 
     private PushContentType type;
     private String id;
@@ -42,6 +42,15 @@ public class PushContent {
 
     public void setFeedStatus(FeedWithStatus feedStatus) {
         this.feedStatus = feedStatus;
+    }
+
+    @Override
+    public PushContent clone() {
+        try {
+            return (PushContent) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

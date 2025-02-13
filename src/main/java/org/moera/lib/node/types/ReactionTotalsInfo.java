@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionTotalsInfo {
+public class ReactionTotalsInfo implements Cloneable {
 
     private String entryId;
     private List<ReactionTotalInfo> positive;
@@ -35,6 +35,15 @@ public class ReactionTotalsInfo {
 
     public void setNegative(List<ReactionTotalInfo> negative) {
         this.negative = negative;
+    }
+
+    @Override
+    public ReactionTotalsInfo clone() {
+        try {
+            return (ReactionTotalsInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

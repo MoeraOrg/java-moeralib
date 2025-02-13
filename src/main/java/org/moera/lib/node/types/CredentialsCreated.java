@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CredentialsCreated {
+public class CredentialsCreated implements Cloneable {
 
     private boolean created;
 
@@ -15,6 +15,15 @@ public class CredentialsCreated {
 
     public void setCreated(boolean created) {
         this.created = created;
+    }
+
+    @Override
+    public CredentialsCreated clone() {
+        try {
+            return (CredentialsCreated) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

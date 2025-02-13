@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProfileInfo {
+public class ProfileInfo implements Cloneable {
 
     private String fullName;
     private String gender;
@@ -98,6 +98,15 @@ public class ProfileInfo {
 
     public void setOperations(ProfileOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public ProfileInfo clone() {
+        try {
+            return (ProfileInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

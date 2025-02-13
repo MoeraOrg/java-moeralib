@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ContactInfo {
+public class ContactInfo implements Cloneable {
 
     private String nodeName;
     private String fullName;
@@ -132,6 +132,15 @@ public class ContactInfo {
 
     public void setAdminOperations(ContactOperations adminOperations) {
         this.adminOperations = adminOperations;
+    }
+
+    @Override
+    public ContactInfo clone() {
+        try {
+            return (ContactInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

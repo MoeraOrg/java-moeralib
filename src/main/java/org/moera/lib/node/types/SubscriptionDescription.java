@@ -5,7 +5,7 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriptionDescription {
+public class SubscriptionDescription implements Cloneable {
 
     private SubscriptionType type;
     private String feedName;
@@ -69,6 +69,15 @@ public class SubscriptionDescription {
 
     public void setOperations(SubscriptionOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public SubscriptionDescription clone() {
+        try {
+            return (SubscriptionDescription) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }

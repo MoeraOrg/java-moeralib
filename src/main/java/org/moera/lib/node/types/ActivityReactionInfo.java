@@ -2,12 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ActivityReactionInfo {
+public class ActivityReactionInfo implements Cloneable {
 
     private String remoteNodeName;
     private String remoteFullName;
@@ -15,7 +13,7 @@ public class ActivityReactionInfo {
     private String remotePostingId;
     private boolean negative;
     private int emoji;
-    private Timestamp createdAt;
+    private long createdAt;
 
     public String getRemoteNodeName() {
         return remoteNodeName;
@@ -65,12 +63,21 @@ public class ActivityReactionInfo {
         this.emoji = emoji;
     }
 
-    public Timestamp getCreatedAt() {
+    public long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public ActivityReactionInfo clone() {
+        try {
+            return (ActivityReactionInfo) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalArgumentException("Must implement Cloneable", e);
+        }
     }
 
 }
