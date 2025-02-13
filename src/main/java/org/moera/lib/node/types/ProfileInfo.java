@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -19,6 +20,9 @@ public class ProfileInfo implements Cloneable {
     private AvatarInfo avatar;
     private List<FundraiserInfo> fundraisers;
     private ProfileOperations operations;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getFullName() {
         return fullName;
@@ -98,6 +102,14 @@ public class ProfileInfo implements Cloneable {
 
     public void setOperations(ProfileOperations operations) {
         this.operations = operations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

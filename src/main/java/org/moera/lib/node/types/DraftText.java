@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -24,6 +25,9 @@ public class DraftText implements Cloneable {
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
+
+    @JsonIgnore
+    private Object extra;
 
     public DraftType getDraftType() {
         return draftType;
@@ -143,6 +147,14 @@ public class DraftText implements Cloneable {
 
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class ReactionTotalsInfo implements Cloneable {
     private String entryId;
     private List<ReactionTotalInfo> positive;
     private List<ReactionTotalInfo> negative;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getEntryId() {
         return entryId;
@@ -35,6 +39,14 @@ public class ReactionTotalsInfo implements Cloneable {
 
     public void setNegative(List<ReactionTotalInfo> negative) {
         this.negative = negative;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -11,6 +12,9 @@ public class CredentialsChange implements Cloneable {
     private String oldPassword;
     private String login;
     private String password;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getToken() {
         return token;
@@ -42,6 +46,14 @@ public class CredentialsChange implements Cloneable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

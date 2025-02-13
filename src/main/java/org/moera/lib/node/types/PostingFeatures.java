@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +17,9 @@ public class PostingFeatures implements Cloneable {
     private int imageRecommendedSize;
     private int imageRecommendedPixels;
     private List<String> imageFormats;
+
+    @JsonIgnore
+    private Object extra;
 
     public Boolean getPost() {
         return post;
@@ -71,6 +75,14 @@ public class PostingFeatures implements Cloneable {
 
     public void setImageFormats(List<String> imageFormats) {
         this.imageFormats = imageFormats;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

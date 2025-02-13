@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,6 +16,9 @@ public class BlockedUserFilter implements Cloneable {
     private String entryNodeName;
     private String entryPostingId;
     private Boolean strict;
+
+    @JsonIgnore
+    private Object extra;
 
     public List<BlockedOperation> getBlockedOperations() {
         return blockedOperations;
@@ -62,6 +66,14 @@ public class BlockedUserFilter implements Cloneable {
 
     public void setStrict(Boolean strict) {
         this.strict = strict;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

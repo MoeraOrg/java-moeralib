@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class ReactionAttributes implements Cloneable {
     private boolean negative;
     private int emoji;
     private ReactionOperations operations;
+
+    @JsonIgnore
+    private Object extra;
 
     public boolean getNegative() {
         return negative;
@@ -33,6 +37,14 @@ public class ReactionAttributes implements Cloneable {
 
     public void setOperations(ReactionOperations operations) {
         this.operations = operations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class RegisteredNameSecret implements Cloneable {
     private String name;
     private List<String> mnemonic;
     private String secret;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getName() {
         return name;
@@ -35,6 +39,14 @@ public class RegisteredNameSecret implements Cloneable {
 
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

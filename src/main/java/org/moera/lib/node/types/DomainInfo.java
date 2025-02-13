@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class DomainInfo implements Cloneable {
     private String name;
     private UUID nodeId;
     private long createdAt;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getName() {
         return name;
@@ -35,6 +39,14 @@ public class DomainInfo implements Cloneable {
 
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

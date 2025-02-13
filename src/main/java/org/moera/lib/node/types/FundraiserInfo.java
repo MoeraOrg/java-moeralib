@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -11,6 +12,9 @@ public class FundraiserInfo implements Cloneable {
     private String qrCode;
     private String text;
     private String href;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getTitle() {
         return title;
@@ -42,6 +46,14 @@ public class FundraiserInfo implements Cloneable {
 
     public void setHref(String href) {
         this.href = href;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

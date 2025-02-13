@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class RemoteMediaInfo implements Cloneable {
     private String id;
     private String hash;
     private String digest;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getId() {
         return id;
@@ -33,6 +37,14 @@ public class RemoteMediaInfo implements Cloneable {
 
     public void setDigest(String digest) {
         this.digest = digest;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

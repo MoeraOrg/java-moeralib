@@ -262,11 +262,14 @@ class Structure:
                 for imp in sorted(imports):
                     tfile.write(f'import {imp};\n')
                 tfile.write('\n')
+            tfile.write('import com.fasterxml.jackson.annotation.JsonIgnore;\n')
             tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
             tfile.write(f'public class {self.data["name"]} implements Cloneable {{\n\n')
             for field in fields:
                 tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
+            tfile.write(f'\n{ind(1)}@JsonIgnore\n')
+            tfile.write(f'{ind(1)}private Object extra;\n')
             for field in fields:
                 tfile.write(f'\n{ind(1)}public {field[0]} get{cap_first(field[1])}() {{\n')
                 tfile.write(f'{ind(2)}return {field[1]};\n')
@@ -274,6 +277,12 @@ class Structure:
                 tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
                 tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}public Object getExtra() {{\n')
+            tfile.write(f'{ind(2)}return extra;\n')
+            tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}public void setExtra(Object extra) {{\n')
+            tfile.write(f'{ind(2)}this.extra = extra;\n')
+            tfile.write(f'{ind(1)}}}\n')
             tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
             tfile.write('\n}\n')
 

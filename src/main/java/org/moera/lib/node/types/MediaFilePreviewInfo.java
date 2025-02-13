@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class MediaFilePreviewInfo implements Cloneable {
     private int width;
     private int height;
     private Boolean original;
+
+    @JsonIgnore
+    private Object extra;
 
     public int getTargetWidth() {
         return targetWidth;
@@ -51,6 +55,14 @@ public class MediaFilePreviewInfo implements Cloneable {
 
     public void setOriginal(Boolean original) {
         this.original = original;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

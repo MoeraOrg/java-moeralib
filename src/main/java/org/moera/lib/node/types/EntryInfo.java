@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -9,6 +10,9 @@ public class EntryInfo implements Cloneable {
 
     private PostingInfo posting;
     private CommentInfo comment;
+
+    @JsonIgnore
+    private Object extra;
 
     public PostingInfo getPosting() {
         return posting;
@@ -24,6 +28,14 @@ public class EntryInfo implements Cloneable {
 
     public void setComment(CommentInfo comment) {
         this.comment = comment;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

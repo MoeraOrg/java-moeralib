@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,6 +14,9 @@ public class BlockedInstantAttributes implements Cloneable {
     private String remotePostingId;
     private String remoteOwnerName;
     private Long deadline;
+
+    @JsonIgnore
+    private Object extra;
 
     public StoryType getStoryType() {
         return storyType;
@@ -60,6 +64,14 @@ public class BlockedInstantAttributes implements Cloneable {
 
     public void setDeadline(Long deadline) {
         this.deadline = deadline;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

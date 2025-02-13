@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class MediaAttachment implements Cloneable {
     private PrivateMediaFileInfo media;
     private RemoteMediaInfo remoteMedia;
     private boolean embedded;
+
+    @JsonIgnore
+    private Object extra;
 
     public PrivateMediaFileInfo getMedia() {
         return media;
@@ -33,6 +37,14 @@ public class MediaAttachment implements Cloneable {
 
     public void setEmbedded(boolean embedded) {
         this.embedded = embedded;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

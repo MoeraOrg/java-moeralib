@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +17,9 @@ public class UserListSliceInfo implements Cloneable {
     private int total;
     private int totalInPast;
     private int totalInFuture;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getListName() {
         return listName;
@@ -71,6 +75,14 @@ public class UserListSliceInfo implements Cloneable {
 
     public void setTotalInFuture(int totalInFuture) {
         this.totalInFuture = totalInFuture;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

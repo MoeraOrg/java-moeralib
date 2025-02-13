@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,6 +15,9 @@ public class SheriffOrderAttributes implements Cloneable {
     private SheriffOrderCategory category;
     private SheriffOrderReason reasonCode;
     private String reasonDetails;
+
+    @JsonIgnore
+    private Object extra;
 
     public Boolean getDelete() {
         return delete;
@@ -69,6 +73,14 @@ public class SheriffOrderAttributes implements Cloneable {
 
     public void setReasonDetails(String reasonDetails) {
         this.reasonDetails = reasonDetails;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

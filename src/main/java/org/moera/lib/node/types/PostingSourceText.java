@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +17,9 @@ public class PostingSourceText implements Cloneable {
     private AcceptedReactions acceptedReactions;
     private PostingOperations operations;
     private CommentOperations commentOperations;
+
+    @JsonIgnore
+    private Object extra;
 
     public AvatarDescription getOwnerAvatar() {
         return ownerAvatar;
@@ -71,6 +75,14 @@ public class PostingSourceText implements Cloneable {
 
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

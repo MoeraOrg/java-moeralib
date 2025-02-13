@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,6 +24,9 @@ public class CommentRevisionInfo implements Cloneable {
     private Short signatureVersion;
     private ClientReactionInfo clientReaction;
     private ReactionTotalsInfo reactions;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getId() {
         return id;
@@ -150,6 +154,14 @@ public class CommentRevisionInfo implements Cloneable {
 
     public void setReactions(ReactionTotalsInfo reactions) {
         this.reactions = reactions;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

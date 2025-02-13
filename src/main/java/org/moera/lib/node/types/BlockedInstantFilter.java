@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class BlockedInstantFilter implements Cloneable {
     private String remoteNodeName;
     private String remotePostingId;
     private String remoteOwnerName;
+
+    @JsonIgnore
+    private Object extra;
 
     public StoryType getStoryType() {
         return storyType;
@@ -51,6 +55,14 @@ public class BlockedInstantFilter implements Cloneable {
 
     public void setRemoteOwnerName(String remoteOwnerName) {
         this.remoteOwnerName = remoteOwnerName;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

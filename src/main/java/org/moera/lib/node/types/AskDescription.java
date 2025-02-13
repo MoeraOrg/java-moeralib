@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class AskDescription implements Cloneable {
     private AskSubject subject;
     private String friendGroupId;
     private String message;
+
+    @JsonIgnore
+    private Object extra;
 
     public AskSubject getSubject() {
         return subject;
@@ -33,6 +37,14 @@ public class AskDescription implements Cloneable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

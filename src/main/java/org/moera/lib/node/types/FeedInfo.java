@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,6 +18,9 @@ public class FeedInfo implements Cloneable {
     private FeedOperations operations;
     private List<String> sheriffs;
     private List<SheriffMark> sheriffMarks;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getFeedName() {
         return feedName;
@@ -80,6 +84,14 @@ public class FeedInfo implements Cloneable {
 
     public void setSheriffMarks(List<SheriffMark> sheriffMarks) {
         this.sheriffMarks = sheriffMarks;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

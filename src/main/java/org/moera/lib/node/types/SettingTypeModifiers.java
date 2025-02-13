@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,6 +17,9 @@ public class SettingTypeModifiers implements Cloneable {
     private Boolean never;
     private Boolean always;
     private List<String> principals;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getFormat() {
         return format;
@@ -71,6 +75,14 @@ public class SettingTypeModifiers implements Cloneable {
 
     public void setPrincipals(List<String> principals) {
         this.principals = principals;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

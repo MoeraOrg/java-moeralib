@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -11,6 +12,9 @@ public class StorySummaryBlocked implements Cloneable {
 
     private List<BlockedOperation> operations;
     private Long period;
+
+    @JsonIgnore
+    private Object extra;
 
     public List<BlockedOperation> getOperations() {
         return operations;
@@ -26,6 +30,14 @@ public class StorySummaryBlocked implements Cloneable {
 
     public void setPeriod(Long period) {
         this.period = period;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

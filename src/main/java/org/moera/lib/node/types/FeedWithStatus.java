@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class FeedWithStatus implements Cloneable {
     private String feedName;
     private int notViewed;
     private int notRead;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getFeedName() {
         return feedName;
@@ -33,6 +37,14 @@ public class FeedWithStatus implements Cloneable {
 
     public void setNotRead(int notRead) {
         this.notRead = notRead;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -12,6 +13,9 @@ public class AvatarImage implements Cloneable {
     private Integer width;
     private Integer height;
     private String shape;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getMediaId() {
         return mediaId;
@@ -51,6 +55,14 @@ public class AvatarImage implements Cloneable {
 
     public void setShape(String shape) {
         this.shape = shape;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

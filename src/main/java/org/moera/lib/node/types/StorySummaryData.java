@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,6 +27,9 @@ public class StorySummaryData implements Cloneable {
     private StorySummarySheriff sheriff;
     private String description;
     private List<StorySummaryPageClicks> clicks;
+
+    @JsonIgnore
+    private Object extra;
 
     public StorySummaryNode getNode() {
         return node;
@@ -161,6 +165,14 @@ public class StorySummaryData implements Cloneable {
 
     public void setClicks(List<StorySummaryPageClicks> clicks) {
         this.clicks = clicks;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

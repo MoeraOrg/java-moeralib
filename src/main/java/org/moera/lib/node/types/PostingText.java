@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -29,6 +30,9 @@ public class PostingText implements Cloneable {
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getOwnerName() {
         return ownerName;
@@ -188,6 +192,14 @@ public class PostingText implements Cloneable {
 
     public void setCommentReactionOperations(ReactionOperations commentReactionOperations) {
         this.commentReactionOperations = commentReactionOperations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

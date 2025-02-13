@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,6 +14,9 @@ public class PublicMediaFileInfo implements Cloneable {
     private Integer height;
     private Integer orientation;
     private int size;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getId() {
         return id;
@@ -60,6 +64,14 @@ public class PublicMediaFileInfo implements Cloneable {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

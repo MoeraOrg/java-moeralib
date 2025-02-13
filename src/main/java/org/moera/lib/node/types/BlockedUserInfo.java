@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -19,6 +20,9 @@ public class BlockedUserInfo implements Cloneable {
     private String reasonSrc;
     private SourceFormat reasonSrcFormat;
     private String reason;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getId() {
         return id;
@@ -114,6 +118,14 @@ public class BlockedUserInfo implements Cloneable {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

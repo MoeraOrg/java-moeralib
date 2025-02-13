@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -9,6 +10,9 @@ public class SubscriberOverride implements Cloneable {
 
     private SubscriberOperations operations;
     private SubscriberOperations adminOperations;
+
+    @JsonIgnore
+    private Object extra;
 
     public SubscriberOperations getOperations() {
         return operations;
@@ -24,6 +28,14 @@ public class SubscriberOverride implements Cloneable {
 
     public void setAdminOperations(SubscriberOperations adminOperations) {
         this.adminOperations = adminOperations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

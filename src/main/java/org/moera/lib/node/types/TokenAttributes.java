@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,6 +14,9 @@ public class TokenAttributes implements Cloneable {
     private String password;
     private List<String> permissions;
     private String name;
+
+    @JsonIgnore
+    private Object extra;
 
     public String getLogin() {
         return login;
@@ -44,6 +48,14 @@ public class TokenAttributes implements Cloneable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

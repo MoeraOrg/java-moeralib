@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -13,6 +14,9 @@ public class CarteAttributes implements Cloneable {
     private List<String> adminScope;
     private String nodeName;
     private Integer limit;
+
+    @JsonIgnore
+    private Object extra;
 
     public List<String> getClientScope() {
         return clientScope;
@@ -44,6 +48,14 @@ public class CarteAttributes implements Cloneable {
 
     public void setLimit(Integer limit) {
         this.limit = limit;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override

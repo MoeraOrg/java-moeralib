@@ -2,6 +2,7 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -10,6 +11,9 @@ public class ReactionOverride implements Cloneable {
     private ReactionOperations operations;
     private ReactionOperations seniorOperations;
     private ReactionOperations majorOperations;
+
+    @JsonIgnore
+    private Object extra;
 
     public ReactionOperations getOperations() {
         return operations;
@@ -33,6 +37,14 @@ public class ReactionOverride implements Cloneable {
 
     public void setMajorOperations(ReactionOperations majorOperations) {
         this.majorOperations = majorOperations;
+    }
+
+    public Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
     }
 
     @Override
