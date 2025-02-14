@@ -17,8 +17,8 @@ public class PrivateMediaFileInfo implements Cloneable {
     private String mimeType;
     private Integer width;
     private Integer height;
-    private Integer orientation;
-    private int size;
+    private Short orientation;
+    private long size;
     private String postingId;
     private List<MediaFilePreviewInfo> previews;
     private PrivateMediaFileOperations operations;
@@ -82,19 +82,19 @@ public class PrivateMediaFileInfo implements Cloneable {
         this.height = height;
     }
 
-    public Integer getOrientation() {
+    public Short getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(Integer orientation) {
+    public void setOrientation(Short orientation) {
         this.orientation = orientation;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

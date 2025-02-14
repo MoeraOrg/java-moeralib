@@ -10,7 +10,7 @@ public class UserListItemInfo implements Cloneable {
 
     private String nodeName;
     private long createdAt;
-    private int moment;
+    private long moment;
 
     @JsonIgnore
     private Object extra;
@@ -31,11 +31,11 @@ public class UserListItemInfo implements Cloneable {
         this.createdAt = createdAt;
     }
 
-    public int getMoment() {
+    public long getMoment() {
         return moment;
     }
 
-    public void setMoment(int moment) {
+    public void setMoment(long moment) {
         this.moment = moment;
     }
 

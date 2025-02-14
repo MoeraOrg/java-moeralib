@@ -10,27 +10,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReactionsSliceInfo implements Cloneable {
 
-    private int before;
-    private int after;
+    private long before;
+    private long after;
     private int total;
     private List<ReactionInfo> reactions;
 
     @JsonIgnore
     private Object extra;
 
-    public int getBefore() {
+    public long getBefore() {
         return before;
     }
 
-    public void setBefore(int before) {
+    public void setBefore(long before) {
         this.before = before;
     }
 
-    public int getAfter() {
+    public long getAfter() {
         return after;
     }
 
-    public void setAfter(int after) {
+    public void setAfter(long after) {
         this.after = after;
     }
 

@@ -18,7 +18,7 @@ public class ReactionInfo implements Cloneable {
     private String commentRevisionId;
     private Boolean negative;
     private Integer emoji;
-    private Integer moment;
+    private Long moment;
     private Long createdAt;
     private Long deadline;
     private byte[] signature;
@@ -111,11 +111,11 @@ public class ReactionInfo implements Cloneable {
         this.emoji = emoji;
     }
 
-    public Integer getMoment() {
+    public Long getMoment() {
         return moment;
     }
 
-    public void setMoment(Integer moment) {
+    public void setMoment(Long moment) {
         this.moment = moment;
     }
 

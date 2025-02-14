@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class UserListSliceInfo implements Cloneable {
 
     private String listName;
-    private int before;
-    private int after;
+    private long before;
+    private long after;
     private List<UserListItemInfo> items;
     private int total;
     private int totalInPast;
@@ -29,19 +29,19 @@ public class UserListSliceInfo implements Cloneable {
         this.listName = listName;
     }
 
-    public int getBefore() {
+    public long getBefore() {
         return before;
     }
 
-    public void setBefore(int before) {
+    public void setBefore(long before) {
         this.before = before;
     }
 
-    public int getAfter() {
+    public long getAfter() {
         return after;
     }
 
-    public void setAfter(int after) {
+    public void setAfter(long after) {
         this.after = after;
     }
 

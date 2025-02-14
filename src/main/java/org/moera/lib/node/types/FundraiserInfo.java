@@ -1,67 +1,60 @@
 package org.moera.lib.node.types;
 
-// This file is generated
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class FundraiserInfo implements Cloneable {
+public class FundraiserInfo {
 
-    private String title;
-    private String qrCode;
-    private String text;
-    private String href;
+    private static final Logger log = LoggerFactory.getLogger(FundraiserInfo.class);
 
-    @JsonIgnore
-    private Object extra;
+    private final Map<String, String> fields = new HashMap<>();
 
-    public String getTitle() {
-        return title;
+    public static String serializeValue(FundraiserInfo[] fundraisers) {
+        if (fundraisers == null) {
+            return null;
+        } else if (fundraisers.length == 0) {
+            return "";
+        } else {
+            try {
+                return new ObjectMapper().writeValueAsString(fundraisers);
+            } catch (JsonProcessingException e) {
+                log.error("Error serializing FundraiserInfo[]", e);
+                return null;
+            }
+        }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public static FundraiserInfo[] deserializeValue(String value) throws IOException {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return new ObjectMapper().readValue(value, FundraiserInfo[].class);
     }
 
-    public String getQrCode() {
-        return qrCode;
+    @JsonAnyGetter
+    public Map<String, String> getFields() {
+        return fields;
     }
 
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
+    @JsonAnySetter
+    public void setField(String name, String value) {
+        fields.put(name, value);
     }
 
     @Override
-    public FundraiserInfo clone() {
+    public String toString() {
         try {
-            return (FundraiserInfo) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalArgumentException("Must implement Cloneable", e);
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return null;
         }
     }
 

@@ -8,16 +8,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlockedUsersChecksums implements Cloneable {
 
-    private int visibility;
+    private long visibility;
 
     @JsonIgnore
     private Object extra;
 
-    public int getVisibility() {
+    public long getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(int visibility) {
+    public void setVisibility(long visibility) {
         this.visibility = visibility;
     }
 

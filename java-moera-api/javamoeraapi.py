@@ -292,6 +292,9 @@ def scan_structures(api: Any) -> dict[str, Structure]:
     return structs
 
 
+EXCLUDED_STRUCTS = ['FundraiserInfo']
+
+
 def generate_types(api: Any, outdir: str) -> None:
     structs = scan_structures(api)
 
@@ -300,7 +303,9 @@ def generate_types(api: Any, outdir: str) -> None:
     for operations in api['operations']:
         generate_operations(operations, outdir)
     for struct in structs.values():
-        struct.generate_class(outdir)
+        if struct.get_name() not in EXCLUDED_STRUCTS:
+            struct.generate_class(outdir)
+
 
 FP_TYPES = {
     'String': 'String',
