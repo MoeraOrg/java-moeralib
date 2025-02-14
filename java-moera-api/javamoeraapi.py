@@ -268,7 +268,11 @@ class Structure:
                 tfile.write('import org.moera.lib.node.types.body.Body;\n')
             tfile.write('\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
-            tfile.write(f'public class {self.data["name"]} implements Cloneable {{\n\n')
+            interfaces = 'Cloneable'
+            if 'java-interfaces' in self.data:
+                for interface in self.data['java-interfaces']:
+                    interfaces += ', ' + interface
+            tfile.write(f'public class {self.data["name"]} implements {interfaces} {{\n\n')
             for field in fields:
                 tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
             tfile.write(f'\n{ind(1)}@JsonIgnore\n')

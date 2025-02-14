@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingInfo implements Cloneable {
+public class PostingInfo implements Cloneable, MediaInfo {
 
     private String id;
     private String revisionId;
