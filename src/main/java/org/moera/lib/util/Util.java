@@ -69,4 +69,8 @@ public class Util {
         return String.format("%02X", b >= 0 ? b : 256 + (int) b);
     }
 
+    public static boolean isEmpty(String s) {
+        return s == null || s.isEmpty();
+    }
+
 }

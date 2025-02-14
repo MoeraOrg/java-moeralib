@@ -263,7 +263,10 @@ class Structure:
                     tfile.write(f'import {imp};\n')
                 tfile.write('\n')
             tfile.write('import com.fasterxml.jackson.annotation.JsonIgnore;\n')
-            tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n\n')
+            tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
+            if 'Body' in self.depends:
+                tfile.write('import org.moera.lib.node.types.body.Body;\n')
+            tfile.write('\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
             tfile.write(f'public class {self.data["name"]} implements Cloneable {{\n\n')
             for field in fields:
@@ -292,7 +295,7 @@ def scan_structures(api: Any) -> dict[str, Structure]:
     return structs
 
 
-EXCLUDED_STRUCTS = ['FundraiserInfo']
+EXCLUDED_STRUCTS = ['FundraiserInfo', 'Body', 'LinkPreview']
 
 
 def generate_types(api: Any, outdir: str) -> None:

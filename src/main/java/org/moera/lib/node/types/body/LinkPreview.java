@@ -1,12 +1,15 @@
-package org.moera.lib.node.types;
-
-// This file is generated
+package org.moera.lib.node.types.body;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LinkPreview implements Cloneable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class LinkPreview {
+
+    @JsonIgnore
+    private Body parent;
 
     private String siteName;
     private String url;
@@ -14,8 +17,9 @@ public class LinkPreview implements Cloneable {
     private String description;
     private String imageHash;
 
-    @JsonIgnore
-    private Object extra;
+    public void setParent(Body parent) {
+        this.parent = parent;
+    }
 
     public String getSiteName() {
         return siteName;
@@ -23,6 +27,7 @@ public class LinkPreview implements Cloneable {
 
     public void setSiteName(String siteName) {
         this.siteName = siteName;
+        modified();
     }
 
     public String getUrl() {
@@ -31,6 +36,7 @@ public class LinkPreview implements Cloneable {
 
     public void setUrl(String url) {
         this.url = url;
+        modified();
     }
 
     public String getTitle() {
@@ -39,6 +45,7 @@ public class LinkPreview implements Cloneable {
 
     public void setTitle(String title) {
         this.title = title;
+        modified();
     }
 
     public String getDescription() {
@@ -47,6 +54,7 @@ public class LinkPreview implements Cloneable {
 
     public void setDescription(String description) {
         this.description = description;
+        modified();
     }
 
     public String getImageHash() {
@@ -55,22 +63,12 @@ public class LinkPreview implements Cloneable {
 
     public void setImageHash(String imageHash) {
         this.imageHash = imageHash;
+        modified();
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
-    @Override
-    public LinkPreview clone() {
-        try {
-            return (LinkPreview) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalArgumentException("Must implement Cloneable", e);
+    private void modified() {
+        if (parent != null) {
+            parent.modified();
         }
     }
 
