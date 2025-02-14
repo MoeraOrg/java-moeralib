@@ -255,6 +255,9 @@ class Structure:
                 imports.add('java.util.UUID')
             fields.append((t, field['name']))
 
+        if self.data.get('java-equals', False):
+            imports.add('java.util.Objects')
+
         with open(outdir + f'/node/types/{self.data["name"]}.java', 'w+') as tfile:
             tfile.write('package org.moera.lib.node.types;\n\n')
             tfile.write('// This file is generated\n\n')
@@ -291,6 +294,30 @@ class Structure:
             tfile.write(f'{ind(2)}this.extra = extra;\n')
             tfile.write(f'{ind(1)}}}\n')
             tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
+            if self.data.get('java-equals', False):
+                tfile.write(f'\n{ind(1)}@Override\n')
+                tfile.write(f'{ind(1)}public boolean equals(Object peer) {{\n')
+                tfile.write(f'{ind(2)}if (this == peer) {{\n')
+                tfile.write(f'{ind(3)}return true;\n')
+                tfile.write(f'{ind(2)}}}\n')
+                tfile.write(f'{ind(2)}if (peer == null || getClass() != peer.getClass()) {{\n')
+                tfile.write(f'{ind(3)}return false;\n')
+                tfile.write(f'{ind(2)}}}\n')
+                tfile.write(f'{ind(2)}{self.data["name"]} that = ({self.data["name"]}) peer;\n')
+                tfile.write(f'{ind(2)}return ')
+                first = True
+                for field in fields:
+                    if not first:
+                        tfile.write(f'\n{ind(3)}&& ')
+                    first = False
+                    tfile.write(f'Objects.equals({field[1]}, that.{field[1]})')
+                tfile.write(';\n')
+                tfile.write(f'{ind(1)}}}\n')
+                tfile.write(f'\n{ind(1)}@Override\n')
+                tfile.write(f'{ind(1)}public int hashCode() {{\n')
+                hash_params = ', '.join([field[1] for field in fields])
+                tfile.write(f'{ind(2)}return Objects.hash({hash_params});\n')
+                tfile.write(f'{ind(1)}}}\n')
             tfile.write('\n}\n')
 
 
