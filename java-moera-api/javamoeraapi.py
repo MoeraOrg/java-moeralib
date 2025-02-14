@@ -299,7 +299,7 @@ def scan_structures(api: Any) -> dict[str, Structure]:
     return structs
 
 
-EXCLUDED_STRUCTS = ['FundraiserInfo', 'Body', 'LinkPreview']
+EXCLUDED_STRUCTS = ['Body', 'FundraiserInfo', 'LinkPreview', 'Result']
 
 
 def generate_types(api: Any, outdir: str) -> None:

@@ -1,18 +1,22 @@
 package org.moera.lib.node.types;
 
-// This file is generated
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Result implements Cloneable {
+public class Result {
+
+    public static final Result OK = new Result("ok", "OK");
+    public static final Result FROZEN = new Result("frozen", "Frozen");
 
     private String errorCode;
     private String message;
 
-    @JsonIgnore
-    private Object extra;
+    public Result() {
+    }
+
+    public Result(String errorCode, String message) {
+        this.errorCode = errorCode;
+        this.message = message;
+    }
 
     public String getErrorCode() {
         return errorCode;
@@ -30,21 +34,14 @@ public class Result implements Cloneable {
         this.message = message;
     }
 
-    public Object getExtra() {
-        return extra;
+    @JsonIgnore
+    public boolean isOk() {
+        return errorCode.equals("ok");
     }
 
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
-    @Override
-    public Result clone() {
-        try {
-            return (Result) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalArgumentException("Must implement Cloneable", e);
-        }
+    @JsonIgnore
+    public boolean isFrozen() {
+        return errorCode.equals("frozen");
     }
 
 }
