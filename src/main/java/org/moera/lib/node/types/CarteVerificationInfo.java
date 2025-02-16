@@ -20,7 +20,7 @@ public class CarteVerificationInfo implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getValid() {
+    public boolean isValid() {
         return valid;
     }
 

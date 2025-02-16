@@ -16,7 +16,7 @@ public class SheriffComplaintDecisionText implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getReject() {
+    public boolean isReject() {
         return reject;
     }
 

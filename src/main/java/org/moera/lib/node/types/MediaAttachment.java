@@ -31,7 +31,7 @@ public class MediaAttachment implements Cloneable {
         this.remoteMedia = remoteMedia;
     }
 
-    public boolean getEmbedded() {
+    public boolean isEmbedded() {
         return embedded;
     }
 

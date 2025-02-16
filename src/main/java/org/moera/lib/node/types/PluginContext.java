@@ -25,7 +25,7 @@ public class PluginContext implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getRootAdmin() {
+    public boolean isRootAdmin() {
         return rootAdmin;
     }
 
@@ -33,7 +33,7 @@ public class PluginContext implements Cloneable {
         this.rootAdmin = rootAdmin;
     }
 
-    public boolean getAdmin() {
+    public boolean isAdmin() {
         return admin;
     }
 

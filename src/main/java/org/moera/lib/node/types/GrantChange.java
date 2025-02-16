@@ -24,7 +24,7 @@ public class GrantChange implements Cloneable {
         this.scope = scope;
     }
 
-    public boolean getRevoke() {
+    public boolean isRevoke() {
         return revoke;
     }
 

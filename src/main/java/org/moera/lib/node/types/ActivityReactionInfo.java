@@ -51,7 +51,7 @@ public class ActivityReactionInfo implements Cloneable {
         this.remotePostingId = remotePostingId;
     }
 
-    public boolean getNegative() {
+    public boolean isNegative() {
         return negative;
     }
 

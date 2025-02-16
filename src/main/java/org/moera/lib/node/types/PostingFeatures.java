@@ -29,7 +29,7 @@ public class PostingFeatures implements Cloneable {
         this.post = post;
     }
 
-    public boolean getSubjectPresent() {
+    public boolean isSubjectPresent() {
         return subjectPresent;
     }
 

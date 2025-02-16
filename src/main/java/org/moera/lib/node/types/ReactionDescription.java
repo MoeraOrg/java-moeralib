@@ -53,7 +53,7 @@ public class ReactionDescription implements Cloneable {
         this.ownerAvatar = ownerAvatar;
     }
 
-    public boolean getNegative() {
+    public boolean isNegative() {
         return negative;
     }
 

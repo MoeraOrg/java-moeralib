@@ -281,7 +281,8 @@ class Structure:
             tfile.write(f'\n{ind(1)}@JsonIgnore\n')
             tfile.write(f'{ind(1)}private Object extra;\n')
             for field in fields:
-                tfile.write(f'\n{ind(1)}public {field[0]} get{cap_first(field[1])}() {{\n')
+                verb = 'is' if field[0] == 'boolean' else 'get'
+                tfile.write(f'\n{ind(1)}public {field[0]} {verb}{cap_first(field[1])}() {{\n')
                 tfile.write(f'{ind(2)}return {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
                 tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')

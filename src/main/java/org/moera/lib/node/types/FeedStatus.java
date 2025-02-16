@@ -10,11 +10,11 @@ public class FeedStatus implements Cloneable {
 
     private int total;
     private int totalPinned;
-    private Integer lastMoment;
+    private Long lastMoment;
     private Integer notViewed;
     private Integer notRead;
-    private Integer notViewedMoment;
-    private Integer notReadMoment;
+    private Long notViewedMoment;
+    private Long notReadMoment;
 
     @JsonIgnore
     private Object extra;
@@ -35,11 +35,11 @@ public class FeedStatus implements Cloneable {
         this.totalPinned = totalPinned;
     }
 
-    public Integer getLastMoment() {
+    public Long getLastMoment() {
         return lastMoment;
     }
 
-    public void setLastMoment(Integer lastMoment) {
+    public void setLastMoment(Long lastMoment) {
         this.lastMoment = lastMoment;
     }
 
@@ -59,19 +59,19 @@ public class FeedStatus implements Cloneable {
         this.notRead = notRead;
     }
 
-    public Integer getNotViewedMoment() {
+    public Long getNotViewedMoment() {
         return notViewedMoment;
     }
 
-    public void setNotViewedMoment(Integer notViewedMoment) {
+    public void setNotViewedMoment(Long notViewedMoment) {
         this.notViewedMoment = notViewedMoment;
     }
 
-    public Integer getNotReadMoment() {
+    public Long getNotReadMoment() {
         return notReadMoment;
     }
 
-    public void setNotReadMoment(Integer notReadMoment) {
+    public void setNotReadMoment(Long notReadMoment) {
         this.notReadMoment = notReadMoment;
     }
 

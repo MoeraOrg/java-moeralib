@@ -16,7 +16,7 @@ public class ClientReactionInfo implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getNegative() {
+    public boolean isNegative() {
         return negative;
     }
 

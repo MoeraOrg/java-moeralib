@@ -13,7 +13,7 @@ public class DeleteNodeStatus implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getRequested() {
+    public boolean isRequested() {
         return requested;
     }
 

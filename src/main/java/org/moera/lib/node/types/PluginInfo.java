@@ -31,7 +31,7 @@ public class PluginInfo implements Cloneable {
         this.nodeId = nodeId;
     }
 
-    public boolean getLocal() {
+    public boolean isLocal() {
         return local;
     }
 

@@ -21,6 +21,7 @@ public class CommentOperations implements Cloneable {
     private Principal viewNegativeReactionRatios;
     private Principal addReaction;
     private Principal addNegativeReaction;
+    private Principal overrideReaction;
 
     public Principal getView() {
         return view;
@@ -243,6 +244,26 @@ public class CommentOperations implements Cloneable {
 
     public void setAddNegativeReaction(Principal addNegativeReaction, Principal defaultValue) {
         this.addNegativeReaction = Objects.equals(addNegativeReaction, defaultValue) ? null : addNegativeReaction;
+    }
+
+    public Principal getOverrideReaction() {
+        return overrideReaction;
+    }
+
+    public Principal getOverrideReaction(Principal defaultValue) {
+        return overrideReaction != null ? overrideReaction : defaultValue;
+    }
+
+    public static Principal getOverrideReaction(CommentOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getOverrideReaction(defaultValue) : defaultValue;
+    }
+
+    public void setOverrideReaction(Principal overrideReaction) {
+        this.overrideReaction = overrideReaction;
+    }
+
+    public void setOverrideReaction(Principal overrideReaction, Principal defaultValue) {
+        this.overrideReaction = Objects.equals(overrideReaction, defaultValue) ? null : overrideReaction;
     }
 
     @Override

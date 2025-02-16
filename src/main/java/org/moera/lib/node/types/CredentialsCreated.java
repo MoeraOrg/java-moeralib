@@ -13,7 +13,7 @@ public class CredentialsCreated implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public boolean getCreated() {
+    public boolean isCreated() {
         return created;
     }
 

@@ -11,6 +11,8 @@ public class FeedWithStatus implements Cloneable {
     private String feedName;
     private int notViewed;
     private int notRead;
+    private Long notViewedMoment;
+    private Long notReadMoment;
 
     @JsonIgnore
     private Object extra;
@@ -37,6 +39,22 @@ public class FeedWithStatus implements Cloneable {
 
     public void setNotRead(int notRead) {
         this.notRead = notRead;
+    }
+
+    public Long getNotViewedMoment() {
+        return notViewedMoment;
+    }
+
+    public void setNotViewedMoment(Long notViewedMoment) {
+        this.notViewedMoment = notViewedMoment;
+    }
+
+    public Long getNotReadMoment() {
+        return notReadMoment;
+    }
+
+    public void setNotReadMoment(Long notReadMoment) {
+        this.notReadMoment = notReadMoment;
     }
 
     public Object getExtra() {
