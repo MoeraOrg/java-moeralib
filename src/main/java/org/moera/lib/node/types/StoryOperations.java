@@ -53,6 +53,11 @@ public class StoryOperations implements Cloneable {
         this.delete = Objects.equals(delete, defaultValue) ? null : delete;
     }
 
+    public boolean isEmpty() {
+        return edit == null
+            && delete == null;
+    }
+
     @Override
     public StoryOperations clone() {
         try {

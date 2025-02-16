@@ -178,6 +178,16 @@ def generate_operations(operations: Any, outdir: str) -> None:
                 line = line.replace('=', '=\n' + ind(3))
             tfile.write(line)
             tfile.write(f'{ind(1)}}}\n')
+        tfile.write(f'\n{ind(1)}public boolean isEmpty() {{\n')
+        tfile.write(f'{ind(2)}return ')
+        first = True
+        for field in operations['fields']:
+            if not first:
+                tfile.write(f'\n{ind(3)}&& ')
+            first = False
+            tfile.write(f'{field["name"]} == null')
+        tfile.write(';\n')
+        tfile.write(f'{ind(1)}}}\n')
         tfile.write(CLONE_METHOD.replace('ClassName', operations['name']))
         tfile.write('\n}\n')
 

@@ -32,6 +32,10 @@ public class FriendOperations implements Cloneable {
         this.view = Objects.equals(view, defaultValue) ? null : view;
     }
 
+    public boolean isEmpty() {
+        return view == null;
+    }
+
     @Override
     public FriendOperations clone() {
         try {

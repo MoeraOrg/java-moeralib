@@ -53,6 +53,11 @@ public class SubscriberOperations implements Cloneable {
         this.delete = Objects.equals(delete, defaultValue) ? null : delete;
     }
 
+    public boolean isEmpty() {
+        return view == null
+            && delete == null;
+    }
+
     @Override
     public SubscriberOperations clone() {
         try {

@@ -32,6 +32,10 @@ public class FeedOperations implements Cloneable {
         this.add = Objects.equals(add, defaultValue) ? null : add;
     }
 
+    public boolean isEmpty() {
+        return add == null;
+    }
+
     @Override
     public FeedOperations clone() {
         try {

@@ -53,6 +53,11 @@ public class ProfileOperations implements Cloneable {
         this.viewEmail = Objects.equals(viewEmail, defaultValue) ? null : viewEmail;
     }
 
+    public boolean isEmpty() {
+        return edit == null
+            && viewEmail == null;
+    }
+
     @Override
     public ProfileOperations clone() {
         try {

@@ -32,6 +32,10 @@ public class NodeNameOperations implements Cloneable {
         this.manage = Objects.equals(manage, defaultValue) ? null : manage;
     }
 
+    public boolean isEmpty() {
+        return manage == null;
+    }
+
     @Override
     public NodeNameOperations clone() {
         try {

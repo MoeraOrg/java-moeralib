@@ -137,6 +137,15 @@ public class ContactOperations implements Cloneable {
         this.viewBlockBy = Objects.equals(viewBlockBy, defaultValue) ? null : viewBlockBy;
     }
 
+    public boolean isEmpty() {
+        return viewFeedSubscriber == null
+            && viewFeedSubscription == null
+            && viewFriend == null
+            && viewFriendOf == null
+            && viewBlock == null
+            && viewBlockBy == null;
+    }
+
     @Override
     public ContactOperations clone() {
         try {

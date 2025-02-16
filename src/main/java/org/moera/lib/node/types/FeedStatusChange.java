@@ -10,7 +10,7 @@ public class FeedStatusChange implements Cloneable {
 
     private Boolean viewed;
     private Boolean read;
-    private int before;
+    private long before;
 
     @JsonIgnore
     private Object extra;
@@ -31,11 +31,11 @@ public class FeedStatusChange implements Cloneable {
         this.read = read;
     }
 
-    public int getBefore() {
+    public long getBefore() {
         return before;
     }
 
-    public void setBefore(int before) {
+    public void setBefore(long before) {
         this.before = before;
     }
 

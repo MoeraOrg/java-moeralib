@@ -266,6 +266,21 @@ public class CommentOperations implements Cloneable {
         this.overrideReaction = Objects.equals(overrideReaction, defaultValue) ? null : overrideReaction;
     }
 
+    public boolean isEmpty() {
+        return view == null
+            && edit == null
+            && delete == null
+            && viewReactions == null
+            && viewNegativeReactions == null
+            && viewReactionTotals == null
+            && viewNegativeReactionTotals == null
+            && viewReactionRatios == null
+            && viewNegativeReactionRatios == null
+            && addReaction == null
+            && addNegativeReaction == null
+            && overrideReaction == null;
+    }
+
     @Override
     public CommentOperations clone() {
         try {

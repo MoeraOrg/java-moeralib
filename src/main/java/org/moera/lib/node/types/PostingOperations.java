@@ -351,6 +351,25 @@ public class PostingOperations implements Cloneable {
              Objects.equals(overrideCommentReaction, defaultValue) ? null : overrideCommentReaction;
     }
 
+    public boolean isEmpty() {
+        return view == null
+            && edit == null
+            && delete == null
+            && viewComments == null
+            && addComment == null
+            && overrideComment == null
+            && viewReactions == null
+            && viewNegativeReactions == null
+            && viewReactionTotals == null
+            && viewNegativeReactionTotals == null
+            && viewReactionRatios == null
+            && viewNegativeReactionRatios == null
+            && addReaction == null
+            && addNegativeReaction == null
+            && overrideReaction == null
+            && overrideCommentReaction == null;
+    }
+
     @Override
     public PostingOperations clone() {
         try {

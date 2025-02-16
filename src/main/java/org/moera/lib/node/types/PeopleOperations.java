@@ -222,6 +222,19 @@ public class PeopleOperations implements Cloneable {
         this.viewFriendOfsTotal = Objects.equals(viewFriendOfsTotal, defaultValue) ? null : viewFriendOfsTotal;
     }
 
+    public boolean isEmpty() {
+        return viewSubscribers == null
+            && viewSubscriptions == null
+            && viewFriends == null
+            && viewFriendOfs == null
+            && viewBlocked == null
+            && viewBlockedBy == null
+            && viewSubscribersTotal == null
+            && viewSubscriptionsTotal == null
+            && viewFriendsTotal == null
+            && viewFriendOfsTotal == null;
+    }
+
     @Override
     public PeopleOperations clone() {
         try {
