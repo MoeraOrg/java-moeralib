@@ -265,7 +265,8 @@ class Structure:
             if t == 'UUID':
                 imports.add('java.util.UUID')
             if 'constraints' in field:
-                validate = True
+                if any('other' not in constraint for constraint in field['constraints']):
+                    validate = True
             fields.append((t, field['name']))
 
         if self.data.get('java-equals', False):
@@ -331,6 +332,15 @@ class Structure:
                 if 'length' in constraint:
                     cons = constraint['length']
                     tfile.write(f'{ind(2)}ValidationUtil.maxSize({field["name"]}, {cons["max"]}, "{cons["error"]}");\n')
+                if 'value' in constraint:
+                    cons = constraint['value']
+                    if 'min' in cons:
+                        tfile.write(f'{ind(2)}ValidationUtil.minValue({field["name"]}, {cons["min"]}, "{cons["error"]}");\n')
+                    if 'max' in cons:
+                        tfile.write(f'{ind(2)}ValidationUtil.maxValue({field["name"]}, {cons["max"]}, "{cons["error"]}");\n')
+                if 'domainname' in constraint:
+                    cons = constraint['domainname']
+                    tfile.write(f'{ind(2)}ValidationUtil.domainName({field["name"]}, "{cons["error"]}");\n')
         tfile.write(f'{ind(1)}}}\n')
 
     def generate_equals(self, fields: List[Tuple[str, str]], tfile: TextIO) -> None:
