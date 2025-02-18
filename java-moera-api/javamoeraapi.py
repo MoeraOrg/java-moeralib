@@ -244,6 +244,7 @@ class Structure:
     def generate_class(self, outdir: str) -> None:
         imports = set()
         fields: List[Tuple[str, str]] = []
+        validate = False
         for field in self.data['fields']:
             if 'struct' in field:
                 t = field['struct']
@@ -263,6 +264,8 @@ class Structure:
                 imports.add('java.sql.Timestamp')
             if t == 'UUID':
                 imports.add('java.util.UUID')
+            if 'constraints' in field:
+                validate = True
             fields.append((t, field['name']))
 
         if self.data.get('java-equals', False):
@@ -279,6 +282,8 @@ class Structure:
             tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
             if 'Body' in self.depends:
                 tfile.write('import org.moera.lib.node.types.body.Body;\n')
+            if validate:
+                tfile.write('import org.moera.lib.node.types.validate.ValidationUtil;\n')
             tfile.write('\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
             interfaces = 'Cloneable'
@@ -304,32 +309,54 @@ class Structure:
             tfile.write(f'\n{ind(1)}public void setExtra(Object extra) {{\n')
             tfile.write(f'{ind(2)}this.extra = extra;\n')
             tfile.write(f'{ind(1)}}}\n')
+            if validate:
+                self.generate_validate(tfile)
             tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
             if self.data.get('java-equals', False):
-                tfile.write(f'\n{ind(1)}@Override\n')
-                tfile.write(f'{ind(1)}public boolean equals(Object peer) {{\n')
-                tfile.write(f'{ind(2)}if (this == peer) {{\n')
-                tfile.write(f'{ind(3)}return true;\n')
-                tfile.write(f'{ind(2)}}}\n')
-                tfile.write(f'{ind(2)}if (peer == null || getClass() != peer.getClass()) {{\n')
-                tfile.write(f'{ind(3)}return false;\n')
-                tfile.write(f'{ind(2)}}}\n')
-                tfile.write(f'{ind(2)}{self.data["name"]} that = ({self.data["name"]}) peer;\n')
-                tfile.write(f'{ind(2)}return ')
-                first = True
-                for field in fields:
-                    if not first:
-                        tfile.write(f'\n{ind(3)}&& ')
-                    first = False
-                    tfile.write(f'Objects.equals({field[1]}, that.{field[1]})')
-                tfile.write(';\n')
-                tfile.write(f'{ind(1)}}}\n')
-                tfile.write(f'\n{ind(1)}@Override\n')
-                tfile.write(f'{ind(1)}public int hashCode() {{\n')
-                hash_params = ', '.join([field[1] for field in fields])
-                tfile.write(f'{ind(2)}return Objects.hash({hash_params});\n')
-                tfile.write(f'{ind(1)}}}\n')
+                self.generate_equals(fields, tfile)
             tfile.write('\n}\n')
+
+    def generate_validate(self, tfile: TextIO) -> None:
+        tfile.write(f'\n{ind(1)}public void validate() {{\n')
+        for field in self.data['fields']:
+            if 'constraints' not in field:
+                continue
+            for constraint in field['constraints']:
+                if 'notnull' in constraint:
+                    cons = constraint['notnull']
+                    tfile.write(f'{ind(2)}ValidationUtil.notNull({field["name"]}, "{cons["error"]}");\n')
+                if 'notblank' in constraint:
+                    cons = constraint['notblank']
+                    tfile.write(f'{ind(2)}ValidationUtil.notBlank({field["name"]}, "{cons["error"]}");\n')
+                if 'length' in constraint:
+                    cons = constraint['length']
+                    tfile.write(f'{ind(2)}ValidationUtil.maxSize({field["name"]}, {cons["max"]}, "{cons["error"]}");\n')
+        tfile.write(f'{ind(1)}}}\n')
+
+    def generate_equals(self, fields: List[Tuple[str, str]], tfile: TextIO) -> None:
+        tfile.write(f'\n{ind(1)}@Override\n')
+        tfile.write(f'{ind(1)}public boolean equals(Object peer) {{\n')
+        tfile.write(f'{ind(2)}if (this == peer) {{\n')
+        tfile.write(f'{ind(3)}return true;\n')
+        tfile.write(f'{ind(2)}}}\n')
+        tfile.write(f'{ind(2)}if (peer == null || getClass() != peer.getClass()) {{\n')
+        tfile.write(f'{ind(3)}return false;\n')
+        tfile.write(f'{ind(2)}}}\n')
+        tfile.write(f'{ind(2)}{self.data["name"]} that = ({self.data["name"]}) peer;\n')
+        tfile.write(f'{ind(2)}return ')
+        first = True
+        for field in fields:
+            if not first:
+                tfile.write(f'\n{ind(3)}&& ')
+            first = False
+            tfile.write(f'Objects.equals({field[1]}, that.{field[1]})')
+        tfile.write(';\n')
+        tfile.write(f'{ind(1)}}}\n')
+        tfile.write(f'\n{ind(1)}@Override\n')
+        tfile.write(f'{ind(1)}public int hashCode() {{\n')
+        hash_params = ', '.join([field[1] for field in fields])
+        tfile.write(f'{ind(2)}return Objects.hash({hash_params});\n')
+        tfile.write(f'{ind(1)}}}\n')
 
 
 def scan_structures(api: Any) -> dict[str, Structure]:
