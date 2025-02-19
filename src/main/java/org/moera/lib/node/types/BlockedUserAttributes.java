@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlockedUserAttributes implements Cloneable {
@@ -90,6 +91,12 @@ public class BlockedUserAttributes implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notNull(blockedOperation, "blocked-user.blocked-operation.missing");
+        ValidationUtil.notBlank(nodeName, "blocked-user.node-name.blank");
+        ValidationUtil.maxSize(reasonSrc, 4096, "blocked-user.reason-src.wrong-size");
     }
 
     @Override

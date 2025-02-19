@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AskDescription implements Cloneable {
@@ -45,6 +46,12 @@ public class AskDescription implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notNull(subject, "ask.subject.missing");
+        ValidationUtil.maxSize(friendGroupId, 40, "ask.friend-group-id.wrong-size");
+        ValidationUtil.maxSize(message, 70, "ask.message.wrong-size");
     }
 
     @Override
