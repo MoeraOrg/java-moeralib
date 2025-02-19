@@ -1,5 +1,6 @@
 package org.moera.lib.node.types.principal;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class PrincipalFlag {
         return flag;
     }
 
-    public static int fromNames(String[] names) {
+    public static int fromNames(Collection<String> names) {
         int flags = 0;
         for (String name : names) {
             flags |= fromName(name);
