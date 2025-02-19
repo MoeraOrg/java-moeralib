@@ -6,6 +6,8 @@ public class ValidationUtil {
 
     private static final Pattern DOMAIN_NAME_PATTERN =
         Pattern.compile("^[a-z][a-z0-9-]*[a-z0-9](\\.[a-z][a-z0-9-]*[a-z0-9])*$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern EMAIL_PATTERN =
+        Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}$", Pattern.CASE_INSENSITIVE);
 
     public static void assertion(boolean condition, String errorCode) {
         if (!condition) {
@@ -43,6 +45,10 @@ public class ValidationUtil {
 
     public static void domainName(String value, String errorCode) {
         assertion(value == null || value.isEmpty() || DOMAIN_NAME_PATTERN.matcher(value).matches(), errorCode);
+    }
+
+    public static void email(String value, String errorCode) {
+        assertion(value == null || value.isEmpty() || EMAIL_PATTERN.matcher(value).matches(), errorCode);
     }
 
 }
