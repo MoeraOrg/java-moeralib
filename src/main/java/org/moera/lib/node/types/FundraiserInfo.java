@@ -1,7 +1,10 @@
 package org.moera.lib.node.types;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -17,10 +20,10 @@ public class FundraiserInfo {
 
     private final Map<String, String> fields = new HashMap<>();
 
-    public static String serializeValue(FundraiserInfo[] fundraisers) {
+    public static String serializeValue(Collection<FundraiserInfo> fundraisers) {
         if (fundraisers == null) {
             return null;
-        } else if (fundraisers.length == 0) {
+        } else if (fundraisers.isEmpty()) {
             return "";
         } else {
             try {
@@ -32,11 +35,11 @@ public class FundraiserInfo {
         }
     }
 
-    public static FundraiserInfo[] deserializeValue(String value) throws IOException {
+    public static List<FundraiserInfo> deserializeValue(String value) throws IOException {
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return new ObjectMapper().readValue(value, FundraiserInfo[].class);
+        return Arrays.asList(new ObjectMapper().readValue(value, FundraiserInfo[].class));
     }
 
     @JsonAnyGetter

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProfileAttributes implements Cloneable {
@@ -101,6 +102,15 @@ public class ProfileAttributes implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.maxSize(fullName, 96, "profile.full-name.wrong-size");
+        ValidationUtil.maxSize(gender, 31, "profile.gender.wrong-size");
+        ValidationUtil.maxSize(email, 63, "profile.email.wrong-size");
+        ValidationUtil.email(email, "profile.email.invalid");
+        ValidationUtil.maxSize(title, 120, "profile.title.wrong-size");
+        ValidationUtil.maxSize(bioSrc, 4096, "profile.bio-src.wrong-size");
     }
 
     @Override

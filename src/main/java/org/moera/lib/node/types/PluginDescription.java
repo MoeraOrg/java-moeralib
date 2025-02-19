@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PluginDescription implements Cloneable {
@@ -74,6 +75,13 @@ public class PluginDescription implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notBlank(name, "plugin.name.blank");
+        ValidationUtil.maxSize(name, 48, "plugin.name.wrong-size");
+        ValidationUtil.maxSize(title, 80, "plugin.title.wrong-size");
+        ValidationUtil.maxSize(description, 256, "plugin.description.wrong-size");
     }
 
     @Override

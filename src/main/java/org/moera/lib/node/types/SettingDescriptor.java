@@ -13,6 +13,7 @@ public class SettingDescriptor implements Cloneable {
     private String defaultValue;
     private Boolean internal;
     private Boolean privileged;
+    private Boolean encrypted;
     private String title;
     private SettingTypeModifiers modifiers;
 
@@ -57,6 +58,14 @@ public class SettingDescriptor implements Cloneable {
 
     public void setPrivileged(Boolean privileged) {
         this.privileged = privileged;
+    }
+
+    public Boolean getEncrypted() {
+        return encrypted;
+    }
+
+    public void setEncrypted(Boolean encrypted) {
+        this.encrypted = encrypted;
     }
 
     public String getTitle() {

@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PushRelayClientAttributes implements Cloneable {
@@ -45,6 +46,11 @@ public class PushRelayClientAttributes implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notNull(type, "push-relay.type.missing");
+        ValidationUtil.notBlank(clientId, "push-relay.client-id.blank");
     }
 
     @Override
