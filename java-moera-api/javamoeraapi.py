@@ -233,6 +233,7 @@ class Structure:
     data: Any
     generated: bool = False
     depends: list[str]
+    validated: bool = False
 
     def __init__(self, data: Any) -> None:
         self.data = data
@@ -241,10 +242,9 @@ class Structure:
     def get_name(self) -> str:
         return self.data["name"]
 
-    def generate_class(self, outdir: str) -> None:
+    def generate_class(self, structs: dict[str, Structure], outdir: str) -> None:
         imports = set()
         fields: List[Tuple[str, str]] = []
-        validate = False
         for field in self.data['fields']:
             if 'struct' in field:
                 t = field['struct']
@@ -264,9 +264,6 @@ class Structure:
                 imports.add('java.sql.Timestamp')
             if t == 'UUID':
                 imports.add('java.util.UUID')
-            if 'constraints' in field:
-                if any('other' not in constraint for constraint in field['constraints']):
-                    validate = True
             fields.append((t, field['name']))
 
         if self.data.get('java-equals', False):
@@ -283,7 +280,7 @@ class Structure:
             tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
             if 'Body' in self.depends:
                 tfile.write('import org.moera.lib.node.types.body.Body;\n')
-            if validate:
+            if self.validated:
                 tfile.write('import org.moera.lib.node.types.validate.ValidationUtil;\n')
             tfile.write('\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
@@ -310,16 +307,18 @@ class Structure:
             tfile.write(f'\n{ind(1)}public void setExtra(Object extra) {{\n')
             tfile.write(f'{ind(2)}this.extra = extra;\n')
             tfile.write(f'{ind(1)}}}\n')
-            if validate:
-                self.generate_validate(tfile)
+            if self.validated:
+                self.generate_validate(structs, tfile)
             tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
             if self.data.get('java-equals', False):
                 self.generate_equals(fields, tfile)
             tfile.write('\n}\n')
 
-    def generate_validate(self, tfile: TextIO) -> None:
+    def generate_validate(self, structs: dict[str, Structure], tfile: TextIO) -> None:
         tfile.write(f'\n{ind(1)}public void validate() {{\n')
         for field in self.data['fields']:
+            if 'struct' in field and field['struct'] in structs and structs[field['struct']].validated:
+                tfile.write(f'{ind(2)}{field["name"]}.validate();\n')
             if 'constraints' not in field:
                 continue
             for constraint in field['constraints']:
@@ -372,8 +371,28 @@ class Structure:
         tfile.write(f'{ind(1)}}}\n')
 
 
+def scan_validation(structs: dict[str, Structure]) -> None:
+    for struct in structs.values():
+        for field in struct.data['fields']:
+            if 'constraints' in field and any('other' not in constraint for constraint in field['constraints']):
+                struct.validated = True
+                break
+
+    modified = True
+    while modified:
+        modified = False
+        for struct in structs.values():
+            if struct.validated:
+                continue
+            for dep in struct.depends:
+                if dep in structs and structs[dep].validated:
+                    struct.validated = True
+                    modified = True
+
+
 def scan_structures(api: Any) -> dict[str, Structure]:
     structs: dict[str, Structure] = {struct['name']: Structure(struct) for struct in api['structures']}
+    scan_validation(structs)
     return structs
 
 
@@ -389,7 +408,7 @@ def generate_types(api: Any, outdir: str) -> None:
         generate_operations(operations, outdir)
     for struct in structs.values():
         if struct.get_name() not in EXCLUDED_STRUCTS:
-            struct.generate_class(outdir)
+            struct.generate_class(structs, outdir)
 
 
 FP_TYPES = {
