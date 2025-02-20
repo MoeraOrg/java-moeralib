@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SheriffComplaintDecisionText implements Cloneable {
@@ -54,6 +55,10 @@ public class SheriffComplaintDecisionText implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.maxSize(decisionDetails, 4096, "sheriff-complaint-decision.decision-details.wrong-size");
     }
 
     @Override

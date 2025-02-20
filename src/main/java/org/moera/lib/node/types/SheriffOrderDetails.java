@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SheriffOrderDetails implements Cloneable {
@@ -135,6 +136,16 @@ public class SheriffOrderDetails implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notBlank(id, "sheriff-order.id.blank");
+        ValidationUtil.maxSize(id, 40, "sheriff-order.id.wrong-size");
+        ValidationUtil.notBlank(sheriffName, "sheriff-order.sheriff-name.blank");
+        ValidationUtil.maxSize(sheriffName, 63, "sheriff-order.sheriff-name.wrong-size");
+        ValidationUtil.notBlank(feedName, "sheriff-order.feed-name.blank");
+        ValidationUtil.maxSize(feedName, 63, "sheriff-order.feed-name.wrong-size");
+        ValidationUtil.maxSize(reasonDetails, 4096, "sheriff-order.reason-details.wrong-size");
     }
 
     @Override

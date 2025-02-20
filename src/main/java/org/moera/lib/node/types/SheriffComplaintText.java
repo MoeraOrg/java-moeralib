@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SheriffComplaintText implements Cloneable {
@@ -180,6 +181,27 @@ public class SheriffComplaintText implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.maxSize(ownerFullName, 96, "sheriff-complaint.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerGender, 31, "sheriff-complaint.owner-gender.wrong-size");
+        ValidationUtil.notBlank(nodeName, "sheriff-complaint.node-name.blank");
+        ValidationUtil.maxSize(nodeName, 63, "sheriff-complaint.node-name.wrong-size");
+        ValidationUtil.maxSize(fullName, 96, "sheriff-complaint.full-name.wrong-size");
+        ValidationUtil.notBlank(feedName, "sheriff-complaint.feed-name.blank");
+        ValidationUtil.maxSize(feedName, 63, "sheriff-complaint.feed-name.wrong-size");
+        ValidationUtil.maxSize(postingId, 40, "sheriff-complaint.posting-id.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 63, "sheriff-complaint.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-complaint.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerGender, 31, "sheriff-complaint.posting-owner-gender.wrong-size");
+        ValidationUtil.maxSize(postingHeading, 255, "sheriff-complaint.posting-heading.wrong-size");
+        ValidationUtil.maxSize(commentId, 40, "sheriff-complaint.comment-id.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 63, "sheriff-complaint.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerFullName, 96, "sheriff-complaint.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerGender, 31, "sheriff-complaint.comment-owner-gender.wrong-size");
+        ValidationUtil.maxSize(commentHeading, 255, "sheriff-complaint.comment-heading.wrong-size");
+        ValidationUtil.maxSize(reasonDetails, 4096, "sheriff-complaint.reason-details.wrong-size");
     }
 
     @Override
