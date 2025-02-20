@@ -56,6 +56,12 @@ public class PushContent implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (story != null) {
+            story.validate();
+        }
+    }
+
     @Override
     public PushContent clone() {
         try {

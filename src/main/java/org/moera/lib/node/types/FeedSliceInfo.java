@@ -67,6 +67,12 @@ public class FeedSliceInfo implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (stories != null) {
+            stories.forEach(StoryInfo::validate);
+        }
+    }
+
     @Override
     public FeedSliceInfo clone() {
         try {

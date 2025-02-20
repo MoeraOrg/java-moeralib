@@ -194,6 +194,12 @@ public class PostingRevisionInfo implements Cloneable, RevisionInfo {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (updateInfo != null) {
+            updateInfo.validate();
+        }
+    }
+
     @Override
     public PostingRevisionInfo clone() {
         try {

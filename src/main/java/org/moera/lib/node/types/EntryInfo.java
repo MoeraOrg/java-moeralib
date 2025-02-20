@@ -38,6 +38,12 @@ public class EntryInfo implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (posting != null) {
+            posting.validate();
+        }
+    }
+
     @Override
     public EntryInfo clone() {
         try {

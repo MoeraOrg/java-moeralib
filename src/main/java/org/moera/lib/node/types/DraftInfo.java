@@ -221,6 +221,12 @@ public class DraftInfo implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (updateInfo != null) {
+            updateInfo.validate();
+        }
+    }
+
     @Override
     public DraftInfo clone() {
         try {

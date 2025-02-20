@@ -158,6 +158,12 @@ public class DraftText implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (updateInfo != null) {
+            updateInfo.validate();
+        }
+    }
+
     @Override
     public DraftText clone() {
         try {

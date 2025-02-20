@@ -2,6 +2,8 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -45,6 +47,24 @@ public class RemotePostingOrNode implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new IllegalArgumentException("Must implement Cloneable", e);
         }
+    }
+
+    @Override
+    public boolean equals(Object peer) {
+        if (this == peer) {
+            return true;
+        }
+        if (peer == null || getClass() != peer.getClass()) {
+            return false;
+        }
+        RemotePostingOrNode that = (RemotePostingOrNode) peer;
+        return Objects.equals(nodeName, that.nodeName)
+            && Objects.equals(postingId, that.postingId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nodeName, postingId);
     }
 
 }

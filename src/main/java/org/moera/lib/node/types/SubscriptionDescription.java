@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SubscriptionDescription implements Cloneable {
@@ -81,6 +82,16 @@ public class SubscriptionDescription implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notNull(type, "subscription.type.missing");
+        ValidationUtil.maxSize(feedName, 63, "subscription.feed-name.wrong-size");
+        ValidationUtil.notBlank(remoteNodeName, "subscription.remote-node-name.blank");
+        ValidationUtil.maxSize(remoteNodeName, 63, "subscription.remote-node-name.wrong-size");
+        ValidationUtil.maxSize(remoteFeedName, 63, "subscription.remote-feed-name.wrong-size");
+        ValidationUtil.maxSize(remotePostingId, 40, "subscription.remote-posting-id.wrong-size");
+        ValidationUtil.notNull(reason, "subscription.reason.missing");
     }
 
     @Override

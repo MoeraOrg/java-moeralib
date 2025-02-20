@@ -245,6 +245,12 @@ public class StoryInfo implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (posting != null) {
+            posting.validate();
+        }
+    }
+
     @Override
     public StoryInfo clone() {
         try {

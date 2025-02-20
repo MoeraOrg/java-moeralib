@@ -203,6 +203,12 @@ public class PostingText implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (updateInfo != null) {
+            updateInfo.validate();
+        }
+    }
+
     @Override
     public PostingText clone() {
         try {

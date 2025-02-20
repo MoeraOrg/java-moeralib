@@ -482,6 +482,12 @@ public class PostingInfo implements Cloneable, MediaInfo {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (updateInfo != null) {
+            updateInfo.validate();
+        }
+    }
+
     @Override
     public PostingInfo clone() {
         try {
