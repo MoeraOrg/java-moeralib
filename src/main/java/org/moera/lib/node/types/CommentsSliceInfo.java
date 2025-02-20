@@ -76,6 +76,12 @@ public class CommentsSliceInfo implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (comments != null) {
+            comments.forEach(CommentInfo::validate);
+        }
+    }
+
     @Override
     public CommentsSliceInfo clone() {
         try {

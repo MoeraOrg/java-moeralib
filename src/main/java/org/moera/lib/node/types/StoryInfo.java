@@ -249,6 +249,9 @@ public class StoryInfo implements Cloneable {
         if (posting != null) {
             posting.validate();
         }
+        if (comment != null) {
+            comment.validate();
+        }
     }
 
     @Override

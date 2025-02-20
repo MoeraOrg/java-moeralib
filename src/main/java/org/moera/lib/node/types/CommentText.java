@@ -185,6 +185,12 @@ public class CommentText implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
+    }
+
     @Override
     public CommentText clone() {
         try {

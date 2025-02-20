@@ -2,6 +2,8 @@ package org.moera.lib.node.types.validate;
 
 import java.util.regex.Pattern;
 
+import org.moera.lib.node.types.EmojiList;
+
 public class ValidationUtil {
 
     private static final Pattern DOMAIN_NAME_PATTERN =
@@ -49,6 +51,10 @@ public class ValidationUtil {
 
     public static void email(String value, String errorCode) {
         assertion(value == null || value.isEmpty() || EMAIL_PATTERN.matcher(value).matches(), errorCode);
+    }
+
+    public static void emojiList(String value, String errorCode) {
+        assertion(value == null || value.isEmpty() || EmojiList.isValid(value), errorCode);
     }
 
 }

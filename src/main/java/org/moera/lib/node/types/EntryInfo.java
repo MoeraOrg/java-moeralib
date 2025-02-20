@@ -42,6 +42,9 @@ public class EntryInfo implements Cloneable {
         if (posting != null) {
             posting.validate();
         }
+        if (comment != null) {
+            comment.validate();
+        }
     }
 
     @Override

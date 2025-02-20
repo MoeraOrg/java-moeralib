@@ -486,6 +486,9 @@ public class PostingInfo implements Cloneable, MediaInfo {
         if (updateInfo != null) {
             updateInfo.validate();
         }
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
     }
 
     @Override

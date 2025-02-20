@@ -38,6 +38,12 @@ public class CommentCreated implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (comment != null) {
+            comment.validate();
+        }
+    }
+
     @Override
     public CommentCreated clone() {
         try {

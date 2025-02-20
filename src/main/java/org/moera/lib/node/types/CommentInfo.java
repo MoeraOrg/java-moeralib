@@ -356,6 +356,12 @@ public class CommentInfo implements Cloneable, MediaInfo {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
+    }
+
     @Override
     public CommentInfo clone() {
         try {

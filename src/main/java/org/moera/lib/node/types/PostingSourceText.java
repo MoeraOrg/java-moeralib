@@ -86,6 +86,12 @@ public class PostingSourceText implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
+    }
+
     @Override
     public PostingSourceText clone() {
         try {

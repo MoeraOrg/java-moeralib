@@ -349,6 +349,9 @@ class Structure:
                 if 'email' in constraint:
                     cons = constraint['email']
                     tfile.write(f'{ind(2)}ValidationUtil.email({field["name"]}, "{cons["error"]}");\n')
+                if 'emojilist' in constraint:
+                    cons = constraint['emojilist']
+                    tfile.write(f'{ind(2)}ValidationUtil.emojiList({field["name"]}, "{cons["error"]}");\n')
         tfile.write(f'{ind(1)}}}\n')
 
     def generate_equals(self, fields: List[Tuple[str, str]], tfile: TextIO) -> None:

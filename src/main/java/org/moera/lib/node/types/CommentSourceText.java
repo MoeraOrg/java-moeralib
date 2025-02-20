@@ -95,6 +95,12 @@ public class CommentSourceText implements Cloneable {
         this.extra = extra;
     }
 
+    public void validate() {
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
+    }
+
     @Override
     public CommentSourceText clone() {
         try {

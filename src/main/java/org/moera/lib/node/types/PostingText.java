@@ -204,6 +204,9 @@ public class PostingText implements Cloneable {
     }
 
     public void validate() {
+        if (acceptedReactions != null) {
+            acceptedReactions.validate();
+        }
         if (updateInfo != null) {
             updateInfo.validate();
         }
