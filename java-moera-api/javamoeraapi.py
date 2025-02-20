@@ -234,6 +234,7 @@ class Structure:
     generated: bool = False
     depends: list[str]
     validated: bool = False
+    validation_utils: bool = False
 
     def __init__(self, data: Any) -> None:
         self.data = data
@@ -280,7 +281,7 @@ class Structure:
             tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
             if 'Body' in self.depends:
                 tfile.write('import org.moera.lib.node.types.body.Body;\n')
-            if self.validated:
+            if self.validation_utils:
                 tfile.write('import org.moera.lib.node.types.validate.ValidationUtil;\n')
             tfile.write('\n')
             tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
@@ -318,7 +319,12 @@ class Structure:
         tfile.write(f'\n{ind(1)}public void validate() {{\n')
         for field in self.data['fields']:
             if 'struct' in field and field['struct'] in structs and structs[field['struct']].validated:
-                tfile.write(f'{ind(2)}{field["name"]}.validate();\n')
+                tfile.write(f'{ind(2)}if ({field["name"]} != null) {{\n')
+                if field.get('array', False):
+                    tfile.write(f'{ind(3)}{field["name"]}.forEach({field["struct"]}::validate);\n')
+                else:
+                    tfile.write(f'{ind(3)}{field["name"]}.validate();\n')
+                tfile.write(f'{ind(2)}}}\n')
             if 'constraints' not in field:
                 continue
             for constraint in field['constraints']:
@@ -376,6 +382,7 @@ def scan_validation(structs: dict[str, Structure]) -> None:
         for field in struct.data['fields']:
             if 'constraints' in field and any('other' not in constraint for constraint in field['constraints']):
                 struct.validated = True
+                struct.validation_utils = True
                 break
 
     modified = True
