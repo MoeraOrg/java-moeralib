@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NotificationPacket implements Cloneable {
@@ -108,6 +109,15 @@ public class NotificationPacket implements Cloneable {
 
     public void setExtra(Object extra) {
         this.extra = extra;
+    }
+
+    public void validate() {
+        ValidationUtil.notBlank(nodeName, "notification.node-name.blank");
+        ValidationUtil.maxSize(nodeName, 63, "notification.node-name.wrong-size");
+        ValidationUtil.maxSize(fullName, 96, "notification.full-name.wrong-size");
+        ValidationUtil.maxSize(gender, 31, "notification.gender.wrong-size");
+        ValidationUtil.notBlank(type, "notification.type.blank");
+        ValidationUtil.notBlank(notification, "notification.notification.blank");
     }
 
     @Override
