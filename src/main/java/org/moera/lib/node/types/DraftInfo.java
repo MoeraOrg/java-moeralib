@@ -29,7 +29,7 @@ public class DraftInfo implements Cloneable {
     private BodyFormat bodyFormat;
     private List<MediaAttachment> media;
     private String heading;
-    private Integer publishAt;
+    private Long publishAt;
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
@@ -181,11 +181,11 @@ public class DraftInfo implements Cloneable {
         this.heading = heading;
     }
 
-    public Integer getPublishAt() {
+    public Long getPublishAt() {
         return publishAt;
     }
 
-    public void setPublishAt(Integer publishAt) {
+    public void setPublishAt(Long publishAt) {
         this.publishAt = publishAt;
     }
 

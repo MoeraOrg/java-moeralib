@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DraftText implements Cloneable {
@@ -22,7 +23,7 @@ public class DraftText implements Cloneable {
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
     private List<RemoteMedia> media;
-    private Integer publishAt;
+    private Long publishAt;
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
@@ -118,11 +119,11 @@ public class DraftText implements Cloneable {
         this.media = media;
     }
 
-    public Integer getPublishAt() {
+    public Long getPublishAt() {
         return publishAt;
     }
 
-    public void setPublishAt(Integer publishAt) {
+    public void setPublishAt(Long publishAt) {
         this.publishAt = publishAt;
     }
 
@@ -159,6 +160,12 @@ public class DraftText implements Cloneable {
     }
 
     public void validate() {
+        ValidationUtil.notBlank(receiverName, "draft.receiver-name.blank");
+        ValidationUtil.maxSize(receiverName, 63, "draft.receiver-name.wrong-size");
+        ValidationUtil.maxSize(receiverPostingId, 40, "draft.receiver-posting-id.wrong-size");
+        ValidationUtil.maxSize(receiverCommentId, 40, "draft.receiver-comment-id.wrong-size");
+        ValidationUtil.maxSize(repliedToId, 40, "draft.replied-to-id.wrong-size");
+        ValidationUtil.maxSize(ownerFullName, 96, "draft.owner-full-name.wrong-size");
         if (acceptedReactions != null) {
             acceptedReactions.validate();
         }

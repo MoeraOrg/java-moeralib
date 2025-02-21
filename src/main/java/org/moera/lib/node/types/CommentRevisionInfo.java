@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentRevisionInfo implements Cloneable, RevisionInfo {
+public class CommentRevisionInfo implements Cloneable {
 
     private String id;
     private String postingRevisionId;
