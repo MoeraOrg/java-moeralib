@@ -2,6 +2,8 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import java.util.function.Supplier;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -32,6 +34,14 @@ public class FriendGroupAssignment implements Cloneable {
 
     public Object getExtra() {
         return extra;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getOrCreateExtra(Supplier<T> creator) {
+        if (extra == null) {
+            extra = creator.get();
+        }
+        return (T) extra;
     }
 
     public void setExtra(Object extra) {

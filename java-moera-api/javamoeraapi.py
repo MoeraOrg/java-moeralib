@@ -244,7 +244,7 @@ class Structure:
         return self.data["name"]
 
     def generate_class(self, structs: dict[str, Structure], outdir: str) -> None:
-        imports = set()
+        imports = set(['java.util.function.Supplier'])
         fields: List[Tuple[str, str]] = []
         for field in self.data['fields']:
             if 'struct' in field:
@@ -304,6 +304,13 @@ class Structure:
                 tfile.write(f'{ind(1)}}}\n')
             tfile.write(f'\n{ind(1)}public Object getExtra() {{\n')
             tfile.write(f'{ind(2)}return extra;\n')
+            tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}@SuppressWarnings("unchecked")\n')
+            tfile.write(f'{ind(1)}public <T> T getOrCreateExtra(Supplier<T> creator) {{\n')
+            tfile.write(f'{ind(2)}if (extra == null) {{\n')
+            tfile.write(f'{ind(3)}extra = creator.get();\n')
+            tfile.write(f'{ind(2)}}}\n')
+            tfile.write(f'{ind(2)}return (T) extra;\n')
             tfile.write(f'{ind(1)}}}\n')
             tfile.write(f'\n{ind(1)}public void setExtra(Object extra) {{\n')
             tfile.write(f'{ind(2)}this.extra = extra;\n')

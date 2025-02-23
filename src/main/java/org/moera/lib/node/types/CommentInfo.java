@@ -3,6 +3,7 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,7 +30,7 @@ public class CommentInfo implements Cloneable, MediaInfo {
     private List<MediaAttachment> media;
     private String heading;
     private RepliedTo repliedTo;
-    private int moment;
+    private long moment;
     private long createdAt;
     private Long editedAt;
     private Long deletedAt;
@@ -196,11 +197,11 @@ public class CommentInfo implements Cloneable, MediaInfo {
         this.repliedTo = repliedTo;
     }
 
-    public int getMoment() {
+    public long getMoment() {
         return moment;
     }
 
-    public void setMoment(int moment) {
+    public void setMoment(long moment) {
         this.moment = moment;
     }
 
@@ -350,6 +351,14 @@ public class CommentInfo implements Cloneable, MediaInfo {
 
     public Object getExtra() {
         return extra;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getOrCreateExtra(Supplier<T> creator) {
+        if (extra == null) {
+            extra = creator.get();
+        }
+        return (T) extra;
     }
 
     public void setExtra(Object extra) {
