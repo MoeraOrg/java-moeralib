@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FeedSliceInfo implements Cloneable {
 
-    private int before;
-    private int after;
+    private long before;
+    private long after;
     private List<StoryInfo> stories;
     private int totalInPast;
     private int totalInFuture;
@@ -20,19 +20,19 @@ public class FeedSliceInfo implements Cloneable {
     @JsonIgnore
     private Object extra;
 
-    public int getBefore() {
+    public long getBefore() {
         return before;
     }
 
-    public void setBefore(int before) {
+    public void setBefore(long before) {
         this.before = before;
     }
 
-    public int getAfter() {
+    public long getAfter() {
         return after;
     }
 
-    public void setAfter(int after) {
+    public void setAfter(long after) {
         this.after = after;
     }
 

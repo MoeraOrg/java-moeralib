@@ -3,6 +3,7 @@ package org.moera.lib.node.types.validate;
 import java.util.regex.Pattern;
 
 import org.moera.lib.node.types.EmojiList;
+import org.moera.lib.node.types.body.Body;
 
 public class ValidationUtil {
 
@@ -27,6 +28,10 @@ public class ValidationUtil {
 
     public static void maxSize(String value, int maxSize, String errorCode) {
         assertion(value == null || value.length() <= maxSize, errorCode);
+    }
+
+    public static void maxSize(Body value, int maxSize, String errorCode) {
+        maxSize(value != null ? value.getEncoded() : null, maxSize, errorCode);
     }
 
     public static void minValue(Integer value, int min, String errorCode) {

@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommentSourceText implements Cloneable {
@@ -19,6 +20,7 @@ public class CommentSourceText implements Cloneable {
     private AcceptedReactions acceptedReactions;
     private String repliedToId;
     private CommentOperations operations;
+    private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
 
     @JsonIgnore
@@ -80,6 +82,14 @@ public class CommentSourceText implements Cloneable {
         this.operations = operations;
     }
 
+    public ReactionOperations getReactionOperations() {
+        return reactionOperations;
+    }
+
+    public void setReactionOperations(ReactionOperations reactionOperations) {
+        this.reactionOperations = reactionOperations;
+    }
+
     public CommentOperations getSeniorOperations() {
         return seniorOperations;
     }
@@ -105,6 +115,8 @@ public class CommentSourceText implements Cloneable {
     }
 
     public void validate() {
+        ValidationUtil.notNull(bodySrc, "comment.body-src.blank");
+        ValidationUtil.maxSize(bodySrc, 65535, "comment.body-src.wrong-size");
         if (acceptedReactions != null) {
             acceptedReactions.validate();
         }

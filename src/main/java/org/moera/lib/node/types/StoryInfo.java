@@ -16,7 +16,7 @@ public class StoryInfo implements Cloneable {
     private long createdAt;
     private long publishedAt;
     private Boolean pinned;
-    private int moment;
+    private long moment;
     private Boolean viewed;
     private Boolean read;
     private Boolean satisfied;
@@ -87,11 +87,11 @@ public class StoryInfo implements Cloneable {
         this.pinned = pinned;
     }
 
-    public int getMoment() {
+    public long getMoment() {
         return moment;
     }
 
-    public void setMoment(int moment) {
+    public void setMoment(long moment) {
         this.moment = moment;
     }
 

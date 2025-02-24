@@ -8,6 +8,7 @@ import org.moera.lib.jsonrpc.JsonRpcConnectionException;
 import org.moera.lib.jsonrpc.JsonRpcException;
 import org.moera.lib.jsonrpc.JsonRpcRequest;
 import org.moera.lib.jsonrpc.JsonRpcResponse;
+import org.moera.lib.node.types.StoryInfo;
 
 public class PushRelay extends JsonRpcClient implements PushRelayApi {
 
@@ -46,7 +47,7 @@ public class PushRelay extends JsonRpcClient implements PushRelayApi {
     }
 
     @Override
-    public void storyAdded(Object story, String nodeName, long signedAt, byte[] signature) {
+    public void storyAdded(StoryInfo story, String nodeName, long signedAt, byte[] signature) {
         fetch(Void.class, "storyAdded", story, nodeName, signedAt, signature);
     }
 

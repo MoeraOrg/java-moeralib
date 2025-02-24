@@ -1,5 +1,7 @@
 package org.moera.lib.pushrelay;
 
+import org.moera.lib.node.types.StoryInfo;
+
 public interface PushRelayApi {
 
     void register(String clientId, String nodeName, String lang, long signedAt, byte[] signature);
@@ -13,7 +15,7 @@ public interface PushRelayApi {
         byte[] signature
     );
 
-    void storyAdded(Object story, String nodeName, long signedAt, byte[] signature);
+    void storyAdded(StoryInfo story, String nodeName, long signedAt, byte[] signature);
 
     void storyDeleted(String storyId, String nodeName, long signedAt, byte[] signature);
 
