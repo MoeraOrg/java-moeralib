@@ -117,16 +117,19 @@ def generate_enum(enum: Any, outdir: str) -> None:
     with open(outdir + f'/node/types/{enum["name"]}.java', 'w+') as tfile:
         tfile.write(PREAMBLE_ENUM)
         tfile.write(f'public enum {enum["name"]} {{\n')
+        values = sorted(enum['values'], key=lambda item: item.get('ordinal', 0))
         first = True
-        for item in enum['values']:
-            tfile.write('\n' if first else ',\n')
+        ordinal = ''
+        for item in values:
+            tfile.write('\n' if first else f',{ordinal}\n')
             if 'description' in item:
                 tfile.write(f'{ind(1)}/**\n')
-                tfile.write(ind(1) + doc_wrap(cap_first(item["description"]) + '.', 1))
+                tfile.write(ind(1) + doc_wrap(cap_first(item["description"].strip() + '.'), 1))
                 tfile.write(f'\n{ind(1)} */\n')
             tfile.write(f'{ind(1)}{item["name"].replace("-", "_").replace("/", "__").upper()}')
+            ordinal = f' // {item["ordinal"]}' if 'ordinal' in item else ''
             first = False
-        tfile.write(';\n')
+        tfile.write(f';{ordinal}\n')
         tfile.write(CONCLUSION_ENUM.replace('EnumType', enum['name']))
 
 

@@ -8,45 +8,45 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum SheriffOrderReason {
 
     /**
+     * Any other reason.
+     */
+    OTHER, // 0
+    /**
      * Violation of a law.
      */
-    UNLAWFUL,
+    UNLAWFUL, // 1
     /**
      * Defamatory content.
      */
-    DEFAMATORY,
+    DEFAMATORY, // 2
     /**
      * Contains a threat against a person.
      */
-    THREAT,
+    THREAT, // 3
     /**
      * Spam.
      */
-    SPAM,
+    SPAM, // 4
     /**
      * Fraudulent content.
      */
-    SCAM,
+    SCAM, // 5
     /**
-     * Distribution of a malware.
+     * Distribution of malware.
      */
-    MALWARE,
+    MALWARE, // 6
     /**
      * Copyright infringement.
      */
-    COPYRIGHT,
+    COPYRIGHT, // 7
     /**
      * The author pretends to be someone else.
      */
-    IMPERSONATING,
+    IMPERSONATING, // 8
     /**
      * Violation of someone's privacy.
      */
-    PRIVACY,
-    /**
-     * Any other reason.
-     */
-    OTHER;
+    PRIVACY; // 9
 
     @JsonValue
     public String getValue() {

@@ -8,13 +8,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum AskSubject {
 
     /**
-     * "subscribe to me" - asking remote node to subscribe to this node
-     * .
+     * "subscribe to me" - asking remote node to subscribe to this node.
      */
     SUBSCRIBE,
     /**
-     * "add me to your friends" - asking remote node to add this node to friends
-     * .
+     * "add me to your friends" - asking remote node to add this node to friends.
      */
     FRIEND;
 

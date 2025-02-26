@@ -10,23 +10,23 @@ public enum SourceFormat {
     /**
      * Plain text with newlines and paragraphs delimited by empty line.
      */
-    PLAIN_TEXT,
+    PLAIN_TEXT, // 0
     /**
      * HTML-formatted text, the node may allow only limited set of tags.
      */
-    HTML,
+    HTML, // 1
     /**
      * Text in Markdown format.
      */
-    MARKDOWN,
-    /**
-     * HTML-formatted text, WYSIWYG editor.
-     */
-    HTML__VISUAL,
+    MARKDOWN, // 2
     /**
      * Application-specific format.
      */
-    APPLICATION;
+    APPLICATION, // 3
+    /**
+     * HTML-formatted text, WYSIWYG editor.
+     */
+    HTML__VISUAL; // 4
 
     @JsonValue
     public String getValue() {
