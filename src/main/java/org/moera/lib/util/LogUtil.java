@@ -3,6 +3,8 @@ package org.moera.lib.util;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import org.moera.lib.node.types.body.Body;
+
 public class LogUtil {
 
     public static String format(String value) {
@@ -32,6 +34,10 @@ public class LogUtil {
         } else {
             return format(value.substring(0, maxLength) + "...");
         }
+    }
+
+    public static String format(Body value, int maxLength) {
+        return value != null ? format(value.getEncoded(), maxLength) : "null";
     }
 
     public static String format(UUID value) {
