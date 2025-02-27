@@ -513,7 +513,11 @@ class Notification(BaseStructure):
             tfile.write(f'{ind(1)}public void logParameters(List<LogPair> parameters) {{\n')
             tfile.write(f'{ind(2)}super.logParameters(parameters);\n')
             for name, field in self.log_names:
-                reference = name if 'struct' not in field else f'{name}.getId()'
+                reference = name
+                if 'struct' in field:
+                    reference = f'{name}.getId()'
+                elif 'enum' in field:
+                    reference = f'{name}.toString()'
                 tfile.write(f'{ind(2)}parameters.add(LogPair.of("{name}", LogUtil.format({reference})));\n')
             tfile.write(f'{ind(1)}}}\n')
 

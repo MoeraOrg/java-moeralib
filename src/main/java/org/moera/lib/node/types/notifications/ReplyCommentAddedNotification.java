@@ -7,6 +7,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.AvatarImage;
 import org.moera.lib.node.types.SheriffMark;
+import org.moera.lib.node.types.validate.ValidationUtil;
+import org.moera.lib.util.LogUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReplyCommentAddedNotification extends Notification {
@@ -167,6 +169,36 @@ public class ReplyCommentAddedNotification extends Notification {
 
     public void setRepliedToHeading(String repliedToHeading) {
         this.repliedToHeading = repliedToHeading;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.maxSize(postingId, 40, "comment.posting-id.wrong-size");
+        ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
+        ValidationUtil.maxSize(repliedToId, 40, "comment.replied-to-id.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 63, "comment.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerFullName, 96, "comment.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerGender, 31, "comment.posting-owner-gender.wrong-size");
+        ValidationUtil.maxSize(postingHeading, 255, "comment.posting-heading.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 63, "comment.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerFullName, 96, "comment.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerGender, 31, "comment.comment-owner-gender.wrong-size");
+        ValidationUtil.maxSize(commentHeading, 255, "comment.comment-heading.wrong-size");
+        ValidationUtil.maxSize(repliedToHeading, 255, "comment.replied-to-heading.wrong-size");
+    }
+
+    @Override
+    public void logParameters(List<LogPair> parameters) {
+        super.logParameters(parameters);
+        parameters.add(LogPair.of("postingId", LogUtil.format(postingId)));
+        parameters.add(LogPair.of("commentId", LogUtil.format(commentId)));
+        parameters.add(LogPair.of("repliedToId", LogUtil.format(repliedToId)));
+        parameters.add(LogPair.of("postingOwnerName", LogUtil.format(postingOwnerName)));
+        parameters.add(LogPair.of("postingHeading", LogUtil.format(postingHeading)));
+        parameters.add(LogPair.of("commentOwnerName", LogUtil.format(commentOwnerName)));
+        parameters.add(LogPair.of("commentHeading", LogUtil.format(commentHeading)));
+        parameters.add(LogPair.of("repliedToHeading", LogUtil.format(repliedToHeading)));
     }
 
 }

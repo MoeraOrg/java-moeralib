@@ -2,8 +2,12 @@ package org.moera.lib.node.types.notifications;
 
 // This file is generated
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.AvatarImage;
+import org.moera.lib.node.types.validate.ValidationUtil;
+import org.moera.lib.util.LogUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostingCommentDeletedNotification extends SubscriberNotification {
@@ -65,6 +69,24 @@ public class PostingCommentDeletedNotification extends SubscriberNotification {
 
     public void setCommentOwnerAvatar(AvatarImage commentOwnerAvatar) {
         this.commentOwnerAvatar = commentOwnerAvatar;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.maxSize(postingId, 40, "comment.posting-id.wrong-size");
+        ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 63, "comment.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerFullName, 96, "comment.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerGender, 31, "comment.comment-owner-gender.wrong-size");
+    }
+
+    @Override
+    public void logParameters(List<LogPair> parameters) {
+        super.logParameters(parameters);
+        parameters.add(LogPair.of("postingId", LogUtil.format(postingId)));
+        parameters.add(LogPair.of("commentId", LogUtil.format(commentId)));
+        parameters.add(LogPair.of("commentOwnerName", LogUtil.format(commentOwnerName)));
     }
 
 }

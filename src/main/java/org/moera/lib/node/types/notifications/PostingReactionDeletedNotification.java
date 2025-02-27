@@ -2,8 +2,12 @@ package org.moera.lib.node.types.notifications;
 
 // This file is generated
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.AvatarImage;
+import org.moera.lib.node.types.validate.ValidationUtil;
+import org.moera.lib.util.LogUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostingReactionDeletedNotification extends Notification {
@@ -92,6 +96,28 @@ public class PostingReactionDeletedNotification extends Notification {
 
     public void setNegative(boolean negative) {
         this.negative = negative;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.maxSize(parentPostingId, 40, "reaction.parent-posting-id.wrong-size");
+        ValidationUtil.maxSize(parentCommentId, 40, "reaction.parent-comment-id.wrong-size");
+        ValidationUtil.maxSize(parentMediaId, 40, "reaction.parent-media-id.wrong-size");
+        ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
+        ValidationUtil.maxSize(ownerName, 63, "reaction.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
+    }
+
+    @Override
+    public void logParameters(List<LogPair> parameters) {
+        super.logParameters(parameters);
+        parameters.add(LogPair.of("parentPostingId", LogUtil.format(parentPostingId)));
+        parameters.add(LogPair.of("parentCommentId", LogUtil.format(parentCommentId)));
+        parameters.add(LogPair.of("parentMediaId", LogUtil.format(parentMediaId)));
+        parameters.add(LogPair.of("postingId", LogUtil.format(postingId)));
+        parameters.add(LogPair.of("ownerName", LogUtil.format(ownerName)));
     }
 
 }
