@@ -5,7 +5,6 @@ package org.moera.lib.node.types.notifications;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import org.moera.lib.node.types.Scope;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GrantUpdatedNotification extends Notification {

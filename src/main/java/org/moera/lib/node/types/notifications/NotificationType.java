@@ -149,7 +149,6 @@ public enum NotificationType {
      */
     SEARCH_ENGINE_CLICKED(SearchEngineClickedNotification.class); // 35
 
-
     private final Class<? extends Notification> structure;
 
     NotificationType(Class<? extends Notification> structure) {

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.StoryType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StoryAddedNotification extends Notification {
+public class StoryAddedNotification extends SubscriberNotification {
 
     private String storyId;
     private String feedName;

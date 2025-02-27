@@ -143,7 +143,9 @@ public class CommentReactionAddedNotification extends Notification {
         this.commentHeading = commentHeading;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "reaction.comment-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 63, "reaction.owner-name.wrong-size");

@@ -153,7 +153,9 @@ public class MentionCommentAddedNotification extends Notification {
         this.commentSheriffMarks = commentSheriffMarks;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "mention.comment-id.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 63, "mention.posting-owner-name.wrong-size");

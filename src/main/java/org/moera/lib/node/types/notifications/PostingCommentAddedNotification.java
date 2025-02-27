@@ -9,9 +9,8 @@ import org.moera.lib.node.types.AvatarImage;
 import org.moera.lib.node.types.SheriffMark;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingCommentAddedNotification extends Notification {
+public class PostingCommentAddedNotification extends SubscriberNotification {
 
-    private String subscriberId;
     private String postingId;
     private String postingOwnerName;
     private String postingOwnerFullName;
@@ -31,14 +30,6 @@ public class PostingCommentAddedNotification extends Notification {
 
     public PostingCommentAddedNotification() {
         super(NotificationType.POSTING_COMMENT_ADDED);
-    }
-
-    public String getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(String subscriberId) {
-        this.subscriberId = subscriberId;
     }
 
     public String getPostingId() {

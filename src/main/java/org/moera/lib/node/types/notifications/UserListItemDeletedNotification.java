@@ -5,7 +5,7 @@ package org.moera.lib.node.types.notifications;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserListItemDeletedNotification extends Notification {
+public class UserListItemDeletedNotification extends SubscriberNotification {
 
     private String listName;
     private String nodeName;

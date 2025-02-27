@@ -259,8 +259,10 @@ class BaseStructure:
 
     def __init__(self, data: Any) -> None:
         self.data = data
-        self.depends = [field['struct'] for field in data['fields'] if 'struct' in field]
-        self.depends += [field['enum'] for field in data['fields'] if 'enum' in field]
+        self.depends = [field['struct'] for field in self.get_fields() if 'struct' in field]
+        self.depends += [
+            field['enum'] for field in self.get_fields() if 'enum' in field and field['enum'] not in EXCLUDED_ENUMS
+        ]
 
     def get_name(self) -> str:
         return self.data["name"]
@@ -280,10 +282,16 @@ class BaseStructure:
         else:
             return []
 
+    def is_validate_inherited(self) -> bool:
+        return False
+
+    def get_fields(self) -> list[Any]:
+        return self.data['fields']
+
     def generate_class(self, structs: dict[str, Structure], outdir: str) -> None:
         imports = set()
         fields: List[Tuple[str, str]] = []
-        for field in self.data['fields']:
+        for field in self.get_fields():
             if 'struct' in field:
                 t = field['struct']
             elif 'enum' in field:
@@ -375,8 +383,13 @@ class BaseStructure:
         pass
 
     def generate_validate(self, structs: dict[str, Structure], tfile: TextIO) -> None:
-        tfile.write(f'\n{ind(1)}public void validate() {{\n')
-        for field in self.data['fields']:
+        tfile.write('\n')
+        if self.is_validate_inherited():
+            tfile.write(f'{ind(1)}@Override\n')
+        tfile.write(f'{ind(1)}public void validate() {{\n')
+        if self.is_validate_inherited():
+            tfile.write(f'{ind(2)}super.validate();\n')
+        for field in self.get_fields():
             if 'struct' in field and field['struct'] in structs and structs[field['struct']].validated:
                 tfile.write(f'{ind(2)}if ({field["name"]} != null) {{\n')
                 if field.get('array', False):
@@ -464,7 +477,7 @@ class Notification(BaseStructure):
 
     def __init__(self, data: Any) -> None:
         super().__init__(data)
-        self.log_names = [(field['name'], field) for field in self.data['fields'] if field.get('log', False)]
+        self.log_names = [(field['name'], field) for field in self.get_fields() if field.get('log', False)]
 
     def get_name(self) -> str:
         return cap_first(to_camel(self.data["type"].lower())) + 'Notification'
@@ -473,7 +486,16 @@ class Notification(BaseStructure):
         return "types.notifications"
 
     def get_extends(self) -> list[str]:
+        for field in self.data['fields']:
+            if field['name'] == 'subscriberId':
+                return ['SubscriberNotification']
         return ['Notification']
+
+    def is_validate_inherited(self) -> bool:
+        return True
+
+    def get_fields(self) -> list[Any]:
+        return [field for field in self.data['fields'] if field['name'] != 'subscriberId']
 
     def add_imports(self, imports: set[str]) -> None:
         if self.log_names:
@@ -504,7 +526,6 @@ public enum NotificationType {
 '''
 
 CONCLUSION_NOTIFICATION_TYPE = '''
-
     private final Class<? extends Notification> structure;
 
     NotificationType(Class<? extends Notification> structure) {
@@ -550,9 +571,11 @@ def generate_notification_type(notifs: List[Notification], outdir: str) -> None:
         tfile.write(CONCLUSION_NOTIFICATION_TYPE)
 
 
-def scan_validation(records: Iterable[BaseStructure], structs: dict[str, Structure]) -> None:
+def scan_validation(records: Iterable[BaseStructure], structs: dict[str, Structure], excludeFields: list[str]) -> None:
     for record in records:
         for field in record.data['fields']:
+            if field['name'] in excludeFields:
+                continue
             if 'constraints' in field and any('other' not in constraint for constraint in field['constraints']):
                 record.validated = True
                 record.validation_utils = True
@@ -572,13 +595,13 @@ def scan_validation(records: Iterable[BaseStructure], structs: dict[str, Structu
 
 def scan_structures(api: Any) -> dict[str, Structure]:
     structs: dict[str, Structure] = {struct['name']: Structure(struct) for struct in api['structures']}
-    scan_validation(structs.values(), structs)
+    scan_validation(structs.values(), structs, [])
     return structs
 
 
 def scan_notifications(notifications: Any, structs: dict[str, Structure]) -> List[Notification]:
     notifs: List[Notification] = [Notification(notif) for notif in notifications['notifications']]
-    scan_validation(notifs, structs)
+    scan_validation(notifs, structs, ['subscriberId'])
     return notifs
 
 

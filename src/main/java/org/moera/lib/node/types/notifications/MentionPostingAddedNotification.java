@@ -90,7 +90,9 @@ public class MentionPostingAddedNotification extends Notification {
         this.sheriffMarks = sheriffMarks;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 63, "mention.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "mention.owner-full-name.wrong-size");

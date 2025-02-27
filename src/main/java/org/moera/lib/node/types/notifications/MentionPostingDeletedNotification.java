@@ -25,7 +25,9 @@ public class MentionPostingDeletedNotification extends Notification {
         this.postingId = postingId;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
     }
 

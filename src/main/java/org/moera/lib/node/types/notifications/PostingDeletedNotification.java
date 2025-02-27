@@ -5,21 +5,12 @@ package org.moera.lib.node.types.notifications;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingDeletedNotification extends Notification {
+public class PostingDeletedNotification extends SubscriberNotification {
 
-    private String subscriberId;
     private String postingId;
 
     public PostingDeletedNotification() {
         super(NotificationType.POSTING_DELETED);
-    }
-
-    public String getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(String subscriberId) {
-        this.subscriberId = subscriberId;
     }
 
     public String getPostingId() {

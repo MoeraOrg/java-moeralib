@@ -41,7 +41,9 @@ public class AskedNotification extends Notification {
         this.message = message;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(friendGroupId, 40, "ask.friend-group-id.wrong-size");
         ValidationUtil.maxSize(message, 70, "ask.message.wrong-size");
     }

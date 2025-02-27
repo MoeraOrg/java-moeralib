@@ -34,7 +34,9 @@ public class MentionCommentDeletedNotification extends Notification {
         this.commentId = commentId;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "mention.comment-id.wrong-size");
     }

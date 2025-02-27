@@ -25,7 +25,9 @@ public class FriendGroupDeletedNotification extends Notification {
         this.friendGroupId = friendGroupId;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(friendGroupId, 40, "friend-group.friend-group-id.wrong-size");
     }
 

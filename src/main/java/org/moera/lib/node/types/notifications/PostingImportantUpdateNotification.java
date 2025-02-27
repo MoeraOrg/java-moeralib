@@ -6,9 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.AvatarImage;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingImportantUpdateNotification extends Notification {
+public class PostingImportantUpdateNotification extends SubscriberNotification {
 
-    private String subscriberId;
     private String postingId;
     private String postingOwnerName;
     private String postingOwnerFullName;
@@ -19,14 +18,6 @@ public class PostingImportantUpdateNotification extends Notification {
 
     public PostingImportantUpdateNotification() {
         super(NotificationType.POSTING_IMPORTANT_UPDATE);
-    }
-
-    public String getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(String subscriberId) {
-        this.subscriberId = subscriberId;
     }
 
     public String getPostingId() {

@@ -6,22 +6,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.ReactionTotalsInfo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingReactionsUpdatedNotification extends Notification {
+public class PostingReactionsUpdatedNotification extends SubscriberNotification {
 
-    private String subscriberId;
     private String postingId;
     private ReactionTotalsInfo totals;
 
     public PostingReactionsUpdatedNotification() {
         super(NotificationType.POSTING_REACTIONS_UPDATED);
-    }
-
-    public String getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(String subscriberId) {
-        this.subscriberId = subscriberId;
     }
 
     public String getPostingId() {

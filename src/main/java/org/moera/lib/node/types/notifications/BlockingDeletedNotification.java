@@ -41,7 +41,9 @@ public class BlockingDeletedNotification extends Notification {
         this.postingHeading = postingHeading;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "blocking.posting-id.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "blocking.posting-heading.wrong-size");
     }

@@ -5,22 +5,13 @@ package org.moera.lib.node.types.notifications;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingCommentsUpdatedNotification extends Notification {
+public class PostingCommentsUpdatedNotification extends SubscriberNotification {
 
-    private String subscriberId;
     private String postingId;
     private int total;
 
     public PostingCommentsUpdatedNotification() {
         super(NotificationType.POSTING_COMMENTS_UPDATED);
-    }
-
-    public String getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(String subscriberId) {
-        this.subscriberId = subscriberId;
     }
 
     public String getPostingId() {

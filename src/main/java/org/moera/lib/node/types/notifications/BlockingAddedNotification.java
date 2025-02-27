@@ -59,7 +59,9 @@ public class BlockingAddedNotification extends Notification {
         this.reason = reason;
     }
 
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(postingId, 40, "blocking.posting-id.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "blocking.posting-heading.wrong-size");
         ValidationUtil.maxSize(reason, 1024, "blocking-added.posting-heading.wrong-size");
