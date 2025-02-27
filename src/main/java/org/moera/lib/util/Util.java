@@ -9,6 +9,10 @@ import java.util.Base64;
 
 public class Util {
 
+    public static Timestamp now() {
+        return Timestamp.from(Instant.now());
+    }
+
     public static Long toEpochSecond(Timestamp timestamp) {
         return timestamp != null ? timestamp.getTime() / 1000 : null;
     }

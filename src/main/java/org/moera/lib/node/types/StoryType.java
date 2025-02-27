@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum StoryType {
 
     /**
-     * A posting was added; **stories of this type are used for feeds containing postings**.
+     * A posting was added; <b>stories of this type are used for feeds containing postings</b>.
      */
     POSTING_ADDED, // 0
     /**

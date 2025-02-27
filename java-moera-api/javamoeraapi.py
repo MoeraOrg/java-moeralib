@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, TextIO, Tuple, List
+from typing import Any, TextIO, Tuple, List, Iterable
 
 import yaml
 from camel_converter import to_snake, to_camel
@@ -232,7 +232,25 @@ def to_java_type(api_type: str, optional: bool) -> str:
     return java_type
 
 
-class Structure:
+EXTRA_METHODS = '''
+    public Object getExtra() {
+        return extra;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getOrCreateExtra(Supplier<T> creator) {
+        if (extra == null) {
+            extra = creator.get();
+        }
+        return (T) extra;
+    }
+
+    public void setExtra(Object extra) {
+        this.extra = extra;
+    }
+'''
+
+class BaseStructure:
     data: Any
     generated: bool = False
     depends: list[str]
@@ -242,12 +260,28 @@ class Structure:
     def __init__(self, data: Any) -> None:
         self.data = data
         self.depends = [field['struct'] for field in data['fields'] if 'struct' in field]
+        self.depends += [field['enum'] for field in data['fields'] if 'enum' in field]
 
     def get_name(self) -> str:
         return self.data["name"]
 
+    def get_package(self) -> str:
+        return "types"
+
+    def get_path(self) -> str:
+        return self.get_package().replace('.', '/')
+
+    def get_extends(self) -> list[str]:
+        return []
+
+    def get_implements(self) -> list[str]:
+        if 'java-interfaces' in self.data:
+            return [interface for interface in self.data['java-interfaces']]
+        else:
+            return []
+
     def generate_class(self, structs: dict[str, Structure], outdir: str) -> None:
-        imports = set(['java.util.function.Supplier'])
+        imports = set()
         fields: List[Tuple[str, str]] = []
         for field in self.data['fields']:
             if 'struct' in field:
@@ -273,30 +307,42 @@ class Structure:
         if self.data.get('java-equals', False):
             imports.add('java.util.Objects')
 
-        with open(outdir + f'/node/types/{self.data["name"]}.java', 'w+') as tfile:
-            tfile.write('package org.moera.lib.node.types;\n\n')
+        imports.add('com.fasterxml.jackson.annotation.JsonInclude')
+
+        if self.get_package() != 'types':
+            for dep in self.depends:
+                if dep != 'Body':
+                    imports.add(f'org.moera.lib.node.types.{dep}')
+        if 'Body' in self.depends:
+            imports.add('org.moera.lib.node.types.body.Body')
+        if self.validation_utils:
+            imports.add('org.moera.lib.node.types.validate.ValidationUtil')
+
+        self.add_imports(imports)
+
+        with open(outdir + f'/node/{self.get_path()}/{self.get_name()}.java', 'w+') as tfile:
+            tfile.write(f'package org.moera.lib.node.{self.get_package()};\n\n')
             tfile.write('// This file is generated\n\n')
-            if imports:
-                for imp in sorted(imports):
+
+            group1 = [imp for imp in imports if imp.startswith('java.')]
+            if group1:
+                for imp in sorted(group1):
                     tfile.write(f'import {imp};\n')
                 tfile.write('\n')
-            tfile.write('import com.fasterxml.jackson.annotation.JsonIgnore;\n')
-            tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
-            if 'Body' in self.depends:
-                tfile.write('import org.moera.lib.node.types.body.Body;\n')
-            if self.validation_utils:
-                tfile.write('import org.moera.lib.node.types.validate.ValidationUtil;\n')
-            tfile.write('\n')
-            tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
-            interfaces = 'Cloneable'
-            if 'java-interfaces' in self.data:
-                for interface in self.data['java-interfaces']:
-                    interfaces += ', ' + interface
-            tfile.write(f'public class {self.data["name"]} implements {interfaces} {{\n\n')
+            group2 = [imp for imp in imports if not imp.startswith('java.')]
+            for imp in sorted(group2):
+                tfile.write(f'import {imp};\n')
+
+            tfile.write('\n@JsonInclude(JsonInclude.Include.NON_NULL)\n')
+            classes = self.get_extends()
+            extends = f' extends {", ".join(classes)}' if classes else ''
+            interfaces = self.get_implements()
+            implements = f' implements {", ".join(interfaces)}' if interfaces else ''
+            tfile.write(f'public class {self.get_name()}{extends}{implements} {{\n\n')
             for field in fields:
                 tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
-            tfile.write(f'\n{ind(1)}@JsonIgnore\n')
-            tfile.write(f'{ind(1)}private Object extra;\n')
+            self.generate_fields(tfile)
+            self.generate_constructor(tfile)
             for field in fields:
                 verb = 'is' if field[0] == 'boolean' else 'get'
                 tfile.write(f'\n{ind(1)}public {field[0]} {verb}{cap_first(field[1])}() {{\n')
@@ -305,25 +351,28 @@ class Structure:
                 tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
                 tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}public Object getExtra() {{\n')
-            tfile.write(f'{ind(2)}return extra;\n')
-            tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}@SuppressWarnings("unchecked")\n')
-            tfile.write(f'{ind(1)}public <T> T getOrCreateExtra(Supplier<T> creator) {{\n')
-            tfile.write(f'{ind(2)}if (extra == null) {{\n')
-            tfile.write(f'{ind(3)}extra = creator.get();\n')
-            tfile.write(f'{ind(2)}}}\n')
-            tfile.write(f'{ind(2)}return (T) extra;\n')
-            tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}public void setExtra(Object extra) {{\n')
-            tfile.write(f'{ind(2)}this.extra = extra;\n')
-            tfile.write(f'{ind(1)}}}\n')
+            self.generate_getters(tfile)
             if self.validated:
                 self.generate_validate(structs, tfile)
-            tfile.write(CLONE_METHOD.replace('ClassName', self.data['name']))
+            self.generate_methods(tfile)
             if self.data.get('java-equals', False):
                 self.generate_equals(fields, tfile)
             tfile.write('\n}\n')
+
+    def add_imports(self, imports: set[str]) -> None:
+        pass
+
+    def generate_constructor(self, tfile: TextIO) -> None:
+        pass
+
+    def generate_fields(self, tfile: TextIO) -> None:
+        pass
+
+    def generate_getters(self, tfile: TextIO) -> None:
+        pass
+
+    def generate_methods(self, tfile: TextIO) -> None:
+        pass
 
     def generate_validate(self, structs: dict[str, Structure], tfile: TextIO) -> None:
         tfile.write(f'\n{ind(1)}public void validate() {{\n')
@@ -373,7 +422,7 @@ class Structure:
         tfile.write(f'{ind(2)}if (peer == null || getClass() != peer.getClass()) {{\n')
         tfile.write(f'{ind(3)}return false;\n')
         tfile.write(f'{ind(2)}}}\n')
-        tfile.write(f'{ind(2)}{self.data["name"]} that = ({self.data["name"]}) peer;\n')
+        tfile.write(f'{ind(2)}{self.get_name()} that = ({self.get_name()}) peer;\n')
         tfile.write(f'{ind(2)}return ')
         first = True
         for field in fields:
@@ -390,37 +439,155 @@ class Structure:
         tfile.write(f'{ind(1)}}}\n')
 
 
-def scan_validation(structs: dict[str, Structure]) -> None:
-    for struct in structs.values():
-        for field in struct.data['fields']:
+class Structure(BaseStructure):
+
+    def get_implements(self) -> list[str]:
+        return ['Cloneable'] + super().get_implements()
+
+    def add_imports(self, imports: set[str]) -> None:
+        imports.add('java.util.function.Supplier')
+        imports.add('com.fasterxml.jackson.annotation.JsonIgnore')
+
+    def generate_fields(self, tfile: TextIO) -> None:
+        tfile.write(f'\n{ind(1)}@JsonIgnore\n')
+        tfile.write(f'{ind(1)}private Object extra;\n')
+
+    def generate_getters(self, tfile: TextIO) -> None:
+        tfile.write(EXTRA_METHODS)
+
+    def generate_methods(self, tfile: TextIO) -> None:
+        tfile.write(CLONE_METHOD.replace('ClassName', self.get_name()))
+
+
+class Notification(BaseStructure):
+    log_names: list[tuple[str, Any]]
+
+    def __init__(self, data: Any) -> None:
+        super().__init__(data)
+        self.log_names = [(field['name'], field) for field in self.data['fields'] if field.get('log', False)]
+
+    def get_name(self) -> str:
+        return cap_first(to_camel(self.data["type"].lower())) + 'Notification'
+
+    def get_package(self) -> str:
+        return "types.notifications"
+
+    def get_extends(self) -> list[str]:
+        return ['Notification']
+
+    def add_imports(self, imports: set[str]) -> None:
+        if self.log_names:
+            imports.add('java.util.List')
+            imports.add('org.moera.lib.util.LogUtil')
+
+    def generate_constructor(self, tfile: TextIO) -> None:
+        tfile.write(f'\n{ind(1)}public {self.get_name()}() {{\n')
+        tfile.write(f'{ind(2)}super(NotificationType.{self.data["type"]});\n')
+        tfile.write(f'{ind(1)}}}\n')
+
+    def generate_methods(self, tfile: TextIO) -> None:
+        if self.log_names:
+            tfile.write(f'\n{ind(1)}@Override\n')
+            tfile.write(f'{ind(1)}public void logParameters(List<LogPair> parameters) {{\n')
+            tfile.write(f'{ind(2)}super.logParameters(parameters);\n')
+            for name, field in self.log_names:
+                reference = name if 'struct' not in field else f'{name}.getId()'
+                tfile.write(f'{ind(2)}parameters.add(LogPair.of("{name}", LogUtil.format({reference})));\n')
+            tfile.write(f'{ind(1)}}}\n')
+
+
+PREAMBLE_NOTIFICATION_TYPE = '''package org.moera.lib.node.types.notifications;
+
+// This file is generated
+
+public enum NotificationType {
+'''
+
+CONCLUSION_NOTIFICATION_TYPE = '''
+
+    private final Class<? extends Notification> structure;
+
+    NotificationType(Class<? extends Notification> structure) {
+        this.structure = structure;
+    }
+
+    public Class<? extends Notification> getStructure() {
+        return structure;
+    }
+
+    public String getValue() {
+        return name().toLowerCase().replace('_', '-');
+    }
+
+    public static NotificationType forValue(String value) {
+        String name = value.toUpperCase().replace('-', '_');
+        try {
+            return valueOf(name);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+}
+'''
+
+def generate_notification_type(notifs: List[Notification], outdir: str) -> None:
+    with open(outdir + f'/node/types/notifications/NotificationType.java', 'w+') as tfile:
+        tfile.write(PREAMBLE_NOTIFICATION_TYPE)
+        values = sorted(notifs, key=lambda item: item.data.get('ordinal', 0))
+        first = True
+        ordinal = ''
+        for item in values:
+            tfile.write('\n' if first else f',{ordinal}\n')
+            if 'description' in item.data:
+                tfile.write(f'{ind(1)}/**\n')
+                tfile.write(ind(1) + doc_wrap(cap_first(item.data["description"].strip()), 1))
+                tfile.write(f'\n{ind(1)} */\n')
+            tfile.write(f'{ind(1)}{item.data["type"]}({item.get_name()}.class)')
+            ordinal = f' // {item.data["ordinal"]}' if 'ordinal' in item.data else ''
+            first = False
+        tfile.write(f';{ordinal}\n')
+        tfile.write(CONCLUSION_NOTIFICATION_TYPE)
+
+
+def scan_validation(records: Iterable[BaseStructure], structs: dict[str, Structure]) -> None:
+    for record in records:
+        for field in record.data['fields']:
             if 'constraints' in field and any('other' not in constraint for constraint in field['constraints']):
-                struct.validated = True
-                struct.validation_utils = True
+                record.validated = True
+                record.validation_utils = True
                 break
 
     modified = True
     while modified:
         modified = False
-        for struct in structs.values():
-            if struct.validated:
+        for record in records:
+            if record.validated:
                 continue
-            for dep in struct.depends:
+            for dep in record.depends:
                 if dep in structs and structs[dep].validated:
-                    struct.validated = True
+                    record.validated = True
                     modified = True
 
 
 def scan_structures(api: Any) -> dict[str, Structure]:
     structs: dict[str, Structure] = {struct['name']: Structure(struct) for struct in api['structures']}
-    scan_validation(structs)
+    scan_validation(structs.values(), structs)
     return structs
+
+
+def scan_notifications(notifications: Any, structs: dict[str, Structure]) -> List[Notification]:
+    notifs: List[Notification] = [Notification(notif) for notif in notifications['notifications']]
+    scan_validation(notifs, structs)
+    return notifs
 
 
 EXCLUDED_STRUCTS = ['Body', 'FundraiserInfo', 'LinkPreview', 'Result']
 
 
-def generate_types(api: Any, outdir: str) -> None:
+def generate_types(api: Any, notifications: Any, outdir: str) -> None:
     structs = scan_structures(api)
+    notifs = scan_notifications(notifications, api)
 
     for enum in api['enums']:
         generate_enum(enum, outdir)
@@ -429,6 +596,9 @@ def generate_types(api: Any, outdir: str) -> None:
     for struct in structs.values():
         if struct.get_name() not in EXCLUDED_STRUCTS:
             struct.generate_class(structs, outdir)
+    for notif in notifs:
+        notif.generate_class(structs, outdir)
+    generate_notification_type(notifs, outdir)
 
 
 FP_TYPES = {
@@ -579,13 +749,15 @@ def generate_fingerprints(fp: Any, outdir: str) -> None:
 def generate_code(outdir: str) -> None:
     node_api = read_api(sys.argv[1])
     fp = read_api(sys.argv[2])
-    generate_types(node_api, outdir)
+    notifications = read_api(sys.argv[3])
+    generate_types(node_api, notifications, outdir)
     generate_fingerprints(fp, outdir)
 
 
-if len(sys.argv) < 3 or sys.argv[1] == '':
-    print("Usage: java-moera-api <node_api.yml file path> <node_api_fingerprints.yml file path> <output directory>")
+if len(sys.argv) < 4 or sys.argv[1] == '':
+    print("Usage: java-moera-api <node_api.yml file path> <node_api_fingerprints.yml file path>"
+          " <notifications.yml file path> <output directory>")
     exit(1)
 
-outdir = sys.argv[3] if len(sys.argv) >= 4 else '.'
+outdir = sys.argv[4] if len(sys.argv) >= 5 else '.'
 generate_code(outdir)
