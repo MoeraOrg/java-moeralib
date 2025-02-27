@@ -3,7 +3,6 @@ package org.moera.lib.node.types.notifications;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +27,7 @@ public abstract class Notification implements Cloneable {
     private NotificationType type;
 
     @JsonIgnore
-    private Object extra;
+    private String pendingNotificationId;
 
     @JsonIgnore
     private Timestamp createdAt = Util.now();
@@ -77,20 +76,12 @@ public abstract class Notification implements Cloneable {
         this.type = type;
     }
 
-    public Object getExtra() {
-        return extra;
+    public String getPendingNotificationId() {
+        return pendingNotificationId;
     }
 
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
+    public void setPendingNotificationId(String pendingNotificationId) {
+        this.pendingNotificationId = pendingNotificationId;
     }
 
     public Timestamp getCreatedAt() {
