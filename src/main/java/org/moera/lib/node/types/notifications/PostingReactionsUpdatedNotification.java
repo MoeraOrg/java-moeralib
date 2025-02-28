@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.ReactionTotalsInfo;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingReactionsUpdatedNotification extends SubscriberNotification {
+public class PostingReactionsUpdatedNotification extends SubscriberNotification implements PostingSubscriberNotification {
 
     private String postingId;
     private ReactionTotalsInfo totals;

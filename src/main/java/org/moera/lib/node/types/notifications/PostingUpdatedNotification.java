@@ -9,7 +9,7 @@ import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingUpdatedNotification extends SubscriberNotification {
+public class PostingUpdatedNotification extends SubscriberNotification implements PostingSubscriberNotification {
 
     private String postingId;
 

@@ -346,9 +346,11 @@ class BaseStructure:
             extends = f' extends {", ".join(classes)}' if classes else ''
             interfaces = self.get_implements()
             implements = f' implements {", ".join(interfaces)}' if interfaces else ''
-            tfile.write(f'public class {self.get_name()}{extends}{implements} {{\n\n')
-            for field in fields:
-                tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
+            tfile.write(f'public class {self.get_name()}{extends}{implements} {{\n')
+            if fields:
+                tfile.write('\n')
+                for field in fields:
+                    tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
             self.generate_fields(tfile)
             self.generate_constructor(tfile)
             for field in fields:
