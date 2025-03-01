@@ -2,20 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummarySheriff implements Cloneable {
+public class StorySummarySheriff extends Structure implements Cloneable {
 
     private String sheriffName;
     private String orderId;
     private String complaintId;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getSheriffName() {
         return sheriffName;
@@ -39,22 +33,6 @@ public class StorySummarySheriff implements Cloneable {
 
     public void setComplaintId(String complaintId) {
         this.complaintId = complaintId;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

@@ -2,20 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UpdateInfo implements Cloneable {
+public class UpdateInfo extends Structure implements Cloneable {
 
     private Boolean important;
     private String description;
-
-    @JsonIgnore
-    private Object extra;
 
     public Boolean getImportant() {
         return important;
@@ -33,23 +27,9 @@ public class UpdateInfo implements Cloneable {
         this.description = description;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(description, 128, "update.description.wrong-size");
     }
 

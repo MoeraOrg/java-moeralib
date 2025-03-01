@@ -2,18 +2,12 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DeleteNodeStatus implements Cloneable {
+public class DeleteNodeStatus extends Structure implements Cloneable {
 
     private boolean requested;
-
-    @JsonIgnore
-    private Object extra;
 
     public boolean isRequested() {
         return requested;
@@ -21,22 +15,6 @@ public class DeleteNodeStatus implements Cloneable {
 
     public void setRequested(boolean requested) {
         this.requested = requested;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

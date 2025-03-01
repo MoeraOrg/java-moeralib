@@ -2,13 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionInfo implements Cloneable {
+public class ReactionInfo extends Structure implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -29,9 +26,6 @@ public class ReactionInfo implements Cloneable {
     private ReactionOperations ownerOperations;
     private ReactionOperations seniorOperations;
     private ReactionOperations majorOperations;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getOwnerName() {
         return ownerName;
@@ -183,22 +177,6 @@ public class ReactionInfo implements Cloneable {
 
     public void setMajorOperations(ReactionOperations majorOperations) {
         this.majorOperations = majorOperations;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

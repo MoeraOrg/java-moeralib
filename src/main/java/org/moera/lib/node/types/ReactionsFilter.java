@@ -3,19 +3,14 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ReactionsFilter implements Cloneable {
+public class ReactionsFilter extends Structure implements Cloneable {
 
     private String ownerName;
     private List<String> postings;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getOwnerName() {
         return ownerName;
@@ -31,22 +26,6 @@ public class ReactionsFilter implements Cloneable {
 
     public void setPostings(List<String> postings) {
         this.postings = postings;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

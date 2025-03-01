@@ -3,14 +3,12 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DraftInfo implements Cloneable {
+public class DraftInfo extends Structure implements Cloneable {
 
     private String id;
     private DraftType draftType;
@@ -34,9 +32,6 @@ public class DraftInfo implements Cloneable {
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -214,23 +209,9 @@ public class DraftInfo implements Cloneable {
         this.commentOperations = commentOperations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         if (acceptedReactions != null) {
             acceptedReactions.validate();
         }

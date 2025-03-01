@@ -3,14 +3,12 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PluginDescription implements Cloneable {
+public class PluginDescription extends Structure implements Cloneable {
 
     private String name;
     private String title;
@@ -18,9 +16,6 @@ public class PluginDescription implements Cloneable {
     private String location;
     private List<String> acceptedEvents;
     private List<SettingDescriptor> options;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getName() {
         return name;
@@ -70,23 +65,9 @@ public class PluginDescription implements Cloneable {
         this.options = options;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notBlank(name, "plugin.name.blank");
         ValidationUtil.maxSize(name, 48, "plugin.name.wrong-size");
         ValidationUtil.maxSize(title, 80, "plugin.title.wrong-size");

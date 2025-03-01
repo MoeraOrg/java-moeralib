@@ -3,21 +3,16 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CarteAttributes implements Cloneable {
+public class CarteAttributes extends Structure implements Cloneable {
 
     private List<String> clientScope;
     private List<String> adminScope;
     private String nodeName;
     private Integer limit;
-
-    @JsonIgnore
-    private Object extra;
 
     public List<String> getClientScope() {
         return clientScope;
@@ -49,22 +44,6 @@ public class CarteAttributes implements Cloneable {
 
     public void setLimit(Integer limit) {
         this.limit = limit;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

@@ -2,20 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AvatarDescription implements Cloneable {
+public class AvatarDescription extends Structure implements Cloneable {
 
     private String mediaId;
     private String shape;
     private Boolean optional;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getMediaId() {
         return mediaId;
@@ -39,22 +33,6 @@ public class AvatarDescription implements Cloneable {
 
     public void setOptional(Boolean optional) {
         this.optional = optional;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

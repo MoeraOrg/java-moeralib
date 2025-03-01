@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PluginInfo implements Cloneable {
+public class PluginInfo extends Structure implements Cloneable {
 
     private String nodeId;
     private boolean local;
@@ -20,9 +18,6 @@ public class PluginInfo implements Cloneable {
     private List<String> acceptedEvents;
     private List<SettingMetaInfo> settings;
     private String tokenId;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getNodeId() {
         return nodeId;
@@ -94,22 +89,6 @@ public class PluginInfo implements Cloneable {
 
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

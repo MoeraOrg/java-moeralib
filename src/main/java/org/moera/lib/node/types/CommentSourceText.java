@@ -3,15 +3,13 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentSourceText implements Cloneable {
+public class CommentSourceText extends Structure implements Cloneable {
 
     private AvatarDescription ownerAvatar;
     private Body bodySrc;
@@ -22,9 +20,6 @@ public class CommentSourceText implements Cloneable {
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
-
-    @JsonIgnore
-    private Object extra;
 
     public AvatarDescription getOwnerAvatar() {
         return ownerAvatar;
@@ -98,23 +93,9 @@ public class CommentSourceText implements Cloneable {
         this.seniorOperations = seniorOperations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(bodySrc, "comment.body-src.blank");
         ValidationUtil.maxSize(bodySrc, 65535, "comment.body-src.wrong-size");
         if (acceptedReactions != null) {

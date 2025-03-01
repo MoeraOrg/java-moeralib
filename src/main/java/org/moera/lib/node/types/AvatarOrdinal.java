@@ -2,19 +2,13 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AvatarOrdinal implements Cloneable {
+public class AvatarOrdinal extends Structure implements Cloneable {
 
     private String id;
     private int ordinal;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -30,22 +24,6 @@ public class AvatarOrdinal implements Cloneable {
 
     public void setOrdinal(int ordinal) {
         this.ordinal = ordinal;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

@@ -3,20 +3,15 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FriendInfo implements Cloneable {
+public class FriendInfo extends Structure implements Cloneable {
 
     private String nodeName;
     private ContactInfo contact;
     private List<FriendGroupDetails> groups;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getNodeName() {
         return nodeName;
@@ -40,22 +35,6 @@ public class FriendInfo implements Cloneable {
 
     public void setGroups(List<FriendGroupDetails> groups) {
         this.groups = groups;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

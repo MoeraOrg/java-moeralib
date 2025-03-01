@@ -3,20 +3,15 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriptionFilter implements Cloneable {
+public class SubscriptionFilter extends Structure implements Cloneable {
 
     private SubscriptionType type;
     private List<RemoteFeed> feeds;
     private List<RemotePosting> postings;
-
-    @JsonIgnore
-    private Object extra;
 
     public SubscriptionType getType() {
         return type;
@@ -40,22 +35,6 @@ public class SubscriptionFilter implements Cloneable {
 
     public void setPostings(List<RemotePosting> postings) {
         this.postings = postings;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

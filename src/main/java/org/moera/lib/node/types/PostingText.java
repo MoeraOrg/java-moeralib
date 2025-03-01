@@ -3,15 +3,13 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostingText implements Cloneable {
+public class PostingText extends Structure implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
@@ -33,9 +31,6 @@ public class PostingText implements Cloneable {
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getOwnerName() {
         return ownerName;
@@ -197,23 +192,9 @@ public class PostingText implements Cloneable {
         this.commentReactionOperations = commentReactionOperations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(ownerName, 63, "posting.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "posting.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "posting.owner-gender.wrong-size");

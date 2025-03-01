@@ -3,15 +3,13 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DraftText implements Cloneable {
+public class DraftText extends Structure implements Cloneable {
 
     private DraftType draftType;
     private String receiverName;
@@ -28,9 +26,6 @@ public class DraftText implements Cloneable {
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
-
-    @JsonIgnore
-    private Object extra;
 
     public DraftType getDraftType() {
         return draftType;
@@ -152,23 +147,9 @@ public class DraftText implements Cloneable {
         this.commentOperations = commentOperations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notBlank(receiverName, "draft.receiver-name.blank");
         ValidationUtil.maxSize(receiverName, 63, "draft.receiver-name.wrong-size");
         ValidationUtil.maxSize(receiverPostingId, 40, "draft.receiver-posting-id.wrong-size");

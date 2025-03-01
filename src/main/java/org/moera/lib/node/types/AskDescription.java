@@ -2,21 +2,15 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AskDescription implements Cloneable {
+public class AskDescription extends Structure implements Cloneable {
 
     private AskSubject subject;
     private String friendGroupId;
     private String message;
-
-    @JsonIgnore
-    private Object extra;
 
     public AskSubject getSubject() {
         return subject;
@@ -42,23 +36,9 @@ public class AskDescription implements Cloneable {
         this.message = message;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(subject, "ask.subject.missing");
         ValidationUtil.maxSize(friendGroupId, 40, "ask.friend-group-id.wrong-size");
         ValidationUtil.maxSize(message, 70, "ask.message.wrong-size");

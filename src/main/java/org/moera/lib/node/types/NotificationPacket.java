@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NotificationPacket implements Cloneable {
+public class NotificationPacket extends Structure implements Cloneable {
 
     private String id;
     private String nodeName;
@@ -21,9 +18,6 @@ public class NotificationPacket implements Cloneable {
     private String notification;
     private byte[] signature;
     private short signatureVersion;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -105,23 +99,9 @@ public class NotificationPacket implements Cloneable {
         this.signatureVersion = signatureVersion;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notBlank(nodeName, "notification.node-name.blank");
         ValidationUtil.maxSize(nodeName, 63, "notification.node-name.wrong-size");
         ValidationUtil.maxSize(fullName, 96, "notification.full-name.wrong-size");

@@ -3,14 +3,12 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProfileAttributes implements Cloneable {
+public class ProfileAttributes extends Structure implements Cloneable {
 
     private String fullName;
     private String gender;
@@ -21,9 +19,6 @@ public class ProfileAttributes implements Cloneable {
     private String avatarId;
     private List<FundraiserInfo> fundraisers;
     private ProfileOperations operations;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getFullName() {
         return fullName;
@@ -97,23 +92,9 @@ public class ProfileAttributes implements Cloneable {
         this.operations = operations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(fullName, 96, "profile.full-name.wrong-size");
         ValidationUtil.maxSize(gender, 31, "profile.gender.wrong-size");
         ValidationUtil.maxSize(email, 63, "profile.email.wrong-size");

@@ -232,24 +232,6 @@ def to_java_type(api_type: str, optional: bool) -> str:
     return java_type
 
 
-EXTRA_METHODS = '''
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-'''
-
 class BaseStructure:
     data: Any
     generated: bool = False
@@ -281,9 +263,6 @@ class BaseStructure:
             return [interface for interface in self.data['java-interfaces']]
         else:
             return []
-
-    def is_validate_inherited(self) -> bool:
-        return False
 
     def get_fields(self) -> list[Any]:
         return self.data['fields']
@@ -351,7 +330,6 @@ class BaseStructure:
                 tfile.write('\n')
                 for field in fields:
                     tfile.write(f'{ind(1)}private {field[0]} {field[1]};\n')
-            self.generate_fields(tfile)
             self.generate_constructor(tfile)
             for field in fields:
                 verb = 'is' if field[0] == 'boolean' else 'get'
@@ -361,7 +339,6 @@ class BaseStructure:
                 tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
                 tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
-            self.generate_getters(tfile)
             if self.validated:
                 self.generate_validate(structs, tfile)
             self.generate_methods(tfile)
@@ -375,22 +352,13 @@ class BaseStructure:
     def generate_constructor(self, tfile: TextIO) -> None:
         pass
 
-    def generate_fields(self, tfile: TextIO) -> None:
-        pass
-
-    def generate_getters(self, tfile: TextIO) -> None:
-        pass
-
     def generate_methods(self, tfile: TextIO) -> None:
         pass
 
     def generate_validate(self, structs: dict[str, Structure], tfile: TextIO) -> None:
-        tfile.write('\n')
-        if self.is_validate_inherited():
-            tfile.write(f'{ind(1)}@Override\n')
+        tfile.write(f'\n{ind(1)}@Override\n')
         tfile.write(f'{ind(1)}public void validate() {{\n')
-        if self.is_validate_inherited():
-            tfile.write(f'{ind(2)}super.validate();\n')
+        tfile.write(f'{ind(2)}super.validate();\n')
         for field in self.get_fields():
             if 'struct' in field and field['struct'] in structs and structs[field['struct']].validated:
                 tfile.write(f'{ind(2)}if ({field["name"]} != null) {{\n')
@@ -414,9 +382,13 @@ class BaseStructure:
                 if 'value' in constraint:
                     cons = constraint['value']
                     if 'min' in cons:
-                        tfile.write(f'{ind(2)}ValidationUtil.minValue({field["name"]}, {cons["min"]}, "{cons["error"]}");\n')
+                        tfile.write(
+                            f'{ind(2)}ValidationUtil.minValue({field["name"]}, {cons["min"]}, "{cons["error"]}");\n'
+                        )
                     if 'max' in cons:
-                        tfile.write(f'{ind(2)}ValidationUtil.maxValue({field["name"]}, {cons["max"]}, "{cons["error"]}");\n')
+                        tfile.write(
+                            f'{ind(2)}ValidationUtil.maxValue({field["name"]}, {cons["max"]}, "{cons["error"]}");\n'
+                        )
                 if 'domainname' in constraint:
                     cons = constraint['domainname']
                     tfile.write(f'{ind(2)}ValidationUtil.domainName({field["name"]}, "{cons["error"]}");\n')
@@ -456,19 +428,11 @@ class BaseStructure:
 
 class Structure(BaseStructure):
 
+    def get_extends(self) -> list[str]:
+        return ['Structure']
+
     def get_implements(self) -> list[str]:
         return ['Cloneable'] + super().get_implements()
-
-    def add_imports(self, imports: set[str]) -> None:
-        imports.add('java.util.function.Supplier')
-        imports.add('com.fasterxml.jackson.annotation.JsonIgnore')
-
-    def generate_fields(self, tfile: TextIO) -> None:
-        tfile.write(f'\n{ind(1)}@JsonIgnore\n')
-        tfile.write(f'{ind(1)}private Object extra;\n')
-
-    def generate_getters(self, tfile: TextIO) -> None:
-        tfile.write(EXTRA_METHODS)
 
     def generate_methods(self, tfile: TextIO) -> None:
         tfile.write(CLONE_METHOD.replace('ClassName', self.get_name()))
@@ -492,9 +456,6 @@ class Notification(BaseStructure):
             if field['name'] == 'subscriberId':
                 return ['SubscriberNotification']
         return ['Notification']
-
-    def is_validate_inherited(self) -> bool:
-        return True
 
     def get_fields(self) -> list[Any]:
         return [field for field in self.data['fields'] if field['name'] != 'subscriberId']

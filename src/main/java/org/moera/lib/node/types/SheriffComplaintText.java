@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SheriffComplaintText implements Cloneable {
+public class SheriffComplaintText extends Structure implements Cloneable {
 
     private String ownerFullName;
     private String ownerGender;
@@ -29,9 +26,6 @@ public class SheriffComplaintText implements Cloneable {
     private SheriffOrderReason reasonCode;
     private String reasonDetails;
     private Boolean anonymous;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getOwnerFullName() {
         return ownerFullName;
@@ -177,23 +171,9 @@ public class SheriffComplaintText implements Cloneable {
         this.anonymous = anonymous;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.maxSize(ownerFullName, 96, "sheriff-complaint.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "sheriff-complaint.owner-gender.wrong-size");
         ValidationUtil.notBlank(nodeName, "sheriff-complaint.node-name.blank");

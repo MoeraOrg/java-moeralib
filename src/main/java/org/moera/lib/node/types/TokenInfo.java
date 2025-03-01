@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TokenInfo implements Cloneable {
+public class TokenInfo extends Structure implements Cloneable {
 
     private String id;
     private String token;
@@ -21,9 +19,6 @@ public class TokenInfo implements Cloneable {
     private Long lastUsedAt;
     private String lastUsedBrowser;
     private String lastUsedIp;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -103,22 +98,6 @@ public class TokenInfo implements Cloneable {
 
     public void setLastUsedIp(String lastUsedIp) {
         this.lastUsedIp = lastUsedIp;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

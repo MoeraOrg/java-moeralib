@@ -2,13 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RepliedTo implements Cloneable {
+public class RepliedTo extends Structure implements Cloneable {
 
     private String id;
     private String revisionId;
@@ -18,9 +15,6 @@ public class RepliedTo implements Cloneable {
     private AvatarImage avatar;
     private String heading;
     private byte[] digest;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -84,22 +78,6 @@ public class RepliedTo implements Cloneable {
 
     public void setDigest(byte[] digest) {
         this.digest = digest;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

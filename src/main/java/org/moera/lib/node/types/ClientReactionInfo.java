@@ -2,21 +2,15 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClientReactionInfo implements Cloneable {
+public class ClientReactionInfo extends Structure implements Cloneable {
 
     private boolean negative;
     private int emoji;
     private long createdAt;
     private Long deadline;
-
-    @JsonIgnore
-    private Object extra;
 
     public boolean isNegative() {
         return negative;
@@ -48,22 +42,6 @@ public class ClientReactionInfo implements Cloneable {
 
     public void setDeadline(Long deadline) {
         this.deadline = deadline;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

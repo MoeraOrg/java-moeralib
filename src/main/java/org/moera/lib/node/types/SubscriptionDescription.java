@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriptionDescription implements Cloneable {
+public class SubscriptionDescription extends Structure implements Cloneable {
 
     private SubscriptionType type;
     private String feedName;
@@ -18,9 +15,6 @@ public class SubscriptionDescription implements Cloneable {
     private String remotePostingId;
     private SubscriptionReason reason;
     private SubscriptionOperations operations;
-
-    @JsonIgnore
-    private Object extra;
 
     public SubscriptionType getType() {
         return type;
@@ -78,23 +72,9 @@ public class SubscriptionDescription implements Cloneable {
         this.operations = operations;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(type, "subscription.type.missing");
         ValidationUtil.maxSize(feedName, 63, "subscription.feed-name.wrong-size");
         ValidationUtil.notBlank(remoteNodeName, "subscription.remote-node-name.blank");

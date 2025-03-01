@@ -2,20 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FeedStatusChange implements Cloneable {
+public class FeedStatusChange extends Structure implements Cloneable {
 
     private Boolean viewed;
     private Boolean read;
     private long before;
-
-    @JsonIgnore
-    private Object extra;
 
     public Boolean getViewed() {
         return viewed;
@@ -39,22 +33,6 @@ public class FeedStatusChange implements Cloneable {
 
     public void setBefore(long before) {
         this.before = before;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

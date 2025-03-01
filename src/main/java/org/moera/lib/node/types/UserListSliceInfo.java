@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserListSliceInfo implements Cloneable {
+public class UserListSliceInfo extends Structure implements Cloneable {
 
     private String listName;
     private long before;
@@ -18,9 +16,6 @@ public class UserListSliceInfo implements Cloneable {
     private int total;
     private int totalInPast;
     private int totalInFuture;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getListName() {
         return listName;
@@ -76,22 +71,6 @@ public class UserListSliceInfo implements Cloneable {
 
     public void setTotalInFuture(int totalInFuture) {
         this.totalInFuture = totalInFuture;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

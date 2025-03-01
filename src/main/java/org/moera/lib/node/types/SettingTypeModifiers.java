@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SettingTypeModifiers implements Cloneable {
+public class SettingTypeModifiers extends Structure implements Cloneable {
 
     private String format;
     private String min;
@@ -18,9 +16,6 @@ public class SettingTypeModifiers implements Cloneable {
     private Boolean never;
     private Boolean always;
     private List<String> principals;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getFormat() {
         return format;
@@ -76,22 +71,6 @@ public class SettingTypeModifiers implements Cloneable {
 
     public void setPrincipals(List<String> principals) {
         this.principals = principals;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedUserAttributes implements Cloneable {
+public class BlockedUserAttributes extends Structure implements Cloneable {
 
     private BlockedOperation blockedOperation;
     private String nodeName;
@@ -19,9 +16,6 @@ public class BlockedUserAttributes implements Cloneable {
     private Long deadline;
     private String reasonSrc;
     private SourceFormat reasonSrcFormat;
-
-    @JsonIgnore
-    private Object extra;
 
     public BlockedOperation getBlockedOperation() {
         return blockedOperation;
@@ -87,23 +81,9 @@ public class BlockedUserAttributes implements Cloneable {
         this.reasonSrcFormat = reasonSrcFormat;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(blockedOperation, "blocked-user.blocked-operation.missing");
         ValidationUtil.notBlank(nodeName, "blocked-user.node-name.blank");
         ValidationUtil.maxSize(reasonSrc, 4096, "blocked-user.reason-src.wrong-size");

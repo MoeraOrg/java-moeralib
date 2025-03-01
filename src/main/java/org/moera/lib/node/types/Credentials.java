@@ -2,20 +2,14 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Credentials implements Cloneable {
+public class Credentials extends Structure implements Cloneable {
 
     private String login;
     private String password;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getLogin() {
         return login;
@@ -33,23 +27,9 @@ public class Credentials implements Cloneable {
         this.password = password;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notBlank(login, "credentials.login.blank");
         ValidationUtil.notBlank(password, "credentials.password.blank");
     }

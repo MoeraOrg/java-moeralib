@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.Map;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PeopleGeneralInfo implements Cloneable {
+public class PeopleGeneralInfo extends Structure implements Cloneable {
 
     private Integer feedSubscribersTotal;
     private Integer feedSubscriptionsTotal;
@@ -18,9 +16,6 @@ public class PeopleGeneralInfo implements Cloneable {
     private Integer blockedTotal;
     private Integer blockedByTotal;
     private PeopleOperations operations;
-
-    @JsonIgnore
-    private Object extra;
 
     public Integer getFeedSubscribersTotal() {
         return feedSubscribersTotal;
@@ -76,22 +71,6 @@ public class PeopleGeneralInfo implements Cloneable {
 
     public void setOperations(PeopleOperations operations) {
         this.operations = operations;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

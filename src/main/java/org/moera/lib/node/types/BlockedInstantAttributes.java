@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlockedInstantAttributes implements Cloneable {
+public class BlockedInstantAttributes extends Structure implements Cloneable {
 
     private StoryType storyType;
     private String entryId;
@@ -17,9 +14,6 @@ public class BlockedInstantAttributes implements Cloneable {
     private String remotePostingId;
     private String remoteOwnerName;
     private Long deadline;
-
-    @JsonIgnore
-    private Object extra;
 
     public StoryType getStoryType() {
         return storyType;
@@ -69,23 +63,9 @@ public class BlockedInstantAttributes implements Cloneable {
         this.deadline = deadline;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(storyType, "blocked-instant.story-type.missing");
     }
 

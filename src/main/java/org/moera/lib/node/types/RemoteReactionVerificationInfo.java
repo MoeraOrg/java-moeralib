@@ -2,13 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RemoteReactionVerificationInfo implements Cloneable {
+public class RemoteReactionVerificationInfo extends Structure implements Cloneable {
 
     private String id;
     private String nodeName;
@@ -17,9 +14,6 @@ public class RemoteReactionVerificationInfo implements Cloneable {
     private VerificationStatus status;
     private String errorCode;
     private String errorMessage;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -75,22 +69,6 @@ public class RemoteReactionVerificationInfo implements Cloneable {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

@@ -3,13 +3,11 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import java.util.List;
-import java.util.function.Supplier;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StorySummaryData implements Cloneable {
+public class StorySummaryData extends Structure implements Cloneable {
 
     private StorySummaryNode node;
     private StorySummaryEntry posting;
@@ -28,9 +26,6 @@ public class StorySummaryData implements Cloneable {
     private StorySummarySheriff sheriff;
     private String description;
     private List<StorySummaryPageClicks> clicks;
-
-    @JsonIgnore
-    private Object extra;
 
     public StorySummaryNode getNode() {
         return node;
@@ -166,22 +161,6 @@ public class StorySummaryData implements Cloneable {
 
     public void setClicks(List<StorySummaryPageClicks> clicks) {
         this.clicks = clicks;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override

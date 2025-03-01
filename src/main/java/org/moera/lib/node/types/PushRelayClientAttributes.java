@@ -2,21 +2,15 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PushRelayClientAttributes implements Cloneable {
+public class PushRelayClientAttributes extends Structure implements Cloneable {
 
     private PushRelayType type;
     private String clientId;
     private String lang;
-
-    @JsonIgnore
-    private Object extra;
 
     public PushRelayType getType() {
         return type;
@@ -42,23 +36,9 @@ public class PushRelayClientAttributes implements Cloneable {
         this.lang = lang;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notNull(type, "push-relay.type.missing");
         ValidationUtil.notBlank(clientId, "push-relay.client-id.blank");
     }

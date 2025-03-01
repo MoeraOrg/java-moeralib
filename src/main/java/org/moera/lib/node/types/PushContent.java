@@ -2,21 +2,15 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PushContent implements Cloneable {
+public class PushContent extends Structure implements Cloneable {
 
     private PushContentType type;
     private String id;
     private StoryInfo story;
     private FeedWithStatus feedStatus;
-
-    @JsonIgnore
-    private Object extra;
 
     public PushContentType getType() {
         return type;
@@ -50,23 +44,9 @@ public class PushContent implements Cloneable {
         this.feedStatus = feedStatus;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         if (story != null) {
             story.validate();
         }

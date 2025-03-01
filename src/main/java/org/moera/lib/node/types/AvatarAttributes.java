@@ -2,14 +2,11 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AvatarAttributes implements Cloneable {
+public class AvatarAttributes extends Structure implements Cloneable {
 
     private String mediaId;
     private int clipX;
@@ -19,9 +16,6 @@ public class AvatarAttributes implements Cloneable {
     private float rotate;
     private String shape;
     private Integer ordinal;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getMediaId() {
         return mediaId;
@@ -87,23 +81,9 @@ public class AvatarAttributes implements Cloneable {
         this.ordinal = ordinal;
     }
 
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
-    }
-
+    @Override
     public void validate() {
+        super.validate();
         ValidationUtil.notBlank(mediaId, "avatar.media-id.blank");
         ValidationUtil.minValue(clipSize, 100, "avatar.clip-size.out-of-range");
         ValidationUtil.minValue(avatarSize, 200, "avatar.avatar-size.out-of-range");

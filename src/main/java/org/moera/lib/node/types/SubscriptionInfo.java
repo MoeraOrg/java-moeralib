@@ -2,13 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SubscriptionInfo implements Cloneable {
+public class SubscriptionInfo extends Structure implements Cloneable {
 
     private String id;
     private SubscriptionType type;
@@ -20,9 +17,6 @@ public class SubscriptionInfo implements Cloneable {
     private long createdAt;
     private SubscriptionReason reason;
     private SubscriptionOperations operations;
-
-    @JsonIgnore
-    private Object extra;
 
     public String getId() {
         return id;
@@ -102,22 +96,6 @@ public class SubscriptionInfo implements Cloneable {
 
     public void setOperations(SubscriptionOperations operations) {
         this.operations = operations;
-    }
-
-    public Object getExtra() {
-        return extra;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getOrCreateExtra(Supplier<T> creator) {
-        if (extra == null) {
-            extra = creator.get();
-        }
-        return (T) extra;
-    }
-
-    public void setExtra(Object extra) {
-        this.extra = extra;
     }
 
     @Override
