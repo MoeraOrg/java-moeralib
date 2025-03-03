@@ -39,7 +39,11 @@ public class OkHttpFetcher implements Function<JsonRpcRequest, JsonRpcResponse> 
                 if (response.body() == null) {
                     throw new JsonRpcException("Request returned an empty result");
                 }
-                return objectMapper.readValue(response.body().string(), JsonRpcResponse.class);
+                try {
+                    return objectMapper.readValue(response.body().string(), JsonRpcResponse.class);
+                } catch (JsonProcessingException e) {
+                    throw new JsonRpcException("Error parsing JSON", e);
+                }
             } catch (IOException e) {
                 throw new JsonRpcConnectionException("Request failed", e);
             }
