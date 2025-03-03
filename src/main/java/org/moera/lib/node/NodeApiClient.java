@@ -2,6 +2,7 @@ package org.moera.lib.node;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,6 +25,12 @@ import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.Structure;
 
 public class NodeApiClient {
+
+    public interface ResponseConsumer {
+
+        void accept(ResponseBody responseBody) throws MoeraNodeException;
+
+    }
 
     private String root;
     private String rootSecret;
@@ -147,19 +154,37 @@ public class NodeApiClient {
     }
 
     public <T extends Structure> T call(
-        String location, Collection<QueryParam> params, String method, Structure body, boolean auth, Class<T> result
+        String location, Collection<QueryParam> params, String method, Structure body, boolean auth,
+        Class<T> resultClass
     ) throws MoeraNodeException, MoeraNodeConnectionException {
-        var requestBuilder = new Request.Builder();
-
+        RequestBody requestBody;
         try {
-            var requestBody = body != null
+            requestBody = body != null
                 ? RequestBody.create(objectMapper.writeValueAsString(body), MediaType.parse("application/json"))
                 : null;
-            requestBuilder.method(method, requestBody);
         } catch (JsonProcessingException e) {
             throw new MoeraNodeCallException("Cannot encode the request body", e);
         }
 
+        AtomicReference<T> result = new AtomicReference<>();
+        call(location, params, method, requestBody, auth, responseBody -> {
+            try {
+                result.set(objectMapper.readValue(responseBody.string(), resultClass));
+            } catch (IOException e) {
+                throw new MoeraNodeException("Server returned incorrect response", e);
+            }
+        });
+
+        return result.get();
+    }
+
+    public void call(
+        String location, Collection<QueryParam> params, String method, RequestBody requestBody, boolean auth,
+        ResponseConsumer responseConsumer
+    ) throws MoeraNodeException, MoeraNodeConnectionException {
+        var requestBuilder = new Request.Builder();
+
+        requestBuilder.method(method, requestBody);
         requestBuilder.addHeader("Accept", "application/json");
 
         String bearer = null;
@@ -215,11 +240,7 @@ public class NodeApiClient {
                 throw new MoeraNodeException("Server returned empty result");
             }
             validateResponseStatus(response.code(), response.body());
-            try {
-                return objectMapper.readValue(response.body().string(), result);
-            } catch (IOException e) {
-                throw new MoeraNodeException("Server returned incorrect response", e);
-            }
+            responseConsumer.accept(response.body());
         } catch (IOException e) {
             throw new MoeraNodeConnectionException("Request failed", e);
         }
