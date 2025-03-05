@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import sys
 from typing import Any, TextIO, Tuple, List, Iterable
 
@@ -58,7 +59,7 @@ def comma_wrap(s: str, indent: int) -> str:
 
 def params_wrap(template: str, substitute: str, indent: int) -> str:
     line = template % substitute
-    if len(line) > 119:
+    if len(line) > 118:
         line = template % ('\n' + ind(indent) + comma_wrap(substitute, indent) + '\n' + ind(indent - 1))
     return line
 
@@ -538,6 +539,178 @@ def generate_notification_type(notifs: List[Notification], outdir: str) -> None:
         tfile.write(CONCLUSION_NOTIFICATION_TYPE)
 
 
+PREAMBLE_MOERA_NODE = '''package org.moera.lib.node;
+
+// This file is generated
+
+import java.nio.file.Path;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.moera.lib.node.exception.MoeraNodeConnectionException;
+import org.moera.lib.node.exception.MoeraNodeException;
+import org.moera.lib.node.types.*;
+
+public class MoeraNode extends NodeApiClient {
+
+    /**
+     * Constructs a new MoeraNode object.
+     */
+    public MoeraNode() {
+    }
+
+    /**
+     * Constructs a new MoeraNode object with the specified node URL.
+     *
+     * @param nodeUrl node URL
+     */
+    public MoeraNode(String nodeUrl) {
+        super(nodeUrl);
+    }
+'''
+
+CONCLUSION_MOERA_NODE = '''
+}
+'''
+
+def generate_calls(api: Any, afile: TextIO) -> None:
+    afile.write(PREAMBLE_MOERA_NODE)
+
+    for obj in api['objects']:
+        for request in obj.get('requests', []):
+            if 'function' not in request:
+                continue
+
+            params: list[str] = []
+            tail_params: list[str] = []
+            url_params: dict[str, str] = {}
+            flag_name: str | None = None
+            flags: list[Any] = []
+            param_docs = []
+            for param in request.get('params', []) + request.get('query', []):
+                if 'name' not in param:
+                    print('Missing name of parameter of the request "{method} {url}"'
+                          .format(method=request['type'], url=request['url']))
+                    exit(1)
+                name = param['name']
+                url_params[name] = name
+                if 'enum' in param:
+                    java_type = param['enum']
+                else:
+                    java_type = to_java_type(param['type'], param.get('optional', False))
+                if 'flags' in param:
+                    flag_name = name
+                    flags = [flag for flag in param['flags']]
+                    for flag in flags:
+                        flag_param = f'with{flag["name"].capitalize()}'
+                        params.append(f'boolean {flag_param}')
+                        param_docs += [(flag_param, 'include ' + flag.get('description', ''), 'boolean')]
+                else:
+                    params.append(f'{java_type} {name}')
+                    param_docs += [(name, param.get('description', ''), java_type)]
+            body = 'null'
+            if 'in' in request:
+                if 'type' in request['in']:
+                    if request['in']['type'] != 'blob':
+                        print('Unrecognised type "{type}" of the input body of the request "{method} {url}"'
+                              .format(type=request['in']['type'], method=request['type'], url=request['url']))
+                        exit(1)
+                    body = 'body, contentType'
+                    params += ['Path body', 'String contentType']
+                    param_docs += [('body', '', 'Path'), ('contentType', 'content-type of ``body``', 'string')]
+                else:
+                    if 'name' not in request['in']:
+                        print('Missing name of body of the request "{method} {url}"'
+                              .format(method=request['type'], url=request['url']))
+                        exit(1)
+                    name = request['in']['name']
+                    java_type = request['in']['struct']
+                    if request['in'].get('array', False):
+                        java_type += '[]'
+                    body = name
+                    params.append(f'{java_type} {name}')
+                    param_docs += [(name, request['in'].get('description', ''), java_type)]
+            params += tail_params
+
+            method = request['type']
+            location: str = request['url']
+            path_vars = []
+            if len(url_params) > 0:
+                p = re.compile(r'{(\w+)}')
+                for name in p.findall(location):
+                    if name not in url_params:
+                        print('Unknown parameter "{param}" referenced in location "{url}"'
+                              .format(param=name, url=request['url']))
+                        exit(1)
+                    path_vars.append(f'ue({name})')
+                    location = location.replace(f'{{{name}}}', '%%')
+                    del url_params[name]
+            location = f'"{location}"'
+            if len(path_vars) > 0:
+                location += '.formatted(%s)'
+
+            subs = []
+            for name, java_name in url_params.items():
+                subs.append(f'QueryParam.of("{name}", {java_name})')
+
+            result = 'Result'
+            if 'out' in request:
+                if 'type' in request['out']:
+                    if request['out']['type'] != 'blob':
+                        print('Unrecognised type "{type}" of the output body of the request "{method} {url}"'
+                              .format(type=request['out']['type'], method=request['type'], url=request['url']))
+                        exit(1)
+                    result = 'void'
+                    params.append('ResponseConsumer responseConsumer')
+                    param_docs += [('responseConsumer', 'consumer of the data received', 'ResponseConsumer')]
+                else:
+                    result = request['out']['struct']
+                    if request['out'].get('array', False):
+                        result += '[]'
+
+            description = ''
+            if 'description' in request:
+                description = doc_wrap(request["description"], 1)
+            description += f'\n{ind(1)} *'
+            if len(param_docs) > 0:
+                for pd in param_docs:
+                    param_doc = pd[1] if pd[1] != '' else pd[0]
+                    doc = doc_wrap(f'@param {pd[0]} {param_doc}', 1)
+                    description += f'\n{ind(1)}{doc}'
+            if result != 'void':
+                description += f'\n{ind(1)}' + doc_wrap(f'@return {result}', 1)
+            if description != '':
+                description = f'\n{ind(1)}/**\n{ind(1)}{description}\n{ind(1)} */'
+
+            afile.write(description)
+            name = request['function']
+            throws = 'throws MoeraNodeException, MoeraNodeConnectionException'
+            afile.write(params_wrap(f'\n{ind(1)}public {result} {name}(%s) {throws} {{\n', ', '.join(params), 2))
+            if flag_name is not None:
+                items = ', '.join(
+                    'QueryParam.of("%s", with%s)' % (flag['name'], flag['name'].capitalize()) for flag in flags
+                )
+                afile.write(f'{ind(2)}var {flag_name} = commaSeparatedFlags({items});\n')
+            if len(path_vars) > 0:
+                afile.write(
+                    params_wrap(f'{ind(2)}var location = {location};\n', ', '.join(path_vars), 3).replace('%', '%s')
+                )
+            else:
+                afile.write(f'{ind(2)}var location = {location};\n')
+            query_params = 'null'
+            if len(subs) > 0:
+                subs_list = f", \n{ind(3)}".join(subs)
+                afile.write(f'{ind(2)}var params = new QueryParam[] {{\n{ind(3)}{subs_list}\n{ind(2)}}};\n')
+                query_params = 'params'
+            if result != 'void':
+                afile.write(f'{ind(2)}var returnTypeRef = new TypeReference<{result}>() {{}};\n')
+            if result != 'void':
+                afile.write(f'{ind(2)}return call(location, {query_params}, "{method}", {body}, returnTypeRef);\n')
+            else:
+                afile.write(f'{ind(2)}call(location, {query_params}, "{method}", {body}, responseConsumer);\n')
+            afile.write(f'{ind(1)}}}\n')
+
+    afile.write(CONCLUSION_MOERA_NODE)
+
 def scan_validation(records: Iterable[BaseStructure], structs: dict[str, Structure], excludeFields: list[str]) -> None:
     for record in records:
         for field in record.data['fields']:
@@ -589,6 +762,8 @@ def generate_types(api: Any, notifications: Any, outdir: str) -> None:
     for notif in notifs:
         notif.generate_class(structs, outdir)
     generate_notification_type(notifs, outdir)
+    with open(outdir + f'/node/MoeraNode.java', 'w+') as afile:
+        generate_calls(api, afile)
 
 
 FP_TYPES = {

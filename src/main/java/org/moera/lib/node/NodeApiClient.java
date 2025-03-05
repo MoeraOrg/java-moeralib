@@ -1,11 +1,16 @@
 package org.moera.lib.node;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -22,7 +27,6 @@ import org.moera.lib.node.exception.MoeraNodeApiValidationException;
 import org.moera.lib.node.exception.MoeraNodeCallException;
 import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
-import org.moera.lib.node.types.Structure;
 
 public class NodeApiClient {
 
@@ -41,6 +45,13 @@ public class NodeApiClient {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final OkHttpClient client = new OkHttpClient();
+
+    public NodeApiClient() {
+    }
+
+    public NodeApiClient(String nodeUrl) {
+        nodeUrl(nodeUrl);
+    }
 
     /**
      * API endpoint URL of the node.
@@ -153,21 +164,11 @@ public class NodeApiClient {
         authMethod(NodeAuth.ROOT_ADMIN);
     }
 
-    public <T extends Structure> T call(
-        String location, Collection<QueryParam> params, String method, Structure body, boolean auth,
-        Class<T> resultClass
+    public <T> T call(
+        String location, QueryParam[] params, String method, Object body, TypeReference<T> resultClass
     ) throws MoeraNodeException, MoeraNodeConnectionException {
-        RequestBody requestBody;
-        try {
-            requestBody = body != null
-                ? RequestBody.create(objectMapper.writeValueAsString(body), MediaType.parse("application/json"))
-                : null;
-        } catch (JsonProcessingException e) {
-            throw new MoeraNodeCallException("Cannot encode the request body", e);
-        }
-
         AtomicReference<T> result = new AtomicReference<>();
-        call(location, params, method, requestBody, auth, responseBody -> {
+        call(location, params, method, body, responseBody -> {
             try {
                 result.set(objectMapper.readValue(responseBody.string(), resultClass));
             } catch (IOException e) {
@@ -179,8 +180,41 @@ public class NodeApiClient {
     }
 
     public void call(
-        String location, Collection<QueryParam> params, String method, RequestBody requestBody, boolean auth,
-        ResponseConsumer responseConsumer
+        String location, QueryParam[] params, String method, Object body, ResponseConsumer responseConsumer
+    ) throws MoeraNodeException, MoeraNodeConnectionException {
+        RequestBody requestBody;
+        try {
+            requestBody = body != null
+                ? RequestBody.create(objectMapper.writeValueAsString(body), MediaType.parse("application/json"))
+                : null;
+        } catch (JsonProcessingException e) {
+            throw new MoeraNodeCallException("Cannot encode the request body", e);
+        }
+
+        call(location, params, method, requestBody, responseConsumer);
+    }
+
+    public <T> T call(
+        String location, QueryParam[] params, String method, Path body, String contentType, TypeReference<T> resultClass
+    ) throws MoeraNodeException, MoeraNodeConnectionException {
+        RequestBody requestBody = body != null
+            ? RequestBody.create(body.toFile(), MediaType.parse(contentType))
+            : null;
+
+        AtomicReference<T> result = new AtomicReference<>();
+        call(location, params, method, requestBody, responseBody -> {
+            try {
+                result.set(objectMapper.readValue(responseBody.string(), resultClass));
+            } catch (IOException e) {
+                throw new MoeraNodeException("Server returned incorrect response", e);
+            }
+        });
+
+        return result.get();
+    }
+
+    public void call(
+        String location, QueryParam[] params, String method, RequestBody requestBody, ResponseConsumer responseConsumer
     ) throws MoeraNodeException, MoeraNodeConnectionException {
         var requestBuilder = new Request.Builder();
 
@@ -188,30 +222,28 @@ public class NodeApiClient {
         requestBuilder.addHeader("Accept", "application/json");
 
         String bearer = null;
-        if (auth) {
-            switch (authMethod) {
-                case PEER:
-                    if (carteSource != null) {
-                        bearer = "carte:" + carteSource.get();
-                    } else if (carte != null) {
-                        bearer = "carte:" + carte;
-                    } else {
-                        throw new MoeraNodeCallException("Carte is not set");
-                    }
-                    break;
-                case ADMIN:
-                    if (token == null) {
-                        throw new MoeraNodeCallException("Token is not set");
-                    }
-                    bearer = "token:" + token;
-                    break;
-                case ROOT_ADMIN:
-                    if (rootSecret == null) {
-                        throw new MoeraNodeCallException("Root secret is not set");
-                    }
-                    bearer = "secret:" + rootSecret;
-                    break;
-            }
+        switch (authMethod) {
+            case PEER:
+                if (carteSource != null) {
+                    bearer = "carte:" + carteSource.get();
+                } else if (carte != null) {
+                    bearer = "carte:" + carte;
+                } else {
+                    throw new MoeraNodeCallException("Carte is not set");
+                }
+                break;
+            case ADMIN:
+                if (token == null) {
+                    throw new MoeraNodeCallException("Token is not set");
+                }
+                bearer = "token:" + token;
+                break;
+            case ROOT_ADMIN:
+                if (rootSecret == null) {
+                    throw new MoeraNodeCallException("Root secret is not set");
+                }
+                bearer = "secret:" + rootSecret;
+                break;
         }
         if (bearer != null) {
             requestBuilder.addHeader("Authorization", "Bearer " + bearer);
@@ -225,7 +257,7 @@ public class NodeApiClient {
         if (url == null) {
             throw new MoeraNodeCallException("Node URL is not set");
         }
-        if (params != null && !params.isEmpty()) {
+        if (params != null && params.length > 0) {
             var builder = url.newBuilder();
             for (var param : params) {
                 if (param.value() != null) {
@@ -276,6 +308,24 @@ public class NodeApiClient {
         } catch (IOException e) {
             return "";
         }
+    }
+
+    protected String ue(Object value) throws MoeraNodeException {
+        if (value == null) {
+            throw new MoeraNodeException("null value is not allowed for path substitution");
+        }
+        return URLEncoder.encode(value.toString(), StandardCharsets.UTF_8);
+    }
+
+    protected String commaSeparatedFlags(QueryParam... flags) {
+        if (flags == null || flags.length == 0) {
+            return "";
+        }
+
+        return Arrays.stream(flags)
+            .filter(flag -> Boolean.TRUE.equals(flag.value()))
+            .map(QueryParam::name)
+            .collect(Collectors.joining(","));
     }
 
 }

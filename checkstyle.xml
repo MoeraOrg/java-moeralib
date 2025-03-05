@@ -57,7 +57,9 @@
         <module name="UnnecessaryParentheses"/>
 
         <!-- Imports -->
-        <module name="AvoidStarImport"/>
+        <module name="AvoidStarImport">
+            <property name="excludes" value="org.moera.lib.node.types"/>
+        </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
 

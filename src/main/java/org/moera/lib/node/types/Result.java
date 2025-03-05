@@ -2,7 +2,7 @@ package org.moera.lib.node.types;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Result {
+public class Result extends Structure {
 
     public static final Result OK = new Result("ok", "OK");
     public static final Result FROZEN = new Result("frozen", "Frozen");
