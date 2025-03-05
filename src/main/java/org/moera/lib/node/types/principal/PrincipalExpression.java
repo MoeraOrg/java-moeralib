@@ -124,8 +124,8 @@ public final class PrincipalExpression implements PrincipalFilter {
             throw new InvalidPrincipalExpression("Right operand not set");
         }
         return inverse
-                ? String.format("not ((%s) %s (%s))", left, operation.name().toLowerCase(), right)
-                : String.format("(%s) %s (%s)", left, operation.name().toLowerCase(), right);
+                ? "not ((%s) %s (%s))".formatted(left, operation.name().toLowerCase(), right)
+                : "(%s) %s (%s)".formatted(left, operation.name().toLowerCase(), right);
     }
 
 }

@@ -118,7 +118,7 @@ class FingerprintWriter implements AutoCloseable {
             append(value);
         } else {
             throw new FingerprintException(
-                String.format("%s is not a primitive fingerprint element", obj.getClass().getName())
+                "%s is not a primitive fingerprint element".formatted(obj.getClass().getName())
             );
         }
     }
@@ -131,10 +131,8 @@ class FingerprintWriter implements AutoCloseable {
                 if (field.schema().getClass().isArray()) {
                     if (!FieldWithSchema.class.isAssignableFrom(field.schema().getClass().componentType())) {
                         throw new FingerprintException(
-                            String.format(
-                                "fingerprint schema should be a String or a FieldWithSchema[], but got %s",
-                                field.schema().getClass()
-                            )
+                            "fingerprint schema should be a String or a FieldWithSchema[], but got %s"
+                                .formatted(field.schema().getClass())
                         );
                     }
                     String fieldName = field.name();
@@ -144,7 +142,7 @@ class FingerprintWriter implements AutoCloseable {
                         append(fingerprintValue, (FieldWithSchema[]) field.schema());
                     } else {
                         throw new FingerprintException(
-                            String.format("fingerprint field '%s' should be a Fingerprint", fieldName)
+                            "fingerprint field '%s' should be a Fingerprint".formatted(fieldName)
                         );
                     }
                 } else {

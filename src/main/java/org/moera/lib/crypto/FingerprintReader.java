@@ -118,16 +118,14 @@ public class FingerprintReader implements AutoCloseable {
         } else if (schema.getClass().isArray()) {
             if (!FieldWithSchema.class.isAssignableFrom(schema.getClass().componentType())) {
                 throw new FingerprintException(
-                    String.format(
-                        "fingerprint schema should be a String or a FieldWithSchema[], but got %s",
-                        schema.getClass()
-                    )
+                    "fingerprint schema should be a String or a FieldWithSchema[], but got %s"
+                        .formatted(schema.getClass())
                 );
             }
             assert schema instanceof FieldWithSchema[];
-            return read((FieldWithSchema[]) schema);
+            return read(schema);
         } else {
-            throw new FingerprintException(String.format("unknown field type in the schema: %s", schema));
+            throw new FingerprintException("unknown field type in the schema: %s".formatted(schema));
         }
     }
 
@@ -139,7 +137,7 @@ public class FingerprintReader implements AutoCloseable {
 
         FieldWithSchema[] schema = schemaProvider.apply(version.intValue());
         if (schema == null) {
-            throw new FingerprintException(String.format("no schema for version %d", version));
+            throw new FingerprintException("no schema for version %d".formatted(version));
         }
 
         Fingerprint fingerprint = new Fingerprint(version.intValue());

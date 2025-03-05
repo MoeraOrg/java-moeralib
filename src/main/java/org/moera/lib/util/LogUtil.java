@@ -8,7 +8,7 @@ import org.moera.lib.node.types.body.Body;
 public class LogUtil {
 
     public static String format(String value) {
-        return value != null ? String.format("'%s'", escape(value)) : "null";
+        return value != null ? "'%s'".formatted(escape(value)) : "null";
     }
 
     public static String format(Integer value) {
@@ -24,8 +24,9 @@ public class LogUtil {
     }
 
     private static String escape(String value) {
-        return value.replace("\n", "\\n")
-                .replace("\r", "\\r");
+        return value
+            .replace("\n", "\\n")
+            .replace("\r", "\\r");
     }
 
     public static String format(String value, int maxLength) {
@@ -41,7 +42,7 @@ public class LogUtil {
     }
 
     public static String format(UUID value) {
-        return value != null ? String.format("'%s'", value) : "null";
+        return value != null ? "'%s'".formatted(value) : "null";
     }
 
     public static String format(byte[] value) {

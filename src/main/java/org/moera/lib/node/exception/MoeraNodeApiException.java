@@ -18,7 +18,7 @@ public class MoeraNodeApiException extends MoeraNodeException {
     public MoeraNodeApiException(int status, String errorCode, String errorMessage) {
         super(
             getErrorTypeMessage(status)
-            + String.format(": (%s %s)", LogUtil.format(errorCode), LogUtil.format(errorMessage))
+            + ": (%s %s)".formatted(LogUtil.format(errorCode), LogUtil.format(errorMessage))
         );
     }
 
@@ -35,7 +35,7 @@ public class MoeraNodeApiException extends MoeraNodeException {
             case 400 -> "Validation failed";
             case 404 -> "Object not found";
             case 409 -> "Operation failed";
-            default -> String.format("Error status returned: %d", status);
+            default -> "Error status returned: %d".formatted(status);
         };
     }
 

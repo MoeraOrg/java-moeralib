@@ -65,7 +65,7 @@ public class NodeName {
     }
 
     public static String toString(String name, int generation) {
-        return name != null ? String.format("%s_%d", name, generation) : null;
+        return name != null ? "%s_%d".formatted(name, generation) : null;
     }
 
 }

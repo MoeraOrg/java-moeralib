@@ -113,7 +113,7 @@ public abstract class Notification implements Cloneable {
         String params = parameters.stream()
             .map(p -> p.name() + " = " + p.value())
             .collect(Collectors.joining(", "));
-        return String.format("%s (%s)", getType(), params);
+        return "%s (%s)".formatted(getType(), params);
     }
 
     public void logParameters(List<LogPair> parameters) {

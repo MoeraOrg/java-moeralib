@@ -5,7 +5,7 @@ public class NodeApiUnknownNameException extends MoeraNodeException {
     private final String nodeName;
 
     public NodeApiUnknownNameException(String nodeName) {
-        super(String.format("Node name '%s' not found", nodeName));
+        super("Node name '%s' not found".formatted(nodeName));
         this.nodeName = nodeName;
     }
 

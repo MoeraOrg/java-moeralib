@@ -70,7 +70,7 @@ public class Util {
     }
 
     public static String hexByte(byte b) {
-        return String.format("%02X", b >= 0 ? b : 256 + (int) b);
+        return "%02X".formatted(b >= 0 ? b : 256 + (int) b);
     }
 
     public static boolean isEmpty(String s) {
