@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -32,6 +33,7 @@ public class FeedOperations implements Cloneable {
         this.add = Objects.equals(add, defaultValue) ? null : add;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return add == null;
     }

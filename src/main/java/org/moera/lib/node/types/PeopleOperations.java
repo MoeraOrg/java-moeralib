@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -222,6 +223,7 @@ public class PeopleOperations implements Cloneable {
         this.viewFriendOfsTotal = Objects.equals(viewFriendOfsTotal, defaultValue) ? null : viewFriendOfsTotal;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return viewSubscribers == null
             && viewSubscriptions == null

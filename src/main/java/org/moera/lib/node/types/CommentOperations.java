@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -266,6 +267,7 @@ public class CommentOperations implements Cloneable {
         this.overrideReaction = Objects.equals(overrideReaction, defaultValue) ? null : overrideReaction;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return view == null
             && edit == null

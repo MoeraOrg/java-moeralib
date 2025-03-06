@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -137,6 +138,7 @@ public class ContactOperations implements Cloneable {
         this.viewBlockBy = Objects.equals(viewBlockBy, defaultValue) ? null : viewBlockBy;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return viewFeedSubscriber == null
             && viewFeedSubscription == null

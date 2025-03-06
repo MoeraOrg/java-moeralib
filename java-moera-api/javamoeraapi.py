@@ -151,6 +151,7 @@ def generate_operations(operations: Any, outdir: str) -> None:
         tfile.write('package org.moera.lib.node.types;\n\n')
         tfile.write('// This file is generated\n\n')
         tfile.write('import java.util.Objects;\n\n')
+        tfile.write('import com.fasterxml.jackson.annotation.JsonIgnore;\n')
         tfile.write('import com.fasterxml.jackson.annotation.JsonInclude;\n')
         tfile.write('import org.moera.lib.node.types.principal.Principal;\n\n')
         tfile.write('@JsonInclude(JsonInclude.Include.NON_NULL)\n')
@@ -182,7 +183,8 @@ def generate_operations(operations: Any, outdir: str) -> None:
                 line = line.replace('=', '=\n' + ind(3))
             tfile.write(line)
             tfile.write(f'{ind(1)}}}\n')
-        tfile.write(f'\n{ind(1)}public boolean isEmpty() {{\n')
+        tfile.write(f'\n{ind(1)}@JsonIgnore\n')
+        tfile.write(f'{ind(1)}public boolean isEmpty() {{\n')
         tfile.write(f'{ind(2)}return ')
         first = True
         for field in operations['fields']:

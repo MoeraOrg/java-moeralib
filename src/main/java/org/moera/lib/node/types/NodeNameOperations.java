@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -32,6 +33,7 @@ public class NodeNameOperations implements Cloneable {
         this.manage = Objects.equals(manage, defaultValue) ? null : manage;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return manage == null;
     }

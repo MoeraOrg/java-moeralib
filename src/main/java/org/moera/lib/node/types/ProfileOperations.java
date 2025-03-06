@@ -4,6 +4,7 @@ package org.moera.lib.node.types;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.principal.Principal;
 
@@ -53,6 +54,7 @@ public class ProfileOperations implements Cloneable {
         this.viewEmail = Objects.equals(viewEmail, defaultValue) ? null : viewEmail;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return edit == null
             && viewEmail == null;
