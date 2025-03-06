@@ -5,7 +5,6 @@ package org.moera.lib.node;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
 
@@ -32,9 +31,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return ActivityReactionInfo[]
      */
-    public ActivityReactionInfo[] searchActivityReactions(
-        ActivityReactionFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ActivityReactionInfo[] searchActivityReactions(ActivityReactionFilter filter) throws MoeraNodeException {
         var location = "/activity/reactions/search";
         var returnTypeRef = new TypeReference<ActivityReactionInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -46,9 +43,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id asynchronous operation ID
      * @return RemotePostingVerificationInfo
      */
-    public RemotePostingVerificationInfo getRemotePostingVerificationStatus(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public RemotePostingVerificationInfo getRemotePostingVerificationStatus(String id) throws MoeraNodeException {
         var location = "/async-operations/remote-posting-verification/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<RemotePostingVerificationInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -61,9 +56,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id asynchronous operation ID
      * @return RemoteReactionVerificationInfo
      */
-    public RemoteReactionVerificationInfo getRemoteReactionVerificationStatus(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public RemoteReactionVerificationInfo getRemoteReactionVerificationStatus(String id) throws MoeraNodeException {
         var location = "/async-operations/remote-reaction-verification/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<RemoteReactionVerificationInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -74,7 +67,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return AvatarInfo[]
      */
-    public AvatarInfo[] getAvatars() throws MoeraNodeException, MoeraNodeConnectionException {
+    public AvatarInfo[] getAvatars() throws MoeraNodeException {
         var location = "/avatars";
         var returnTypeRef = new TypeReference<AvatarInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -88,9 +81,7 @@ public class MoeraNode extends NodeApiClient {
      * @param avatar avatar
      * @return AvatarInfo
      */
-    public AvatarInfo createAvatar(
-        AvatarAttributes avatar
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public AvatarInfo createAvatar(AvatarAttributes avatar) throws MoeraNodeException {
         var location = "/avatars";
         var returnTypeRef = new TypeReference<AvatarInfo>() {};
         return call(location, null, "POST", avatar, returnTypeRef);
@@ -102,7 +93,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id avatar ID
      * @return AvatarInfo
      */
-    public AvatarInfo getAvatar(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public AvatarInfo getAvatar(String id) throws MoeraNodeException {
         var location = "/avatars/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<AvatarInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -114,7 +105,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id avatar ID
      * @return Result
      */
-    public Result deleteAvatar(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteAvatar(String id) throws MoeraNodeException {
         var location = "/avatars/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -127,9 +118,7 @@ public class MoeraNode extends NodeApiClient {
      * @param order order
      * @return AvatarOrdinal[]
      */
-    public AvatarOrdinal[] reorderAvatars(
-        AvatarsOrdered order
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public AvatarOrdinal[] reorderAvatars(AvatarsOrdered order) throws MoeraNodeException {
         var location = "/avatars/reorder";
         var returnTypeRef = new TypeReference<AvatarOrdinal[]>() {};
         return call(location, null, "POST", order, returnTypeRef);
@@ -142,9 +131,7 @@ public class MoeraNode extends NodeApiClient {
      * @param instant instant
      * @return BlockedInstantInfo
      */
-    public BlockedInstantInfo blockInstant(
-        BlockedInstantAttributes instant
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedInstantInfo blockInstant(BlockedInstantAttributes instant) throws MoeraNodeException {
         var location = "/blocked-instants";
         var returnTypeRef = new TypeReference<BlockedInstantInfo>() {};
         return call(location, null, "POST", instant, returnTypeRef);
@@ -156,7 +143,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the blocked instant
      * @return BlockedInstantInfo
      */
-    public BlockedInstantInfo getBlockedInstant(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedInstantInfo getBlockedInstant(String id) throws MoeraNodeException {
         var location = "/blocked-instants/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<BlockedInstantInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -168,7 +155,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the blocked instant
      * @return Result
      */
-    public Result unblockInstant(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result unblockInstant(String id) throws MoeraNodeException {
         var location = "/blocked-instants/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -180,9 +167,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return BlockedInstantInfo[]
      */
-    public BlockedInstantInfo[] searchBlockedInstants(
-        BlockedInstantFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedInstantInfo[] searchBlockedInstants(BlockedInstantFilter filter) throws MoeraNodeException {
         var location = "/blocked-instants/search";
         var returnTypeRef = new TypeReference<BlockedInstantInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -195,9 +180,7 @@ public class MoeraNode extends NodeApiClient {
      * @param user user
      * @return BlockedUserInfo
      */
-    public BlockedUserInfo blockUser(
-        BlockedUserAttributes user
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedUserInfo blockUser(BlockedUserAttributes user) throws MoeraNodeException {
         var location = "/people/blocked-users";
         var returnTypeRef = new TypeReference<BlockedUserInfo>() {};
         return call(location, null, "POST", user, returnTypeRef);
@@ -209,7 +192,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the blocked user
      * @return BlockedUserInfo
      */
-    public BlockedUserInfo getBlockedUser(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedUserInfo getBlockedUser(String id) throws MoeraNodeException {
         var location = "/people/blocked-users/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<BlockedUserInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -221,7 +204,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the blocked user
      * @return Result
      */
-    public Result unblockUser(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result unblockUser(String id) throws MoeraNodeException {
         var location = "/people/blocked-users/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -233,9 +216,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return BlockedUserInfo[]
      */
-    public BlockedUserInfo[] searchBlockedUsers(
-        BlockedUserFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedUserInfo[] searchBlockedUsers(BlockedUserFilter filter) throws MoeraNodeException {
         var location = "/people/blocked-users/search";
         var returnTypeRef = new TypeReference<BlockedUserInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -247,9 +228,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return BlockedUsersChecksums
      */
-    public BlockedUsersChecksums getBlockedUsersChecksums(
-        
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedUsersChecksums getBlockedUsersChecksums() throws MoeraNodeException {
         var location = "/people/blocked-users/checksums";
         var returnTypeRef = new TypeReference<BlockedUsersChecksums>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -261,7 +240,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the blocked-by user
      * @return BlockedByUserInfo
      */
-    public BlockedByUserInfo getBlockedByUser(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedByUserInfo getBlockedByUser(String id) throws MoeraNodeException {
         var location = "/people/blocked-by-users/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<BlockedByUserInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -273,9 +252,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return BlockedByUserInfo[]
      */
-    public BlockedByUserInfo[] searchBlockedByUsers(
-        BlockedByUserFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public BlockedByUserInfo[] searchBlockedByUsers(BlockedByUserFilter filter) throws MoeraNodeException {
         var location = "/people/blocked-by-users/search";
         var returnTypeRef = new TypeReference<BlockedByUserInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -288,9 +265,7 @@ public class MoeraNode extends NodeApiClient {
      * @param attributes attributes
      * @return CarteSet
      */
-    public CarteSet createCartes(
-        CarteAttributes attributes
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public CarteSet createCartes(CarteAttributes attributes) throws MoeraNodeException {
         var location = "/cartes";
         var returnTypeRef = new TypeReference<CarteSet>() {};
         return call(location, null, "POST", attributes, returnTypeRef);
@@ -303,9 +278,7 @@ public class MoeraNode extends NodeApiClient {
      * @param clientCarte clientCarte
      * @return CarteVerificationInfo
      */
-    public CarteVerificationInfo verifyCarte(
-        ClientCarte clientCarte
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public CarteVerificationInfo verifyCarte(ClientCarte clientCarte) throws MoeraNodeException {
         var location = "/cartes/verify";
         var returnTypeRef = new TypeReference<CarteVerificationInfo>() {};
         return call(location, null, "POST", clientCarte, returnTypeRef);
@@ -325,7 +298,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public CommentsSliceInfo getCommentsSlice(
         String postingId, Integer after, Integer before, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments".formatted(ue(postingId));
         var params = new QueryParam[] {
             QueryParam.of("after", after), 
@@ -345,9 +318,7 @@ public class MoeraNode extends NodeApiClient {
      * @param comment comment
      * @return CommentCreated
      */
-    public CommentCreated createComment(
-        String postingId, CommentText comment
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public CommentCreated createComment(String postingId, CommentText comment) throws MoeraNodeException {
         var location = "/postings/%s/comments".formatted(ue(postingId));
         var returnTypeRef = new TypeReference<CommentCreated>() {};
         return call(location, null, "POST", comment, returnTypeRef);
@@ -363,7 +334,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public CommentInfo getComment(
         String postingId, String commentId, boolean withSource
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var include = commaSeparatedFlags(QueryParam.of("source", withSource));
         var location = "/postings/%s/comments/%s".formatted(ue(postingId), ue(commentId));
         var params = new QueryParam[] {
@@ -380,9 +351,7 @@ public class MoeraNode extends NodeApiClient {
      * @param attributes attributes
      * @return Result
      */
-    public Result updateAllComments(
-        String postingId, CommentMassAttributes attributes
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result updateAllComments(String postingId, CommentMassAttributes attributes) throws MoeraNodeException {
         var location = "/postings/%s/comments".formatted(ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", attributes, returnTypeRef);
@@ -399,7 +368,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public CommentInfo updateComment(
         String postingId, String commentId, CommentText comment
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<CommentInfo>() {};
         return call(location, null, "PUT", comment, returnTypeRef);
@@ -413,9 +382,7 @@ public class MoeraNode extends NodeApiClient {
      * @param commentId ID of the comment
      * @return CommentTotalInfo
      */
-    public CommentTotalInfo deleteComment(
-        String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public CommentTotalInfo deleteComment(String postingId, String commentId) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<CommentTotalInfo>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -430,7 +397,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public PostingInfo[] getPostingsAttachedToComment(
         String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/attached".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<PostingInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -443,9 +410,7 @@ public class MoeraNode extends NodeApiClient {
      * @param commentId ID of the comment
      * @return CommentRevisionInfo[]
      */
-    public CommentRevisionInfo[] getCommentRevisions(
-        String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public CommentRevisionInfo[] getCommentRevisions(String postingId, String commentId) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/revisions".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<CommentRevisionInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -461,7 +426,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public CommentRevisionInfo getCommentRevision(
         String postingId, String commentId, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/revisions/%s".formatted(ue(postingId), ue(commentId), ue(id));
         var returnTypeRef = new TypeReference<CommentRevisionInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -480,7 +445,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionCreated createCommentReaction(
         String postingId, String commentId, ReactionDescription reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<ReactionCreated>() {};
         return call(location, null, "POST", reaction, returnTypeRef);
@@ -497,7 +462,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionInfo updateCommentReaction(
         String postingId, String commentId, String ownerName, ReactionOverride reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions/%s".formatted(ue(postingId), ue(commentId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionInfo>() {};
         return call(location, null, "PUT", reaction, returnTypeRef);
@@ -519,7 +484,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionsSliceInfo getCommentReactionsSlice(
         String postingId, String commentId, Boolean negative, Integer emoji, Integer before, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions".formatted(ue(postingId), ue(commentId));
         var params = new QueryParam[] {
             QueryParam.of("negative", negative), 
@@ -542,7 +507,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionInfo getCommentReaction(
         String postingId, String commentId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions/%s".formatted(ue(postingId), ue(commentId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -555,9 +520,7 @@ public class MoeraNode extends NodeApiClient {
      * @param commentId ID of the comment
      * @return Result
      */
-    public Result deleteAllCommentReactions(
-        String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteAllCommentReactions(String postingId, String commentId) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -573,7 +536,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionTotalsInfo deleteCommentReaction(
         String postingId, String commentId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions/%s".formatted(ue(postingId), ue(commentId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionTotalsInfo>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -588,7 +551,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionTotalsInfo getCommentReactionTotals(
         String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reaction-totals".formatted(ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<ReactionTotalsInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -605,9 +568,7 @@ public class MoeraNode extends NodeApiClient {
      * @param limit maximum number of contacts returned
      * @return ContactInfo[]
      */
-    public ContactInfo[] getContacts(
-        String query, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ContactInfo[] getContacts(String query, Integer limit) throws MoeraNodeException {
         var location = "/people/contacts";
         var params = new QueryParam[] {
             QueryParam.of("query", query), 
@@ -622,7 +583,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return CredentialsCreated
      */
-    public CredentialsCreated checkCredentials() throws MoeraNodeException, MoeraNodeConnectionException {
+    public CredentialsCreated checkCredentials() throws MoeraNodeException {
         var location = "/credentials";
         var returnTypeRef = new TypeReference<CredentialsCreated>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -636,9 +597,7 @@ public class MoeraNode extends NodeApiClient {
      * @param credentials credentials
      * @return Result
      */
-    public Result createCredentials(
-        Credentials credentials
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result createCredentials(Credentials credentials) throws MoeraNodeException {
         var location = "/credentials";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", credentials, returnTypeRef);
@@ -652,9 +611,7 @@ public class MoeraNode extends NodeApiClient {
      * @param credentials credentials
      * @return Result
      */
-    public Result updateCredentials(
-        CredentialsChange credentials
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result updateCredentials(CredentialsChange credentials) throws MoeraNodeException {
         var location = "/credentials";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", credentials, returnTypeRef);
@@ -665,7 +622,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return Result
      */
-    public Result deleteCredentials() throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteCredentials() throws MoeraNodeException {
         var location = "/credentials";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -678,7 +635,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return EmailHint
      */
-    public EmailHint resetCredentials() throws MoeraNodeException, MoeraNodeConnectionException {
+    public EmailHint resetCredentials() throws MoeraNodeException {
         var location = "/credentials/reset";
         var returnTypeRef = new TypeReference<EmailHint>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -692,9 +649,7 @@ public class MoeraNode extends NodeApiClient {
      * @param limit page size (maximum number of postings returned), the default is defined by the node
      * @return PostingInfo[]
      */
-    public PostingInfo[] getDeletedPostings(
-        Integer page, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo[] getDeletedPostings(Integer page, Integer limit) throws MoeraNodeException {
         var location = "/deleted-postings";
         var params = new QueryParam[] {
             QueryParam.of("page", page), 
@@ -710,7 +665,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the posting
      * @return PostingInfo
      */
-    public PostingInfo getDeletedPosting(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo getDeletedPosting(String id) throws MoeraNodeException {
         var location = "/deleted-postings/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<PostingInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -722,7 +677,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the posting
      * @return PostingInfo
      */
-    public PostingInfo restoreDeletedPosting(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo restoreDeletedPosting(String id) throws MoeraNodeException {
         var location = "/deleted-postings/%s/restore".formatted(ue(id));
         var returnTypeRef = new TypeReference<PostingInfo>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -738,7 +693,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public PostingRevisionInfo[] getDeletePostingRevisions(
         String postingId, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/deleted-postings/%s/revisions".formatted(ue(postingId));
         var params = new QueryParam[] {
             QueryParam.of("limit", limit)
@@ -754,9 +709,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the revision
      * @return PostingRevisionInfo
      */
-    public PostingRevisionInfo getDeletedPostingRevision(
-        String postingId, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingRevisionInfo getDeletedPostingRevision(String postingId, String id) throws MoeraNodeException {
         var location = "/deleted-postings/%s/revisions/%s".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -772,7 +725,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public PostingRevisionInfo restoreDeletedPostingRevision(
         String postingId, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/revisions/%s/restore".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -783,7 +736,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return DomainInfo[]
      */
-    public DomainInfo[] getDomains() throws MoeraNodeException, MoeraNodeConnectionException {
+    public DomainInfo[] getDomains() throws MoeraNodeException {
         var location = "/domains";
         var returnTypeRef = new TypeReference<DomainInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -796,7 +749,7 @@ public class MoeraNode extends NodeApiClient {
      * @param name domain name
      * @return DomainInfo
      */
-    public DomainInfo getDomain(String name) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DomainInfo getDomain(String name) throws MoeraNodeException {
         var location = "/domains/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<DomainInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -809,9 +762,7 @@ public class MoeraNode extends NodeApiClient {
      * @param domain domain
      * @return DomainInfo
      */
-    public DomainInfo createDomain(
-        DomainAttributes domain
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DomainInfo createDomain(DomainAttributes domain) throws MoeraNodeException {
         var location = "/domains";
         var returnTypeRef = new TypeReference<DomainInfo>() {};
         return call(location, null, "POST", domain, returnTypeRef);
@@ -827,9 +778,7 @@ public class MoeraNode extends NodeApiClient {
      * @param domain domain
      * @return DomainInfo
      */
-    public DomainInfo updateDomain(
-        String name, DomainAttributes domain
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DomainInfo updateDomain(String name, DomainAttributes domain) throws MoeraNodeException {
         var location = "/domains/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<DomainInfo>() {};
         return call(location, null, "PUT", domain, returnTypeRef);
@@ -842,7 +791,7 @@ public class MoeraNode extends NodeApiClient {
      * @param name domain name
      * @return Result
      */
-    public Result deleteDomain(String name) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteDomain(String name) throws MoeraNodeException {
         var location = "/domains/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -856,9 +805,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nodeName node name
      * @return DomainAvailable
      */
-    public DomainAvailable isDomainAvailable(
-        String nodeName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DomainAvailable isDomainAvailable(String nodeName) throws MoeraNodeException {
         var location = "/domains/available";
         var params = new QueryParam[] {
             QueryParam.of("nodeName", nodeName)
@@ -881,7 +828,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public DraftInfo[] getDrafts(
         DraftType draftType, String nodeName, String postingId, String commentId, Integer page, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/drafts";
         var params = new QueryParam[] {
             QueryParam.of("draftType", draftType), 
@@ -901,7 +848,7 @@ public class MoeraNode extends NodeApiClient {
      * @param draft draft
      * @return DraftInfo
      */
-    public DraftInfo createDraft(DraftText draft) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DraftInfo createDraft(DraftText draft) throws MoeraNodeException {
         var location = "/drafts";
         var returnTypeRef = new TypeReference<DraftInfo>() {};
         return call(location, null, "POST", draft, returnTypeRef);
@@ -913,7 +860,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the draft
      * @return DraftInfo
      */
-    public DraftInfo getDraft(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DraftInfo getDraft(String id) throws MoeraNodeException {
         var location = "/drafts/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<DraftInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -926,9 +873,7 @@ public class MoeraNode extends NodeApiClient {
      * @param draft draft
      * @return DraftInfo
      */
-    public DraftInfo updateDraft(
-        String id, DraftText draft
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DraftInfo updateDraft(String id, DraftText draft) throws MoeraNodeException {
         var location = "/drafts/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<DraftInfo>() {};
         return call(location, null, "PUT", draft, returnTypeRef);
@@ -940,7 +885,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the draft
      * @return Result
      */
-    public Result deleteDraft(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteDraft(String id) throws MoeraNodeException {
         var location = "/drafts/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -951,7 +896,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return Features
      */
-    public Features getFeatures() throws MoeraNodeException, MoeraNodeConnectionException {
+    public Features getFeatures() throws MoeraNodeException {
         var location = "/features";
         var returnTypeRef = new TypeReference<Features>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -962,7 +907,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return FeedInfo[]
      */
-    public FeedInfo[] getFeeds() throws MoeraNodeException, MoeraNodeConnectionException {
+    public FeedInfo[] getFeeds() throws MoeraNodeException {
         var location = "/feeds";
         var returnTypeRef = new TypeReference<FeedInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -974,7 +919,7 @@ public class MoeraNode extends NodeApiClient {
      * @param feedName name of the feed
      * @return FeedInfo
      */
-    public FeedInfo getFeedGeneral(String feedName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FeedInfo getFeedGeneral(String feedName) throws MoeraNodeException {
         var location = "/feeds/%s".formatted(ue(feedName));
         var returnTypeRef = new TypeReference<FeedInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -986,7 +931,7 @@ public class MoeraNode extends NodeApiClient {
      * @param feedName name of the feed
      * @return FeedStatus
      */
-    public FeedStatus getFeedStatus(String feedName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FeedStatus getFeedStatus(String feedName) throws MoeraNodeException {
         var location = "/feeds/%s/status".formatted(ue(feedName));
         var returnTypeRef = new TypeReference<FeedStatus>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -999,9 +944,7 @@ public class MoeraNode extends NodeApiClient {
      * @param change change
      * @return FeedStatus
      */
-    public FeedStatus updateFeedStatus(
-        String feedName, FeedStatusChange change
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FeedStatus updateFeedStatus(String feedName, FeedStatusChange change) throws MoeraNodeException {
         var location = "/feeds/%s/status".formatted(ue(feedName));
         var returnTypeRef = new TypeReference<FeedStatus>() {};
         return call(location, null, "PUT", change, returnTypeRef);
@@ -1021,7 +964,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public FeedSliceInfo getFeedSlice(
         String feedName, Integer after, Integer before, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/feeds/%s/stories".formatted(ue(feedName));
         var params = new QueryParam[] {
             QueryParam.of("after", after), 
@@ -1037,7 +980,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return FriendGroupInfo[]
      */
-    public FriendGroupInfo[] getFriendGroups() throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendGroupInfo[] getFriendGroups() throws MoeraNodeException {
         var location = "/people/friends/groups";
         var returnTypeRef = new TypeReference<FriendGroupInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1049,7 +992,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the group of friends
      * @return FriendGroupInfo
      */
-    public FriendGroupInfo getFriendGroup(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendGroupInfo getFriendGroup(String id) throws MoeraNodeException {
         var location = "/people/friends/groups/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<FriendGroupInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1061,9 +1004,7 @@ public class MoeraNode extends NodeApiClient {
      * @param friendGroup friendGroup
      * @return FriendGroupInfo
      */
-    public FriendGroupInfo createFriendGroup(
-        FriendGroupDescription friendGroup
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendGroupInfo createFriendGroup(FriendGroupDescription friendGroup) throws MoeraNodeException {
         var location = "/people/friends/groups";
         var returnTypeRef = new TypeReference<FriendGroupInfo>() {};
         return call(location, null, "POST", friendGroup, returnTypeRef);
@@ -1078,7 +1019,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public FriendGroupInfo updateFriendGroup(
         String id, FriendGroupDescription friendGroup
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/people/friends/groups/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<FriendGroupInfo>() {};
         return call(location, null, "PUT", friendGroup, returnTypeRef);
@@ -1090,7 +1031,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the group of friends
      * @return Result
      */
-    public Result deleteFriendGroup(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteFriendGroup(String id) throws MoeraNodeException {
         var location = "/people/friends/groups/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1102,7 +1043,7 @@ public class MoeraNode extends NodeApiClient {
      * @param groupId ID of a group of friends
      * @return FriendInfo[]
      */
-    public FriendInfo[] getFriends(String groupId) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendInfo[] getFriends(String groupId) throws MoeraNodeException {
         var location = "/people/friends";
         var params = new QueryParam[] {
             QueryParam.of("groupId", groupId)
@@ -1117,7 +1058,7 @@ public class MoeraNode extends NodeApiClient {
      * @param name name of the node
      * @return FriendInfo
      */
-    public FriendInfo getFriend(String name) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendInfo getFriend(String name) throws MoeraNodeException {
         var location = "/people/friends/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<FriendInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1131,9 +1072,7 @@ public class MoeraNode extends NodeApiClient {
      * @param friends friends
      * @return FriendInfo[]
      */
-    public FriendInfo[] updateFriends(
-        FriendDescription[] friends
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendInfo[] updateFriends(FriendDescription[] friends) throws MoeraNodeException {
         var location = "/people/friends";
         var returnTypeRef = new TypeReference<FriendInfo[]>() {};
         return call(location, null, "PUT", friends, returnTypeRef);
@@ -1144,7 +1083,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return FriendOfInfo[]
      */
-    public FriendOfInfo[] getFriendOfs() throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendOfInfo[] getFriendOfs() throws MoeraNodeException {
         var location = "/people/friend-ofs";
         var returnTypeRef = new TypeReference<FriendOfInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1156,7 +1095,7 @@ public class MoeraNode extends NodeApiClient {
      * @param name name of the node
      * @return FriendOfInfo
      */
-    public FriendOfInfo getFriendOf(String name) throws MoeraNodeException, MoeraNodeConnectionException {
+    public FriendOfInfo getFriendOf(String name) throws MoeraNodeException {
         var location = "/people/friend-ofs/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<FriendOfInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1167,7 +1106,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return GrantInfo[]
      */
-    public GrantInfo[] getAllGrants() throws MoeraNodeException, MoeraNodeConnectionException {
+    public GrantInfo[] getAllGrants() throws MoeraNodeException {
         var location = "/grants";
         var returnTypeRef = new TypeReference<GrantInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1179,7 +1118,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nodeName name of the node
      * @return GrantInfo
      */
-    public GrantInfo getGrant(String nodeName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public GrantInfo getGrant(String nodeName) throws MoeraNodeException {
         var location = "/grants/%s".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<GrantInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1192,9 +1131,7 @@ public class MoeraNode extends NodeApiClient {
      * @param change change
      * @return GrantInfo
      */
-    public GrantInfo grantOrRevoke(
-        String nodeName, GrantChange change
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public GrantInfo grantOrRevoke(String nodeName, GrantChange change) throws MoeraNodeException {
         var location = "/grants/%s".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<GrantInfo>() {};
         return call(location, null, "PUT", change, returnTypeRef);
@@ -1206,7 +1143,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nodeName name of the node
      * @return Result
      */
-    public Result revokeAll(String nodeName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result revokeAll(String nodeName) throws MoeraNodeException {
         var location = "/grants/%s".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1219,9 +1156,7 @@ public class MoeraNode extends NodeApiClient {
      * @param contentType content-type of ``body``
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo uploadAdminMedia(
-        Path body, String contentType
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PrivateMediaFileInfo uploadAdminMedia(Path body, String contentType) throws MoeraNodeException {
         var location = "/media/private";
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
         return call(location, null, "POST", body, contentType, returnTypeRef);
@@ -1237,7 +1172,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public PrivateMediaFileInfo uploadPrivateMedia(
         String clientName, Path body, String contentType
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/media/private/%s".formatted(ue(clientName));
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
         return call(location, null, "POST", body, contentType, returnTypeRef);
@@ -1255,7 +1190,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public void getPrivateMedia(
         String id, Integer width, Boolean download, ResponseConsumer responseConsumer
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/media/private/%s/data".formatted(ue(id));
         var params = new QueryParam[] {
             QueryParam.of("width", width), 
@@ -1270,9 +1205,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id media file ID
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo getPrivateMediaInfo(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PrivateMediaFileInfo getPrivateMediaInfo(String id) throws MoeraNodeException {
         var location = "/media/private/%s/info".formatted(ue(id));
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1284,9 +1217,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id media file ID
      * @return EntryInfo[]
      */
-    public EntryInfo[] getPrivateMediaParentEntry(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public EntryInfo[] getPrivateMediaParentEntry(String id) throws MoeraNodeException {
         var location = "/media/private/%s/parent".formatted(ue(id));
         var returnTypeRef = new TypeReference<EntryInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1299,9 +1230,7 @@ public class MoeraNode extends NodeApiClient {
      * @param contentType content-type of ``body``
      * @return PublicMediaFileInfo
      */
-    public PublicMediaFileInfo uploadPublicMedia(
-        Path body, String contentType
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PublicMediaFileInfo uploadPublicMedia(Path body, String contentType) throws MoeraNodeException {
         var location = "/media/public";
         var returnTypeRef = new TypeReference<PublicMediaFileInfo>() {};
         return call(location, null, "POST", body, contentType, returnTypeRef);
@@ -1319,7 +1248,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public void getPublicMedia(
         String id, Integer width, Boolean download, ResponseConsumer responseConsumer
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/media/public/%s/data".formatted(ue(id));
         var params = new QueryParam[] {
             QueryParam.of("width", width), 
@@ -1334,9 +1263,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id media file ID
      * @return PublicMediaFileInfo
      */
-    public PublicMediaFileInfo getPublicMediaInfo(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PublicMediaFileInfo getPublicMediaInfo(String id) throws MoeraNodeException {
         var location = "/media/public/%s/info".formatted(ue(id));
         var returnTypeRef = new TypeReference<PublicMediaFileInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1347,7 +1274,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return NodeNameInfo
      */
-    public NodeNameInfo getNodeName() throws MoeraNodeException, MoeraNodeConnectionException {
+    public NodeNameInfo getNodeName() throws MoeraNodeException {
         var location = "/node-name";
         var returnTypeRef = new TypeReference<NodeNameInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1362,9 +1289,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nameToRegister nameToRegister
      * @return RegisteredNameSecret
      */
-    public RegisteredNameSecret createNodeName(
-        NameToRegister nameToRegister
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public RegisteredNameSecret createNodeName(NameToRegister nameToRegister) throws MoeraNodeException {
         var location = "/node-name";
         var returnTypeRef = new TypeReference<RegisteredNameSecret>() {};
         return call(location, null, "POST", nameToRegister, returnTypeRef);
@@ -1378,9 +1303,7 @@ public class MoeraNode extends NodeApiClient {
      * @param secret secret
      * @return Result
      */
-    public Result updateNodeName(
-        RegisteredNameSecret secret
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result updateNodeName(RegisteredNameSecret secret) throws MoeraNodeException {
         var location = "/node-name";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", secret, returnTypeRef);
@@ -1392,7 +1315,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return Result
      */
-    public Result deleteNodeName() throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteNodeName() throws MoeraNodeException {
         var location = "/node-name";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1403,7 +1326,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return KeyMnemonic
      */
-    public KeyMnemonic getStoredMnemonic() throws MoeraNodeException, MoeraNodeConnectionException {
+    public KeyMnemonic getStoredMnemonic() throws MoeraNodeException {
         var location = "/node-name/mnemonic";
         var returnTypeRef = new TypeReference<KeyMnemonic>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1415,7 +1338,7 @@ public class MoeraNode extends NodeApiClient {
      * @param mnemonic mnemonic
      * @return Result
      */
-    public Result storeMnemonic(KeyMnemonic mnemonic) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result storeMnemonic(KeyMnemonic mnemonic) throws MoeraNodeException {
         var location = "/node-name/mnemonic";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", mnemonic, returnTypeRef);
@@ -1426,7 +1349,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return Result
      */
-    public Result deleteStoredMnemonic() throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteStoredMnemonic() throws MoeraNodeException {
         var location = "/node-name/mnemonic";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1440,9 +1363,7 @@ public class MoeraNode extends NodeApiClient {
      * @param packet packet
      * @return Result
      */
-    public Result sendNotification(
-        NotificationPacket packet
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result sendNotification(NotificationPacket packet) throws MoeraNodeException {
         var location = "/notifications";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", packet, returnTypeRef);
@@ -1453,7 +1374,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return PeopleGeneralInfo
      */
-    public PeopleGeneralInfo getPeopleGeneral() throws MoeraNodeException, MoeraNodeConnectionException {
+    public PeopleGeneralInfo getPeopleGeneral() throws MoeraNodeException {
         var location = "/people";
         var returnTypeRef = new TypeReference<PeopleGeneralInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1466,9 +1387,7 @@ public class MoeraNode extends NodeApiClient {
      * @param plugin plugin
      * @return PluginInfo
      */
-    public PluginInfo registerPlugin(
-        PluginDescription plugin
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PluginInfo registerPlugin(PluginDescription plugin) throws MoeraNodeException {
         var location = "/plugins";
         var returnTypeRef = new TypeReference<PluginInfo>() {};
         return call(location, null, "POST", plugin, returnTypeRef);
@@ -1479,7 +1398,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return PluginInfo[]
      */
-    public PluginInfo[] getPlugins() throws MoeraNodeException, MoeraNodeConnectionException {
+    public PluginInfo[] getPlugins() throws MoeraNodeException {
         var location = "/plugins";
         var returnTypeRef = new TypeReference<PluginInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1491,7 +1410,7 @@ public class MoeraNode extends NodeApiClient {
      * @param pluginName name of the plugin
      * @return PluginInfo
      */
-    public PluginInfo getPlugin(String pluginName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PluginInfo getPlugin(String pluginName) throws MoeraNodeException {
         var location = "/plugins/%s".formatted(ue(pluginName));
         var returnTypeRef = new TypeReference<PluginInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1503,7 +1422,7 @@ public class MoeraNode extends NodeApiClient {
      * @param pluginName name of the plugin
      * @return Result
      */
-    public Result unregisterPlugin(String pluginName) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result unregisterPlugin(String pluginName) throws MoeraNodeException {
         var location = "/plugins/%s".formatted(ue(pluginName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1518,7 +1437,7 @@ public class MoeraNode extends NodeApiClient {
      * @param posting posting
      * @return PostingInfo
      */
-    public PostingInfo createPosting(PostingText posting) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo createPosting(PostingText posting) throws MoeraNodeException {
         var location = "/postings";
         var returnTypeRef = new TypeReference<PostingInfo>() {};
         return call(location, null, "POST", posting, returnTypeRef);
@@ -1532,9 +1451,7 @@ public class MoeraNode extends NodeApiClient {
      * @param posting posting
      * @return PostingInfo
      */
-    public PostingInfo updatePosting(
-        String id, PostingText posting
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo updatePosting(String id, PostingText posting) throws MoeraNodeException {
         var location = "/postings/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<PostingInfo>() {};
         return call(location, null, "PUT", posting, returnTypeRef);
@@ -1547,9 +1464,7 @@ public class MoeraNode extends NodeApiClient {
      * @param withSource include source text of the posting
      * @return PostingInfo
      */
-    public PostingInfo getPosting(
-        String id, boolean withSource
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo getPosting(String id, boolean withSource) throws MoeraNodeException {
         var include = commaSeparatedFlags(QueryParam.of("source", withSource));
         var location = "/postings/%s".formatted(ue(id));
         var params = new QueryParam[] {
@@ -1566,7 +1481,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the posting
      * @return Result
      */
-    public Result deletePosting(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deletePosting(String id) throws MoeraNodeException {
         var location = "/postings/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1578,9 +1493,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the posting
      * @return PostingInfo[]
      */
-    public PostingInfo[] getPostingsAttachedToPosting(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingInfo[] getPostingsAttachedToPosting(String id) throws MoeraNodeException {
         var location = "/postings/%s/attached".formatted(ue(id));
         var returnTypeRef = new TypeReference<PostingInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1594,9 +1507,7 @@ public class MoeraNode extends NodeApiClient {
      * @param limit maximum number of revisions returned
      * @return PostingRevisionInfo[]
      */
-    public PostingRevisionInfo[] getPostingRevisions(
-        String postingId, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingRevisionInfo[] getPostingRevisions(String postingId, Integer limit) throws MoeraNodeException {
         var location = "/postings/%s/revisions".formatted(ue(postingId));
         var params = new QueryParam[] {
             QueryParam.of("limit", limit)
@@ -1612,9 +1523,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the revision
      * @return PostingRevisionInfo
      */
-    public PostingRevisionInfo getPostingRevision(
-        String postingId, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingRevisionInfo getPostingRevision(String postingId, String id) throws MoeraNodeException {
         var location = "/postings/%s/revisions/%s".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1627,9 +1536,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the revision
      * @return PostingRevisionInfo
      */
-    public PostingRevisionInfo restorePostingRevision(
-        String postingId, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public PostingRevisionInfo restorePostingRevision(String postingId, String id) throws MoeraNodeException {
         var location = "/postings/%s/revisions/%s/restore".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -1647,7 +1554,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionCreated createPostingReaction(
         String postingId, ReactionDescription reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/reactions".formatted(ue(postingId));
         var returnTypeRef = new TypeReference<ReactionCreated>() {};
         return call(location, null, "POST", reaction, returnTypeRef);
@@ -1668,7 +1575,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionsSliceInfo getPostingReactionsSlice(
         String postingId, Boolean negative, Integer emoji, Integer before, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/reactions".formatted(ue(postingId));
         var params = new QueryParam[] {
             QueryParam.of("negative", negative), 
@@ -1690,7 +1597,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public ReactionInfo updatePostingReaction(
         String postingId, String ownerName, ReactionOverride reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/postings/%s/reactions/%s".formatted(ue(postingId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionInfo>() {};
         return call(location, null, "PUT", reaction, returnTypeRef);
@@ -1704,9 +1611,7 @@ public class MoeraNode extends NodeApiClient {
      * @param ownerName reaction owner node name
      * @return ReactionInfo
      */
-    public ReactionInfo getPostingReaction(
-        String postingId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ReactionInfo getPostingReaction(String postingId, String ownerName) throws MoeraNodeException {
         var location = "/postings/%s/reactions/%s".formatted(ue(postingId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1718,9 +1623,7 @@ public class MoeraNode extends NodeApiClient {
      * @param postingId ID of the posting
      * @return Result
      */
-    public Result deleteAllPostingReactions(
-        String postingId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteAllPostingReactions(String postingId) throws MoeraNodeException {
         var location = "/postings/%s/reactions".formatted(ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1733,9 +1636,7 @@ public class MoeraNode extends NodeApiClient {
      * @param ownerName reaction owner node name
      * @return ReactionTotalsInfo
      */
-    public ReactionTotalsInfo deletePostingReaction(
-        String postingId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ReactionTotalsInfo deletePostingReaction(String postingId, String ownerName) throws MoeraNodeException {
         var location = "/postings/%s/reactions/%s".formatted(ue(postingId), ue(ownerName));
         var returnTypeRef = new TypeReference<ReactionTotalsInfo>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1748,9 +1649,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return ReactionInfo[]
      */
-    public ReactionInfo[] searchPostingReactions(
-        ReactionsFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ReactionInfo[] searchPostingReactions(ReactionsFilter filter) throws MoeraNodeException {
         var location = "/postings/reactions/search";
         var returnTypeRef = new TypeReference<ReactionInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -1762,9 +1661,7 @@ public class MoeraNode extends NodeApiClient {
      * @param postingId ID of the posting
      * @return ReactionTotalsInfo
      */
-    public ReactionTotalsInfo getPostingReactionTotals(
-        String postingId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ReactionTotalsInfo getPostingReactionTotals(String postingId) throws MoeraNodeException {
         var location = "/postings/%s/reaction-totals".formatted(ue(postingId));
         var returnTypeRef = new TypeReference<ReactionTotalsInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1777,9 +1674,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return ReactionTotalsInfo[]
      */
-    public ReactionTotalsInfo[] searchPostingReactionTotals(
-        ReactionTotalsFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ReactionTotalsInfo[] searchPostingReactionTotals(ReactionTotalsFilter filter) throws MoeraNodeException {
         var location = "/postings/reaction-totals/search";
         var returnTypeRef = new TypeReference<ReactionTotalsInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -1791,7 +1686,7 @@ public class MoeraNode extends NodeApiClient {
      * @param withSource include source text of the bio
      * @return ProfileInfo
      */
-    public ProfileInfo getProfile(boolean withSource) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ProfileInfo getProfile(boolean withSource) throws MoeraNodeException {
         var include = commaSeparatedFlags(QueryParam.of("source", withSource));
         var location = "/profile";
         var params = new QueryParam[] {
@@ -1808,9 +1703,7 @@ public class MoeraNode extends NodeApiClient {
      * @param profile profile
      * @return ProfileInfo
      */
-    public ProfileInfo updateProfile(
-        ProfileAttributes profile
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ProfileInfo updateProfile(ProfileAttributes profile) throws MoeraNodeException {
         var location = "/profile";
         var returnTypeRef = new TypeReference<ProfileInfo>() {};
         return call(location, null, "PUT", profile, returnTypeRef);
@@ -1821,7 +1714,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return DeleteNodeStatus
      */
-    public DeleteNodeStatus getDeleteNodeRequestStatus() throws MoeraNodeException, MoeraNodeConnectionException {
+    public DeleteNodeStatus getDeleteNodeRequestStatus() throws MoeraNodeException {
         var location = "/provider/delete-node";
         var returnTypeRef = new TypeReference<DeleteNodeStatus>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -1833,9 +1726,7 @@ public class MoeraNode extends NodeApiClient {
      * @param deleteNodeText deleteNodeText
      * @return DeleteNodeStatus
      */
-    public DeleteNodeStatus sendDeleteNodeRequest(
-        DeleteNodeText deleteNodeText
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public DeleteNodeStatus sendDeleteNodeRequest(DeleteNodeText deleteNodeText) throws MoeraNodeException {
         var location = "/provider/delete-node";
         var returnTypeRef = new TypeReference<DeleteNodeStatus>() {};
         return call(location, null, "POST", deleteNodeText, returnTypeRef);
@@ -1846,7 +1737,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return DeleteNodeStatus
      */
-    public DeleteNodeStatus cancelDeleteNodeRequest() throws MoeraNodeException, MoeraNodeConnectionException {
+    public DeleteNodeStatus cancelDeleteNodeRequest() throws MoeraNodeException {
         var location = "/provider/delete-node";
         var returnTypeRef = new TypeReference<DeleteNodeStatus>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1858,9 +1749,7 @@ public class MoeraNode extends NodeApiClient {
      * @param url url
      * @param responseConsumer consumer of the data received
      */
-    public void proxyMedia(
-        String url, ResponseConsumer responseConsumer
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public void proxyMedia(String url, ResponseConsumer responseConsumer) throws MoeraNodeException {
         var location = "/proxy/media";
         var params = new QueryParam[] {
             QueryParam.of("url", url)
@@ -1875,7 +1764,7 @@ public class MoeraNode extends NodeApiClient {
      * @param url url
      * @return LinkPreviewInfo
      */
-    public LinkPreviewInfo proxyLinkPreview(String url) throws MoeraNodeException, MoeraNodeConnectionException {
+    public LinkPreviewInfo proxyLinkPreview(String url) throws MoeraNodeException {
         var location = "/proxy/link-preview";
         var params = new QueryParam[] {
             QueryParam.of("url", url)
@@ -1890,9 +1779,7 @@ public class MoeraNode extends NodeApiClient {
      * @param attributes attributes
      * @return Result
      */
-    public Result registerAtPushRelay(
-        PushRelayClientAttributes attributes
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result registerAtPushRelay(PushRelayClientAttributes attributes) throws MoeraNodeException {
         var location = "/push-relay";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", attributes, returnTypeRef);
@@ -1905,9 +1792,7 @@ public class MoeraNode extends NodeApiClient {
      * @param details details
      * @return Result
      */
-    public Result askRemoteNode(
-        String nodeName, AskDescription details
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result askRemoteNode(String nodeName, AskDescription details) throws MoeraNodeException {
         var location = "/nodes/%s/ask".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", details, returnTypeRef);
@@ -1923,7 +1808,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result createRemoteComment(
         String nodeName, String postingId, CommentSourceText comment
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", comment, returnTypeRef);
@@ -1940,7 +1825,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result updateRemoteComment(
         String nodeName, String postingId, String commentId, CommentSourceText comment
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s".formatted(ue(nodeName), ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", comment, returnTypeRef);
@@ -1956,7 +1841,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result deleteRemoteComment(
         String nodeName, String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s".formatted(ue(nodeName), ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -1972,7 +1857,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public AsyncOperationCreated verifyRemoteComment(
         String nodeName, String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s/verify".formatted(ue(nodeName), ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -1989,7 +1874,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result createRemoteCommentReaction(
         String nodeName, String postingId, String commentId, ReactionAttributes reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s/reactions".formatted(
             ue(nodeName), ue(postingId), ue(commentId)
         );
@@ -2007,7 +1892,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result deleteRemoteCommentReaction(
         String nodeName, String postingId, String commentId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s/reactions".formatted(
             ue(nodeName), ue(postingId), ue(commentId)
         );
@@ -2026,7 +1911,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public AsyncOperationCreated verifyRemoteCommentReaction(
         String nodeName, String postingId, String commentId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s/reactions/%s/verify".formatted(
             ue(nodeName), ue(postingId), ue(commentId), ue(ownerName)
         );
@@ -2041,9 +1926,7 @@ public class MoeraNode extends NodeApiClient {
      * @param posting posting
      * @return Result
      */
-    public Result createRemotePosting(
-        String nodeName, PostingSourceText posting
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result createRemotePosting(String nodeName, PostingSourceText posting) throws MoeraNodeException {
         var location = "/nodes/%s/postings".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", posting, returnTypeRef);
@@ -2059,7 +1942,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result updateRemotePosting(
         String nodeName, String postingId, PostingSourceText posting
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", posting, returnTypeRef);
@@ -2072,9 +1955,7 @@ public class MoeraNode extends NodeApiClient {
      * @param postingId ID of the posting on the remote node
      * @return Result
      */
-    public Result deleteRemotePosting(
-        String nodeName, String postingId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteRemotePosting(String nodeName, String postingId) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2087,9 +1968,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the posting on the remote node
      * @return AsyncOperationCreated
      */
-    public AsyncOperationCreated verifyRemotePosting(
-        String nodeName, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public AsyncOperationCreated verifyRemotePosting(String nodeName, String id) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/verify".formatted(ue(nodeName), ue(id));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -2105,7 +1984,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public AsyncOperationCreated verifyRemotePostingRevision(
         String nodeName, String id, String revisionId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/revisions/%s/verify".formatted(ue(nodeName), ue(id), ue(revisionId));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
         return call(location, null, "POST", null, returnTypeRef);
@@ -2121,7 +2000,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result createRemotePostingReaction(
         String nodeName, String postingId, ReactionAttributes reaction
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/reactions".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", reaction, returnTypeRef);
@@ -2134,9 +2013,7 @@ public class MoeraNode extends NodeApiClient {
      * @param postingId ID of the posting on the remote node
      * @return Result
      */
-    public Result deleteRemotePostingReaction(
-        String nodeName, String postingId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteRemotePostingReaction(String nodeName, String postingId) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/reactions".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2152,7 +2029,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public AsyncOperationCreated verifyRemotePostingReaction(
         String nodeName, String postingId, String ownerName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/reactions/%s/verify".formatted(
             ue(nodeName), ue(postingId), ue(ownerName)
         );
@@ -2169,7 +2046,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result createRemoteSheriffOrder(
         String nodeName, SheriffOrderAttributes sheriffOrder
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/sheriff/orders".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", sheriffOrder, returnTypeRef);
@@ -2182,9 +2059,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the order
      * @return SheriffOrderInfo
      */
-    public SheriffOrderInfo getRemoteSheriffOrder(
-        String nodeName, String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SheriffOrderInfo getRemoteSheriffOrder(String nodeName, String id) throws MoeraNodeException {
         var location = "/nodes/%s/sheriff/orders/%s".formatted(ue(nodeName), ue(id));
         var returnTypeRef = new TypeReference<SheriffOrderInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2200,7 +2075,7 @@ public class MoeraNode extends NodeApiClient {
      * @param settings settings
      * @return Result
      */
-    public Result updateSettings(SettingInfo[] settings) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result updateSettings(SettingInfo[] settings) throws MoeraNodeException {
         var location = "/settings";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", settings, returnTypeRef);
@@ -2213,7 +2088,7 @@ public class MoeraNode extends NodeApiClient {
      * prefix must be included)
      * @return SettingInfo[]
      */
-    public SettingInfo[] getClientSettings(String prefix) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SettingInfo[] getClientSettings(String prefix) throws MoeraNodeException {
         var location = "/settings/client";
         var params = new QueryParam[] {
             QueryParam.of("prefix", prefix)
@@ -2228,7 +2103,7 @@ public class MoeraNode extends NodeApiClient {
      * @param prefix filter settings whose names start with the given prefix, case-sensitive
      * @return SettingInfo[]
      */
-    public SettingInfo[] getNodeSettings(String prefix) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SettingInfo[] getNodeSettings(String prefix) throws MoeraNodeException {
         var location = "/settings/node";
         var params = new QueryParam[] {
             QueryParam.of("prefix", prefix)
@@ -2243,9 +2118,7 @@ public class MoeraNode extends NodeApiClient {
      * @param prefix filter settings whose names start with the given prefix, case-sensitive
      * @return SettingMetaInfo[]
      */
-    public SettingMetaInfo[] getNodeSettingsMetadata(
-        String prefix
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SettingMetaInfo[] getNodeSettingsMetadata(String prefix) throws MoeraNodeException {
         var location = "/settings/node/metadata";
         var params = new QueryParam[] {
             QueryParam.of("prefix", prefix)
@@ -2260,9 +2133,7 @@ public class MoeraNode extends NodeApiClient {
      * @param metadata metadata
      * @return Result
      */
-    public Result updateNodeSettingsMetadata(
-        SettingMetaAttributes[] metadata
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result updateNodeSettingsMetadata(SettingMetaAttributes[] metadata) throws MoeraNodeException {
         var location = "/settings/node/metadata";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "PUT", metadata, returnTypeRef);
@@ -2282,7 +2153,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public SheriffComplaintGroupsSliceInfo getSheriffComplaintGroupsSlice(
         Integer after, Integer before, Integer limit, SheriffComplaintStatus status
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups";
         var params = new QueryParam[] {
             QueryParam.of("after", after), 
@@ -2300,9 +2171,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the group of complaints
      * @return SheriffComplaintGroupInfo
      */
-    public SheriffComplaintGroupInfo getSheriffComplaintGroup(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SheriffComplaintGroupInfo getSheriffComplaintGroup(String id) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<SheriffComplaintGroupInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2314,9 +2183,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the group of complaints
      * @return SheriffComplaintInfo[]
      */
-    public SheriffComplaintInfo[] getSheriffComplaintsByGroup(
-        String id
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SheriffComplaintInfo[] getSheriffComplaintsByGroup(String id) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups/%s/complaints".formatted(ue(id));
         var returnTypeRef = new TypeReference<SheriffComplaintInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2331,7 +2198,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public SheriffComplaintGroupInfo updateSheriffComplaintGroup(
         String id, SheriffComplaintDecisionText decision
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<SheriffComplaintGroupInfo>() {};
         return call(location, null, "PUT", decision, returnTypeRef);
@@ -2343,9 +2210,7 @@ public class MoeraNode extends NodeApiClient {
      * @param complaint complaint
      * @return SheriffComplaintInfo
      */
-    public SheriffComplaintInfo createSheriffComplaint(
-        SheriffComplaintText complaint
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SheriffComplaintInfo createSheriffComplaint(SheriffComplaintText complaint) throws MoeraNodeException {
         var location = "/sheriff/complaints";
         var returnTypeRef = new TypeReference<SheriffComplaintInfo>() {};
         return call(location, null, "POST", complaint, returnTypeRef);
@@ -2357,9 +2222,7 @@ public class MoeraNode extends NodeApiClient {
      * @param sheriffOrder sheriffOrder
      * @return Result
      */
-    public Result createSheriffOrder(
-        SheriffOrderDetails sheriffOrder
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result createSheriffOrder(SheriffOrderDetails sheriffOrder) throws MoeraNodeException {
         var location = "/sheriff/orders";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", sheriffOrder, returnTypeRef);
@@ -2371,7 +2234,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the story
      * @return StoryInfo
      */
-    public StoryInfo getStory(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public StoryInfo getStory(String id) throws MoeraNodeException {
         var location = "/stories/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<StoryInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2384,9 +2247,7 @@ public class MoeraNode extends NodeApiClient {
      * @param story story
      * @return StoryInfo
      */
-    public StoryInfo updateStory(
-        String id, StoryAttributes story
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public StoryInfo updateStory(String id, StoryAttributes story) throws MoeraNodeException {
         var location = "/stories/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<StoryInfo>() {};
         return call(location, null, "PUT", story, returnTypeRef);
@@ -2398,7 +2259,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the story
      * @return Result
      */
-    public Result deleteStory(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteStory(String id) throws MoeraNodeException {
         var location = "/stories/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2415,7 +2276,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public SubscriberInfo[] getSubscribers(
         String nodeName, SubscriptionType type, String feedName, String entryId
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/people/subscribers";
         var params = new QueryParam[] {
             QueryParam.of("nodeName", nodeName), 
@@ -2433,9 +2294,7 @@ public class MoeraNode extends NodeApiClient {
      * @param subscriber subscriber
      * @return SubscriberInfo
      */
-    public SubscriberInfo createSubscriber(
-        SubscriberDescription subscriber
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriberInfo createSubscriber(SubscriberDescription subscriber) throws MoeraNodeException {
         var location = "/people/subscribers";
         var returnTypeRef = new TypeReference<SubscriberInfo>() {};
         return call(location, null, "POST", subscriber, returnTypeRef);
@@ -2447,7 +2306,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the subscriber
      * @return SubscriberInfo
      */
-    public SubscriberInfo getSubscriber(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriberInfo getSubscriber(String id) throws MoeraNodeException {
         var location = "/people/subscribers/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<SubscriberInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2460,9 +2319,7 @@ public class MoeraNode extends NodeApiClient {
      * @param subscriber subscriber
      * @return SubscriberInfo
      */
-    public SubscriberInfo updateSubscriber(
-        String id, SubscriberOverride subscriber
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriberInfo updateSubscriber(String id, SubscriberOverride subscriber) throws MoeraNodeException {
         var location = "/people/subscribers/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<SubscriberInfo>() {};
         return call(location, null, "PUT", subscriber, returnTypeRef);
@@ -2474,7 +2331,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the subscriber
      * @return ContactInfo
      */
-    public ContactInfo deleteSubscriber(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ContactInfo deleteSubscriber(String id) throws MoeraNodeException {
         var location = "/people/subscribers/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<ContactInfo>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2487,9 +2344,7 @@ public class MoeraNode extends NodeApiClient {
      * @param type filter by subscription type
      * @return SubscriptionInfo[]
      */
-    public SubscriptionInfo[] getSubscriptions(
-        String nodeName, SubscriptionType type
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriptionInfo[] getSubscriptions(String nodeName, SubscriptionType type) throws MoeraNodeException {
         var location = "/people/subscriptions";
         var params = new QueryParam[] {
             QueryParam.of("nodeName", nodeName), 
@@ -2505,9 +2360,7 @@ public class MoeraNode extends NodeApiClient {
      * @param subscription subscription
      * @return SubscriptionInfo
      */
-    public SubscriptionInfo createSubscription(
-        SubscriptionDescription subscription
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriptionInfo createSubscription(SubscriptionDescription subscription) throws MoeraNodeException {
         var location = "/people/subscriptions";
         var returnTypeRef = new TypeReference<SubscriptionInfo>() {};
         return call(location, null, "POST", subscription, returnTypeRef);
@@ -2522,7 +2375,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public SubscriptionInfo updateSubscription(
         String id, SubscriptionOverride subscription
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/people/subscriptions/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<SubscriptionInfo>() {};
         return call(location, null, "PUT", subscription, returnTypeRef);
@@ -2534,7 +2387,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the subscription
      * @return ContactInfo
      */
-    public ContactInfo deleteSubscription(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public ContactInfo deleteSubscription(String id) throws MoeraNodeException {
         var location = "/people/subscriptions/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<ContactInfo>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2546,9 +2399,7 @@ public class MoeraNode extends NodeApiClient {
      * @param filter filter
      * @return SubscriptionInfo[]
      */
-    public SubscriptionInfo[] searchSubscriptions(
-        SubscriptionFilter filter
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public SubscriptionInfo[] searchSubscriptions(SubscriptionFilter filter) throws MoeraNodeException {
         var location = "/people/subscriptions/search";
         var returnTypeRef = new TypeReference<SubscriptionInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
@@ -2559,7 +2410,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return TokenInfo[]
      */
-    public TokenInfo[] getTokens() throws MoeraNodeException, MoeraNodeConnectionException {
+    public TokenInfo[] getTokens() throws MoeraNodeException {
         var location = "/tokens";
         var returnTypeRef = new TypeReference<TokenInfo[]>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2571,7 +2422,7 @@ public class MoeraNode extends NodeApiClient {
      * @param token token
      * @return TokenInfo
      */
-    public TokenInfo createToken(TokenAttributes token) throws MoeraNodeException, MoeraNodeConnectionException {
+    public TokenInfo createToken(TokenAttributes token) throws MoeraNodeException {
         var location = "/tokens";
         var returnTypeRef = new TypeReference<TokenInfo>() {};
         return call(location, null, "POST", token, returnTypeRef);
@@ -2583,7 +2434,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the token
      * @return TokenInfo
      */
-    public TokenInfo getTokenInfo(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public TokenInfo getTokenInfo(String id) throws MoeraNodeException {
         var location = "/tokens/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<TokenInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2597,9 +2448,7 @@ public class MoeraNode extends NodeApiClient {
      * @param update update
      * @return TokenInfo
      */
-    public TokenInfo updateToken(
-        String id, TokenUpdate update
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public TokenInfo updateToken(String id, TokenUpdate update) throws MoeraNodeException {
         var location = "/tokens/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<TokenInfo>() {};
         return call(location, null, "PUT", update, returnTypeRef);
@@ -2611,7 +2460,7 @@ public class MoeraNode extends NodeApiClient {
      * @param id ID of the token
      * @return Result
      */
-    public Result deleteToken(String id) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteToken(String id) throws MoeraNodeException {
         var location = "/tokens/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2623,7 +2472,7 @@ public class MoeraNode extends NodeApiClient {
      * @param name the name of the list
      * @return UserListInfo
      */
-    public UserListInfo getUserListGeneral(String name) throws MoeraNodeException, MoeraNodeConnectionException {
+    public UserListInfo getUserListGeneral(String name) throws MoeraNodeException {
         var location = "/user-lists/%s".formatted(ue(name));
         var returnTypeRef = new TypeReference<UserListInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2643,7 +2492,7 @@ public class MoeraNode extends NodeApiClient {
      */
     public UserListSliceInfo getUserListSlice(
         String name, Integer after, Integer before, Integer limit
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var location = "/user-lists/%s/items".formatted(ue(name));
         var params = new QueryParam[] {
             QueryParam.of("after", after), 
@@ -2661,9 +2510,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nodeName the node name to get information about
      * @return UserListItemInfo
      */
-    public UserListItemInfo getUserListItem(
-        String name, String nodeName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public UserListItemInfo getUserListItem(String name, String nodeName) throws MoeraNodeException {
         var location = "/user-lists/%s/items/%s".formatted(ue(name), ue(nodeName));
         var returnTypeRef = new TypeReference<UserListItemInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
@@ -2676,9 +2523,7 @@ public class MoeraNode extends NodeApiClient {
      * @param item item
      * @return UserListItemInfo
      */
-    public UserListItemInfo createUserListItem(
-        String name, UserListItemAttributes item
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public UserListItemInfo createUserListItem(String name, UserListItemAttributes item) throws MoeraNodeException {
         var location = "/user-lists/%s/items".formatted(ue(name));
         var returnTypeRef = new TypeReference<UserListItemInfo>() {};
         return call(location, null, "POST", item, returnTypeRef);
@@ -2691,9 +2536,7 @@ public class MoeraNode extends NodeApiClient {
      * @param nodeName the node name to delete
      * @return Result
      */
-    public Result deleteUserListItem(
-        String name, String nodeName
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    public Result deleteUserListItem(String name, String nodeName) throws MoeraNodeException {
         var location = "/user-lists/%s/items/%s".formatted(ue(name), ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
@@ -2704,7 +2547,7 @@ public class MoeraNode extends NodeApiClient {
      *
      * @return WhoAmI
      */
-    public WhoAmI whoAmI() throws MoeraNodeException, MoeraNodeConnectionException {
+    public WhoAmI whoAmI() throws MoeraNodeException {
         var location = "/whoami";
         var returnTypeRef = new TypeReference<WhoAmI>() {};
         return call(location, null, "GET", null, returnTypeRef);

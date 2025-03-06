@@ -546,7 +546,6 @@ PREAMBLE_MOERA_NODE = '''package org.moera.lib.node;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
 
@@ -683,7 +682,7 @@ def generate_calls(api: Any, afile: TextIO) -> None:
 
             afile.write(description)
             name = request['function']
-            throws = 'throws MoeraNodeException, MoeraNodeConnectionException'
+            throws = 'throws MoeraNodeException'
             afile.write(params_wrap(f'\n{ind(1)}public {result} {name}(%s) {throws} {{\n', ', '.join(params), 2))
             if flag_name is not None:
                 items = ', '.join(

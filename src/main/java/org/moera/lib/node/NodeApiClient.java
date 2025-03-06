@@ -166,7 +166,7 @@ public class NodeApiClient {
 
     public <T> T call(
         String location, QueryParam[] params, String method, Object body, TypeReference<T> resultClass
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         AtomicReference<T> result = new AtomicReference<>();
         call(location, params, method, body, responseBody -> {
             try {
@@ -181,7 +181,7 @@ public class NodeApiClient {
 
     public void call(
         String location, QueryParam[] params, String method, Object body, ResponseConsumer responseConsumer
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         RequestBody requestBody;
         try {
             requestBody = body != null
@@ -196,7 +196,7 @@ public class NodeApiClient {
 
     public <T> T call(
         String location, QueryParam[] params, String method, Path body, String contentType, TypeReference<T> resultClass
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         RequestBody requestBody = body != null
             ? RequestBody.create(body.toFile(), MediaType.parse(contentType))
             : null;
@@ -215,7 +215,7 @@ public class NodeApiClient {
 
     public void call(
         String location, QueryParam[] params, String method, RequestBody requestBody, ResponseConsumer responseConsumer
-    ) throws MoeraNodeException, MoeraNodeConnectionException {
+    ) throws MoeraNodeException {
         var requestBuilder = new Request.Builder();
 
         requestBuilder.method(method, requestBody);
@@ -274,7 +274,7 @@ public class NodeApiClient {
             validateResponseStatus(response.code(), response.body());
             responseConsumer.accept(response.body());
         } catch (IOException e) {
-            throw new MoeraNodeConnectionException("Request failed", e);
+            throw new MoeraNodeConnectionException(e);
         }
     }
 
