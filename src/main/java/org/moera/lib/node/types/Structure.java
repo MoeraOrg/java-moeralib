@@ -3,8 +3,10 @@ package org.moera.lib.node.types;
 import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class Structure {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class Structure {
 
     @JsonIgnore
     private Object extra;

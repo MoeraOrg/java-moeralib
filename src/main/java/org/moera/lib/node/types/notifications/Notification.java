@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.moera.lib.node.types.AvatarImage;
 import org.moera.lib.util.Util;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Notification implements Cloneable {
 
     @JsonIgnore

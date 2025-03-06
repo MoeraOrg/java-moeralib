@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FundraiserInfo {
+public class FundraiserInfo extends Structure {
 
     private static final Logger log = LoggerFactory.getLogger(FundraiserInfo.class);
 
