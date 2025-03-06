@@ -297,7 +297,7 @@ public class MoeraNode extends NodeApiClient {
      * @return CommentsSliceInfo
      */
     public CommentsSliceInfo getCommentsSlice(
-        String postingId, Integer after, Integer before, Integer limit
+        String postingId, Long after, Long before, Integer limit
     ) throws MoeraNodeException {
         var location = "/postings/%s/comments".formatted(ue(postingId));
         var params = new QueryParam[] {
@@ -483,7 +483,7 @@ public class MoeraNode extends NodeApiClient {
      * @return ReactionsSliceInfo
      */
     public ReactionsSliceInfo getCommentReactionsSlice(
-        String postingId, String commentId, Boolean negative, Integer emoji, Integer before, Integer limit
+        String postingId, String commentId, Boolean negative, Integer emoji, Long before, Integer limit
     ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions".formatted(ue(postingId), ue(commentId));
         var params = new QueryParam[] {
@@ -963,7 +963,7 @@ public class MoeraNode extends NodeApiClient {
      * @return FeedSliceInfo
      */
     public FeedSliceInfo getFeedSlice(
-        String feedName, Integer after, Integer before, Integer limit
+        String feedName, Long after, Long before, Integer limit
     ) throws MoeraNodeException {
         var location = "/feeds/%s/stories".formatted(ue(feedName));
         var params = new QueryParam[] {
@@ -1574,7 +1574,7 @@ public class MoeraNode extends NodeApiClient {
      * @return ReactionsSliceInfo
      */
     public ReactionsSliceInfo getPostingReactionsSlice(
-        String postingId, Boolean negative, Integer emoji, Integer before, Integer limit
+        String postingId, Boolean negative, Integer emoji, Long before, Integer limit
     ) throws MoeraNodeException {
         var location = "/postings/%s/reactions".formatted(ue(postingId));
         var params = new QueryParam[] {
@@ -2152,7 +2152,7 @@ public class MoeraNode extends NodeApiClient {
      * @return SheriffComplaintGroupsSliceInfo
      */
     public SheriffComplaintGroupsSliceInfo getSheriffComplaintGroupsSlice(
-        Integer after, Integer before, Integer limit, SheriffComplaintStatus status
+        Long after, Long before, Integer limit, SheriffComplaintStatus status
     ) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups";
         var params = new QueryParam[] {
@@ -2491,7 +2491,7 @@ public class MoeraNode extends NodeApiClient {
      * @return UserListSliceInfo
      */
     public UserListSliceInfo getUserListSlice(
-        String name, Integer after, Integer before, Integer limit
+        String name, Long after, Long before, Integer limit
     ) throws MoeraNodeException {
         var location = "/user-lists/%s/items".formatted(ue(name));
         var params = new QueryParam[] {
