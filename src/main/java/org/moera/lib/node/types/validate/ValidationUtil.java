@@ -14,7 +14,7 @@ public class ValidationUtil {
 
     public static void assertion(boolean condition, String errorCode) {
         if (!condition) {
-            throw new ValidationException(errorCode);
+            throw new ValidationFailure(errorCode);
         }
     }
 

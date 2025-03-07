@@ -1,10 +1,10 @@
 package org.moera.lib.node.types.validate;
 
-public class ValidationException extends RuntimeException {
+public class ValidationFailure extends RuntimeException {
 
     private final String errorCode;
 
-    protected ValidationException(String errorCode) {
+    public ValidationFailure(String errorCode) {
         super("Validation failed: " + errorCode);
         this.errorCode = errorCode;
     }
