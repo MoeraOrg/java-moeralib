@@ -73,6 +73,18 @@ public enum Scope {
         return (mask & getMask()) == getMask();
     }
 
+    public boolean included(Scope scope) {
+        return included(scope.getMask());
+    }
+
+    public static long of(Scope... scopes) {
+        long mask = 0;
+        for (Scope scope : scopes) {
+            mask |= scope.getMask();
+        }
+        return mask;
+    }
+
     @JsonValue
     public String getValue() {
         return name().toLowerCase().replace('_', '-');

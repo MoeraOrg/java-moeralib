@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +18,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.moera.lib.node.carte.CarteSource;
 import org.moera.lib.node.exception.MoeraNodeApiAuthenticationException;
 import org.moera.lib.node.exception.MoeraNodeApiException;
 import org.moera.lib.node.exception.MoeraNodeApiNotFoundException;
@@ -40,7 +40,7 @@ public class NodeApiClient {
     private String rootSecret;
     private String token;
     private String carte;
-    private Supplier<String> carteSource;
+    private CarteSource carteSource;
     private NodeAuth authMethod = NodeAuth.NONE;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -123,7 +123,7 @@ public class NodeApiClient {
      *
      * @param carteSource the source of cartes
      */
-    public void carteSource(Supplier<String> carteSource) {
+    public void carteSource(CarteSource carteSource) {
         this.carteSource = carteSource;
     }
 
@@ -225,7 +225,7 @@ public class NodeApiClient {
         switch (authMethod) {
             case PEER:
                 if (carteSource != null) {
-                    bearer = "carte:" + carteSource.get();
+                    bearer = "carte:" + carteSource.getCarte();
                 } else if (carte != null) {
                     bearer = "carte:" + carte;
                 } else {
