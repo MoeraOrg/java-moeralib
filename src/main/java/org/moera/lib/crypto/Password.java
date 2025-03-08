@@ -7,14 +7,30 @@ import java.security.SecureRandom;
 
 import org.moera.lib.util.Util;
 
+/**
+ * Utility class for password hashing and validation.
+ */
 public class Password {
 
+    /**
+     * Generates a hash for the given password using a randomly generated salt.
+     *
+     * @param password the password to be hashed
+     * @return the hashed password as a Base64-encoded string that includes the hash and the salt
+     */
     public static String hash(String password) {
         byte[] salt = new byte[Long.BYTES];
         new SecureRandom().nextBytes(salt);
         return hash(password, salt);
     }
 
+    /**
+     * Validates if the provided password matches the given hash, using the salt embedded in the hash.
+     *
+     * @param hash the Base64-encoded string containing the hash and the salt
+     * @param password the password to validate against the hash
+     * @return {@code true} if the password matches the hash, {@code false} otherwise
+     */
     public static boolean validate(String hash, String password) {
         byte[] data = Util.base64decode(hash);
         byte[] salt = new byte[Long.BYTES];

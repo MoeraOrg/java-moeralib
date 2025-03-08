@@ -11,6 +11,12 @@ import java.util.function.Function;
 
 import org.moera.lib.util.Util;
 
+/**
+ * The {@code FingerprintReader} class is responsible for deserializing fingerprint data
+ * from a byte array input stream.
+ * <p>
+ * This class is not intended to be used directly. Use {@link CryptoUtil} methods instead.
+ */
 public class FingerprintReader implements AutoCloseable {
 
     private final ByteArrayInputStream in;

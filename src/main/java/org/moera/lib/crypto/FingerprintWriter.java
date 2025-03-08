@@ -12,6 +12,12 @@ import org.moera.lib.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The {@code FingerprintWriter} class is a utility used to convert a fingerprint to
+ * its serialized binary representation.
+ * <p>
+ * This class is not intended to be used directly. Use {@link CryptoUtil} methods instead.
+ */
 class FingerprintWriter implements AutoCloseable {
 
     private static final Logger log = LoggerFactory.getLogger(FingerprintWriter.class);
