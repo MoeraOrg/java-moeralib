@@ -64,7 +64,7 @@ public class CryptoUtil {
 
     /**
      * Generates an elliptic curve key pair using the standard EC curve used in Moera
-     * ({@code Rules.EC_CURVE}) and a secure random generator.
+     * ({@link Rules#EC_CURVE}) and a secure random generator.
      * The generated key pair consists of a private key and a public key.
      *
      * @return a {@code KeyPair} object containing the generated elliptic curve keys
@@ -87,7 +87,7 @@ public class CryptoUtil {
      * Generates a new {@link MnemonicKey} containing a securely generated mnemonic phrase,
      * corresponding secret in base64 format, and a public key derived from the mnemonic.
      * The mnemonic and public key are generated using the elliptic curve specified by
-     * {@code Rules.EC_CURVE}.
+     * {@link Rules#EC_CURVE}.
      *
      * @return A new instance of {@link MnemonicKey} containing the secret, mnemonic phrase,
      *         and derived public key.
@@ -222,7 +222,7 @@ public class CryptoUtil {
 
     /**
      * Converts a raw private key represented as a byte array into an {@link ECPrivateKey} instance
-     * using the standard Moera elliptic curve ({@code Rules.EC_CURVE}) parameters.
+     * using the standard Moera elliptic curve ({@link Rules#EC_CURVE}) parameters.
      *
      * @param rawKey the raw private key as a byte array
      * @return an {@link ECPrivateKey} instance corresponding to the provided raw key
@@ -314,7 +314,7 @@ public class CryptoUtil {
 
     /**
      * Computes the cryptographic digest of the provided fingerprint using the standard digest algorithm
-     * ({@code Rules.DIGEST_ALGORITHM}).
+     * ({@link Rules#DIGEST_ALGORITHM}).
      *
      * @param fingerprint the byte array containing the fingerprint to be processed
      * @return a byte array containing the computed digest
@@ -330,7 +330,7 @@ public class CryptoUtil {
 
     /**
      * Hashes each byte array in the provided collection using the standard cryptographic digest algorithm
-     * ({@code Rules.DIGEST_ALGORITHM}).
+     * ({@link Rules#DIGEST_ALGORITHM}).
      *
      * @param fingerprint a collection of byte arrays to be processed; each array will be
      *                    hashed individually.
