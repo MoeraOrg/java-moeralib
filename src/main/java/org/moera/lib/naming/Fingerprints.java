@@ -6,6 +6,10 @@ import org.moera.lib.crypto.CryptoUtil;
 import org.moera.lib.crypto.FieldWithSchema;
 import org.moera.lib.crypto.Fingerprint;
 
+/**
+ * The Fingerprints class provides methods to generate a cryptographic fingerprint
+ * for a set of fields using a predefined schema structure.
+ */
 public class Fingerprints {
 
     private static final FieldWithSchema[] PUT_CALL0_SCHEMA = new FieldWithSchema[] {

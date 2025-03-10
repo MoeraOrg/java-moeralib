@@ -40,6 +40,21 @@ public class JsonRpcClient {
         this.fetcher = fetcher;
     }
 
+    /**
+     * Performs a JSON-RPC call to invoke a method on a remote server. Constructs a JSON-RPC request,
+     * sends it using the pre-configured fetcher, and processes the response. If the response contains
+     * an error, it throws a {@link JsonRpcApiException}. If the response is successful, the result
+     * is converted to the specified type and returned.
+     *
+     * @param <T> the type of the result object expected from the remote method
+     * @param result the class type of the result object. If the expected result is {@code null} or the remote method
+     *               does not return a value, the method will return {@code null}.
+     * @param method the name of the remote method to invoke
+     * @param parameters the parameters to pass to the remote method
+     * @return the result of the remote method call, converted to the specified type, or {@code null} if
+     *         the remote method does not return a value
+     * @throws JsonRpcApiException if the method call returned an error
+     */
     protected <T> T fetch(Class<T> result, String method, Object... parameters) {
         JsonRpcRequest request = new JsonRpcRequest();
         request.setId(id.incrementAndGet());
