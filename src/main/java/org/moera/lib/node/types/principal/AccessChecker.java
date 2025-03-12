@@ -3,9 +3,9 @@ package org.moera.lib.node.types.principal;
 import org.moera.lib.node.types.Scope;
 
 /**
- * The {@code AccessChecker} interface is implemented by a class representing a client of the current node.
- * It evaluates whether the client is permitted to perform an operation in the given scope that is allowed only for
- * clients described by the given principal.
+ * The {@code AccessChecker} interface is implemented by classes representing a client of the current node.
+ * It evaluates whether the client is permitted to perform an operation in the given scope if the operation is allowed
+ * only for clients described by the given principal.
  */
 public interface AccessChecker {
 
