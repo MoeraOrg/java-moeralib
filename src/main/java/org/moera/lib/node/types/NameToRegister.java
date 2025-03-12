@@ -10,10 +10,20 @@ public class NameToRegister extends Structure implements Cloneable {
 
     private String name;
 
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets .
+     *
+     * @param name the value to be set
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -24,6 +34,11 @@ public class NameToRegister extends Structure implements Cloneable {
         ValidationUtil.notBlank(name, "node-name.name.blank");
     }
 
+    /**
+     * Creates and returns a copy of this {@code NameToRegister} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public NameToRegister clone() {
         try {

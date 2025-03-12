@@ -18,7 +18,7 @@ import org.moera.lib.naming.types.SigningKeyInfo;
  * {@code MoeraNaming} is a client for interfacing with the Moera Naming Service.
  * It extends {@link JsonRpcClient} to perform JSON-RPC based calls to the naming service,
  * and implements {@link NamingApi} to provide specific operations related to name resolution
- * and management on the Moera Naming Service.
+ * and management.
  */
 public class MoeraNaming extends JsonRpcClient implements NamingApi {
 

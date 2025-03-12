@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * The sending node got a cancellation of a sheriff's order related to the receiver's comment.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SheriffOrderForCommentDeletedNotification extends Notification {
 
@@ -25,74 +28,164 @@ public class SheriffOrderForCommentDeletedNotification extends Notification {
         super(NotificationType.SHERIFF_ORDER_FOR_COMMENT_DELETED);
     }
 
+    /**
+     * Retrieves name of the node the order was sent to.
+     *
+     * @return the value
+     */
     public String getRemoteNodeName() {
         return remoteNodeName;
     }
 
+    /**
+     * Sets name of the node the order was sent to.
+     *
+     * @param remoteNodeName the value to be set
+     */
     public void setRemoteNodeName(String remoteNodeName) {
         this.remoteNodeName = remoteNodeName;
     }
 
+    /**
+     * Retrieves name of the feed the order is related to.
+     *
+     * @return the value
+     */
     public String getRemoteFeedName() {
         return remoteFeedName;
     }
 
+    /**
+     * Sets name of the feed the order is related to.
+     *
+     * @param remoteFeedName the value to be set
+     */
     public void setRemoteFeedName(String remoteFeedName) {
         this.remoteFeedName = remoteFeedName;
     }
 
+    /**
+     * Retrieves posting owner's node name.
+     *
+     * @return the value
+     */
     public String getPostingOwnerName() {
         return postingOwnerName;
     }
 
+    /**
+     * Sets posting owner's node name.
+     *
+     * @param postingOwnerName the value to be set
+     */
     public void setPostingOwnerName(String postingOwnerName) {
         this.postingOwnerName = postingOwnerName;
     }
 
+    /**
+     * Retrieves posting owner's full name.
+     *
+     * @return the value
+     */
     public String getPostingOwnerFullName() {
         return postingOwnerFullName;
     }
 
+    /**
+     * Sets posting owner's full name.
+     *
+     * @param postingOwnerFullName the value to be set
+     */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
     }
 
+    /**
+     * Retrieves heading of the posting.
+     *
+     * @return the value
+     */
     public String getPostingHeading() {
         return postingHeading;
     }
 
+    /**
+     * Sets heading of the posting.
+     *
+     * @param postingHeading the value to be set
+     */
     public void setPostingHeading(String postingHeading) {
         this.postingHeading = postingHeading;
     }
 
+    /**
+     * Retrieves ID of the posting the order is related to.
+     *
+     * @return the value
+     */
     public String getPostingId() {
         return postingId;
     }
 
+    /**
+     * Sets ID of the posting the order is related to.
+     *
+     * @param postingId the value to be set
+     */
     public void setPostingId(String postingId) {
         this.postingId = postingId;
     }
 
+    /**
+     * Retrieves heading of the comment.
+     *
+     * @return the value
+     */
     public String getCommentHeading() {
         return commentHeading;
     }
 
+    /**
+     * Sets heading of the comment.
+     *
+     * @param commentHeading the value to be set
+     */
     public void setCommentHeading(String commentHeading) {
         this.commentHeading = commentHeading;
     }
 
+    /**
+     * Retrieves ID of the comment the order is related to.
+     *
+     * @return the value
+     */
     public String getCommentId() {
         return commentId;
     }
 
+    /**
+     * Sets ID of the comment the order is related to.
+     *
+     * @param commentId the value to be set
+     */
     public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
+    /**
+     * Retrieves ID of the order.
+     *
+     * @return the value
+     */
     public String getOrderId() {
         return orderId;
     }
 
+    /**
+     * Sets ID of the order.
+     *
+     * @param orderId the value to be set
+     */
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }

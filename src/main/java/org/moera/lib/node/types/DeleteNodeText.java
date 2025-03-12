@@ -10,10 +10,20 @@ public class DeleteNodeText extends Structure implements Cloneable {
 
     private String message;
 
+    /**
+     * Retrieves text message for the provider.
+     *
+     * @return the value
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Sets text message for the provider.
+     *
+     * @param message the value to be set
+     */
     public void setMessage(String message) {
         this.message = message;
     }
@@ -24,6 +34,11 @@ public class DeleteNodeText extends Structure implements Cloneable {
         ValidationUtil.maxSize(message, 1024, "delete-node.message.wrong-size");
     }
 
+    /**
+     * Creates and returns a copy of this {@code DeleteNodeText} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public DeleteNodeText clone() {
         try {

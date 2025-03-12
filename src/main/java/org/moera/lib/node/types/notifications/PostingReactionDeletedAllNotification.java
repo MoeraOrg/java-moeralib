@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * Deleted all reactions from a posting owned by the receiver.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostingReactionDeletedAllNotification extends Notification {
 
@@ -20,34 +23,86 @@ public class PostingReactionDeletedAllNotification extends Notification {
         super(NotificationType.POSTING_REACTION_DELETED_ALL);
     }
 
+    /**
+     * Retrieves ID of the posting containing the media or containing the comment that contains the media linked to the
+     * posting in question (present only if the posting in question is linked to a media)
+     * .
+     *
+     * @return the value
+     */
     public String getParentPostingId() {
         return parentPostingId;
     }
 
+    /**
+     * Sets ID of the posting containing the media or containing the comment that contains the media linked to the
+     * posting in question (present only if the posting in question is linked to a media)
+     * .
+     *
+     * @param parentPostingId the value to be set
+     */
     public void setParentPostingId(String parentPostingId) {
         this.parentPostingId = parentPostingId;
     }
 
+    /**
+     * Retrieves ID of the comment containing the media linked to the posting in question (present only if the posting
+     * in question is linked to a media attached to a comment)
+     * .
+     *
+     * @return the value
+     */
     public String getParentCommentId() {
         return parentCommentId;
     }
 
+    /**
+     * Sets ID of the comment containing the media linked to the posting in question (present only if the posting in
+     * question is linked to a media attached to a comment)
+     * .
+     *
+     * @param parentCommentId the value to be set
+     */
     public void setParentCommentId(String parentCommentId) {
         this.parentCommentId = parentCommentId;
     }
 
+    /**
+     * Retrieves ID of the media linked to the posting in question (present only if the posting in question is linked
+     * to a media)
+     * .
+     *
+     * @return the value
+     */
     public String getParentMediaId() {
         return parentMediaId;
     }
 
+    /**
+     * Sets ID of the media linked to the posting in question (present only if the posting in question is linked to a
+     * media)
+     * .
+     *
+     * @param parentMediaId the value to be set
+     */
     public void setParentMediaId(String parentMediaId) {
         this.parentMediaId = parentMediaId;
     }
 
+    /**
+     * Retrieves ID of the posting on the sending node.
+     *
+     * @return the value
+     */
     public String getPostingId() {
         return postingId;
     }
 
+    /**
+     * Sets ID of the posting on the sending node.
+     *
+     * @param postingId the value to be set
+     */
     public void setPostingId(String postingId) {
         this.postingId = postingId;
     }

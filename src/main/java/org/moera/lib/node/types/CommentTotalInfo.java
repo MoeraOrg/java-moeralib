@@ -9,14 +9,29 @@ public class CommentTotalInfo extends Structure implements Cloneable {
 
     private int total;
 
+    /**
+     * Retrieves total number of comments in the posting after the operation.
+     *
+     * @return the value
+     */
     public int getTotal() {
         return total;
     }
 
+    /**
+     * Sets total number of comments in the posting after the operation.
+     *
+     * @param total the value to be set
+     */
     public void setTotal(int total) {
         this.total = total;
     }
 
+    /**
+     * Creates and returns a copy of this {@code CommentTotalInfo} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public CommentTotalInfo clone() {
         try {

@@ -2,6 +2,9 @@ package org.moera.lib.node.types.notifications;
 
 // This file is generated
 
+/**
+ * The type of the notification.
+ */
 public enum NotificationType {
 
     /**
@@ -113,31 +116,31 @@ public enum NotificationType {
      */
     BLOCKING_DELETED(BlockingDeletedNotification.class), // 26
     /**
-     * The sending node got a sheriff's order related to the receiver's posting
+     * The sending node got a sheriff's order related to the receiver's posting.
      */
     SHERIFF_ORDER_FOR_POSTING_ADDED(SheriffOrderForPostingAddedNotification.class), // 27
     /**
-     * The sending node got a cancellation of a sheriff's order related to the receiver's posting
+     * The sending node got a cancellation of a sheriff's order related to the receiver's posting.
      */
     SHERIFF_ORDER_FOR_POSTING_DELETED(SheriffOrderForPostingDeletedNotification.class), // 28
     /**
-     * The sending node got a sheriff's order related to the receiver's comment
+     * The sending node got a sheriff's order related to the receiver's comment.
      */
     SHERIFF_ORDER_FOR_COMMENT_ADDED(SheriffOrderForCommentAddedNotification.class), // 29
     /**
-     * The sending node got a cancellation of a sheriff's order related to the receiver's comment
+     * The sending node got a cancellation of a sheriff's order related to the receiver's comment.
      */
     SHERIFF_ORDER_FOR_COMMENT_DELETED(SheriffOrderForCommentDeletedNotification.class), // 30
     /**
-     * The sheriff made a decision on the receiver's complaint
+     * The sheriff made a decision on the receiver's complaint.
      */
     SHERIFF_COMPLAINT_DECIDED(SheriffComplaintDecidedNotification.class), // 31
     /**
-     * A node was added to a user list the receiver is subscribed to
+     * A node was added to a user list the receiver is subscribed to.
      */
     USER_LIST_ITEM_ADDED(UserListItemAddedNotification.class), // 32
     /**
-     * A node was deleted from a user list the receiver is subscribed to
+     * A node was deleted from a user list the receiver is subscribed to.
      */
     USER_LIST_ITEM_DELETED(UserListItemDeletedNotification.class), // 33
     /**
@@ -155,14 +158,31 @@ public enum NotificationType {
         this.structure = structure;
     }
 
+    /**
+     * Retrieves the structure corresponding to the notification type.
+     *
+     * @return a class object representing the structure
+     */
     public Class<? extends Notification> getStructure() {
         return structure;
     }
 
+    /**
+     * Retrieves the notification type in its string representation.
+     *
+     * @return the string representation of the notification type
+     */
     public String getValue() {
         return name().toLowerCase().replace('_', '-');
     }
 
+    /**
+     * Returns a {@code NotificationType} corresponding to the provided string value.
+     *
+     * @param value the string value
+     * @return the {@code NotificationType} corresponding to the provided string value,
+     *         or {@code null} if the notification type is unknown
+     */
     public static NotificationType forValue(String value) {
         String name = value.toUpperCase().replace('-', '_');
         try {

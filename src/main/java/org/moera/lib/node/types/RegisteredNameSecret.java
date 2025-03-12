@@ -13,30 +13,65 @@ public class RegisteredNameSecret extends Structure implements Cloneable {
     private List<String> mnemonic;
     private String secret;
 
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets .
+     *
+     * @param name the value to be set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retrieves human-friendly mnemonic of the updating key.
+     *
+     * @return the value
+     */
     public List<String> getMnemonic() {
         return mnemonic;
     }
 
+    /**
+     * Sets human-friendly mnemonic of the updating key.
+     *
+     * @param mnemonic the value to be set
+     */
     public void setMnemonic(List<String> mnemonic) {
         this.mnemonic = mnemonic;
     }
 
+    /**
+     * Retrieves base64-encoded secret of the updating key.
+     *
+     * @return the value
+     */
     public String getSecret() {
         return secret;
     }
 
+    /**
+     * Sets base64-encoded secret of the updating key.
+     *
+     * @param secret the value to be set
+     */
     public void setSecret(String secret) {
         this.secret = secret;
     }
 
+    /**
+     * Creates and returns a copy of this {@code RegisteredNameSecret} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public RegisteredNameSecret clone() {
         try {

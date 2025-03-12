@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * A mention of the receiver in a posting on the sending node deleted.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MentionPostingDeletedNotification extends Notification {
 
@@ -17,10 +20,20 @@ public class MentionPostingDeletedNotification extends Notification {
         super(NotificationType.MENTION_POSTING_DELETED);
     }
 
+    /**
+     * Retrieves ID of the posting on the sending node.
+     *
+     * @return the value
+     */
     public String getPostingId() {
         return postingId;
     }
 
+    /**
+     * Sets ID of the posting on the sending node.
+     *
+     * @param postingId the value to be set
+     */
     public void setPostingId(String postingId) {
         this.postingId = postingId;
     }

@@ -9,14 +9,29 @@ public class SheriffMark extends Structure implements Cloneable {
 
     private String sheriffName;
 
+    /**
+     * Retrieves name of the sheriff that added the mark.
+     *
+     * @return the value
+     */
     public String getSheriffName() {
         return sheriffName;
     }
 
+    /**
+     * Sets name of the sheriff that added the mark.
+     *
+     * @param sheriffName the value to be set
+     */
     public void setSheriffName(String sheriffName) {
         this.sheriffName = sheriffName;
     }
 
+    /**
+     * Creates and returns a copy of this {@code SheriffMark} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public SheriffMark clone() {
         try {

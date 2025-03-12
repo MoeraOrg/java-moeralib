@@ -10,18 +10,38 @@ public class EntryInfo extends Structure implements Cloneable {
     private PostingInfo posting;
     private CommentInfo comment;
 
+    /**
+     * Retrieves posting details, set if the entry is a posting.
+     *
+     * @return the value
+     */
     public PostingInfo getPosting() {
         return posting;
     }
 
+    /**
+     * Sets posting details, set if the entry is a posting.
+     *
+     * @param posting the value to be set
+     */
     public void setPosting(PostingInfo posting) {
         this.posting = posting;
     }
 
+    /**
+     * Retrieves comment details, set if the entry is a comment.
+     *
+     * @return the value
+     */
     public CommentInfo getComment() {
         return comment;
     }
 
+    /**
+     * Sets comment details, set if the entry is a comment.
+     *
+     * @param comment the value to be set
+     */
     public void setComment(CommentInfo comment) {
         this.comment = comment;
     }
@@ -37,6 +57,11 @@ public class EntryInfo extends Structure implements Cloneable {
         }
     }
 
+    /**
+     * Creates and returns a copy of this {@code EntryInfo} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public EntryInfo clone() {
         try {

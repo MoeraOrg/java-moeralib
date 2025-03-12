@@ -12,10 +12,20 @@ public class KeyMnemonic extends Structure implements Cloneable {
 
     private List<String> mnemonic;
 
+    /**
+     * Retrieves the words.
+     *
+     * @return the value
+     */
     public List<String> getMnemonic() {
         return mnemonic;
     }
 
+    /**
+     * Sets the words.
+     *
+     * @param mnemonic the value to be set
+     */
     public void setMnemonic(List<String> mnemonic) {
         this.mnemonic = mnemonic;
     }
@@ -26,6 +36,11 @@ public class KeyMnemonic extends Structure implements Cloneable {
         ValidationUtil.notNull(mnemonic, "node-name.mnemonic.missing");
     }
 
+    /**
+     * Creates and returns a copy of this {@code KeyMnemonic} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public KeyMnemonic clone() {
         try {

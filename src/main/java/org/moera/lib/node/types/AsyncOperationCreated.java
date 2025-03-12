@@ -9,14 +9,29 @@ public class AsyncOperationCreated extends Structure implements Cloneable {
 
     private String id;
 
+    /**
+     * Retrieves ID of the asynchronous operation that was created.
+     *
+     * @return the value
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets ID of the asynchronous operation that was created.
+     *
+     * @param id the value to be set
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Creates and returns a copy of this {@code AsyncOperationCreated} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public AsyncOperationCreated clone() {
         try {

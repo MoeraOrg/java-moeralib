@@ -20,74 +20,168 @@ public class ProfileAttributes extends Structure implements Cloneable {
     private List<FundraiserInfo> fundraisers;
     private ProfileOperations operations;
 
+    /**
+     * Retrieves node owner's full name.
+     *
+     * @return the value
+     */
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     * Sets node owner's full name.
+     *
+     * @param fullName the value to be set
+     */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
+    /**
+     * Retrieves node owner's gender.
+     *
+     * @return the value
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Sets node owner's gender.
+     *
+     * @param gender the value to be set
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * Retrieves node owner's E-mail address.
+     *
+     * @return the value
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets node owner's E-mail address.
+     *
+     * @param email the value to be set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Retrieves node title.
+     *
+     * @return the value
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets node title.
+     *
+     * @param title the value to be set
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Retrieves the source text of node owner's bio (arbitrary text).
+     *
+     * @return the value
+     */
     public String getBioSrc() {
         return bioSrc;
     }
 
+    /**
+     * Sets the source text of node owner's bio (arbitrary text).
+     *
+     * @param bioSrc the value to be set
+     */
     public void setBioSrc(String bioSrc) {
         this.bioSrc = bioSrc;
     }
 
+    /**
+     * Retrieves format of the source text of node owner's bio, <code>markdown</code> by default; the list of available
+     * formats is returned in <code><a href="#PostingFeatures">PostingFeatures</a></code>
+     * .
+     *
+     * @return the value
+     */
     public SourceFormat getBioSrcFormat() {
         return bioSrcFormat;
     }
 
+    /**
+     * Sets format of the source text of node owner's bio, <code>markdown</code> by default; the list of available
+     * formats is returned in <code><a href="#PostingFeatures">PostingFeatures</a></code>
+     * .
+     *
+     * @param bioSrcFormat the value to be set
+     */
     public void setBioSrcFormat(SourceFormat bioSrcFormat) {
         this.bioSrcFormat = bioSrcFormat;
     }
 
+    /**
+     * Retrieves node owner's avatar ID.
+     *
+     * @return the value
+     */
     public String getAvatarId() {
         return avatarId;
     }
 
+    /**
+     * Sets node owner's avatar ID.
+     *
+     * @param avatarId the value to be set
+     */
     public void setAvatarId(String avatarId) {
         this.avatarId = avatarId;
     }
 
+    /**
+     * Retrieves list of fundraisers - methods of giving a donation to the node owner.
+     *
+     * @return the value
+     */
     public List<FundraiserInfo> getFundraisers() {
         return fundraisers;
     }
 
+    /**
+     * Sets list of fundraisers - methods of giving a donation to the node owner.
+     *
+     * @param fundraisers the value to be set
+     */
     public void setFundraisers(List<FundraiserInfo> fundraisers) {
         this.fundraisers = fundraisers;
     }
 
+    /**
+     * Retrieves the operations and the corresponding principals.
+     *
+     * @return the value
+     */
     public ProfileOperations getOperations() {
         return operations;
     }
 
+    /**
+     * Sets the operations and the corresponding principals.
+     *
+     * @param operations the value to be set
+     */
     public void setOperations(ProfileOperations operations) {
         this.operations = operations;
     }
@@ -103,6 +197,11 @@ public class ProfileAttributes extends Structure implements Cloneable {
         ValidationUtil.maxSize(bioSrc, 4096, "profile.bio-src.wrong-size");
     }
 
+    /**
+     * Creates and returns a copy of this {@code ProfileAttributes} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public ProfileAttributes clone() {
         try {

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * A node was deleted from a user list the receiver is subscribed to.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserListItemDeletedNotification extends SubscriberNotification {
 
@@ -18,18 +21,38 @@ public class UserListItemDeletedNotification extends SubscriberNotification {
         super(NotificationType.USER_LIST_ITEM_DELETED);
     }
 
+    /**
+     * Retrieves name of the user list.
+     *
+     * @return the value
+     */
     public String getListName() {
         return listName;
     }
 
+    /**
+     * Sets name of the user list.
+     *
+     * @param listName the value to be set
+     */
     public void setListName(String listName) {
         this.listName = listName;
     }
 
+    /**
+     * Retrieves name of the node.
+     *
+     * @return the value
+     */
     public String getNodeName() {
         return nodeName;
     }
 
+    /**
+     * Sets name of the node.
+     *
+     * @param nodeName the value to be set
+     */
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
     }

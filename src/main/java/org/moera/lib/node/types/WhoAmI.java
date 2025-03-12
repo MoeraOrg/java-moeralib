@@ -15,62 +15,139 @@ public class WhoAmI extends Structure implements Cloneable {
     private AvatarImage avatar;
     private Boolean frozen;
 
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
     public String getNodeName() {
         return nodeName;
     }
 
+    /**
+     * Sets .
+     *
+     * @param nodeName the value to be set
+     */
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
     }
 
+    /**
+     * Retrieves <code>true</code> if node name is about to be changed.
+     *
+     * @return the value
+     */
     public Boolean getNodeNameChanging() {
         return nodeNameChanging;
     }
 
+    /**
+     * Sets <code>true</code> if node name is about to be changed.
+     *
+     * @param nodeNameChanging the value to be set
+     */
     public void setNodeNameChanging(Boolean nodeNameChanging) {
         this.nodeNameChanging = nodeNameChanging;
     }
 
+    /**
+     * Retrieves node owner's full name.
+     *
+     * @return the value
+     */
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     * Sets node owner's full name.
+     *
+     * @param fullName the value to be set
+     */
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
+    /**
+     * Retrieves node owner's gender.
+     *
+     * @return the value
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Sets node owner's gender.
+     *
+     * @param gender the value to be set
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * Retrieves node title.
+     *
+     * @return the value
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets node title.
+     *
+     * @param title the value to be set
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Retrieves node owner's avatar.
+     *
+     * @return the value
+     */
     public AvatarImage getAvatar() {
         return avatar;
     }
 
+    /**
+     * Sets node owner's avatar.
+     *
+     * @param avatar the value to be set
+     */
     public void setAvatar(AvatarImage avatar) {
         this.avatar = avatar;
     }
 
+    /**
+     * Retrieves <code>true</code> if the node is frozen due to inactivity, <code>false</code> (the default) otherwise
+     * .
+     *
+     * @return the value
+     */
     public Boolean getFrozen() {
         return frozen;
     }
 
+    /**
+     * Sets <code>true</code> if the node is frozen due to inactivity, <code>false</code> (the default) otherwise
+     * .
+     *
+     * @param frozen the value to be set
+     */
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
     }
 
+    /**
+     * Creates and returns a copy of this {@code WhoAmI} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public WhoAmI clone() {
         try {

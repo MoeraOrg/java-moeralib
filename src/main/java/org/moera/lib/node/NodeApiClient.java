@@ -28,10 +28,31 @@ import org.moera.lib.node.exception.MoeraNodeCallException;
 import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
 
+/**
+ * This class implements basic REST API operations that allow applications to call Moera Node API.
+ */
 public class NodeApiClient {
 
+    /**
+     * The interface provides a single method to process a {@link ResponseBody},
+     * allowing custom handling of API responses received from a node.
+     * <p>
+     * Implementations of this interface should define specific behavior for
+     * parsing, validating, or otherwise processing the {@link ResponseBody}.
+     * <p>
+     * If an error occurs during response processing, the method can throw a
+     * {@link MoeraNodeException}.
+     */
     public interface ResponseConsumer {
 
+        /**
+         * Processes the provided {@link ResponseBody}. This method is intended to handle
+         * custom logic for parsing, validating, or processing the response received from
+         * a node.
+         *
+         * @param responseBody the response body to be processed
+         * @throws MoeraNodeException if an error occurs when processing the response
+         */
         void accept(ResponseBody responseBody) throws MoeraNodeException;
 
     }
@@ -46,9 +67,17 @@ public class NodeApiClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final OkHttpClient client = new OkHttpClient();
 
+    /**
+     * Default constructor for the {@code NodeApiClient} class.
+     */
     public NodeApiClient() {
     }
 
+    /**
+     * Constructs a new instance of the {@code NodeApiClient} class and initializes it with the given node URL.
+     *
+     * @param nodeUrl the URL of the node to connect to
+     */
     public NodeApiClient(String nodeUrl) {
         nodeUrl(nodeUrl);
     }
@@ -164,6 +193,20 @@ public class NodeApiClient {
         authMethod(NodeAuth.ROOT_ADMIN);
     }
 
+    /**
+     * Executes a request to the node API with the specified parameters and parses the JSON response into
+     * the specified result type.
+     *
+     * @param location the endpoint location of the API call, relative to the node's root URL
+     * @param params an array of query parameters to be included in the API request; may be {@code null}
+     * @param method the HTTP method to use for the request (e.g., {@code GET}, {@code POST}, {@code DELETE})
+     * @param body an object representing the request body to include in the API request,
+     *            the object is converted to JSON before sending; can be {@code null} for methods like {@code GET}
+     * @param resultClass the type reference of the expected response object
+     * @param <T> the type of the expected response object
+     * @return the parsed response object of type {@code T}
+     * @throws MoeraNodeException if an error occurs during request processing or response handling
+     */
     public <T> T call(
         String location, QueryParam[] params, String method, Object body, TypeReference<T> resultClass
     ) throws MoeraNodeException {
@@ -179,6 +222,17 @@ public class NodeApiClient {
         return result.get();
     }
 
+    /**
+     * Executes a request to the node API with the specified parameters.
+     *
+     * @param location the endpoint location of the API call, relative to the node's root URL
+     * @param params an array of query parameters to be included in the API request; may be {@code null}
+     * @param method the HTTP method to use for the request (e.g., {@code GET}, {@code POST}, {@code DELETE})
+     * @param body an object representing the request body to include in the API request,
+     *            the object is converted to JSON before sending; can be {@code null} for methods like {@code GET}
+     * @param responseConsumer a consumer that processes the response body received from the node
+     * @throws MoeraNodeException if an error occurs during request processing or response handling
+     */
     public void call(
         String location, QueryParam[] params, String method, Object body, ResponseConsumer responseConsumer
     ) throws MoeraNodeException {
@@ -194,6 +248,21 @@ public class NodeApiClient {
         call(location, params, method, requestBody, responseConsumer);
     }
 
+    /**
+     * Executes a request to the node API with the specified parameters and parses the JSON response into
+     * the specified result type.
+     *
+     * @param location the endpoint location of the API call, relative to the node's root URL
+     * @param params an array of query parameters to be included in the API request, may be {@code null}
+     * @param method the HTTP method to use for the request (e.g., {@code GET}, {@code POST}, {@code DELETE})
+     * @param body the file path for the request body to include in the API request;
+     *            can be {@code null} for methods like {@code GET}
+     * @param contentType the MIME type of the request body
+     * @param resultClass the type reference of the expected response object
+     * @param <T> the type of the expected response object
+     * @return the parsed response object of type {@code T}
+     * @throws MoeraNodeException if an error occurs during request processing or response handling
+     */
     public <T> T call(
         String location, QueryParam[] params, String method, Path body, String contentType, TypeReference<T> resultClass
     ) throws MoeraNodeException {
@@ -213,6 +282,17 @@ public class NodeApiClient {
         return result.get();
     }
 
+    /**
+     * Executes a request to the node API with the specified parameters.
+     *
+     * @param location the endpoint location of the API call, relative to the node's root URL
+     * @param params an array of query parameters to be included in the API request, may be {@code null}
+     * @param method the HTTP method to use for the request (e.g., {@code GET}, {@code POST}, {@code DELETE})
+     * @param requestBody the request body to include in the API request;
+     *                   can be {@code null} for methods like {@code GET}
+     * @param responseConsumer a consumer that processes the response body received from the node
+     * @throws MoeraNodeException if an error occurs during request processing or response handling
+     */
     public void call(
         String location, QueryParam[] params, String method, RequestBody requestBody, ResponseConsumer responseConsumer
     ) throws MoeraNodeException {

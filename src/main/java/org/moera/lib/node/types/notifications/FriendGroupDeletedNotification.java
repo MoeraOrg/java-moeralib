@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * A group of friends that includes the receiver has been deleted on the sending node.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FriendGroupDeletedNotification extends Notification {
 
@@ -17,10 +20,20 @@ public class FriendGroupDeletedNotification extends Notification {
         super(NotificationType.FRIEND_GROUP_DELETED);
     }
 
+    /**
+     * Retrieves ID of the group of friends on the sending node.
+     *
+     * @return the value
+     */
     public String getFriendGroupId() {
         return friendGroupId;
     }
 
+    /**
+     * Sets ID of the group of friends on the sending node.
+     *
+     * @param friendGroupId the value to be set
+     */
     public void setFriendGroupId(String friendGroupId) {
         this.friendGroupId = friendGroupId;
     }

@@ -78,15 +78,33 @@ import com.fasterxml.jackson.annotation.JsonValue;
 '''
 
 CONCLUSION_ENUM = '''
+    /**
+     * Retrieves the string representation of the enum constant.
+     *
+     * @return the string representation of the enum constant
+     */
     @JsonValue
     public String getValue() {
         return name().toLowerCase().replace("__", "/").replace('_', '-');
     }
 
+    /**
+     * Converts the given enum constant to its string representation.
+     *
+     * @param type the {@link AskSubject} enum constant to convert; may be {@code null}
+     * @return the string representation of the enum constant, or {@code null} if the input is {@code null}
+     */
     public static String toValue(EnumType type) {
         return type != null ? type.getValue() : null;
     }
 
+    /**
+     * Converts the given string value to an enum constant.
+     * If the conversion fails due to an invalid value, {@code null} is returned.
+     *
+     * @param value the string representation of an enum constant; must not be {@code null}
+     * @return the corresponding enum constant, or {@code null} if the value is invalid
+     */
     public static EnumType forValue(String value) {
         try {
             return parse(value);
@@ -95,11 +113,23 @@ CONCLUSION_ENUM = '''
         }
     }
 
+    /**
+     * Returns the string representation of the current enum constant.
+     *
+     * @return the string representation derived from the enum constant's value
+     */
     @Override
     public String toString() {
         return getValue();
     }
 
+    /**
+     * Parses the given string value into an instance of {@link EnumType}.
+     *
+     * @param value the input string to parse; must not be {@code null}
+     * @return the corresponding enum constant
+     * @throws IllegalArgumentException if the input string does not match any enum constant
+     */
     @JsonCreator
     public static EnumType parse(String value) {
         return valueOf(value.toUpperCase().replace('-', '_').replace("/", "__"));
@@ -135,6 +165,11 @@ def generate_enum(enum: Any, outdir: str) -> None:
 
 
 CLONE_METHOD = '''
+    /**
+     * Creates and returns a copy of this {@code ClassName} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public ClassName clone() {
         try {
@@ -160,30 +195,78 @@ def generate_operations(operations: Any, outdir: str) -> None:
             tfile.write(f'{ind(1)}private Principal {field["name"]};\n')
         for field in operations['fields']:
             name = field['name']
-            tfile.write(f'\n{ind(1)}public Principal get{cap_first(name)}() {{\n')
+            tfile.write(f'\n{ind(1)}/**\n')
+            tfile.write(f'{ind(1)} * Retrieves the permission to {field["description"]}.\n')
+            tfile.write(f'{ind(1)} * If {{@code null}}, the default permission is in effect.\n')
+            tfile.write(f'{ind(1)} *\n')
+            tfile.write(f'{ind(1)} * @return the permission, may be {{@code null}}\n')
+            tfile.write(f'{ind(1)} */\n')
+            tfile.write(f'{ind(1)}public Principal get{cap_first(name)}() {{\n')
             tfile.write(f'{ind(2)}return {name};\n')
             tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}public Principal get{cap_first(name)}(Principal defaultValue) {{\n')
+            tfile.write(f'\n{ind(1)}/**\n')
+            tfile.write(f'{ind(1)} * Retrieves the permission to {field["description"]},\n')
+            tfile.write(f'{ind(1)} * or {{@code defaultValue}} if the permission is {{@code null}}.\n')
+            tfile.write(f'{ind(1)} *\n')
+            tfile.write(f'{ind(1)} * @param defaultValue the default permission\n')
+            tfile.write(f'{ind(1)} * @return the permission\n')
+            tfile.write(f'{ind(1)} */\n')
+            tfile.write(f'{ind(1)}public Principal get{cap_first(name)}(Principal defaultValue) {{\n')
             tfile.write(f'{ind(2)}return {name} != null ? {name} : defaultValue;\n')
             tfile.write(f'{ind(1)}}}\n')
+            tfile.write(f'\n{ind(1)}/**\n')
+            tfile.write(f'{ind(1)} * Retrieves the permission to {field["description"]},\n'),
             tfile.write(
-                f'\n{ind(1)}public static Principal get{cap_first(name)}'
+                f'{ind(1)} * or {{@code defaultValue}} if {{@code operations}} is {{@code null}}'
+                f' or the permission is {{@code null}}.\n'
+            )
+            tfile.write(f'{ind(1)} *\n')
+            tfile.write(f'{ind(1)} * @param operations permissions data\n')
+            tfile.write(f'{ind(1)} * @param defaultValue the default permission\n')
+            tfile.write(f'{ind(1)} * @return the permission\n')
+            tfile.write(f'{ind(1)} */\n')
+            tfile.write(
+                f'{ind(1)}public static Principal get{cap_first(name)}'
                 f'({operations["name"]} operations, Principal defaultValue) {{\n'
             )
             tfile.write(
                 f'{ind(2)}return operations != null ? operations.get{cap_first(name)}(defaultValue) : defaultValue;\n'
             )
             tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}public void set{cap_first(name)}(Principal {name}) {{\n')
+            tfile.write(f'\n{ind(1)}/**\n')
+            tfile.write(f'{ind(1)} * Sets the permission to {field["description"]}.\n')
+            tfile.write(f'{ind(1)} * If set to {{@code null}}, the default permission should be used.\n')
+            tfile.write(f'{ind(1)} *\n')
+            tfile.write(f'{ind(1)} * @param {name} the permission to set, may be {{@code null}}\n')
+            tfile.write(f'{ind(1)} */\n')
+            tfile.write(f'{ind(1)}public void set{cap_first(name)}(Principal {name}) {{\n')
             tfile.write(f'{ind(2)}this.{name} = {name};\n')
             tfile.write(f'{ind(1)}}}\n')
-            tfile.write(f'\n{ind(1)}public void set{cap_first(name)}(Principal {name}, Principal defaultValue) {{\n')
+            tfile.write(f'\n{ind(1)}/**\n')
+            tfile.write(f'{ind(1)} * Sets the permission to {field["description"]}.\n')
+            tfile.write(
+                f'{ind(1)} * If the value is equal to {{@code defaultValue}},'
+                f' the permission is set to {{@code null}}.\n'
+            )
+            tfile.write(f'{ind(1)} *\n')
+            tfile.write(f'{ind(1)} * @param {name} the permission to set\n')
+            tfile.write(f'{ind(1)} * @param defaultValue the default permission\n')
+            tfile.write(f'{ind(1)} */\n')
+            tfile.write(f'{ind(1)}public void set{cap_first(name)}(Principal {name}, Principal defaultValue) {{\n')
             line = f'{ind(2)}this.{name} = Objects.equals({name}, defaultValue) ? null : {name};\n'
             if len(line) > 120:
                 line = line.replace('=', '=\n' + ind(3))
             tfile.write(line)
             tfile.write(f'{ind(1)}}}\n')
-        tfile.write(f'\n{ind(1)}@JsonIgnore\n')
+        tfile.write(f'\n{ind(1)}/**\n')
+        tfile.write(f'{ind(1)} * Checks if all the permissions in the object are {{@code null}}.\n')
+        tfile.write(f'{ind(1)} *\n')
+        tfile.write(
+            f'{ind(1)} * @return {{@code true}} if all the permissions are {{@code null}},'
+            f' {{@code false}} otherwise.\n'
+        )
+        tfile.write(f'{ind(1)} */\n')
+        tfile.write(f'{ind(1)}@JsonIgnore\n')
         tfile.write(f'{ind(1)}public boolean isEmpty() {{\n')
         tfile.write(f'{ind(2)}return ')
         first = True
@@ -272,7 +355,7 @@ class BaseStructure:
 
     def generate_class(self, structs: dict[str, Structure], outdir: str) -> None:
         imports = set()
-        fields: List[Tuple[str, str]] = []
+        fields: List[Tuple[str, str, str]] = []
         for field in self.get_fields():
             if 'struct' in field:
                 t = field['struct']
@@ -292,7 +375,8 @@ class BaseStructure:
                 imports.add('java.sql.Timestamp')
             if t == 'UUID':
                 imports.add('java.util.UUID')
-            fields.append((t, field['name']))
+            description = field.get('description', field.get('comment', ''))
+            fields.append((t, field['name'], description))
 
         if self.data.get('java-equals', False):
             imports.add('java.util.Objects')
@@ -323,6 +407,10 @@ class BaseStructure:
             for imp in sorted(group2):
                 tfile.write(f'import {imp};\n')
 
+            if 'description' in self.data:
+                tfile.write(f'\n/**\n')
+                tfile.write(doc_wrap(cap_first(self.data["description"].strip()), 0))
+                tfile.write(f'\n */')
             tfile.write('\n@JsonInclude(JsonInclude.Include.NON_NULL)\n')
             classes = self.get_extends()
             extends = f' extends {", ".join(classes)}' if classes else ''
@@ -336,10 +424,20 @@ class BaseStructure:
             self.generate_constructor(tfile)
             for field in fields:
                 verb = 'is' if field[0] == 'boolean' else 'get'
-                tfile.write(f'\n{ind(1)}public {field[0]} {verb}{cap_first(field[1])}() {{\n')
+                tfile.write(f'\n{ind(1)}/**\n')
+                tfile.write(ind(1) + doc_wrap(f'Retrieves {field[2].strip(" .")}.', 1))
+                tfile.write(f'\n{ind(1)} *\n')
+                tfile.write(f'{ind(1)} * @return the value\n')
+                tfile.write(f'{ind(1)} */\n')
+                tfile.write(f'{ind(1)}public {field[0]} {verb}{cap_first(field[1])}() {{\n')
                 tfile.write(f'{ind(2)}return {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
-                tfile.write(f'\n{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
+                tfile.write(f'\n{ind(1)}/**\n')
+                tfile.write(ind(1) + doc_wrap(f'Sets {field[2].strip(" .")}.', 1))
+                tfile.write(f'\n{ind(1)} *\n')
+                tfile.write(f'{ind(1)} * @param {field[1]} the value to be set\n')
+                tfile.write(f'{ind(1)} */\n')
+                tfile.write(f'{ind(1)}public void set{cap_first(field[1])}({field[0]} {field[1]}) {{\n')
                 tfile.write(f'{ind(2)}this.{field[1]} = {field[1]};\n')
                 tfile.write(f'{ind(1)}}}\n')
             if self.validated:
@@ -403,8 +501,17 @@ class BaseStructure:
                     tfile.write(f'{ind(2)}ValidationUtil.emojiList({field["name"]}, "{cons["error"]}");\n')
         tfile.write(f'{ind(1)}}}\n')
 
-    def generate_equals(self, fields: List[Tuple[str, str]], tfile: TextIO) -> None:
-        tfile.write(f'\n{ind(1)}@Override\n')
+    def generate_equals(self, fields: List[Tuple[str, str, str]], tfile: TextIO) -> None:
+        tfile.write(f'\n{ind(1)}/**\n')
+        tfile.write(f'{ind(1)} * Compares this object to the specified object.\n')
+        tfile.write(f'{ind(1)} *\n')
+        tfile.write(f'{ind(1)} * @param peer the object to compare with this instance\n')
+        tfile.write(
+            f'{ind(1)} * @return {{@code true}} if the specified object is equal to this object,'
+            f' otherwise {{@code false}}\n'
+        )
+        tfile.write(f'{ind(1)} */\n')
+        tfile.write(f'{ind(1)}@Override\n')
         tfile.write(f'{ind(1)}public boolean equals(Object peer) {{\n')
         tfile.write(f'{ind(2)}if (this == peer) {{\n')
         tfile.write(f'{ind(3)}return true;\n')
@@ -422,7 +529,12 @@ class BaseStructure:
             tfile.write(f'Objects.equals({field[1]}, that.{field[1]})')
         tfile.write(';\n')
         tfile.write(f'{ind(1)}}}\n')
-        tfile.write(f'\n{ind(1)}@Override\n')
+        tfile.write(f'\n{ind(1)}/**\n')
+        tfile.write(f'{ind(1)} * Computes the hash code for this object using its attributes.\n')
+        tfile.write(f'{ind(1)} *\n')
+        tfile.write(f'{ind(1)} * @return a hash code value for this object\n')
+        tfile.write(f'{ind(1)} */\n')
+        tfile.write(f'{ind(1)}@Override\n')
         tfile.write(f'{ind(1)}public int hashCode() {{\n')
         hash_params = ', '.join([field[1] for field in fields])
         tfile.write(f'{ind(2)}return Objects.hash({hash_params});\n')
@@ -492,6 +604,9 @@ PREAMBLE_NOTIFICATION_TYPE = '''package org.moera.lib.node.types.notifications;
 
 // This file is generated
 
+/**
+ * The type of the notification.
+ */
 public enum NotificationType {
 '''
 
@@ -502,14 +617,31 @@ CONCLUSION_NOTIFICATION_TYPE = '''
         this.structure = structure;
     }
 
+    /**
+     * Retrieves the structure corresponding to the notification type.
+     *
+     * @return a class object representing the structure
+     */
     public Class<? extends Notification> getStructure() {
         return structure;
     }
 
+    /**
+     * Retrieves the notification type in its string representation.
+     *
+     * @return the string representation of the notification type
+     */
     public String getValue() {
         return name().toLowerCase().replace('_', '-');
     }
 
+    /**
+     * Returns a {@code NotificationType} corresponding to the provided string value.
+     *
+     * @param value the string value
+     * @return the {@code NotificationType} corresponding to the provided string value,
+     *         or {@code null} if the notification type is unknown
+     */
     public static NotificationType forValue(String value) {
         String name = value.toUpperCase().replace('-', '_');
         try {
@@ -551,6 +683,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
 
+/**
+ * {@code MoeraNode} is a client for interfacing with Moera nodes using the Moera Node API.
+ */
 public class MoeraNode extends NodeApiClient {
 
     /**
@@ -884,6 +1019,10 @@ import org.moera.lib.crypto.CryptoUtil;
 import org.moera.lib.crypto.FieldWithSchema;
 import org.moera.lib.crypto.Fingerprint;
 
+/**
+ * The Fingerprints class provides methods to generate a cryptographic fingerprint
+ * for a set of fields using a predefined schema structure.
+ */
 public class Fingerprints {
 
 '''

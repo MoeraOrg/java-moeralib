@@ -9,14 +9,29 @@ public class BlockedUsersChecksums extends Structure implements Cloneable {
 
     private long visibility;
 
+    /**
+     * Retrieves checksum of the list of users that are hidden.
+     *
+     * @return the value
+     */
     public long getVisibility() {
         return visibility;
     }
 
+    /**
+     * Sets checksum of the list of users that are hidden.
+     *
+     * @param visibility the value to be set
+     */
     public void setVisibility(long visibility) {
         this.visibility = visibility;
     }
 
+    /**
+     * Creates and returns a copy of this {@code BlockedUsersChecksums} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public BlockedUsersChecksums clone() {
         try {

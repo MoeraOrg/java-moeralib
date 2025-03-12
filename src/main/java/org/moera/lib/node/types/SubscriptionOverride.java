@@ -9,14 +9,29 @@ public class SubscriptionOverride extends Structure implements Cloneable {
 
     private SubscriptionOperations operations;
 
+    /**
+     * Retrieves the supported operations and the corresponding principals.
+     *
+     * @return the value
+     */
     public SubscriptionOperations getOperations() {
         return operations;
     }
 
+    /**
+     * Sets the supported operations and the corresponding principals.
+     *
+     * @param operations the value to be set
+     */
     public void setOperations(SubscriptionOperations operations) {
         this.operations = operations;
     }
 
+    /**
+     * Creates and returns a copy of this {@code SubscriptionOverride} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public SubscriptionOverride clone() {
         try {

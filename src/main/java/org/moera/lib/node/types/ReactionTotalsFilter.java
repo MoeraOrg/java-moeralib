@@ -11,14 +11,29 @@ public class ReactionTotalsFilter extends Structure implements Cloneable {
 
     private List<String> postings;
 
+    /**
+     * Retrieves list of IDs of postings.
+     *
+     * @return the value
+     */
     public List<String> getPostings() {
         return postings;
     }
 
+    /**
+     * Sets list of IDs of postings.
+     *
+     * @param postings the value to be set
+     */
     public void setPostings(List<String> postings) {
         this.postings = postings;
     }
 
+    /**
+     * Creates and returns a copy of this {@code ReactionTotalsFilter} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public ReactionTotalsFilter clone() {
         try {

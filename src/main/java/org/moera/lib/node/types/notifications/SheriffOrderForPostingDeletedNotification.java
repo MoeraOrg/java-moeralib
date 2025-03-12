@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * The sending node got a cancellation of a sheriff's order related to the receiver's posting.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SheriffOrderForPostingDeletedNotification extends Notification {
 
@@ -21,42 +24,92 @@ public class SheriffOrderForPostingDeletedNotification extends Notification {
         super(NotificationType.SHERIFF_ORDER_FOR_POSTING_DELETED);
     }
 
+    /**
+     * Retrieves name of the node the order was sent to.
+     *
+     * @return the value
+     */
     public String getRemoteNodeName() {
         return remoteNodeName;
     }
 
+    /**
+     * Sets name of the node the order was sent to.
+     *
+     * @param remoteNodeName the value to be set
+     */
     public void setRemoteNodeName(String remoteNodeName) {
         this.remoteNodeName = remoteNodeName;
     }
 
+    /**
+     * Retrieves name of the feed the order is related to.
+     *
+     * @return the value
+     */
     public String getRemoteFeedName() {
         return remoteFeedName;
     }
 
+    /**
+     * Sets name of the feed the order is related to.
+     *
+     * @param remoteFeedName the value to be set
+     */
     public void setRemoteFeedName(String remoteFeedName) {
         this.remoteFeedName = remoteFeedName;
     }
 
+    /**
+     * Retrieves heading of the posting.
+     *
+     * @return the value
+     */
     public String getPostingHeading() {
         return postingHeading;
     }
 
+    /**
+     * Sets heading of the posting.
+     *
+     * @param postingHeading the value to be set
+     */
     public void setPostingHeading(String postingHeading) {
         this.postingHeading = postingHeading;
     }
 
+    /**
+     * Retrieves ID of the posting the order is related to.
+     *
+     * @return the value
+     */
     public String getPostingId() {
         return postingId;
     }
 
+    /**
+     * Sets ID of the posting the order is related to.
+     *
+     * @param postingId the value to be set
+     */
     public void setPostingId(String postingId) {
         this.postingId = postingId;
     }
 
+    /**
+     * Retrieves ID of the order.
+     *
+     * @return the value
+     */
     public String getOrderId() {
         return orderId;
     }
 
+    /**
+     * Sets ID of the order.
+     *
+     * @param orderId the value to be set
+     */
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }

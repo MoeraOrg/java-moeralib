@@ -9,6 +9,9 @@ import org.moera.lib.node.types.AvatarImage;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
 
+/**
+ * A reply to a comment of the receiver on the sending node deleted.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReplyCommentDeletedNotification extends Notification {
 
@@ -24,58 +27,128 @@ public class ReplyCommentDeletedNotification extends Notification {
         super(NotificationType.REPLY_COMMENT_DELETED);
     }
 
+    /**
+     * Retrieves ID of the posting on the sending node.
+     *
+     * @return the value
+     */
     public String getPostingId() {
         return postingId;
     }
 
+    /**
+     * Sets ID of the posting on the sending node.
+     *
+     * @param postingId the value to be set
+     */
     public void setPostingId(String postingId) {
         this.postingId = postingId;
     }
 
+    /**
+     * Retrieves ID of the comment on the sending node.
+     *
+     * @return the value
+     */
     public String getCommentId() {
         return commentId;
     }
 
+    /**
+     * Sets ID of the comment on the sending node.
+     *
+     * @param commentId the value to be set
+     */
     public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
+    /**
+     * Retrieves ID of the comment on the sending node that is replied to.
+     *
+     * @return the value
+     */
     public String getRepliedToId() {
         return repliedToId;
     }
 
+    /**
+     * Sets ID of the comment on the sending node that is replied to.
+     *
+     * @param repliedToId the value to be set
+     */
     public void setRepliedToId(String repliedToId) {
         this.repliedToId = repliedToId;
     }
 
+    /**
+     * Retrieves name of the comment owner.
+     *
+     * @return the value
+     */
     public String getCommentOwnerName() {
         return commentOwnerName;
     }
 
+    /**
+     * Sets name of the comment owner.
+     *
+     * @param commentOwnerName the value to be set
+     */
     public void setCommentOwnerName(String commentOwnerName) {
         this.commentOwnerName = commentOwnerName;
     }
 
+    /**
+     * Retrieves full name of the comment owner.
+     *
+     * @return the value
+     */
     public String getCommentOwnerFullName() {
         return commentOwnerFullName;
     }
 
+    /**
+     * Sets full name of the comment owner.
+     *
+     * @param commentOwnerFullName the value to be set
+     */
     public void setCommentOwnerFullName(String commentOwnerFullName) {
         this.commentOwnerFullName = commentOwnerFullName;
     }
 
+    /**
+     * Retrieves gender of the comment owner.
+     *
+     * @return the value
+     */
     public String getCommentOwnerGender() {
         return commentOwnerGender;
     }
 
+    /**
+     * Sets gender of the comment owner.
+     *
+     * @param commentOwnerGender the value to be set
+     */
     public void setCommentOwnerGender(String commentOwnerGender) {
         this.commentOwnerGender = commentOwnerGender;
     }
 
+    /**
+     * Retrieves avatar of the comment owner.
+     *
+     * @return the value
+     */
     public AvatarImage getCommentOwnerAvatar() {
         return commentOwnerAvatar;
     }
 
+    /**
+     * Sets avatar of the comment owner.
+     *
+     * @param commentOwnerAvatar the value to be set
+     */
     public void setCommentOwnerAvatar(AvatarImage commentOwnerAvatar) {
         this.commentOwnerAvatar = commentOwnerAvatar;
     }

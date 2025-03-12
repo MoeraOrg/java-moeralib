@@ -11,18 +11,38 @@ public class Credentials extends Structure implements Cloneable {
     private String login;
     private String password;
 
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Sets .
+     *
+     * @param login the value to be set
+     */
     public void setLogin(String login) {
         this.login = login;
     }
 
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets .
+     *
+     * @param password the value to be set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -34,6 +54,11 @@ public class Credentials extends Structure implements Cloneable {
         ValidationUtil.notBlank(password, "credentials.password.blank");
     }
 
+    /**
+     * Creates and returns a copy of this {@code Credentials} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public Credentials clone() {
         try {

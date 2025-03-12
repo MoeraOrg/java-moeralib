@@ -10,10 +10,20 @@ public class UserListItemAttributes extends Structure implements Cloneable {
 
     private String nodeName;
 
+    /**
+     * Retrieves the name of the node.
+     *
+     * @return the value
+     */
     public String getNodeName() {
         return nodeName;
     }
 
+    /**
+     * Sets the name of the node.
+     *
+     * @param nodeName the value to be set
+     */
     public void setNodeName(String nodeName) {
         this.nodeName = nodeName;
     }
@@ -25,6 +35,11 @@ public class UserListItemAttributes extends Structure implements Cloneable {
         ValidationUtil.maxSize(nodeName, 63, "user-list-item.node-name.wrong-size");
     }
 
+    /**
+     * Creates and returns a copy of this {@code UserListItemAttributes} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public UserListItemAttributes clone() {
         try {

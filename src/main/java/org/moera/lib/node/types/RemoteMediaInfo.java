@@ -11,30 +11,65 @@ public class RemoteMediaInfo extends Structure implements Cloneable {
     private String hash;
     private String digest;
 
+    /**
+     * Retrieves ID of the media file.
+     *
+     * @return the value
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets ID of the media file.
+     *
+     * @param id the value to be set
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Retrieves SHA-1 hash of the media file.
+     *
+     * @return the value
+     */
     public String getHash() {
         return hash;
     }
 
+    /**
+     * Sets SHA-1 hash of the media file.
+     *
+     * @param hash the value to be set
+     */
     public void setHash(String hash) {
         this.hash = hash;
     }
 
+    /**
+     * Retrieves cryptographic digest of the media file.
+     *
+     * @return the value
+     */
     public String getDigest() {
         return digest;
     }
 
+    /**
+     * Sets cryptographic digest of the media file.
+     *
+     * @param digest the value to be set
+     */
     public void setDigest(String digest) {
         this.digest = digest;
     }
 
+    /**
+     * Creates and returns a copy of this {@code RemoteMediaInfo} object.
+     *
+     * @return a clone of this instance
+     */
     @Override
     public RemoteMediaInfo clone() {
         try {
