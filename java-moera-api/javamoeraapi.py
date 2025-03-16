@@ -490,6 +490,16 @@ class BaseStructure:
                         tfile.write(
                             f'{ind(2)}ValidationUtil.maxValue({field["name"]}, {cons["max"]}, "{cons["error"]}");\n'
                         )
+                if 'items' in constraint:
+                    cons = constraint['items']
+                    if 'min' in cons:
+                        tfile.write(
+                            f'{ind(2)}ValidationUtil.minItems({field["name"]}, {cons["min"]}, "{cons["error"]}");\n'
+                        )
+                    if 'max' in cons:
+                        tfile.write(
+                            f'{ind(2)}ValidationUtil.maxItems({field["name"]}, {cons["max"]}, "{cons["error"]}");\n'
+                        )
                 if 'domainname' in constraint:
                     cons = constraint['domainname']
                     tfile.write(f'{ind(2)}ValidationUtil.domainName({field["name"]}, "{cons["error"]}");\n')

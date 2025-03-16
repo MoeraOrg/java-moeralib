@@ -1,5 +1,6 @@
 package org.moera.lib.node.types.validate;
 
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import org.moera.lib.node.types.EmojiList;
@@ -111,6 +112,19 @@ public class ValidationUtil {
     }
 
     /**
+     * Validates that the provided float value is either {@code null} or greater than or equal to the specified
+     * minimum value. If the validation fails, a {@code ValidationFailure} is thrown with the specified error code.
+     *
+     * @param value the float value to validate
+     * @param min the minimum allowed value for the float
+     * @param errorCode the error code to be used in the exception if the validation fails
+     * @throws ValidationFailure if the float value is not {@code null} and less than the specified minimum
+     */
+    public static void minValue(Float value, float min, String errorCode) {
+        assertion(value == null || value >= min, errorCode);
+    }
+
+    /**
      * Validates that the provided integer value is either {@code null} or less than or equal to the specified
      * maximum value. If the validation fails, a {@code ValidationFailure} is thrown with the specified error code.
      *
@@ -134,6 +148,71 @@ public class ValidationUtil {
      */
     public static void maxValue(Long value, long max, String errorCode) {
         assertion(value == null || value <= max, errorCode);
+    }
+
+    /**
+     * Validates that the provided float value is either {@code null} or less than or equal to the specified
+     * maximum value. If the validation fails, a {@code ValidationFailure} is thrown with the specified error code.
+     *
+     * @param value the float value to validate
+     * @param max the maximum allowed value for the float
+     * @param errorCode the error code to be used in the exception if the validation fails
+     * @throws ValidationFailure if the float value is not {@code null} and exceeds the specified maximum
+     */
+    public static void maxValue(Float value, float max, String errorCode) {
+        assertion(value == null || value <= max, errorCode);
+    }
+
+    /**
+     * Validates that the given array is either {@code null} or contains at least the specified
+     * minimum number of items. If the validation fails, a {@code ValidationFailure} is thrown
+     * with the specified error code.
+     *
+     * @param array the array to validate
+     * @param minItems the minimum number of items required in the array
+     * @param errorCode the error code to be used in the exception if the validation fails
+     * @throws ValidationFailure if the array is not {@code null} and contains fewer than
+     *                           the specified minimum number of items
+     */
+    public static void minItems(Object[] array, int minItems, String errorCode) {
+        assertion(array == null || array.length >= minItems, errorCode);
+    }
+
+    /**
+     * Validates that a given collection has at least a specified minimum number of items.
+     *
+     * @param collection the collection to be checked; can be {@code null}
+     * @param minItems the minimum number of items the collection should contain
+     * @param errorCode the error code to be used if the collection does not meet the minimum size requirement
+     */
+    public static void minItems(Collection<?> collection, int minItems, String errorCode) {
+        assertion(collection == null || collection.size() >= minItems, errorCode);
+    }
+
+    /**
+     * Validates that the given array is either {@code null} or contains at most the specified
+     * maximum number of items. If the validation fails, a {@code ValidationFailure} is thrown
+     * with the specified error code.
+     *
+     * @param array the array to validate
+     * @param maxItems the maximum number of items allowed in the array
+     * @param errorCode the error code to be used in the exception if the validation fails
+     * @throws ValidationFailure if the array is not {@code null} and contains more than
+     *                           the specified maximum number of items
+     */
+    public static void maxItems(Object[] array, int maxItems, String errorCode) {
+        assertion(array == null || array.length <= maxItems, errorCode);
+    }
+
+    /**
+     * Validates that a given collection has at most a specified minimum number of items.
+     *
+     * @param collection the collection to be checked; can be {@code null}
+     * @param maxItems the maximum number of items the collection should contain
+     * @param errorCode the error code to be used if the collection does not meet the maximum size requirement
+     */
+    public static void maxItems(Collection<?> collection, int maxItems, String errorCode) {
+        assertion(collection == null || collection.size() <= maxItems, errorCode);
     }
 
     /**

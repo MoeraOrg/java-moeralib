@@ -5,6 +5,7 @@ package org.moera.lib.node.types;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegisteredNameSecret extends Structure implements Cloneable {
@@ -65,6 +66,13 @@ public class RegisteredNameSecret extends Structure implements Cloneable {
      */
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.minItems(mnemonic, 24, "node-name.secret.wrong-number");
+        ValidationUtil.maxItems(mnemonic, 24, "node-name.secret.wrong-number");
     }
 
     /**

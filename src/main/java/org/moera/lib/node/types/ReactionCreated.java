@@ -46,6 +46,14 @@ public class ReactionCreated extends Structure implements Cloneable {
         this.totals = totals;
     }
 
+    @Override
+    public void validate() {
+        super.validate();
+        if (totals != null) {
+            totals.validate();
+        }
+    }
+
     /**
      * Creates and returns a copy of this {@code ReactionCreated} object.
      *

@@ -3,6 +3,7 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReactionTotalInfo extends Structure implements Cloneable {
@@ -67,6 +68,13 @@ public class ReactionTotalInfo extends Structure implements Cloneable {
      */
     public void setShare(Float share) {
         this.share = share;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.minValue(share, 0, "reaction-total.share.out-of-range");
+        ValidationUtil.maxValue(share, 1, "reaction-total.share.out-of-range");
     }
 
     /**

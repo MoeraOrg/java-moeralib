@@ -67,6 +67,17 @@ public class ReactionTotalsInfo extends Structure implements Cloneable {
         this.negative = negative;
     }
 
+    @Override
+    public void validate() {
+        super.validate();
+        if (positive != null) {
+            positive.forEach(ReactionTotalInfo::validate);
+        }
+        if (negative != null) {
+            negative.forEach(ReactionTotalInfo::validate);
+        }
+    }
+
     /**
      * Creates and returns a copy of this {@code ReactionTotalsInfo} object.
      *

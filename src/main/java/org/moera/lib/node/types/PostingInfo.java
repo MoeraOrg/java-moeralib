@@ -1017,6 +1017,9 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
         if (acceptedReactions != null) {
             acceptedReactions.validate();
         }
+        if (reactions != null) {
+            reactions.validate();
+        }
     }
 
     /**

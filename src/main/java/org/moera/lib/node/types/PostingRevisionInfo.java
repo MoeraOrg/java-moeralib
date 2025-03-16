@@ -390,6 +390,9 @@ public class PostingRevisionInfo extends Structure implements Cloneable {
         if (updateInfo != null) {
             updateInfo.validate();
         }
+        if (reactions != null) {
+            reactions.validate();
+        }
     }
 
     /**

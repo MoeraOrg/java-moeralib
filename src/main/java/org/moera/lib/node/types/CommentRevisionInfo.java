@@ -329,6 +329,14 @@ public class CommentRevisionInfo extends Structure implements Cloneable {
         this.reactions = reactions;
     }
 
+    @Override
+    public void validate() {
+        super.validate();
+        if (reactions != null) {
+            reactions.validate();
+        }
+    }
+
     /**
      * Creates and returns a copy of this {@code CommentRevisionInfo} object.
      *
