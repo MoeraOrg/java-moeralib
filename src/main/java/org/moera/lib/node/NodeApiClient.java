@@ -30,6 +30,8 @@ import org.moera.lib.node.exception.MoeraNodeException;
 
 /**
  * This class implements basic REST API operations that allow applications to call Moera Node API.
+ * <p>
+ * This class is not thread-safe.
  */
 public class NodeApiClient {
 
