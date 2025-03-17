@@ -319,4 +319,22 @@ public class UniversalLocation {
         this.fragment = fragment;
     }
 
+    /**
+     * Provides a string representation of the URI.
+     *
+     * @return a string representation of the URI that includes the location,
+     *         query, and fragment, if present
+     */
+    @Override
+    public String toString() {
+        String url = getLocation();
+        if (query != null) {
+            url += "?" + query;
+        }
+        if (fragment != null) {
+            url += "#" + fragment;
+        }
+        return url;
+    }
+
 }
