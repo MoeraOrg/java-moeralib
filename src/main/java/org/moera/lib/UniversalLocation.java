@@ -26,9 +26,11 @@ public class UniversalLocation {
      * Constructs a {@code UniversalLocation} object based on the location part of the provided URI.
      *
      * @param uri the URI to be parsed
+     * @throws URISyntaxException URI syntax is incorrect
      */
-    public UniversalLocation(URI uri) {
-        String path = uri.getPath();
+    public UniversalLocation(String uri) throws URISyntaxException {
+        URI uuri = new URI(uri);
+        String path = uuri.getPath();
         if (path.startsWith("/")) {
             path = path.substring(1);
         }
@@ -82,8 +84,8 @@ public class UniversalLocation {
 
         this.path = buf.isEmpty() ? "/" : buf.toString();
 
-        this.query = uri.getQuery();
-        this.fragment = uri.getFragment();
+        this.query = uuri.getQuery();
+        this.fragment = uuri.getFragment();
     }
 
     /**
