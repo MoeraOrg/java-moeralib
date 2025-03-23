@@ -102,7 +102,7 @@ public enum Scope {
     VIEW_FEEDS              (0x00008000, true),
 
     /**
-     * modify status of stories in feeds
+     * add and modify stories in feeds
      */
     UPDATE_FEEDS            (0x00010000, true),
 
