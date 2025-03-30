@@ -74,8 +74,14 @@ public class JsonRpcError {
      */
     public static final int CUSTOM_SERVER_ERROR_LOWER = -32099;
 
-    private final int code;
-    private final String message;
+    private int code;
+    private String message;
+
+    /**
+     * Creates an instance of {@code JsonRpcError} without specifying an error code or message.
+     */
+    public JsonRpcError() {
+    }
 
     /**
      * Constructs a new {@code JsonRpcError} instance with the specified error code and message.
@@ -84,8 +90,8 @@ public class JsonRpcError {
      *
      * @param code the error code representing the type of error. It must be an integer and
      *             conform to the JSON-RPC specification or custom-defined codes.
-     * @param message the error message providing details about the error. It must be a non-{@code null}
-     *                and descriptive string to help identify the issue.
+     * @param message the error message providing details about the error. It must be a non-{@code null} and
+     *                descriptive string to provide clarity about the nature of the error.
      */
     public JsonRpcError(int code, String message) {
         this.code = code;
@@ -102,12 +108,32 @@ public class JsonRpcError {
     }
 
     /**
+     * Sets the code for this JSON-RPC error.
+     *
+     * @param code the error code representing the type of error. It must be an integer and
+     *             conform to the JSON-RPC specification or custom-defined codes.
+     */
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    /**
      * Retrieves the message associated with the JSON-RPC error.
      *
      * @return the error message as a string.
      */
     public String getMessage() {
         return message;
+    }
+
+    /**
+     * Sets the message associated with this JSON-RPC error.
+     *
+     * @param message the error message providing details about the error. It must be a non-{@code null} and
+     *                descriptive string to provide clarity about the nature of the error.
+     */
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
