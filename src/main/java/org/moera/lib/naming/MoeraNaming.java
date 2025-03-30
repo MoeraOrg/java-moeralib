@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
-import org.moera.lib.jsonrpc.JsonRpcClient;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.jsonrpc.JsonRpcApiException;
+import org.moera.lib.jsonrpc.JsonRpcClient;
 import org.moera.lib.jsonrpc.JsonRpcConnectionException;
 import org.moera.lib.jsonrpc.JsonRpcException;
 import org.moera.lib.jsonrpc.JsonRpcRequest;
@@ -89,11 +90,11 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
     }
 
     @Override
-    protected <T> T fetch(Class<T> result, String method, Object... parameters) {
+    protected <T> T fetch(TypeReference<T> result, String method, Object... parameters) {
         try {
             return super.fetch(result, method, parameters);
         } catch (JsonRpcException e) {
-            throw new MoeraNamingException(e.getMessage());
+            throw new MoeraNamingException(e.getMessage(), e);
         } catch (JsonRpcConnectionException e) {
             throw new MoeraNamingConnectionException(e.getMessage());
         } catch (JsonRpcApiException e) {
@@ -112,53 +113,59 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
         byte[] previousDigest,
         byte[] signature
     ) {
+        var returnTypeRef = new TypeReference<UUID>() {};
         return fetch(
-            UUID.class, "put",
+            returnTypeRef, "put",
             name, generation, updatingKey, nodeUri, signingKey, validFrom, previousDigest, signature
         );
     }
 
     @Override
     public OperationStatusInfo getStatus(UUID operationId) {
-        return fetch(OperationStatusInfo.class, "getStatus", operationId);
+        var returnTypeRef = new TypeReference<OperationStatusInfo>() {};
+        return fetch(returnTypeRef, "getStatus", operationId);
     }
 
     @Override
     public RegisteredNameInfo getCurrent(String name, int generation) {
-        return fetch(RegisteredNameInfo.class, "getCurrent", name, generation);
+        var returnTypeRef = new TypeReference<RegisteredNameInfo>() {};
+        return fetch(returnTypeRef, "getCurrent", name, generation);
     }
 
     @Override
     public RegisteredNameInfo getPast(String name, int generation, long at) {
-        return fetch(RegisteredNameInfo.class, "getPast", name, generation, at);
+        var returnTypeRef = new TypeReference<RegisteredNameInfo>() {};
+        return fetch(returnTypeRef, "getPast", name, generation, at);
     }
 
     @Override
     public boolean isFree(String name, int generation) {
-        return fetch(Boolean.class, "isFree", name, generation);
+        var returnTypeRef = new TypeReference<Boolean>() {};
+        return fetch(returnTypeRef, "isFree", name, generation);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<SigningKeyInfo> getAllKeys(String name, int generation) {
-        return fetch(List.class, "getAllKeys", name, generation);
+        var returnTypeRef = new TypeReference<List<SigningKeyInfo>>() {};
+        return fetch(returnTypeRef, "getAllKeys", name, generation);
     }
 
     @Override
     public RegisteredNameInfo getSimilar(String name) {
-        return fetch(RegisteredNameInfo.class, "getSimilar", name);
+        var returnTypeRef = new TypeReference<RegisteredNameInfo>() {};
+        return fetch(returnTypeRef, "getSimilar", name);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<RegisteredNameInfo> getAll(long at, int page, int size) {
-        return fetch(List.class, "getAll", at, page, size);
+        var returnTypeRef = new TypeReference<List<RegisteredNameInfo>>() {};
+        return fetch(returnTypeRef, "getAll", at, page, size);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<RegisteredNameInfo> getAllNewer(long at, int page, int size) {
-        return fetch(List.class, "getAllNewer", at, page, size);
+        var returnTypeRef = new TypeReference<List<RegisteredNameInfo>>() {};
+        return fetch(returnTypeRef, "getAllNewer", at, page, size);
     }
 
 }

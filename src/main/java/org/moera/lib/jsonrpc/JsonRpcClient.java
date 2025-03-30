@@ -3,6 +3,7 @@ package org.moera.lib.jsonrpc;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -55,7 +56,7 @@ public class JsonRpcClient {
      *         the remote method does not return a value
      * @throws JsonRpcApiException if the method call returned an error
      */
-    protected <T> T fetch(Class<T> result, String method, Object... parameters) {
+    protected <T> T fetch(TypeReference<T> result, String method, Object... parameters) {
         JsonRpcRequest request = new JsonRpcRequest();
         request.setId(id.incrementAndGet());
         request.setMethod(method);
@@ -64,7 +65,7 @@ public class JsonRpcClient {
         if (response.getError() != null) {
             throw new JsonRpcApiException(response.getError());
         }
-        if (result != null && result != Void.class) {
+        if (result != null) {
             return objectMapper.convertValue(response.getResult(), result);
         } else {
             return null;
