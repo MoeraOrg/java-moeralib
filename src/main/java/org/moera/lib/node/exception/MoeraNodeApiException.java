@@ -40,6 +40,8 @@ public class MoeraNodeApiException extends MoeraNodeException {
             getErrorTypeMessage(status)
             + ": (%s %s)".formatted(LogUtil.format(errorCode), LogUtil.format(errorMessage))
         );
+        this.status = status;
+        this.errorCode = errorCode;
     }
 
     /**
