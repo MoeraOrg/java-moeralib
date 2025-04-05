@@ -304,8 +304,8 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/postings/%s/comments".formatted(ue(postingId));
         var params = new QueryParam[] {
-            QueryParam.of("after", after), 
-            QueryParam.of("before", before), 
+            QueryParam.of("after", after),
+            QueryParam.of("before", before),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<CommentsSliceInfo>() {};
@@ -490,9 +490,9 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/postings/%s/comments/%s/reactions".formatted(ue(postingId), ue(commentId));
         var params = new QueryParam[] {
-            QueryParam.of("negative", negative), 
-            QueryParam.of("emoji", emoji), 
-            QueryParam.of("before", before), 
+            QueryParam.of("negative", negative),
+            QueryParam.of("emoji", emoji),
+            QueryParam.of("before", before),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<ReactionsSliceInfo>() {};
@@ -574,7 +574,7 @@ public class MoeraNode extends NodeApiClient {
     public ContactInfo[] getContacts(String query, Integer limit) throws MoeraNodeException {
         var location = "/people/contacts";
         var params = new QueryParam[] {
-            QueryParam.of("query", query), 
+            QueryParam.of("query", query),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<ContactInfo[]>() {};
@@ -655,7 +655,7 @@ public class MoeraNode extends NodeApiClient {
     public PostingInfo[] getDeletedPostings(Integer page, Integer limit) throws MoeraNodeException {
         var location = "/deleted-postings";
         var params = new QueryParam[] {
-            QueryParam.of("page", page), 
+            QueryParam.of("page", page),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<PostingInfo[]>() {};
@@ -834,11 +834,11 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/drafts";
         var params = new QueryParam[] {
-            QueryParam.of("draftType", draftType), 
-            QueryParam.of("nodeName", nodeName), 
-            QueryParam.of("postingId", postingId), 
-            QueryParam.of("commentId", commentId), 
-            QueryParam.of("page", page), 
+            QueryParam.of("draftType", draftType),
+            QueryParam.of("nodeName", nodeName),
+            QueryParam.of("postingId", postingId),
+            QueryParam.of("commentId", commentId),
+            QueryParam.of("page", page),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<DraftInfo[]>() {};
@@ -970,8 +970,8 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/feeds/%s/stories".formatted(ue(feedName));
         var params = new QueryParam[] {
-            QueryParam.of("after", after), 
-            QueryParam.of("before", before), 
+            QueryParam.of("after", after),
+            QueryParam.of("before", before),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<FeedSliceInfo>() {};
@@ -1196,7 +1196,7 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/media/private/%s/data".formatted(ue(id));
         var params = new QueryParam[] {
-            QueryParam.of("width", width), 
+            QueryParam.of("width", width),
             QueryParam.of("download", download)
         };
         call(location, params, "GET", null, responseConsumer);
@@ -1254,7 +1254,7 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/media/public/%s/data".formatted(ue(id));
         var params = new QueryParam[] {
-            QueryParam.of("width", width), 
+            QueryParam.of("width", width),
             QueryParam.of("download", download)
         };
         call(location, params, "GET", null, responseConsumer);
@@ -1581,9 +1581,9 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/postings/%s/reactions".formatted(ue(postingId));
         var params = new QueryParam[] {
-            QueryParam.of("negative", negative), 
-            QueryParam.of("emoji", emoji), 
-            QueryParam.of("before", before), 
+            QueryParam.of("negative", negative),
+            QueryParam.of("emoji", emoji),
+            QueryParam.of("before", before),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<ReactionsSliceInfo>() {};
@@ -2069,6 +2069,27 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Search for Moera nodes matching the search <code>query</code>. Every space-delimited word in the query must
+     * match case-insensitively a beginning of the node's name or a beginning of any non-letter-delimited word in the
+     * node's full name. The order of words is not significant. <br><br> The search engine may decide to return fewer
+     * nodes than the given <code>limit</code>. <br><br> The returned nodes are sorted by their relevance. The exact
+     * definition of this term is left to the search engine's implementation.
+     *
+     * @param query the search query
+     * @param limit maximum number of nodes returned
+     * @return SearchNodeInfo[]
+     */
+    public SearchNodeInfo[] searchNodes(String query, Integer limit) throws MoeraNodeException {
+        var location = "/search/nodes";
+        var params = new QueryParam[] {
+            QueryParam.of("query", query),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<SearchNodeInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
      * Update the given settings. If the input contains node settings, they are validated and the first validation
      * error is returned, if any. The update is always performed as a whole - if there is an error saving any one of
      * the settings in the input, none of them are updated. <br><br> If one of the settings to be updated is
@@ -2159,9 +2180,9 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/sheriff/complaints/groups";
         var params = new QueryParam[] {
-            QueryParam.of("after", after), 
-            QueryParam.of("before", before), 
-            QueryParam.of("limit", limit), 
+            QueryParam.of("after", after),
+            QueryParam.of("before", before),
+            QueryParam.of("limit", limit),
             QueryParam.of("status", status)
         };
         var returnTypeRef = new TypeReference<SheriffComplaintGroupsSliceInfo>() {};
@@ -2282,9 +2303,9 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/people/subscribers";
         var params = new QueryParam[] {
-            QueryParam.of("nodeName", nodeName), 
-            QueryParam.of("type", type), 
-            QueryParam.of("feedName", feedName), 
+            QueryParam.of("nodeName", nodeName),
+            QueryParam.of("type", type),
+            QueryParam.of("feedName", feedName),
             QueryParam.of("entryId", entryId)
         };
         var returnTypeRef = new TypeReference<SubscriberInfo[]>() {};
@@ -2350,7 +2371,7 @@ public class MoeraNode extends NodeApiClient {
     public SubscriptionInfo[] getSubscriptions(String nodeName, SubscriptionType type) throws MoeraNodeException {
         var location = "/people/subscriptions";
         var params = new QueryParam[] {
-            QueryParam.of("nodeName", nodeName), 
+            QueryParam.of("nodeName", nodeName),
             QueryParam.of("type", type)
         };
         var returnTypeRef = new TypeReference<SubscriptionInfo[]>() {};
@@ -2498,8 +2519,8 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/user-lists/%s/items".formatted(ue(name));
         var params = new QueryParam[] {
-            QueryParam.of("after", after), 
-            QueryParam.of("before", before), 
+            QueryParam.of("after", after),
+            QueryParam.of("before", before),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<UserListSliceInfo>() {};

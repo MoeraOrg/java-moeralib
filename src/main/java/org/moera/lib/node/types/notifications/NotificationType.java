@@ -150,7 +150,11 @@ public enum NotificationType {
     /**
      * The receiver's posting/comment/media has been visited on the sending node from a search engine.
      */
-    SEARCH_ENGINE_CLICKED(SearchEngineClickedNotification.class); // 35
+    SEARCH_ENGINE_CLICKED(SearchEngineClickedNotification.class), // 35
+    /**
+     * Notification sent to a Moera search engine when some content on the node was updated and needs reindexing.
+     */
+    SEARCH_CONTENT_UPDATED(SearchContentUpdatedNotification.class); // 36
 
     private final Class<? extends Notification> structure;
 

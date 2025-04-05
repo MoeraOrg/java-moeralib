@@ -844,7 +844,7 @@ def generate_calls(api: Any, afile: TextIO) -> None:
                 afile.write(f'{ind(2)}var location = {location};\n')
             query_params = 'null'
             if len(subs) > 0:
-                subs_list = f", \n{ind(3)}".join(subs)
+                subs_list = f",\n{ind(3)}".join(subs)
                 afile.write(f'{ind(2)}var params = new QueryParam[] {{\n{ind(3)}{subs_list}\n{ind(2)}}};\n')
                 query_params = 'params'
             if result != 'void':

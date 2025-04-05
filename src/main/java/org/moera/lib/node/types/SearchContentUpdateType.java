@@ -5,32 +5,12 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum SubscriptionType {
+public enum SearchContentUpdateType {
 
     /**
-     * Subscribe to new stories in the feed.
+     * The profile was updated.
      */
-    FEED, // 0
-    /**
-     * Subscribe to updates to the posting.
-     */
-    POSTING, // 1
-    /**
-     * Subscribe to new comments to the posting.
-     */
-    POSTING_COMMENTS, // 2
-    /**
-     * Subscribe to updates to the node profile.
-     */
-    PROFILE, // 3
-    /**
-     * Subscribe to updates to the user list (its name is passed in <code>feedName</code> field).
-     */
-    USER_LIST, // 4
-    /**
-     * Subscribe to updates to all content that may be indexed by a search engine.
-     */
-    SEARCH; // 5
+    PROFILE;
 
     /**
      * Retrieves the string representation of the enum constant.
@@ -48,7 +28,7 @@ public enum SubscriptionType {
      * @param type the {@link AskSubject} enum constant to convert; may be {@code null}
      * @return the string representation of the enum constant, or {@code null} if the input is {@code null}
      */
-    public static String toValue(SubscriptionType type) {
+    public static String toValue(SearchContentUpdateType type) {
         return type != null ? type.getValue() : null;
     }
 
@@ -59,7 +39,7 @@ public enum SubscriptionType {
      * @param value the string representation of an enum constant; must not be {@code null}
      * @return the corresponding enum constant, or {@code null} if the value is invalid
      */
-    public static SubscriptionType forValue(String value) {
+    public static SearchContentUpdateType forValue(String value) {
         try {
             return parse(value);
         } catch (IllegalArgumentException e) {
@@ -78,14 +58,14 @@ public enum SubscriptionType {
     }
 
     /**
-     * Parses the given string value into an instance of {@link SubscriptionType}.
+     * Parses the given string value into an instance of {@link SearchContentUpdateType}.
      *
      * @param value the input string to parse; must not be {@code null}
      * @return the corresponding enum constant
      * @throws IllegalArgumentException if the input string does not match any enum constant
      */
     @JsonCreator
-    public static SubscriptionType parse(String value) {
+    public static SearchContentUpdateType parse(String value) {
         return valueOf(value.toUpperCase().replace('-', '_').replace("/", "__"));
     }
 
