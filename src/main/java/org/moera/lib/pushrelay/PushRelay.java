@@ -1,5 +1,6 @@
 package org.moera.lib.pushrelay;
 
+import java.util.Map;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -56,7 +57,17 @@ public class PushRelay extends JsonRpcClient implements PushRelayApi {
 
     @Override
     public void register(String clientId, String nodeName, String lang, long signedAt, byte[] signature) {
-        fetch(null, "register", clientId, nodeName, lang, signedAt, signature);
+        fetch(
+            null,
+            "register",
+            Map.of(
+                "clientId", clientId,
+                "nodeName", nodeName,
+                "lang", lang,
+                "signedAt", signedAt,
+                "signature", signature
+            )
+        );
     }
 
     @Override
@@ -64,17 +75,46 @@ public class PushRelay extends JsonRpcClient implements PushRelayApi {
         String feedName, int notViewed, long notViewedMoment, String nodeName, long signedAt,
         byte[] signature
     ) {
-        fetch(null, "feedStatus", feedName, notViewed, notViewedMoment, nodeName, signedAt, signature);
+        fetch(
+            null,
+            "feedStatus",
+            Map.of(
+                "feedName", feedName,
+                "notViewed", notViewed,
+                "notViewedMoment", notViewedMoment,
+                "nodeName", nodeName,
+                "signedAt", signedAt,
+                "signature", signature
+            )
+        );
     }
 
     @Override
     public void storyAdded(StoryInfo story, String nodeName, long signedAt, byte[] signature) {
-        fetch(null, "storyAdded", story, nodeName, signedAt, signature);
+        fetch(
+            null,
+            "storyAdded",
+            Map.of(
+                "story", story,
+                "nodeName", nodeName,
+                "signedAt", signedAt,
+                "signature", signature
+            )
+        );
     }
 
     @Override
     public void storyDeleted(String storyId, String nodeName, long signedAt, byte[] signature) {
-        fetch(null, "storyDeleted", storyId, nodeName, signedAt, signature);
+        fetch(
+            null,
+            "storyDeleted",
+            Map.of(
+                "storyId", storyId,
+                "nodeName", nodeName,
+                "signedAt", signedAt,
+                "signature", signature
+            )
+        );
     }
 
 }
