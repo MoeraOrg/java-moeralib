@@ -564,8 +564,8 @@ public class MoeraNode extends NodeApiClient {
      * Search for contacts matching the search <code>query</code>. Every space-delimited word in the query must match
      * case-insensitively a beginning of the contact's node name or a beginning of any space-delimited word in the
      * contact's full name. The order of words is not significant. <br><br> The node may decide to return fewer
-     * contacts than the given <code>limit</code>. <br><br> The contacts are sorted by their <i>closeness</i> to the
-     * node, which is calculated from the number of reactions and comments and their age.
+     * contacts than the given <code>limit</code>. <br><br> The contacts are sorted by <i>social distance</i> from the
+     * node, which depends on their subscription and friendship status and the number of recent reactions and comments.
      *
      * @param query the search query
      * @param limit maximum number of contacts returned

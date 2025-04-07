@@ -11,7 +11,7 @@ public class SearchNodeInfo extends Structure implements Cloneable {
     private String fullName;
     private String title;
     private AvatarImage avatar;
-    private float closeness;
+    private float distance;
 
     /**
      * Retrieves .
@@ -86,21 +86,21 @@ public class SearchNodeInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves closeness of the node to the client.
+     * Retrieves social distance between the node and the client.
      *
      * @return the value
      */
-    public float getCloseness() {
-        return closeness;
+    public float getDistance() {
+        return distance;
     }
 
     /**
-     * Sets closeness of the node to the client.
+     * Sets social distance between the node and the client.
      *
-     * @param closeness the value to be set
+     * @param distance the value to be set
      */
-    public void setCloseness(float closeness) {
-        this.closeness = closeness;
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     /**

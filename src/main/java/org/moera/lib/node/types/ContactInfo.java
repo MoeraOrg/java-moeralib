@@ -11,7 +11,7 @@ public class ContactInfo extends Structure implements Cloneable {
     private String fullName;
     private String gender;
     private AvatarImage avatar;
-    private float closeness;
+    private float distance;
     private Boolean hasFeedSubscriber;
     private Boolean hasFeedSubscription;
     private Boolean hasFriend;
@@ -95,25 +95,25 @@ public class ContactInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves closeness of the contact to the node, which is calculated from the number of reactions and comments
-     * and their age
+     * Retrieves social distance between the contact and the node, which depends on subscription and friendship status
+     * and the number recent reactions and comments
      * .
      *
      * @return the value
      */
-    public float getCloseness() {
-        return closeness;
+    public float getDistance() {
+        return distance;
     }
 
     /**
-     * Sets closeness of the contact to the node, which is calculated from the number of reactions and comments and
-     * their age
+     * Sets social distance between the contact and the node, which depends on subscription and friendship status and
+     * the number recent reactions and comments
      * .
      *
-     * @param closeness the value to be set
+     * @param distance the value to be set
      */
-    public void setCloseness(float closeness) {
-        this.closeness = closeness;
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     /**
