@@ -346,6 +346,7 @@ public class NodeApiClient {
                     builder.addQueryParameter(param.name(), param.value().toString());
                 }
             }
+            url = builder.build();
         }
 
         var request = requestBuilder.url(url).build();
