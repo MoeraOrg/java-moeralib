@@ -8,9 +8,33 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum SearchContentUpdateType {
 
     /**
+     * The node was blocked.
+     */
+    BLOCK,
+    /**
+     * The node was added to the list of friends.
+     */
+    FRIEND,
+    /**
      * The profile was updated.
      */
-    PROFILE;
+    PROFILE,
+    /**
+     * Subscribed to the node.
+     */
+    SUBSCRIBE,
+    /**
+     * The node was unblocked.
+     */
+    UNBLOCK,
+    /**
+     * The node was removed from the list of friends.
+     */
+    UNFRIEND,
+    /**
+     * Unsubscribed from the node.
+     */
+    UNSUBSCRIBE;
 
     /**
      * Retrieves the string representation of the enum constant.

@@ -151,7 +151,6 @@ public class SubscriptionDescription extends Structure implements Cloneable {
         ValidationUtil.maxSize(remoteNodeName, 63, "subscription.remote-node-name.wrong-size");
         ValidationUtil.maxSize(remoteFeedName, 63, "subscription.remote-feed-name.wrong-size");
         ValidationUtil.maxSize(remotePostingId, 40, "subscription.remote-posting-id.wrong-size");
-        ValidationUtil.notNull(reason, "subscription.reason.missing");
     }
 
     /**
