@@ -61,7 +61,7 @@ public class AskedNotification extends Notification {
     }
 
     /**
-     * Retrieves optional message to the node admin.
+     * Retrieves message to the node admin.
      *
      * @return the value
      */
@@ -70,7 +70,7 @@ public class AskedNotification extends Notification {
     }
 
     /**
-     * Sets optional message to the node admin.
+     * Sets message to the node admin.
      *
      * @param message the value to be set
      */
