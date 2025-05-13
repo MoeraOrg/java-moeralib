@@ -41,6 +41,30 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Get a slice of the list of all orders sent by the sheriff, delimited by the <code>before</code> or
+     * <code>after</code> moment and the given <code>limit</code>. If neither <code>before</code> nor
+     * <code>after</code> are provided, the latest orders are returned. The node may decide to return fewer orders than
+     * the given <code>limit</code>. The orders are always sorted by moment, descending.
+     *
+     * @param after filter orders posted strongly after this moment
+     * @param before filter orders posted at or before this moment
+     * @param limit maximum number of orders returned
+     * @return SheriffOrdersSliceInfo
+     */
+    public SheriffOrdersSliceInfo getRemoteSheriffOrdersSlice(
+        Long after, Long before, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/activity/sheriff/orders";
+        var params = new QueryParam[] {
+            QueryParam.of("after", after),
+            QueryParam.of("before", before),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<SheriffOrdersSliceInfo>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
      * Get the status of the asynchronous operation that performs verification of a remote posting signature.
      *
      * @param id asynchronous operation ID
@@ -2087,6 +2111,35 @@ public class MoeraNode extends NodeApiClient {
         };
         var returnTypeRef = new TypeReference<SearchNodeInfo[]>() {};
         return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Search for postings and comments containing the specified hashtag(s) and optionally filtered by other criteria.
+     * <br><br> The search engine may decide to return fewer nodes than the given <code>limit</code>. <br><br> The
+     * returned entries are sorted by moment in descending order.
+     *
+     * @param filter filter
+     * @return SearchHashtagSliceInfo
+     */
+    public SearchHashtagSliceInfo searchEntriesByHashtag(SearchHashtagFilter filter) throws MoeraNodeException {
+        var location = "/search/entries/by-hashtag";
+        var returnTypeRef = new TypeReference<SearchHashtagSliceInfo>() {};
+        return call(location, null, "POST", filter, returnTypeRef);
+    }
+
+    /**
+     * Search for postings and comments containing the specified words or text fragment, and optionally filtered by
+     * other criteria. <br><br> The search engine may decide to return fewer nodes than the given <code>limit</code>.
+     * <br><br> The returned entries are sorted by their relevance. The exact definition of this term is left to the
+     * search engine's implementation.
+     *
+     * @param filter filter
+     * @return SearchTextPageInfo
+     */
+    public SearchTextPageInfo searchEntriesByText(SearchTextFilter filter) throws MoeraNodeException {
+        var location = "/search/entries/by-text";
+        var returnTypeRef = new TypeReference<SearchTextPageInfo>() {};
+        return call(location, null, "POST", filter, returnTypeRef);
     }
 
     /**

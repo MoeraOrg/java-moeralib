@@ -154,7 +154,15 @@ public enum NotificationType {
     /**
      * Notification sent to a Moera search engine when some content on the node was updated and needs reindexing.
      */
-    SEARCH_CONTENT_UPDATED(SearchContentUpdatedNotification.class); // 36
+    SEARCH_CONTENT_UPDATED(SearchContentUpdatedNotification.class), // 36
+    /**
+     * The sending node got a sheriff's order related to all postings in the receiver's feed.
+     */
+    SHERIFF_ORDER_FOR_FEED_ADDED(SheriffOrderForFeedAddedNotification.class), // 37
+    /**
+     * The sending node got a cancellation of a sheriff's order related to all postings in the receiver's feed.
+     */
+    SHERIFF_ORDER_FOR_FEED_DELETED(SheriffOrderForFeedDeletedNotification.class); // 38
 
     private final Class<? extends Notification> structure;
 

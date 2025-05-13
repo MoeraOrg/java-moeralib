@@ -33,8 +33,9 @@ public final class PrincipalExpression implements PrincipalFilter {
         this.right = right;
     }
 
-    private PrincipalExpression(Principal principal, boolean inverse, Operation operation,
-                                PrincipalExpression left, PrincipalExpression right) {
+    private PrincipalExpression(
+        Principal principal, boolean inverse, Operation operation, PrincipalExpression left, PrincipalExpression right
+    ) {
         this.principal = principal;
         this.inverse = inverse;
         this.operation = operation;
@@ -50,6 +51,16 @@ public final class PrincipalExpression implements PrincipalFilter {
     @Override
     public PrincipalExpression a() {
         return this;
+    }
+
+    /**
+     * Creates a new {@code PrincipalExpression} instance that represents
+     * the negation of the current {@code PrincipalExpression}.
+     *
+     * @return a new {@code PrincipalExpression} instance with the negated meaning
+     */
+    public PrincipalExpression not() {
+        return not(this);
     }
 
     /**

@@ -29,6 +29,7 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
     private SheriffOrderReason reasonCode;
     private String reasonDetails;
     private long createdAt;
+    private long moment;
     private byte[] signature;
     private short signatureVersion;
     private String complaintGroupId;
@@ -430,6 +431,24 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
      */
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Retrieves moment of the order.
+     *
+     * @return the value
+     */
+    public long getMoment() {
+        return moment;
+    }
+
+    /**
+     * Sets moment of the order.
+     *
+     * @param moment the value to be set
+     */
+    public void setMoment(long moment) {
+        this.moment = moment;
     }
 
     /**

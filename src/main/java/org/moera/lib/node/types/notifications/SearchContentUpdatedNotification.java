@@ -6,8 +6,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.SearchBlockUpdate;
+import org.moera.lib.node.types.SearchCommentUpdate;
 import org.moera.lib.node.types.SearchContentUpdateType;
 import org.moera.lib.node.types.SearchFriendUpdate;
+import org.moera.lib.node.types.SearchPostingUpdate;
+import org.moera.lib.node.types.SearchReactionUpdate;
 import org.moera.lib.node.types.SearchSubscriptionUpdate;
 import org.moera.lib.node.types.validate.ValidationUtil;
 import org.moera.lib.util.LogUtil;
@@ -20,7 +23,10 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
 
     private SearchContentUpdateType updateType;
     private SearchBlockUpdate blockUpdate;
+    private SearchCommentUpdate commentUpdate;
     private SearchFriendUpdate friendUpdate;
+    private SearchPostingUpdate postingUpdate;
+    private SearchReactionUpdate reactionUpdate;
     private SearchSubscriptionUpdate subscriptionUpdate;
 
     public SearchContentUpdatedNotification() {
@@ -64,6 +70,24 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
     }
 
     /**
+     * Retrieves details about the comment.
+     *
+     * @return the value
+     */
+    public SearchCommentUpdate getCommentUpdate() {
+        return commentUpdate;
+    }
+
+    /**
+     * Sets details about the comment.
+     *
+     * @param commentUpdate the value to be set
+     */
+    public void setCommentUpdate(SearchCommentUpdate commentUpdate) {
+        this.commentUpdate = commentUpdate;
+    }
+
+    /**
      * Retrieves details about the friendship.
      *
      * @return the value
@@ -79,6 +103,42 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
      */
     public void setFriendUpdate(SearchFriendUpdate friendUpdate) {
         this.friendUpdate = friendUpdate;
+    }
+
+    /**
+     * Retrieves details about the posting.
+     *
+     * @return the value
+     */
+    public SearchPostingUpdate getPostingUpdate() {
+        return postingUpdate;
+    }
+
+    /**
+     * Sets details about the posting.
+     *
+     * @param postingUpdate the value to be set
+     */
+    public void setPostingUpdate(SearchPostingUpdate postingUpdate) {
+        this.postingUpdate = postingUpdate;
+    }
+
+    /**
+     * Retrieves details about the reaction.
+     *
+     * @return the value
+     */
+    public SearchReactionUpdate getReactionUpdate() {
+        return reactionUpdate;
+    }
+
+    /**
+     * Sets details about the reaction.
+     *
+     * @param reactionUpdate the value to be set
+     */
+    public void setReactionUpdate(SearchReactionUpdate reactionUpdate) {
+        this.reactionUpdate = reactionUpdate;
     }
 
     /**
@@ -106,8 +166,17 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
         if (blockUpdate != null) {
             blockUpdate.validate();
         }
+        if (commentUpdate != null) {
+            commentUpdate.validate();
+        }
         if (friendUpdate != null) {
             friendUpdate.validate();
+        }
+        if (postingUpdate != null) {
+            postingUpdate.validate();
+        }
+        if (reactionUpdate != null) {
+            reactionUpdate.validate();
         }
         if (subscriptionUpdate != null) {
             subscriptionUpdate.validate();

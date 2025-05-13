@@ -50,7 +50,7 @@ public class SearchSubscriptionUpdate extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
-        ValidationUtil.maxSize(nodeName, 40, "search.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 63, "search.node-name.wrong-size");
         ValidationUtil.maxSize(feedName, 63, "search.feed-name.wrong-size");
     }
 

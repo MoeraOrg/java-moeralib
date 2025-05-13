@@ -141,7 +141,7 @@ public class SearchEngineClickedNotification extends Notification {
         ValidationUtil.maxSize(postingId, 40, "search.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "search.comment-id.wrong-size");
         ValidationUtil.maxSize(mediaId, 40, "search.media-id.wrong-size");
-        ValidationUtil.notBlank(heading, "search.heading.empty");
+        ValidationUtil.notBlank(heading, "search.heading.blank");
         ValidationUtil.maxSize(heading, 255, "search.heading.wrong-size");
         ValidationUtil.notNull(clickedAt, "search.clicked-at.missing");
     }

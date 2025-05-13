@@ -50,7 +50,7 @@ public class SearchBlockUpdate extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
-        ValidationUtil.maxSize(nodeName, 40, "search.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 63, "search.node-name.wrong-size");
         ValidationUtil.notNull(blockedOperation, "search.blocked-operation.missing");
     }
 
