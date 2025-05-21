@@ -2099,14 +2099,35 @@ public class MoeraNode extends NodeApiClient {
      * nodes than the given <code>limit</code>. <br><br> The returned nodes are sorted by their relevance. The exact
      * definition of this term is left to the search engine's implementation.
      *
+     * @param filter filter
+     * @return SearchNodePageInfo
+     */
+    public SearchNodePageInfo searchNodes(SearchNodeFilter filter) throws MoeraNodeException {
+        var location = "/search/nodes";
+        var returnTypeRef = new TypeReference<SearchNodePageInfo>() {};
+        return call(location, null, "POST", filter, returnTypeRef);
+    }
+
+    /**
+     * Search for Moera nodes matching the search <code>query</code> and return a short list of "smart suggestions" for
+     * the user. Every space-delimited word in the query must match case-insensitively a beginning of the node's name
+     * or a beginning of any non-letter-delimited word in the node's full name. The order of words is not significant.
+     * <br><br> The search engine may decide to return fewer nodes than the given <code>limit</code>. <br><br> The
+     * returned nodes are sorted by their relevance. The exact definition of this term is left to the search engine's
+     * implementation.
+     *
      * @param query the search query
+     * @param sheriff filter out entries prohibited by the given sheriff
      * @param limit maximum number of nodes returned
      * @return SearchNodeInfo[]
      */
-    public SearchNodeInfo[] searchNodes(String query, Integer limit) throws MoeraNodeException {
-        var location = "/search/nodes";
+    public SearchNodeInfo[] searchNodeSuggestions(
+        String query, String sheriff, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/search/nodes/suggestions";
         var params = new QueryParam[] {
             QueryParam.of("query", query),
+            QueryParam.of("sheriff", sheriff),
             QueryParam.of("limit", limit)
         };
         var returnTypeRef = new TypeReference<SearchNodeInfo[]>() {};

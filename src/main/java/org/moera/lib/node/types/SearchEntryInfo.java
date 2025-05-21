@@ -15,6 +15,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private String ownerFullName;
     private AvatarImage ownerAvatar;
     private Body bodyPreview;
+    private BodyFormat bodyFormat;
     private String heading;
     private Integer imageCount;
     private Boolean videoPresent;
@@ -147,6 +148,24 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setBodyPreview(Body bodyPreview) {
         this.bodyPreview = bodyPreview;
+    }
+
+    /**
+     * Retrieves format of the entry's body, may have any value meaningful for the client.
+     *
+     * @return the value
+     */
+    public BodyFormat getBodyFormat() {
+        return bodyFormat;
+    }
+
+    /**
+     * Sets format of the entry's body, may have any value meaningful for the client.
+     *
+     * @param bodyFormat the value to be set
+     */
+    public void setBodyFormat(BodyFormat bodyFormat) {
+        this.bodyFormat = bodyFormat;
     }
 
     /**

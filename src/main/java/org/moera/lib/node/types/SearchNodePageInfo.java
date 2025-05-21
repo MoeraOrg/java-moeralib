@@ -7,11 +7,11 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SearchTextPageInfo extends Structure implements Cloneable {
+public class SearchNodePageInfo extends Structure implements Cloneable {
 
     private int page;
     private int total;
-    private List<SearchEntryInfo> entries;
+    private List<SearchNodeInfo> nodes;
 
     /**
      * Retrieves number of the page.
@@ -32,7 +32,7 @@ public class SearchTextPageInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves total number of entries found.
+     * Retrieves total number of nodes found (this number may be approximate).
      *
      * @return the value
      */
@@ -41,7 +41,7 @@ public class SearchTextPageInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Sets total number of entries found.
+     * Sets total number of nodes found (this number may be approximate).
      *
      * @param total the value to be set
      */
@@ -50,32 +50,32 @@ public class SearchTextPageInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves the entries.
+     * Retrieves the nodes.
      *
      * @return the value
      */
-    public List<SearchEntryInfo> getEntries() {
-        return entries;
+    public List<SearchNodeInfo> getNodes() {
+        return nodes;
     }
 
     /**
-     * Sets the entries.
+     * Sets the nodes.
      *
-     * @param entries the value to be set
+     * @param nodes the value to be set
      */
-    public void setEntries(List<SearchEntryInfo> entries) {
-        this.entries = entries;
+    public void setNodes(List<SearchNodeInfo> nodes) {
+        this.nodes = nodes;
     }
 
     /**
-     * Creates and returns a copy of this {@code SearchTextPageInfo} object.
+     * Creates and returns a copy of this {@code SearchNodePageInfo} object.
      *
      * @return a clone of this instance
      */
     @Override
-    public SearchTextPageInfo clone() {
+    public SearchNodePageInfo clone() {
         try {
-            return (SearchTextPageInfo) super.clone();
+            return (SearchNodePageInfo) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new IllegalArgumentException("Must implement Cloneable", e);
         }
