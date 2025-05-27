@@ -19,6 +19,8 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private String heading;
     private Integer imageCount;
     private Boolean videoPresent;
+    private PublicMediaFileInfo mediaPreview;
+    private String mediaPreviewId;
     private SearchRepliedTo repliedTo;
     private long createdAt;
     private SearchEntryOperations operations;
@@ -220,6 +222,42 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setVideoPresent(Boolean videoPresent) {
         this.videoPresent = videoPresent;
+    }
+
+    /**
+     * Retrieves preview of the media attached to the entry, if any.
+     *
+     * @return the value
+     */
+    public PublicMediaFileInfo getMediaPreview() {
+        return mediaPreview;
+    }
+
+    /**
+     * Sets preview of the media attached to the entry, if any.
+     *
+     * @param mediaPreview the value to be set
+     */
+    public void setMediaPreview(PublicMediaFileInfo mediaPreview) {
+        this.mediaPreview = mediaPreview;
+    }
+
+    /**
+     * Retrieves ID of the media attached to the entry that was chosen for the preview.
+     *
+     * @return the value
+     */
+    public String getMediaPreviewId() {
+        return mediaPreviewId;
+    }
+
+    /**
+     * Sets ID of the media attached to the entry that was chosen for the preview.
+     *
+     * @param mediaPreviewId the value to be set
+     */
+    public void setMediaPreviewId(String mediaPreviewId) {
+        this.mediaPreviewId = mediaPreviewId;
     }
 
     /**
