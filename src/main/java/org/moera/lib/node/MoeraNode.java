@@ -41,6 +41,52 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Get a list of previously executed search queries, optionally filtered by the given <code>prefix</code> and
+     * limited by the given <code>limit</code>. The node may decide to return fewer queries than the given
+     * <code>limit</code>. The queries are always sorted by creation timestamp, descending.
+     *
+     * @param prefix find queries with the specified prefix (case-insensitive)
+     * @param limit maximum number of queries returned
+     * @return SearchHistoryInfo[]
+     */
+    public SearchHistoryInfo[] getSearchHistory(String prefix, Integer limit) throws MoeraNodeException {
+        var location = "/activity/search";
+        var params = new QueryParam[] {
+            QueryParam.of("prefix", prefix),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<SearchHistoryInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Save a search query in the registry.
+     *
+     * @param historyText historyText
+     * @return SearchHistoryInfo
+     */
+    public SearchHistoryInfo saveToSearchHistory(SearchHistoryText historyText) throws MoeraNodeException {
+        var location = "/activity/search";
+        var returnTypeRef = new TypeReference<SearchHistoryInfo>() {};
+        return call(location, null, "POST", historyText, returnTypeRef);
+    }
+
+    /**
+     * Delete a search query from the registry.
+     *
+     * @param query the query to be deleted
+     * @return Result
+     */
+    public Result deleteFromSearchHistory(String query) throws MoeraNodeException {
+        var location = "/activity/search";
+        var params = new QueryParam[] {
+            QueryParam.of("query", query)
+        };
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, params, "DELETE", null, returnTypeRef);
+    }
+
+    /**
      * Get a slice of the list of all orders sent by the sheriff, delimited by the <code>before</code> or
      * <code>after</code> moment and the given <code>limit</code>. If neither <code>before</code> nor
      * <code>after</code> are provided, the latest orders are returned. The node may decide to return fewer orders than
