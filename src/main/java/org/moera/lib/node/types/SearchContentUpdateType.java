@@ -20,6 +20,14 @@ public enum SearchContentUpdateType {
      */
     COMMENT_UPDATE,
     /**
+     * A comment's heading was updated.
+     */
+    COMMENT_UPDATE_HEADING,
+    /**
+     * Text content of a media attached to a comment was updated.
+     */
+    COMMENT_UPDATE_MEDIA_TEXT,
+    /**
      * A comment was deleted.
      */
     COMMENT_DELETE,
@@ -39,6 +47,14 @@ public enum SearchContentUpdateType {
      * A posting was updated; sent by the original node only.
      */
     POSTING_UPDATE,
+    /**
+     * A posting's heading was updated; sent by the original node only.
+     */
+    POSTING_UPDATE_HEADING,
+    /**
+     * Text content of a media attached to a posting was updated; sent by the original node only.
+     */
+    POSTING_UPDATE_MEDIA_TEXT,
     /**
      * A posting was deleted.
      */

@@ -162,7 +162,15 @@ public enum NotificationType {
     /**
      * The sending node got a cancellation of a sheriff's order related to all postings in the receiver's feed.
      */
-    SHERIFF_ORDER_FOR_FEED_DELETED(SheriffOrderForFeedDeletedNotification.class); // 38
+    SHERIFF_ORDER_FOR_FEED_DELETED(SheriffOrderForFeedDeletedNotification.class), // 38
+    /**
+     * Heading of a posting the receiver is subscribed to has been updated.
+     */
+    POSTING_HEADING_UPDATED(PostingHeadingUpdatedNotification.class), // 39
+    /**
+     * Text content of a media attached to a posting the receiver is subscribed to has been updated.
+     */
+    POSTING_MEDIA_TEXT_UPDATED(PostingMediaTextUpdatedNotification.class); // 40
 
     private final Class<? extends Notification> structure;
 

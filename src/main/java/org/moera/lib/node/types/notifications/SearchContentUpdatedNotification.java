@@ -6,9 +6,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.SearchBlockUpdate;
+import org.moera.lib.node.types.SearchCommentHeadingUpdate;
+import org.moera.lib.node.types.SearchCommentMediaTextUpdate;
 import org.moera.lib.node.types.SearchCommentUpdate;
 import org.moera.lib.node.types.SearchContentUpdateType;
 import org.moera.lib.node.types.SearchFriendUpdate;
+import org.moera.lib.node.types.SearchPostingHeadingUpdate;
+import org.moera.lib.node.types.SearchPostingMediaTextUpdate;
 import org.moera.lib.node.types.SearchPostingUpdate;
 import org.moera.lib.node.types.SearchReactionUpdate;
 import org.moera.lib.node.types.SearchSubscriptionUpdate;
@@ -23,8 +27,12 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
 
     private SearchContentUpdateType updateType;
     private SearchBlockUpdate blockUpdate;
+    private SearchCommentHeadingUpdate commentHeadingUpdate;
+    private SearchCommentMediaTextUpdate commentMediaTextUpdate;
     private SearchCommentUpdate commentUpdate;
     private SearchFriendUpdate friendUpdate;
+    private SearchPostingHeadingUpdate postingHeadingUpdate;
+    private SearchPostingMediaTextUpdate postingMediaTextUpdate;
     private SearchPostingUpdate postingUpdate;
     private SearchReactionUpdate reactionUpdate;
     private SearchSubscriptionUpdate subscriptionUpdate;
@@ -70,6 +78,42 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
     }
 
     /**
+     * Retrieves details about the comment's heading.
+     *
+     * @return the value
+     */
+    public SearchCommentHeadingUpdate getCommentHeadingUpdate() {
+        return commentHeadingUpdate;
+    }
+
+    /**
+     * Sets details about the comment's heading.
+     *
+     * @param commentHeadingUpdate the value to be set
+     */
+    public void setCommentHeadingUpdate(SearchCommentHeadingUpdate commentHeadingUpdate) {
+        this.commentHeadingUpdate = commentHeadingUpdate;
+    }
+
+    /**
+     * Retrieves details about the comment's media attachment's text content.
+     *
+     * @return the value
+     */
+    public SearchCommentMediaTextUpdate getCommentMediaTextUpdate() {
+        return commentMediaTextUpdate;
+    }
+
+    /**
+     * Sets details about the comment's media attachment's text content.
+     *
+     * @param commentMediaTextUpdate the value to be set
+     */
+    public void setCommentMediaTextUpdate(SearchCommentMediaTextUpdate commentMediaTextUpdate) {
+        this.commentMediaTextUpdate = commentMediaTextUpdate;
+    }
+
+    /**
      * Retrieves details about the comment.
      *
      * @return the value
@@ -103,6 +147,42 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
      */
     public void setFriendUpdate(SearchFriendUpdate friendUpdate) {
         this.friendUpdate = friendUpdate;
+    }
+
+    /**
+     * Retrieves details about the posting's heading.
+     *
+     * @return the value
+     */
+    public SearchPostingHeadingUpdate getPostingHeadingUpdate() {
+        return postingHeadingUpdate;
+    }
+
+    /**
+     * Sets details about the posting's heading.
+     *
+     * @param postingHeadingUpdate the value to be set
+     */
+    public void setPostingHeadingUpdate(SearchPostingHeadingUpdate postingHeadingUpdate) {
+        this.postingHeadingUpdate = postingHeadingUpdate;
+    }
+
+    /**
+     * Retrieves details about the posting's media attachment's text content.
+     *
+     * @return the value
+     */
+    public SearchPostingMediaTextUpdate getPostingMediaTextUpdate() {
+        return postingMediaTextUpdate;
+    }
+
+    /**
+     * Sets details about the posting's media attachment's text content.
+     *
+     * @param postingMediaTextUpdate the value to be set
+     */
+    public void setPostingMediaTextUpdate(SearchPostingMediaTextUpdate postingMediaTextUpdate) {
+        this.postingMediaTextUpdate = postingMediaTextUpdate;
     }
 
     /**
@@ -166,11 +246,23 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
         if (blockUpdate != null) {
             blockUpdate.validate();
         }
+        if (commentHeadingUpdate != null) {
+            commentHeadingUpdate.validate();
+        }
+        if (commentMediaTextUpdate != null) {
+            commentMediaTextUpdate.validate();
+        }
         if (commentUpdate != null) {
             commentUpdate.validate();
         }
         if (friendUpdate != null) {
             friendUpdate.validate();
+        }
+        if (postingHeadingUpdate != null) {
+            postingHeadingUpdate.validate();
+        }
+        if (postingMediaTextUpdate != null) {
+            postingMediaTextUpdate.validate();
         }
         if (postingUpdate != null) {
             postingUpdate.validate();

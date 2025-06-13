@@ -18,6 +18,7 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private Integer height;
     private Short orientation;
     private long size;
+    private String textContent;
     private String postingId;
     private List<MediaFilePreviewInfo> previews;
     private PrivateMediaFileOperations operations;
@@ -196,6 +197,24 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setSize(long size) {
         this.size = size;
+    }
+
+    /**
+     * Retrieves the text contained in the image, if any.
+     *
+     * @return the value
+     */
+    public String getTextContent() {
+        return textContent;
+    }
+
+    /**
+     * Sets the text contained in the image, if any.
+     *
+     * @param textContent the value to be set
+     */
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 
     /**

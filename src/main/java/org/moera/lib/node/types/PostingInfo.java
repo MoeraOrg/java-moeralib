@@ -32,6 +32,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private BodyFormat bodyFormat;
     private List<MediaAttachment> media;
     private String heading;
+    private String description;
     private UpdateInfo updateInfo;
     private long createdAt;
     private Long editedAt;
@@ -463,6 +464,28 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setHeading(String heading) {
         this.heading = heading;
+    }
+
+    /**
+     * Retrieves in addition to <code>heading</code>, gives a more detailed description of the posting that can be used
+     * for search engines and link previews
+     * .
+     *
+     * @return the value
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets in addition to <code>heading</code>, gives a more detailed description of the posting that can be used for
+     * search engines and link previews
+     * .
+     *
+     * @param description the value to be set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
