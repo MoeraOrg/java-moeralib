@@ -62,6 +62,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private ReactionTotalsInfo reactions;
     private List<PostingSourceInfo> sources;
     private Integer totalComments;
+    private Boolean recommended;
 
     /**
      * Retrieves .
@@ -1029,6 +1030,28 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setTotalComments(Integer totalComments) {
         this.totalComments = totalComments;
+    }
+
+    /**
+     * Retrieves <code>true</code>, if the posting was recommended by a recommendation service (for cached copies of
+     * remote postings only), <code>false</code> otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getRecommended() {
+        return recommended;
+    }
+
+    /**
+     * Sets <code>true</code>, if the posting was recommended by a recommendation service (for cached copies of remote
+     * postings only), <code>false</code> otherwise
+     * .
+     *
+     * @param recommended the value to be set
+     */
+    public void setRecommended(Boolean recommended) {
+        this.recommended = recommended;
     }
 
     @Override

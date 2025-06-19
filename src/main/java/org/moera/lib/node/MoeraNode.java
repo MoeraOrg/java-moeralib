@@ -1859,6 +1859,119 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Find postings known to the recommendation service and may be of interest to the client. If the client is
+     * authenticated, the service may tune the recommendations for them. <br><br> The service may decide to return
+     * fewer recommendations than the given <code>limit</code>.
+     *
+     * @param sheriff filter out entries prohibited by the given sheriff
+     * @param limit maximum number of recommendations returned
+     * @return RecommendedPostingInfo[]
+     */
+    public RecommendedPostingInfo[] getRecommendedPostings(
+        String sheriff, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/recommendations/postings";
+        var params = new QueryParam[] {
+            QueryParam.of("sheriff", sheriff),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<RecommendedPostingInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Find postings known to the recommendation service and may be of interest to the client to read them. If the
+     * client is authenticated, the service may tune the recommendations for them. <br><br> The service may decide to
+     * return fewer recommendations than the given <code>limit</code>.
+     *
+     * @param sheriff filter out entries prohibited by the given sheriff
+     * @param limit maximum number of recommendations returned
+     * @return RecommendedPostingInfo[]
+     */
+    public RecommendedPostingInfo[] getRecommendedPostingsForReading(
+        String sheriff, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/recommendations/postings/reading";
+        var params = new QueryParam[] {
+            QueryParam.of("sheriff", sheriff),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<RecommendedPostingInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Find postings known to the recommendation service and may be of interest to the client to take part in the
+     * discussion. If the client is authenticated, the service may tune the recommendations for them. <br><br> The
+     * service may decide to return fewer recommendations than the given <code>limit</code>.
+     *
+     * @param sheriff filter out entries prohibited by the given sheriff
+     * @param limit maximum number of recommendations returned
+     * @return RecommendedPostingInfo[]
+     */
+    public RecommendedPostingInfo[] getRecommendedPostingsForCommenting(
+        String sheriff, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/recommendations/postings/commenting";
+        var params = new QueryParam[] {
+            QueryParam.of("sheriff", sheriff),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<RecommendedPostingInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Inform the recommendation service that the recommended posting was accepted by the client.
+     *
+     * @param nodeName name of the remote node
+     * @param postingId ID of the posting on the remote node
+     * @return Result
+     */
+    public Result acceptRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
+        var location = "/recommendations/postings/accepted/%s/%s".formatted(ue(nodeName), ue(postingId));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", null, returnTypeRef);
+    }
+
+    /**
+     * Inform the recommendation service that the recommended posting was rejected by the client.
+     *
+     * @param nodeName name of the remote node
+     * @param postingId ID of the posting on the remote node
+     * @return Result
+     */
+    public Result rejectRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
+        var location = "/recommendations/postings/rejected/%s/%s".formatted(ue(nodeName), ue(postingId));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", null, returnTypeRef);
+    }
+
+    /**
+     * Ask the recommendation service to exclude all content from the given node from future recommendations.
+     *
+     * @param nodeName name of the remote node
+     * @return Result
+     */
+    public Result excludeNodeFromRecommendations(String nodeName) throws MoeraNodeException {
+        var location = "/recommendations/nodes/excluded/%s".formatted(ue(nodeName));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", null, returnTypeRef);
+    }
+
+    /**
+     * Allow the recommendation service to include the content from the given node to future recommendations.
+     *
+     * @param nodeName name of the remote node
+     * @return Result
+     */
+    public Result allowNodeInRecommendations(String nodeName) throws MoeraNodeException {
+        var location = "/recommendations/nodes/excluded/%s".formatted(ue(nodeName));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "DELETE", null, returnTypeRef);
+    }
+
+    /**
      * Send a request to the remote node.
      *
      * @param nodeName name of the remote node
