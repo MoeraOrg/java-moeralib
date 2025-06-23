@@ -3,6 +3,7 @@ package org.moera.lib.node;
 // This file is generated
 
 import java.nio.file.Path;
+import java.util.Collections;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.node.exception.MoeraNodeException;
@@ -711,7 +712,7 @@ public class MoeraNode extends NodeApiClient {
     public EmailHint resetCredentials() throws MoeraNodeException {
         var location = "/credentials/reset";
         var returnTypeRef = new TypeReference<EmailHint>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -753,7 +754,7 @@ public class MoeraNode extends NodeApiClient {
     public PostingInfo restoreDeletedPosting(String id) throws MoeraNodeException {
         var location = "/deleted-postings/%s/restore".formatted(ue(id));
         var returnTypeRef = new TypeReference<PostingInfo>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -801,7 +802,7 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/postings/%s/revisions/%s/restore".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -1046,6 +1047,28 @@ public class MoeraNode extends NodeApiClient {
         };
         var returnTypeRef = new TypeReference<FeedSliceInfo>() {};
         return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Delete all stories from the feed with optional filtering.
+     *
+     * @param feedName name of the feed
+     * @param type delete only the stories of the given type
+     * @param receiver delete only the stories about postings located at the given node
+     * @param recommended delete only the stories about recommended postings
+     * @return Result
+     */
+    public Result deleteFeedStories(
+        String feedName, StoryType type, String receiver, Boolean recommended
+    ) throws MoeraNodeException {
+        var location = "/feeds/%s/stories".formatted(ue(feedName));
+        var params = new QueryParam[] {
+            QueryParam.of("type", type),
+            QueryParam.of("receiver", receiver),
+            QueryParam.of("recommended", recommended)
+        };
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, params, "DELETE", null, returnTypeRef);
     }
 
     /**
@@ -1612,7 +1635,7 @@ public class MoeraNode extends NodeApiClient {
     public PostingRevisionInfo restorePostingRevision(String postingId, String id) throws MoeraNodeException {
         var location = "/postings/%s/revisions/%s/restore".formatted(ue(postingId), ue(id));
         var returnTypeRef = new TypeReference<PostingRevisionInfo>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -1931,7 +1954,7 @@ public class MoeraNode extends NodeApiClient {
     public Result acceptRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
         var location = "/recommendations/postings/accepted/%s/%s".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -1944,7 +1967,7 @@ public class MoeraNode extends NodeApiClient {
     public Result rejectRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
         var location = "/recommendations/postings/rejected/%s/%s".formatted(ue(nodeName), ue(postingId));
         var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -1956,7 +1979,7 @@ public class MoeraNode extends NodeApiClient {
     public Result excludeNodeFromRecommendations(String nodeName) throws MoeraNodeException {
         var location = "/recommendations/nodes/excluded/%s".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -2046,7 +2069,7 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/comments/%s/verify".formatted(ue(nodeName), ue(postingId), ue(commentId));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -2102,7 +2125,7 @@ public class MoeraNode extends NodeApiClient {
             ue(nodeName), ue(postingId), ue(commentId), ue(ownerName)
         );
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -2157,7 +2180,7 @@ public class MoeraNode extends NodeApiClient {
     public AsyncOperationCreated verifyRemotePosting(String nodeName, String id) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/verify".formatted(ue(nodeName), ue(id));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -2173,7 +2196,7 @@ public class MoeraNode extends NodeApiClient {
     ) throws MoeraNodeException {
         var location = "/nodes/%s/postings/%s/revisions/%s/verify".formatted(ue(nodeName), ue(id), ue(revisionId));
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -2220,7 +2243,7 @@ public class MoeraNode extends NodeApiClient {
             ue(nodeName), ue(postingId), ue(ownerName)
         );
         var returnTypeRef = new TypeReference<AsyncOperationCreated>() {};
-        return call(location, null, "POST", null, returnTypeRef);
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**

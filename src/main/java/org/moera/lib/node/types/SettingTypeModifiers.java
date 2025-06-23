@@ -15,11 +15,13 @@ public class SettingTypeModifiers extends Structure implements Cloneable {
     private Boolean multiline;
     private Boolean never;
     private Boolean always;
+    private List<SettingValueChoice> items;
     private List<String> principals;
 
     /**
-     * Retrieves preferred format of displaying the value<br> (<code>int</code>) <ul>
-     * <li><code>size</code> - data size in bytes/kilobytes/megabytes etc.</li>
+     * Retrieves preferred format of displaying the value<br> (<code>int</code>, <code>string</code>) <ul>
+     * <li><code>size</code> - data size in bytes/kilobytes/megabytes etc.;</li>
+     * <li><code>select</code> - selection of a value from the provided list.</li>
      * </ul>
      * .
      *
@@ -30,8 +32,9 @@ public class SettingTypeModifiers extends Structure implements Cloneable {
     }
 
     /**
-     * Sets preferred format of displaying the value<br> (<code>int</code>) <ul>
-     * <li><code>size</code> - data size in bytes/kilobytes/megabytes etc.</li>
+     * Sets preferred format of displaying the value<br> (<code>int</code>, <code>string</code>) <ul>
+     * <li><code>size</code> - data size in bytes/kilobytes/megabytes etc.;</li>
+     * <li><code>select</code> - selection of a value from the provided list.</li>
      * </ul>
      * .
      *
@@ -129,6 +132,24 @@ public class SettingTypeModifiers extends Structure implements Cloneable {
      */
     public void setAlways(Boolean always) {
         this.always = always;
+    }
+
+    /**
+     * Retrieves (<code>string</code>) list of selection items.
+     *
+     * @return the value
+     */
+    public List<SettingValueChoice> getItems() {
+        return items;
+    }
+
+    /**
+     * Sets (<code>string</code>) list of selection items.
+     *
+     * @param items the value to be set
+     */
+    public void setItems(List<SettingValueChoice> items) {
+        this.items = items;
     }
 
     /**

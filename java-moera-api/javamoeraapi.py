@@ -688,6 +688,7 @@ PREAMBLE_MOERA_NODE = '''package org.moera.lib.node;
 // This file is generated
 
 import java.nio.file.Path;
+import java.util.Collections;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.node.exception.MoeraNodeException;
@@ -726,6 +727,7 @@ def generate_calls(api: Any, afile: TextIO) -> None:
             if 'function' not in request:
                 continue
 
+            method = request['type']
             params: list[str] = []
             tail_params: list[str] = []
             url_params: dict[str, str] = {}
@@ -775,9 +777,12 @@ def generate_calls(api: Any, afile: TextIO) -> None:
                     body = name
                     params.append(f'{java_type} {name}')
                     param_docs += [(name, request['in'].get('description', ''), java_type)]
+            else:
+                if method == 'POST' or method == 'PUT':
+                    body = 'Collections.emptyMap()'
+
             params += tail_params
 
-            method = request['type']
             location: str = request['url']
             path_vars = []
             if len(url_params) > 0:
