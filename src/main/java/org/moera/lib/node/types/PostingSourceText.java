@@ -15,7 +15,8 @@ public class PostingSourceText extends Structure implements Cloneable {
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
     private List<MediaWithDigest> media;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions commentRejectedReactions;
     private PostingOperations operations;
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
@@ -98,21 +99,39 @@ public class PostingSourceText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves types of reactions that the posting accepts.
+     * Retrieves types of reactions that the posting rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the posting accepts.
+     * Sets types of reactions that the posting rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the posting's comments should rejects.
+     *
+     * @return the value
+     */
+    public RejectedReactions getCommentRejectedReactions() {
+        return commentRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the posting's comments should rejects.
+     *
+     * @param commentRejectedReactions the value to be set
+     */
+    public void setCommentRejectedReactions(RejectedReactions commentRejectedReactions) {
+        this.commentRejectedReactions = commentRejectedReactions;
     }
 
     /**
@@ -195,8 +214,11 @@ public class PostingSourceText extends Structure implements Cloneable {
         super.validate();
         ValidationUtil.notNull(bodySrc, "posting.body-src.blank");
         ValidationUtil.maxSize(bodySrc, 65535, "posting.body-src.wrong-size");
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (commentRejectedReactions != null) {
+            commentRejectedReactions.validate();
         }
     }
 

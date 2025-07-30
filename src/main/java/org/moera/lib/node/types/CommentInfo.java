@@ -44,7 +44,9 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
     private CommentOperations seniorOperations;
     private List<String> blockedOperations;
     private List<SheriffMark> sheriffMarks;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions ownerRejectedReactions;
+    private RejectedReactions seniorRejectedReactions;
     private ClientReactionInfo clientReaction;
     private ClientReactionInfo seniorReaction;
     private ReactionTotalsInfo reactions;
@@ -683,21 +685,57 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
     }
 
     /**
-     * Retrieves types of reactions that the comment accepts.
+     * Retrieves types of reactions that the comment rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the comment accepts.
+     * Sets types of reactions that the comment rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the comment rejects, as defined by the comments' owner.
+     *
+     * @return the value
+     */
+    public RejectedReactions getOwnerRejectedReactions() {
+        return ownerRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the comment rejects, as defined by the comments' owner.
+     *
+     * @param ownerRejectedReactions the value to be set
+     */
+    public void setOwnerRejectedReactions(RejectedReactions ownerRejectedReactions) {
+        this.ownerRejectedReactions = ownerRejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the comment rejects, as defined by the posting's owner ("senior").
+     *
+     * @return the value
+     */
+    public RejectedReactions getSeniorRejectedReactions() {
+        return seniorRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the comment rejects, as defined by the posting's owner ("senior").
+     *
+     * @param seniorRejectedReactions the value to be set
+     */
+    public void setSeniorRejectedReactions(RejectedReactions seniorRejectedReactions) {
+        this.seniorRejectedReactions = seniorRejectedReactions;
     }
 
     /**
@@ -757,8 +795,14 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
     @Override
     public void validate() {
         super.validate();
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (ownerRejectedReactions != null) {
+            ownerRejectedReactions.validate();
+        }
+        if (seniorRejectedReactions != null) {
+            seniorRejectedReactions.validate();
         }
         if (reactions != null) {
             reactions.validate();

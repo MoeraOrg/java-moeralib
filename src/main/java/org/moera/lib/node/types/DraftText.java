@@ -18,7 +18,8 @@ public class DraftText extends Structure implements Cloneable {
     private String repliedToId;
     private String ownerFullName;
     private AvatarDescription ownerAvatar;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions commentRejectedReactions;
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
     private List<RemoteMedia> media;
@@ -154,21 +155,39 @@ public class DraftText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves types of reactions that the posting accepts.
+     * Retrieves types of reactions that the posting rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the posting accepts.
+     * Sets types of reactions that the posting rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the posting's comments should reject.
+     *
+     * @return the value
+     */
+    public RejectedReactions getCommentRejectedReactions() {
+        return commentRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the posting's comments should reject.
+     *
+     * @param commentRejectedReactions the value to be set
+     */
+    public void setCommentRejectedReactions(RejectedReactions commentRejectedReactions) {
+        this.commentRejectedReactions = commentRejectedReactions;
     }
 
     /**
@@ -314,8 +333,11 @@ public class DraftText extends Structure implements Cloneable {
         ValidationUtil.maxSize(receiverCommentId, 40, "draft.receiver-comment-id.wrong-size");
         ValidationUtil.maxSize(repliedToId, 40, "draft.replied-to-id.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "draft.owner-full-name.wrong-size");
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (commentRejectedReactions != null) {
+            commentRejectedReactions.validate();
         }
         if (updateInfo != null) {
             updateInfo.validate();

@@ -22,7 +22,8 @@ public class PostingText extends Structure implements Cloneable {
     private BodyFormat bodyFormat;
     private List<String> media;
     private Long createdAt;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions commentRejectedReactions;
     private List<StoryAttributes> publications;
     private UpdateInfo updateInfo;
     private byte[] signature;
@@ -235,21 +236,39 @@ public class PostingText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves types of reactions that the posting accepts.
+     * Retrieves types of reactions that the posting rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the posting accepts.
+     * Sets types of reactions that the posting rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the posting's comments should reject.
+     *
+     * @return the value
+     */
+    public RejectedReactions getCommentRejectedReactions() {
+        return commentRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the posting's comments should reject.
+     *
+     * @param commentRejectedReactions the value to be set
+     */
+    public void setCommentRejectedReactions(RejectedReactions commentRejectedReactions) {
+        this.commentRejectedReactions = commentRejectedReactions;
     }
 
     /**
@@ -409,8 +428,11 @@ public class PostingText extends Structure implements Cloneable {
         ValidationUtil.maxSize(ownerName, 63, "posting.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "posting.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "posting.owner-gender.wrong-size");
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (commentRejectedReactions != null) {
+            commentRejectedReactions.validate();
         }
         if (updateInfo != null) {
             updateInfo.validate();

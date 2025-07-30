@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class CommentMassAttributes extends Structure implements Cloneable {
 
     private CommentOperations seniorOperations;
+    private RejectedReactions seniorRejectedReactions;
 
     /**
      * Retrieves the operations and the corresponding principals that are overridden by the comment's owner ("senior")
@@ -27,6 +28,32 @@ public class CommentMassAttributes extends Structure implements Cloneable {
      */
     public void setSeniorOperations(CommentOperations seniorOperations) {
         this.seniorOperations = seniorOperations;
+    }
+
+    /**
+     * Retrieves types of reactions that the comment rejects, as defined by the posting's owner ("senior").
+     *
+     * @return the value
+     */
+    public RejectedReactions getSeniorRejectedReactions() {
+        return seniorRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the comment rejects, as defined by the posting's owner ("senior").
+     *
+     * @param seniorRejectedReactions the value to be set
+     */
+    public void setSeniorRejectedReactions(RejectedReactions seniorRejectedReactions) {
+        this.seniorRejectedReactions = seniorRejectedReactions;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        if (seniorRejectedReactions != null) {
+            seniorRejectedReactions.validate();
+        }
     }
 
     /**

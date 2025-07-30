@@ -22,7 +22,8 @@ public class CommentText extends Structure implements Cloneable {
     private BodyFormat bodyFormat;
     private List<String> media;
     private Long createdAt;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions seniorRejectedReactions;
     private String repliedToId;
     private byte[] signature;
     private Short signatureVersion;
@@ -233,21 +234,43 @@ public class CommentText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves types of reactions that the comment accepts.
+     * Retrieves types of reactions that the comment rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the comment accepts.
+     * Sets types of reactions that the comment rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the comment rejects, as defined by the posting's owner ("senior"); only the
+     * senior may set this
+     * .
+     *
+     * @return the value
+     */
+    public RejectedReactions getSeniorRejectedReactions() {
+        return seniorRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the comment rejects, as defined by the posting's owner ("senior"); only the senior
+     * may set this
+     * .
+     *
+     * @param seniorRejectedReactions the value to be set
+     */
+    public void setSeniorRejectedReactions(RejectedReactions seniorRejectedReactions) {
+        this.seniorRejectedReactions = seniorRejectedReactions;
     }
 
     /**
@@ -372,8 +395,11 @@ public class CommentText extends Structure implements Cloneable {
         ValidationUtil.maxSize(ownerName, 63, "comment.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "comment.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "comment.owner-gender.wrong-size");
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (seniorRejectedReactions != null) {
+            seniorRejectedReactions.validate();
         }
     }
 

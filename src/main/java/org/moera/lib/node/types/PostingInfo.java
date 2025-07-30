@@ -57,7 +57,8 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private List<String> blockedCommentOperations;
     private List<String> sheriffs;
     private List<SheriffMark> sheriffMarks;
-    private AcceptedReactions acceptedReactions;
+    private RejectedReactions rejectedReactions;
+    private RejectedReactions commentRejectedReactions;
     private ClientReactionInfo clientReaction;
     private ReactionTotalsInfo reactions;
     private List<PostingSourceInfo> sources;
@@ -943,21 +944,39 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     }
 
     /**
-     * Retrieves types of reactions that the posting accepts.
+     * Retrieves types of reactions that the posting rejects.
      *
      * @return the value
      */
-    public AcceptedReactions getAcceptedReactions() {
-        return acceptedReactions;
+    public RejectedReactions getRejectedReactions() {
+        return rejectedReactions;
     }
 
     /**
-     * Sets types of reactions that the posting accepts.
+     * Sets types of reactions that the posting rejects.
      *
-     * @param acceptedReactions the value to be set
+     * @param rejectedReactions the value to be set
      */
-    public void setAcceptedReactions(AcceptedReactions acceptedReactions) {
-        this.acceptedReactions = acceptedReactions;
+    public void setRejectedReactions(RejectedReactions rejectedReactions) {
+        this.rejectedReactions = rejectedReactions;
+    }
+
+    /**
+     * Retrieves types of reactions that the posting's comments should reject.
+     *
+     * @return the value
+     */
+    public RejectedReactions getCommentRejectedReactions() {
+        return commentRejectedReactions;
+    }
+
+    /**
+     * Sets types of reactions that the posting's comments should reject.
+     *
+     * @param commentRejectedReactions the value to be set
+     */
+    public void setCommentRejectedReactions(RejectedReactions commentRejectedReactions) {
+        this.commentRejectedReactions = commentRejectedReactions;
     }
 
     /**
@@ -1060,8 +1079,11 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
         if (updateInfo != null) {
             updateInfo.validate();
         }
-        if (acceptedReactions != null) {
-            acceptedReactions.validate();
+        if (rejectedReactions != null) {
+            rejectedReactions.validate();
+        }
+        if (commentRejectedReactions != null) {
+            commentRejectedReactions.validate();
         }
         if (reactions != null) {
             reactions.validate();
