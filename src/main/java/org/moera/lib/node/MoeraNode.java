@@ -653,6 +653,18 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Fetch the detailed information, including relationships, about the contacts matching the filter.
+     *
+     * @param filter filter
+     * @return ContactWithRelationships[]
+     */
+    public ContactWithRelationships[] fetchContacts(ContactFilter filter) throws MoeraNodeException {
+        var location = "/people/contacts/fetch";
+        var returnTypeRef = new TypeReference<ContactWithRelationships[]>() {};
+        return call(location, null, "POST", filter, returnTypeRef);
+    }
+
+    /**
      * Check whether the credentials are initialized already.
      *
      * @return CredentialsCreated
