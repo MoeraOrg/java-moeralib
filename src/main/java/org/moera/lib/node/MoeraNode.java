@@ -1898,15 +1898,18 @@ public class MoeraNode extends NodeApiClient {
      * authenticated, the service may tune the recommendations for them. <br><br> The service may decide to return
      * fewer recommendations than the given <code>limit</code>.
      *
+     * @param feed name of the feed to get recommendations for ("news" by default); recommendations for every feed are
+     * tracked separately
      * @param sheriff filter out entries prohibited by the given sheriff
      * @param limit maximum number of recommendations returned
      * @return RecommendedPostingInfo[]
      */
     public RecommendedPostingInfo[] getRecommendedPostings(
-        String sheriff, Integer limit
+        String feed, String sheriff, Integer limit
     ) throws MoeraNodeException {
         var location = "/recommendations/postings";
         var params = new QueryParam[] {
+            QueryParam.of("feed", feed),
             QueryParam.of("sheriff", sheriff),
             QueryParam.of("limit", limit)
         };
@@ -1961,12 +1964,19 @@ public class MoeraNode extends NodeApiClient {
      *
      * @param nodeName name of the remote node
      * @param postingId ID of the posting on the remote node
+     * @param feed name of the feed the recommendation is accepted to ("news" by default); recommendations for every
+     * feed are tracked separately
      * @return Result
      */
-    public Result acceptRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
+    public Result acceptRecommendedPosting(
+        String nodeName, String postingId, String feed
+    ) throws MoeraNodeException {
         var location = "/recommendations/postings/accepted/%s/%s".formatted(ue(nodeName), ue(postingId));
+        var params = new QueryParam[] {
+            QueryParam.of("feed", feed)
+        };
         var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
+        return call(location, params, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
@@ -1974,12 +1984,19 @@ public class MoeraNode extends NodeApiClient {
      *
      * @param nodeName name of the remote node
      * @param postingId ID of the posting on the remote node
+     * @param feed name of the feed the recommendation is rejected for ("news" by default); recommendations for every
+     * feed are tracked separately
      * @return Result
      */
-    public Result rejectRecommendedPosting(String nodeName, String postingId) throws MoeraNodeException {
+    public Result rejectRecommendedPosting(
+        String nodeName, String postingId, String feed
+    ) throws MoeraNodeException {
         var location = "/recommendations/postings/rejected/%s/%s".formatted(ue(nodeName), ue(postingId));
+        var params = new QueryParam[] {
+            QueryParam.of("feed", feed)
+        };
         var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
+        return call(location, params, "POST", Collections.emptyMap(), returnTypeRef);
     }
 
     /**
