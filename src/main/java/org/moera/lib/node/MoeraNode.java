@@ -2000,6 +2000,26 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Find the most active nodes known to the recommendation service. <br><br> The service may decide to return fewer
+     * recommendations than the given <code>limit</code>.
+     *
+     * @param sheriff filter out nodes prohibited by the given sheriff
+     * @param limit maximum number of recommendations returned
+     * @return RecommendedNodeInfo[]
+     */
+    public RecommendedNodeInfo[] getRecommendedNodesByActivity(
+        String sheriff, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/recommendations/nodes/active";
+        var params = new QueryParam[] {
+            QueryParam.of("sheriff", sheriff),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<RecommendedNodeInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
      * Ask the recommendation service to exclude all content from the given node from future recommendations.
      *
      * @param nodeName name of the remote node
