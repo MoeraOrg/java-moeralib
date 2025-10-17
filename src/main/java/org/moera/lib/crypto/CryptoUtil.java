@@ -47,6 +47,8 @@ public class CryptoUtil {
 
     private static final Logger log = LoggerFactory.getLogger(CryptoUtil.class);
 
+    private static final String HUMAN_FRIENDLY_TOKEN_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
     private static byte[] encodeUnsigned(BigInteger v, int len) {
         byte[] r = v.toByteArray();
         byte[] e = new byte[len];
@@ -242,8 +244,8 @@ public class CryptoUtil {
     /**
      * Generates a secure random token encoded in Base64 URL format.
      *
-     * @return Base64 URL-encoded token string.
-     * @throws CryptoException If the specified cryptographic algorithm or provider is not available.
+     * @return Base64 URL-encoded token string
+     * @throws CryptoException if the specified cryptographic algorithm or provider is not available
      */
     public static String token() {
         byte[] random = new byte[32];
@@ -253,6 +255,31 @@ public class CryptoUtil {
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
             throw new CryptoException(e);
         }
+    }
+
+    /**
+     * Generates a human-friendly token of the specified length using a predefined alphabet.
+     *
+     * @param length the desired length of the token; must be greater than or equal to 0
+     * @return a string token of the specified length; returns an empty string if the length is 0
+     * @throws IllegalArgumentException if the specified length is negative
+     */
+    public static String humanFriendlyToken(int length) {
+        if (length < 0) {
+            throw new IllegalArgumentException("Length must be greater than or equal to 0");
+        }
+
+        if (length == 0) {
+            return "";
+        }
+
+        byte[] random = new byte[length];
+        new SecureRandom().nextBytes(random);
+        StringBuilder token = new StringBuilder();
+        for (byte b : random) {
+            token.append(HUMAN_FRIENDLY_TOKEN_ALPHABET.charAt((b & 0xFF) % HUMAN_FRIENDLY_TOKEN_ALPHABET.length()));
+        }
+        return token.toString();
     }
 
     /**
