@@ -14,6 +14,7 @@ public class WhoAmI extends Structure implements Cloneable {
     private String title;
     private AvatarImage avatar;
     private Boolean frozen;
+    private NodeType type;
 
     /**
      * Retrieves .
@@ -141,6 +142,24 @@ public class WhoAmI extends Structure implements Cloneable {
      */
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
+    }
+
+    /**
+     * Retrieves type of the node, <code>regular</code> by default.
+     *
+     * @return the value
+     */
+    public NodeType getType() {
+        return type;
+    }
+
+    /**
+     * Sets type of the node, <code>regular</code> by default.
+     *
+     * @param type the value to be set
+     */
+    public void setType(NodeType type) {
+        this.type = type;
     }
 
     /**

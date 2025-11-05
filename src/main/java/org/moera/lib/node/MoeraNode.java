@@ -728,6 +728,21 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Verify the credentials reset token. If the token is valid, it may be used later to change the credentials
+     * without knowing the password.
+     *
+     * @param resetToken resetToken
+     * @return VerificationInfo
+     */
+    public VerificationInfo verifyCredentialsResetToken(
+        CredentialsResetToken resetToken
+    ) throws MoeraNodeException {
+        var location = "/credentials/reset/verify";
+        var returnTypeRef = new TypeReference<VerificationInfo>() {};
+        return call(location, null, "POST", resetToken, returnTypeRef);
+    }
+
+    /**
      * Get the list of deleted postings, page by page. The node may decide to use a smaller page size than the given
      * <code>limit</code>. The postings are always sorted by the deletion timestamp, descending.
      *

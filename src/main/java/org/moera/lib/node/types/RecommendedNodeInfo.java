@@ -11,6 +11,8 @@ public class RecommendedNodeInfo extends Structure implements Cloneable {
     private String fullName;
     private String title;
     private AvatarImage avatar;
+    private int subscribersTotal;
+    private int postingsTotal;
 
     /**
      * Retrieves .
@@ -82,6 +84,42 @@ public class RecommendedNodeInfo extends Structure implements Cloneable {
      */
     public void setAvatar(AvatarImage avatar) {
         this.avatar = avatar;
+    }
+
+    /**
+     * Retrieves total number of subscribers of the node.
+     *
+     * @return the value
+     */
+    public int getSubscribersTotal() {
+        return subscribersTotal;
+    }
+
+    /**
+     * Sets total number of subscribers of the node.
+     *
+     * @param subscribersTotal the value to be set
+     */
+    public void setSubscribersTotal(int subscribersTotal) {
+        this.subscribersTotal = subscribersTotal;
+    }
+
+    /**
+     * Retrieves total number of public postings published by the node.
+     *
+     * @return the value
+     */
+    public int getPostingsTotal() {
+        return postingsTotal;
+    }
+
+    /**
+     * Sets total number of public postings published by the node.
+     *
+     * @param postingsTotal the value to be set
+     */
+    public void setPostingsTotal(int postingsTotal) {
+        this.postingsTotal = postingsTotal;
     }
 
     /**
