@@ -1,5 +1,6 @@
 package org.moera.lib.pushrelay;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -57,64 +58,46 @@ public class PushRelay extends JsonRpcClient implements PushRelayApi {
 
     @Override
     public void register(String clientId, String nodeName, String lang, long signedAt, byte[] signature) {
-        fetch(
-            null,
-            "register",
-            Map.of(
-                "clientId", clientId,
-                "nodeName", nodeName,
-                "lang", lang,
-                "signedAt", signedAt,
-                "signature", signature
-            )
-        );
+        Map<String, Object> params = new HashMap<>();
+        params.put("clientId", clientId);
+        params.put("nodeName", nodeName);
+        params.put("lang", lang);
+        params.put("signedAt", signedAt);
+        params.put("signature", signature);
+        fetch(null, "register", params);
     }
 
     @Override
     public void feedStatus(
-        String feedName, int notViewed, long notViewedMoment, String nodeName, long signedAt,
-        byte[] signature
+        String feedName, int notViewed, long notViewedMoment, String nodeName, long signedAt, byte[] signature
     ) {
-        fetch(
-            null,
-            "feedStatus",
-            Map.of(
-                "feedName", feedName,
-                "notViewed", notViewed,
-                "notViewedMoment", notViewedMoment,
-                "nodeName", nodeName,
-                "signedAt", signedAt,
-                "signature", signature
-            )
-        );
+        Map<String, Object> params = new HashMap<>();
+        params.put("feedName", feedName);
+        params.put("notViewed", notViewed);
+        params.put("notViewedMoment", notViewedMoment);
+        params.put("nodeName", nodeName);
+        params.put("signedAt", signedAt);
+        params.put("signature", signature);
+        fetch(null, "feedStatus", params);
     }
 
     @Override
     public void storyAdded(StoryInfo story, String nodeName, long signedAt, byte[] signature) {
-        fetch(
-            null,
-            "storyAdded",
-            Map.of(
-                "story", story,
-                "nodeName", nodeName,
-                "signedAt", signedAt,
-                "signature", signature
-            )
-        );
+        Map<String, Object> params = new HashMap<>();
+        params.put("story", story);
+        params.put("nodeName", nodeName);
+        params.put("signedAt", signedAt);
+        params.put("signature", signature);
+        fetch(null, "storyAdded", params);
     }
 
     @Override
     public void storyDeleted(String storyId, String nodeName, long signedAt, byte[] signature) {
-        fetch(
-            null,
-            "storyDeleted",
-            Map.of(
-                "storyId", storyId,
-                "nodeName", nodeName,
-                "signedAt", signedAt,
-                "signature", signature
-            )
-        );
+        Map<String, Object> params = new HashMap<>();
+        params.put("storyId", storyId);
+        params.put("nodeName", nodeName);
+        params.put("signedAt", signedAt);
+        params.put("signature", signature);
+        fetch(null, "storyDeleted", params);
     }
-
 }
