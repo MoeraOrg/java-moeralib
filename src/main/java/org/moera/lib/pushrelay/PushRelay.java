@@ -57,6 +57,19 @@ public class PushRelay extends JsonRpcClient implements PushRelayApi {
     }
 
     @Override
+    protected <T> T fetch(TypeReference<T> result, String method, Map<String, Object> parameters) {
+        try {
+            return super.fetch(result, method, parameters);
+        } catch (JsonRpcException e) {
+            throw new PushRelayException(e.getMessage());
+        } catch (JsonRpcConnectionException e) {
+            throw new PushRelayConnectionException(e.getMessage());
+        } catch (JsonRpcApiException e) {
+            throw new PushRelayApiException(e.getRpcError());
+        }
+    }
+
+    @Override
     public void register(String clientId, String nodeName, String lang, long signedAt, byte[] signature) {
         Map<String, Object> params = new HashMap<>();
         params.put("clientId", clientId);
