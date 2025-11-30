@@ -65,6 +65,7 @@ public class NodeApiClient {
     private String carte;
     private CarteSource carteSource;
     private NodeAuth authMethod = NodeAuth.NONE;
+    private String userAgent;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final OkHttpClient client = new OkHttpClient();
@@ -196,6 +197,15 @@ public class NodeApiClient {
     }
 
     /**
+     * Set User-Agent header content.
+     *
+     * @param userAgent the user agent
+     */
+    public void userAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    /**
      * Executes a request to the node API with the specified parameters and parses the JSON response into
      * the specified result type.
      *
@@ -302,6 +312,9 @@ public class NodeApiClient {
 
         requestBuilder.method(method, requestBody);
         requestBuilder.addHeader("Accept", "application/json");
+        if (userAgent != null) {
+            requestBuilder.addHeader("User-Agent", userAgent);
+        }
 
         String bearer = null;
         switch (authMethod) {
