@@ -1833,6 +1833,17 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Repeat verification process (resend the confirmation mail) for the current e-mail address set in the profile.
+     *
+     * @return Result
+     */
+    public Result verifyEmail() throws MoeraNodeException {
+        var location = "/profile/email/verify";
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
+    }
+
+    /**
      * Get the current status of the request to delete the node.
      *
      * @return DeleteNodeStatus

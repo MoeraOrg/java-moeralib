@@ -5,7 +5,7 @@
 
     <groupId>org.moera</groupId>
     <artifactId>moeralib</artifactId>
-    <version>0.17.11.1</version>
+    <version>0.17.11.2</version>
 
     <name>moeralib</name>
     <description>Java library to interact with Moera decentralized social network</description>

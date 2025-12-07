@@ -10,7 +10,11 @@ public enum SearchEngine {
     /**
      * Google.
      */
-    GOOGLE;
+    GOOGLE,
+    /**
+     * Bing.
+     */
+    BING;
 
     /**
      * Retrieves the string representation of the enum constant.

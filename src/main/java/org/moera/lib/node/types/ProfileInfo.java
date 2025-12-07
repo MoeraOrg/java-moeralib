@@ -12,6 +12,7 @@ public class ProfileInfo extends Structure implements Cloneable {
     private String fullName;
     private String gender;
     private String email;
+    private Boolean emailVerified;
     private String title;
     private String bioSrc;
     private SourceFormat bioSrcFormat;
@@ -72,6 +73,24 @@ public class ProfileInfo extends Structure implements Cloneable {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Retrieves <code>true</code>, if the node owner's E-mail address is verified, <code>false</code> otherwise.
+     *
+     * @return the value
+     */
+    public Boolean getEmailVerified() {
+        return emailVerified;
+    }
+
+    /**
+     * Sets <code>true</code>, if the node owner's E-mail address is verified, <code>false</code> otherwise.
+     *
+     * @param emailVerified the value to be set
+     */
+    public void setEmailVerified(Boolean emailVerified) {
+        this.emailVerified = emailVerified;
     }
 
     /**
