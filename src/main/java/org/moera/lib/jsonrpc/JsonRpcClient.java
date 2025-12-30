@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Represents a JSON-RPC client capable of sending requests to a server and retrieving responses.
- * It supports handling of JSON-RPC 2.0 requests and responses.
+ * It supports the handling of JSON-RPC 2.0 requests and responses.
  * <p>
  * This class is thread-safe.
  */
@@ -62,15 +62,7 @@ public class JsonRpcClient {
         request.setId(id.incrementAndGet());
         request.setMethod(method);
         request.setParams(objectMapper.valueToTree(parameters));
-        JsonRpcResponse response = fetcher.apply(request);
-        if (response.getError() != null) {
-            throw new JsonRpcApiException(response.getError());
-        }
-        if (result != null) {
-            return objectMapper.convertValue(response.getResult(), result);
-        } else {
-            return null;
-        }
+        return convertResponse(result, fetcher.apply(request));
     }
 
     /**
@@ -93,12 +85,16 @@ public class JsonRpcClient {
         request.setId(id.incrementAndGet());
         request.setMethod(method);
         request.setParams(objectMapper.valueToTree(parameters));
-        JsonRpcResponse response = fetcher.apply(request);
-        if (response.getError() != null) {
-            throw new JsonRpcApiException(response.getError());
+        return convertResponse(result, fetcher.apply(request));
+    }
+
+    private <T> T convertResponse(TypeReference<T> result, JsonRpcResponse response) {
+        if (response instanceof JsonRpcErrorResponse err) {
+            throw new JsonRpcApiException(err.getError());
         }
+        assert response instanceof JsonRpcResultResponse;
         if (result != null) {
-            return objectMapper.convertValue(response.getResult(), result);
+            return objectMapper.convertValue(((JsonRpcResultResponse) response).getResult(), result);
         } else {
             return null;
         }
