@@ -212,7 +212,6 @@ public class PostingSourceText extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
-        ValidationUtil.notNull(bodySrc, "posting.body-src.blank");
         ValidationUtil.maxSize(bodySrc, 65535, "posting.body-src.wrong-size");
         if (rejectedReactions != null) {
             rejectedReactions.validate();

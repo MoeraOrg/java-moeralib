@@ -32,6 +32,7 @@ public class PostingText extends Structure implements Cloneable {
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
+    private String externalSourceUri;
 
     /**
      * Retrieves node name of the posting's owner.
@@ -422,6 +423,28 @@ public class PostingText extends Structure implements Cloneable {
         this.commentReactionOperations = commentReactionOperations;
     }
 
+    /**
+     * Retrieves URI of the external source the posting was received from; used by software that automatically forwards
+     * postings from other social networks (for admin only)
+     * .
+     *
+     * @return the value
+     */
+    public String getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URI of the external source the posting was received from; used by software that automatically forwards
+     * postings from other social networks (for admin only)
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(String externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
+    }
+
     @Override
     public void validate() {
         super.validate();
@@ -437,6 +460,7 @@ public class PostingText extends Structure implements Cloneable {
         if (updateInfo != null) {
             updateInfo.validate();
         }
+        ValidationUtil.maxSize(externalSourceUri, 1024, "posting.external-source-uri.wrong-size");
     }
 
     /**

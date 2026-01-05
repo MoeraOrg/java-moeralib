@@ -1567,6 +1567,21 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Get all postings coming from the given external source.
+     *
+     * @param external URI of the external source of the posting
+     * @return PostingInfo[]
+     */
+    public PostingInfo[] getPostingsByExternalSource(String external) throws MoeraNodeException {
+        var location = "/postings";
+        var params = new QueryParam[] {
+            QueryParam.of("external", external)
+        };
+        var returnTypeRef = new TypeReference<PostingInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
      * Update the posting, creating a new revision of it. The text is processed just like in the <code>POST</code>
      * request.
      *

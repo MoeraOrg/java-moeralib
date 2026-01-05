@@ -64,6 +64,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private List<PostingSourceInfo> sources;
     private Integer totalComments;
     private Boolean recommended;
+    private String externalSourceUri;
 
     /**
      * Retrieves .
@@ -1071,6 +1072,28 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setRecommended(Boolean recommended) {
         this.recommended = recommended;
+    }
+
+    /**
+     * Retrieves URI of the external source the posting was received from; used by software that automatically forwards
+     * postings from other social networks (for admin only)
+     * .
+     *
+     * @return the value
+     */
+    public String getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URI of the external source the posting was received from; used by software that automatically forwards
+     * postings from other social networks (for admin only)
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(String externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
     }
 
     @Override
