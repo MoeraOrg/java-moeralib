@@ -14,7 +14,11 @@ public enum SearchEngine {
     /**
      * Bing.
      */
-    BING;
+    BING,
+    /**
+     * Yandex.
+     */
+    YANDEX;
 
     /**
      * Retrieves the string representation of the enum constant.
