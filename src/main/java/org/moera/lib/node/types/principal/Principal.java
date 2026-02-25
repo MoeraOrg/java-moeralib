@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.util.StdConverter;
 
 /**
  * Represents a principal entity in Moera that encapsulates various predefined types and

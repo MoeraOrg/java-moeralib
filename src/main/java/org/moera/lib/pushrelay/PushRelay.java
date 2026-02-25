@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.jsonrpc.JsonRpcApiException;
 import org.moera.lib.jsonrpc.JsonRpcClient;
 import org.moera.lib.jsonrpc.JsonRpcConnectionException;
@@ -12,6 +11,7 @@ import org.moera.lib.jsonrpc.JsonRpcException;
 import org.moera.lib.jsonrpc.JsonRpcRequest;
 import org.moera.lib.jsonrpc.JsonRpcResponse;
 import org.moera.lib.node.types.StoryInfo;
+import tools.jackson.core.type.TypeReference;
 
 /**
  * The {@code PushRelay} class provides an implementation of the {@link PushRelayApi} interface

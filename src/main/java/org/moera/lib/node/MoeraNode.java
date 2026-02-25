@@ -5,9 +5,9 @@ package org.moera.lib.node;
 import java.nio.file.Path;
 import java.util.Collections;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
+import tools.jackson.core.type.TypeReference;
 
 /**
  * {@code MoeraNode} is a client for interfacing with Moera nodes using the Moera Node API.

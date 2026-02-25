@@ -1,7 +1,7 @@
 package org.moera.lib.jsonrpc;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 
 /**
  * Represents a JSON-RPC 2.0 request as specified by the JSON-RPC protocol.

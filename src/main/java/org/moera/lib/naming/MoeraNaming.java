@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.moera.lib.jsonrpc.JsonRpcApiException;
 import org.moera.lib.jsonrpc.JsonRpcClient;
 import org.moera.lib.jsonrpc.JsonRpcConnectionException;
@@ -14,6 +13,7 @@ import org.moera.lib.jsonrpc.JsonRpcResponse;
 import org.moera.lib.naming.types.OperationStatusInfo;
 import org.moera.lib.naming.types.RegisteredNameInfo;
 import org.moera.lib.naming.types.SigningKeyInfo;
+import tools.jackson.core.type.TypeReference;
 
 /**
  * {@code MoeraNaming} is a client for interfacing with the Moera Naming Service.

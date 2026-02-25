@@ -8,9 +8,6 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -27,6 +24,9 @@ import org.moera.lib.node.exception.MoeraNodeApiValidationException;
 import org.moera.lib.node.exception.MoeraNodeCallException;
 import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * This class implements basic REST API operations that allow applications to call Moera Node API.
@@ -253,7 +253,7 @@ public class NodeApiClient {
             requestBody = body != null
                 ? RequestBody.create(objectMapper.writeValueAsString(body), MediaType.parse("application/json"))
                 : null;
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new MoeraNodeCallException("Cannot encode the request body", e);
         }
 

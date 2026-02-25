@@ -1,15 +1,14 @@
 package org.moera.lib.node.types.body;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
 import org.moera.lib.util.Util;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.util.StdConverter;
 
 /**
  * Represents the body of a posting or comment in its decoded and encoded forms.
@@ -50,7 +49,7 @@ public class Body implements Cloneable {
         ObjectMapper mapper = new ObjectMapper();
         try {
             decoded = mapper.readValue(encoded, BodyDecoded.class);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new BodyMappingException(e);
         }
         getLinkPreviews().forEach(lp -> lp.setParent(this));
@@ -60,7 +59,7 @@ public class Body implements Cloneable {
         ObjectMapper mapper = new ObjectMapper();
         try {
             encoded = mapper.writeValueAsString(decoded);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new BodyMappingException(e);
         }
     }

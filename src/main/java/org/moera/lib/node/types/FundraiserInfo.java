@@ -9,10 +9,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 public class FundraiserInfo extends Structure {
 
@@ -37,7 +37,7 @@ public class FundraiserInfo extends Structure {
         } else {
             try {
                 return new ObjectMapper().writeValueAsString(fundraisers);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 log.error("Error serializing FundraiserInfo[]", e);
                 return null;
             }
@@ -93,7 +93,7 @@ public class FundraiserInfo extends Structure {
     public String toString() {
         try {
             return new ObjectMapper().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             return null;
         }
     }

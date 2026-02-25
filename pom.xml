@@ -5,7 +5,7 @@
 
     <groupId>org.moera</groupId>
     <artifactId>moeralib</artifactId>
-    <version>0.18.0</version>
+    <version>0.18.1-SNAPSHOT</version>
 
     <name>moeralib</name>
     <description>Java library to interact with Moera decentralized social network</description>
@@ -41,17 +41,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.18.2</version>
+            <version>3.0-rc5</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.18.2</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.18.2</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

@@ -1,10 +1,9 @@
 package org.moera.lib.node.exception;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.moera.lib.node.types.Result;
 import org.moera.lib.util.LogUtil;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Represents an exception thrown when an error occurs while interacting with the Moera Node API.
@@ -90,7 +89,7 @@ public class MoeraNodeApiException extends MoeraNodeException {
 
         try {
             return new ObjectMapper().readValue(body, Result.class);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             return null;
         }
     }

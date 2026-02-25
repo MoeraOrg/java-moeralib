@@ -3,13 +3,13 @@ package org.moera.lib.jsonrpc;
 import java.io.IOException;
 import java.util.function.Function;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * This class is responsible for fetching responses from a remote JSON-RPC server using the OkHttp client.
@@ -59,13 +59,13 @@ public class OkHttpFetcher implements Function<JsonRpcRequest, JsonRpcResponse> 
                 }
                 try {
                     return objectMapper.readValue(response.body().string(), JsonRpcResponse.class);
-                } catch (JsonProcessingException e) {
+                } catch (JacksonException e) {
                     throw new JsonRpcException("Error parsing JSON", e);
                 }
             } catch (IOException e) {
                 throw new JsonRpcConnectionException("Request failed", e);
             }
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new JsonRpcException("Error converting to JSON", e);
         }
     }
