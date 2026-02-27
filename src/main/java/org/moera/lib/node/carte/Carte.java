@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import org.moera.lib.crypto.CryptoUtil;
 import org.moera.lib.naming.NodeName;
@@ -37,7 +38,8 @@ public class Carte {
      * Generates a cryptographically signed carte.
      *
      * @param ownerName the name of the node authenticating with the carte
-     * @param address if set, the carte is valid for authentication from the given IP address only
+     * @param addresses if set, the carte is valid for authenticating requests coming from one of the given IP addresses
+     *                 only
      * @param beginning the beginning time of the carte's life
      * @param signingKey the private key used to sign the carte
      * @param nodeName if set, the carte is valid for authentication on the specified node only
@@ -48,7 +50,7 @@ public class Carte {
      */
     public static String generate(
         String ownerName,
-        InetAddress address,
+        List<InetAddress> addresses,
         Instant beginning,
         PrivateKey signingKey,
         String nodeName,
@@ -59,7 +61,7 @@ public class Carte {
         new SecureRandom().nextBytes(salt);
         byte[] fingerprint = Fingerprints.carte(
             NodeName.expand(ownerName),
-            address,
+            addresses,
             Timestamp.from(beginning),
             Timestamp.from(getDeadline(beginning)),
             NodeName.expand(nodeName),

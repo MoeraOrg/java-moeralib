@@ -21,6 +21,18 @@ public class Fingerprints {
         new FieldWithSchema("digest", "byte[]"),
     };
 
+    private static final FieldWithSchema[] CARTE3_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("addresses", "InetAddress[]"),
+        new FieldWithSchema("beginning", "Timestamp"),
+        new FieldWithSchema("deadline", "Timestamp"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("client_scope", "long"),
+        new FieldWithSchema("admin_scope", "long"),
+        new FieldWithSchema("salt", "byte[]"),
+    };
+
     private static final FieldWithSchema[] CARTE2_SCHEMA = new FieldWithSchema[] {
         new FieldWithSchema("object_type", "String"),
         new FieldWithSchema("owner_name", "String"),
@@ -52,6 +64,20 @@ public class Fingerprints {
         new FieldWithSchema("deadline", "Timestamp"),
         new FieldWithSchema("permissions", "byte"),
         new FieldWithSchema("salt", "byte[]"),
+    };
+
+    private static final FieldWithSchema[] COMMENT1_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("owner_name", "String"),
+        new FieldWithSchema("posting_fingerprint", "byte[]"),
+        new FieldWithSchema("replied_to_fingerprint", "byte[]"),
+        new FieldWithSchema("body_src_hash", "byte[]"),
+        new FieldWithSchema("body_src_format", "String"),
+        new FieldWithSchema("body", "String"),
+        new FieldWithSchema("body_format", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("permissions", "byte"),
+        new FieldWithSchema("attachments", "byte[][]"),
     };
 
     private static final FieldWithSchema[] COMMENT0_SCHEMA = new FieldWithSchema[] {
@@ -152,12 +178,14 @@ public class Fingerprints {
                 default -> null;
             };
             case "CARTE" -> switch (version) {
+                case 3 -> CARTE3_SCHEMA;
                 case 2 -> CARTE2_SCHEMA;
                 case 1 -> CARTE1_SCHEMA;
                 case 0 -> CARTE0_SCHEMA;
                 default -> null;
             };
             case "COMMENT" -> switch (version) {
+                case 1 -> COMMENT1_SCHEMA;
                 case 0 -> COMMENT0_SCHEMA;
                 default -> null;
             };
@@ -204,10 +232,28 @@ public class Fingerprints {
     }
 
     public static byte[] carte(
-        String ownerName, InetAddress address, Timestamp beginning, Timestamp deadline, String nodeName,
+        String ownerName, List<InetAddress> addresses, Timestamp beginning, Timestamp deadline, String nodeName,
         long clientScope, long adminScope, byte[] salt
     ) {
-        return carte2(ownerName, address, beginning, deadline, nodeName, clientScope, adminScope, salt);
+        return carte3(ownerName, addresses, beginning, deadline, nodeName, clientScope, adminScope, salt);
+    }
+
+    public static byte[] carte3(
+        String ownerName, List<InetAddress> addresses, Timestamp beginning, Timestamp deadline, String nodeName,
+        long clientScope, long adminScope, byte[] salt
+    ) {
+        Fingerprint fingerprint = new Fingerprint(3);
+        fingerprint.put("object_type", "CARTE");
+        fingerprint.put("owner_name", ownerName);
+        fingerprint.put("addresses", addresses);
+        fingerprint.put("beginning", beginning);
+        fingerprint.put("deadline", deadline);
+        fingerprint.put("node_name", nodeName);
+        fingerprint.put("client_scope", clientScope);
+        fingerprint.put("admin_scope", adminScope);
+        fingerprint.put("salt", salt);
+
+        return CryptoUtil.fingerprint(fingerprint, CARTE3_SCHEMA);
     }
 
     public static byte[] carte2(
@@ -265,10 +311,31 @@ public class Fingerprints {
         String bodySrcFormat, String body, String bodyFormat, Timestamp createdAt, byte permissions,
         List<byte[]> attachments
     ) {
-        return comment0(
+        return comment1(
             ownerName, postingFingerprint, repliedToFingerprint, bodySrcHash, bodySrcFormat, body, bodyFormat,
             createdAt, permissions, attachments
         );
+    }
+
+    public static byte[] comment1(
+        String ownerName, byte[] postingFingerprint, byte[] repliedToFingerprint, byte[] bodySrcHash,
+        String bodySrcFormat, String body, String bodyFormat, Timestamp createdAt, byte permissions,
+        List<byte[]> attachments
+    ) {
+        Fingerprint fingerprint = new Fingerprint(1);
+        fingerprint.put("object_type", "COMMENT");
+        fingerprint.put("owner_name", ownerName);
+        fingerprint.put("posting_fingerprint", postingFingerprint);
+        fingerprint.put("replied_to_fingerprint", repliedToFingerprint);
+        fingerprint.put("body_src_hash", bodySrcHash);
+        fingerprint.put("body_src_format", bodySrcFormat);
+        fingerprint.put("body", body);
+        fingerprint.put("body_format", bodyFormat);
+        fingerprint.put("created_at", createdAt);
+        fingerprint.put("permissions", permissions);
+        fingerprint.put("attachments", attachments);
+
+        return CryptoUtil.fingerprint(fingerprint, COMMENT1_SCHEMA);
     }
 
     public static byte[] comment0(
