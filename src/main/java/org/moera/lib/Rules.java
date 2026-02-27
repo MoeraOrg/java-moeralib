@@ -3,6 +3,8 @@ package org.moera.lib;
 import java.time.Duration;
 import java.util.regex.Pattern;
 
+import org.moera.lib.util.Util;
+
 /**
  * The Rules class provides constants and utility methods for validating specific constraints used within the library.
  * It defines limits, algorithms, and validation logic for various properties and ensures compliance with
@@ -67,6 +69,23 @@ public class Rules {
      * Defines the maximum length in bytes for digital signatures.
      */
     public static final int SIGNATURE_MAX_LENGTH = 72; // FIXME must be exact value
+
+    /**
+     * Node name used to represent anonymous content author.
+     */
+    public static final String ANONYMOUS_NODE_NAME = "unk_0";
+
+    /**
+     * Public key used to verify signatures of anonymous content.
+     */
+    public static final byte[] ANONYMOUS_NODE_PUBLIC_KEY =
+        Util.base64decode("VNKYmrV8b1XR7phWvrTUbkfnxsPTKvHIcvJLGrBZQr0Z8eKVdTooBkIWS0CECPjLxPGaQkcKkMcZ6M6wEsJm9A==");
+
+    /**
+     * Private key used to sign anonymous content.
+     */
+    public static final byte[] ANONYMOUS_NODE_PRIVATE_KEY =
+        Util.base64decode("tCb+02pUSC6FLdQLPvrUhSBjD0xiV5Q+fQmZY3PKybo=");
 
     /**
      * Defines the maximum number of items allowed in a single page for pagination or listing operations.
