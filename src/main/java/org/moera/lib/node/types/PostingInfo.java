@@ -62,6 +62,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private ClientReactionInfo clientReaction;
     private ReactionTotalsInfo reactions;
     private List<PostingSourceInfo> sources;
+    private Boolean allowAnonymousComments;
     private Integer totalComments;
     private Boolean recommended;
     private String externalSourceUri;
@@ -1032,6 +1033,28 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setSources(List<PostingSourceInfo> sources) {
         this.sources = sources;
+    }
+
+    /**
+     * Retrieves <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code>
+     * (default) otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getAllowAnonymousComments() {
+        return allowAnonymousComments;
+    }
+
+    /**
+     * Sets <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code> (default)
+     * otherwise
+     * .
+     *
+     * @param allowAnonymousComments the value to be set
+     */
+    public void setAllowAnonymousComments(Boolean allowAnonymousComments) {
+        this.allowAnonymousComments = allowAnonymousComments;
     }
 
     /**
