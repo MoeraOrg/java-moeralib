@@ -32,7 +32,6 @@ public class PostingText extends Structure implements Cloneable {
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
-    private Boolean allowAnonymousComments;
     private String externalSourceUri;
 
     /**
@@ -422,28 +421,6 @@ public class PostingText extends Structure implements Cloneable {
      */
     public void setCommentReactionOperations(ReactionOperations commentReactionOperations) {
         this.commentReactionOperations = commentReactionOperations;
-    }
-
-    /**
-     * Retrieves <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code>
-     * (default) otherwise
-     * .
-     *
-     * @return the value
-     */
-    public Boolean getAllowAnonymousComments() {
-        return allowAnonymousComments;
-    }
-
-    /**
-     * Sets <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code> (default)
-     * otherwise
-     * .
-     *
-     * @param allowAnonymousComments the value to be set
-     */
-    public void setAllowAnonymousComments(Boolean allowAnonymousComments) {
-        this.allowAnonymousComments = allowAnonymousComments;
     }
 
     /**

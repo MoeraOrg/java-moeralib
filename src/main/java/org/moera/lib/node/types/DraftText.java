@@ -27,7 +27,6 @@ public class DraftText extends Structure implements Cloneable {
     private UpdateInfo updateInfo;
     private PostingOperations operations;
     private CommentOperations commentOperations;
-    private Boolean allowAnonymousComments;
 
     /**
      * Retrieves type of the draft.
@@ -323,28 +322,6 @@ public class DraftText extends Structure implements Cloneable {
      */
     public void setCommentOperations(CommentOperations commentOperations) {
         this.commentOperations = commentOperations;
-    }
-
-    /**
-     * Retrieves <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code>
-     * (default) otherwise
-     * .
-     *
-     * @return the value
-     */
-    public Boolean getAllowAnonymousComments() {
-        return allowAnonymousComments;
-    }
-
-    /**
-     * Sets <code>true</code>, if it is allowed to add anonymous comments to the post, <code>false</code> (default)
-     * otherwise
-     * .
-     *
-     * @param allowAnonymousComments the value to be set
-     */
-    public void setAllowAnonymousComments(Boolean allowAnonymousComments) {
-        this.allowAnonymousComments = allowAnonymousComments;
     }
 
     @Override
