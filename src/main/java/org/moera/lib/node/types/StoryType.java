@@ -186,7 +186,19 @@ public enum StoryType {
     /**
      * Reminder for the user to allow access for Google Play sheriff.
      */
-    REMINDER_SHERIFF_ALLOW; // 44
+    REMINDER_SHERIFF_ALLOW, // 44
+    /**
+     * A comment is waiting for moderator's approval.
+     */
+    COMMENT_NEEDS_APPROVAL, // 45
+    /**
+     * The user's comment was accepted after premoderation.
+     */
+    PREMODERATED_COMMENT_ACCEPTED, // 46
+    /**
+     * The user's comment was rejected after premoderation.
+     */
+    PREMODERATED_COMMENT_REJECTED; // 47
 
     /**
      * Retrieves the string representation of the enum constant.

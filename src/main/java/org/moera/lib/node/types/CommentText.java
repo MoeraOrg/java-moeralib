@@ -27,6 +27,7 @@ public class CommentText extends Structure implements Cloneable {
     private String repliedToId;
     private byte[] signature;
     private Short signatureVersion;
+    private Boolean premoderating;
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
@@ -329,6 +330,28 @@ public class CommentText extends Structure implements Cloneable {
      */
     public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
+    }
+
+    /**
+     * Retrieves <code>true</code>, if the comment is being be checked by the post's author before publication,
+     * <code>false</code> (default) otherwise; only the senior may set this
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getPremoderating() {
+        return premoderating;
+    }
+
+    /**
+     * Sets <code>true</code>, if the comment is being be checked by the post's author before publication,
+     * <code>false</code> (default) otherwise; only the senior may set this
+     * .
+     *
+     * @param premoderating the value to be set
+     */
+    public void setPremoderating(Boolean premoderating) {
+        this.premoderating = premoderating;
     }
 
     /**

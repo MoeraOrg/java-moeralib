@@ -170,7 +170,11 @@ public enum NotificationType {
     /**
      * Text content of a media attached to a posting the receiver is subscribed to has been updated.
      */
-    POSTING_MEDIA_TEXT_UPDATED(PostingMediaTextUpdatedNotification.class); // 40
+    POSTING_MEDIA_TEXT_UPDATED(PostingMediaTextUpdatedNotification.class), // 40
+    /**
+     * The comment authored by the receiver has been accepted or rejected after premoderation.
+     */
+    PREMODERATED_COMMENT_DECIDED(PremoderatedCommentDecidedNotification.class); // 41
 
     private final Class<? extends Notification> structure;
 

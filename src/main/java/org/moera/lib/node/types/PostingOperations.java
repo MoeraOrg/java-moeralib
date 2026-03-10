@@ -16,6 +16,7 @@ public class PostingOperations implements Cloneable {
     private Principal delete;
     private Principal viewComments;
     private Principal addComment;
+    private Principal trustComment;
     private Principal overrideComment;
     private Principal viewReactions;
     private Principal viewNegativeReactions;
@@ -296,6 +297,60 @@ public class PostingOperations implements Cloneable {
      */
     public void setAddComment(Principal addComment, Principal defaultValue) {
         this.addComment = Objects.equals(addComment, defaultValue) ? null : addComment;
+    }
+
+    /**
+     * Retrieves the permission to publish a comment to the posting without premoderation.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getTrustComment() {
+        return trustComment;
+    }
+
+    /**
+     * Retrieves the permission to publish a comment to the posting without premoderation,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getTrustComment(Principal defaultValue) {
+        return trustComment != null ? trustComment : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to publish a comment to the posting without premoderation,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getTrustComment(PostingOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getTrustComment(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to publish a comment to the posting without premoderation.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param trustComment the permission to set, may be {@code null}
+     */
+    public void setTrustComment(Principal trustComment) {
+        this.trustComment = trustComment;
+    }
+
+    /**
+     * Sets the permission to publish a comment to the posting without premoderation.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param trustComment the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setTrustComment(Principal trustComment, Principal defaultValue) {
+        this.trustComment = Objects.equals(trustComment, defaultValue) ? null : trustComment;
     }
 
     /**
@@ -908,6 +963,7 @@ public class PostingOperations implements Cloneable {
             && delete == null
             && viewComments == null
             && addComment == null
+            && trustComment == null
             && overrideComment == null
             && viewReactions == null
             && viewNegativeReactions == null

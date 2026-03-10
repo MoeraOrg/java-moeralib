@@ -38,6 +38,7 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
     private byte[] digest;
     private byte[] signature;
     private Short signatureVersion;
+    private Boolean premoderating;
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations ownerOperations;
@@ -572,6 +573,28 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setSignatureVersion(Short signatureVersion) {
         this.signatureVersion = signatureVersion;
+    }
+
+    /**
+     * Retrieves <code>true</code>, if the comment is being be checked by the post's author before publication,
+     * <code>false</code> (default) otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getPremoderating() {
+        return premoderating;
+    }
+
+    /**
+     * Sets <code>true</code>, if the comment is being be checked by the post's author before publication,
+     * <code>false</code> (default) otherwise
+     * .
+     *
+     * @param premoderating the value to be set
+     */
+    public void setPremoderating(Boolean premoderating) {
+        this.premoderating = premoderating;
     }
 
     /**
