@@ -8,7 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class MediaFilePreviewInfo extends Structure implements Cloneable {
 
     private int targetWidth;
+    private String hash;
     private String directPath;
+    private Long directPathExpiresAt;
+    private String mimeType;
     private int width;
     private int height;
     private Boolean original;
@@ -32,8 +35,26 @@ public class MediaFilePreviewInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves location of the media file, relative to the <code>/media</code>; points to a static image served
-     * directly from a filesystem; static images do not accept any query parameters including authentication parameters
+     * Retrieves SHA-1 hash of the preview.
+     *
+     * @return the value
+     */
+    public String getHash() {
+        return hash;
+    }
+
+    /**
+     * Sets SHA-1 hash of the preview.
+     *
+     * @param hash the value to be set
+     */
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    /**
+     * Retrieves location of the preview, relative to the <code>/media</code>; points to a static image served directly
+     * from a filesystem or CDN
      * .
      *
      * @return the value
@@ -43,14 +64,50 @@ public class MediaFilePreviewInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Sets location of the media file, relative to the <code>/media</code>; points to a static image served directly
-     * from a filesystem; static images do not accept any query parameters including authentication parameters
+     * Sets location of the preview, relative to the <code>/media</code>; points to a static image served directly from
+     * a filesystem or CDN
      * .
      *
      * @param directPath the value to be set
      */
     public void setDirectPath(String directPath) {
         this.directPath = directPath;
+    }
+
+    /**
+     * Retrieves direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @return the value
+     */
+    public Long getDirectPathExpiresAt() {
+        return directPathExpiresAt;
+    }
+
+    /**
+     * Sets direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @param directPathExpiresAt the value to be set
+     */
+    public void setDirectPathExpiresAt(Long directPathExpiresAt) {
+        this.directPathExpiresAt = directPathExpiresAt;
+    }
+
+    /**
+     * Retrieves MIME type of the preview.
+     *
+     * @return the value
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Sets MIME type of the preview.
+     *
+     * @param mimeType the value to be set
+     */
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 
     /**

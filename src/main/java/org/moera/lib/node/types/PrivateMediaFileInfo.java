@@ -13,6 +13,7 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private String hash;
     private String path;
     private String directPath;
+    private Long directPathExpiresAt;
     private String mimeType;
     private Integer width;
     private Integer height;
@@ -83,7 +84,7 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
 
     /**
      * Retrieves location of the media file, relative to the <code>/media</code>; points to a static image served
-     * directly from a filesystem; static images do not accept any query parameters including authentication parameters
+     * directly from a filesystem or CDN
      * .
      *
      * @return the value
@@ -94,13 +95,31 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
 
     /**
      * Sets location of the media file, relative to the <code>/media</code>; points to a static image served directly
-     * from a filesystem; static images do not accept any query parameters including authentication parameters
+     * from a filesystem or CDN
      * .
      *
      * @param directPath the value to be set
      */
     public void setDirectPath(String directPath) {
         this.directPath = directPath;
+    }
+
+    /**
+     * Retrieves direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @return the value
+     */
+    public Long getDirectPathExpiresAt() {
+        return directPathExpiresAt;
+    }
+
+    /**
+     * Sets direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @param directPathExpiresAt the value to be set
+     */
+    public void setDirectPathExpiresAt(Long directPathExpiresAt) {
+        this.directPathExpiresAt = directPathExpiresAt;
     }
 
     /**

@@ -9,6 +9,9 @@ public class PublicMediaFileInfo extends Structure implements Cloneable {
 
     private String id;
     private String path;
+    private String directPath;
+    private Long directPathExpiresAt;
+    private String mimeType;
     private Integer width;
     private Integer height;
     private Short orientation;
@@ -52,6 +55,64 @@ public class PublicMediaFileInfo extends Structure implements Cloneable {
      */
     public void setPath(String path) {
         this.path = path;
+    }
+
+    /**
+     * Retrieves location of the media file, relative to the <code>/media</code>; points to a static image served
+     * directly from a filesystem or CDN
+     * .
+     *
+     * @return the value
+     */
+    public String getDirectPath() {
+        return directPath;
+    }
+
+    /**
+     * Sets location of the media file, relative to the <code>/media</code>; points to a static image served directly
+     * from a filesystem or CDN
+     * .
+     *
+     * @param directPath the value to be set
+     */
+    public void setDirectPath(String directPath) {
+        this.directPath = directPath;
+    }
+
+    /**
+     * Retrieves direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @return the value
+     */
+    public Long getDirectPathExpiresAt() {
+        return directPathExpiresAt;
+    }
+
+    /**
+     * Sets direct path expiration timestamp - the real time when the direct path will not be valid anymore.
+     *
+     * @param directPathExpiresAt the value to be set
+     */
+    public void setDirectPathExpiresAt(Long directPathExpiresAt) {
+        this.directPathExpiresAt = directPathExpiresAt;
+    }
+
+    /**
+     * Retrieves MIME type of the media.
+     *
+     * @return the value
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Sets MIME type of the media.
+     *
+     * @param mimeType the value to be set
+     */
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 
     /**
