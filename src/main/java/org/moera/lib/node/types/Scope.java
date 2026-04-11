@@ -201,6 +201,11 @@ public enum Scope {
      */
     REMOTE_DELETE_CONTENT   (0x00002100, false),
 
+    /**
+     * download private media files from remote nodes (combined scope)
+     */
+    REMOTE_DOWNLOAD_PRIVATE_MEDIA(0x20002000, false),
+
     // These are admin operations allowed when authenticated by carte
 
     /**

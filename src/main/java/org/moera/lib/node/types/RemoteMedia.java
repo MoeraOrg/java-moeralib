@@ -10,6 +10,8 @@ public class RemoteMedia extends Structure implements Cloneable {
     private String id;
     private String hash;
     private String digest;
+    private String mimeType;
+    private Boolean attachment;
 
     /**
      * Retrieves ID of the media file.
@@ -63,6 +65,46 @@ public class RemoteMedia extends Structure implements Cloneable {
      */
     public void setDigest(String digest) {
         this.digest = digest;
+    }
+
+    /**
+     * Retrieves MIME type of the media.
+     *
+     * @return the value
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Sets MIME type of the media.
+     *
+     * @param mimeType the value to be set
+     */
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    /**
+     * Retrieves <code>true</code> if the media cannot be displayed as an image or video and should be displayed as an
+     * attachment instead, <code>false</code> (default) otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getAttachment() {
+        return attachment;
+    }
+
+    /**
+     * Sets <code>true</code> if the media cannot be displayed as an image or video and should be displayed as an
+     * attachment instead, <code>false</code> (default) otherwise
+     * .
+     *
+     * @param attachment the value to be set
+     */
+    public void setAttachment(Boolean attachment) {
+        this.attachment = attachment;
     }
 
     /**

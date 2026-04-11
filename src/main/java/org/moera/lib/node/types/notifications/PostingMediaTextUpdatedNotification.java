@@ -16,6 +16,7 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
 
     private String postingId;
     private String mediaId;
+    private String title;
     private String textContent;
 
     public PostingMediaTextUpdatedNotification() {
@@ -59,6 +60,24 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
     }
 
     /**
+     * Retrieves title of the media file, may be used as an alternative to the file name.
+     *
+     * @return the value
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets title of the media file, may be used as an alternative to the file name.
+     *
+     * @param title the value to be set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
      * Retrieves text content of the media.
      *
      * @return the value
@@ -81,6 +100,7 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "posting.posting-id.wrong-size");
         ValidationUtil.maxSize(mediaId, 40, "media.media-id.wrong-size");
+        ValidationUtil.maxSize(title, 255, "media.title.wrong-size");
         ValidationUtil.maxSize(textContent, 16384, "media.text-content.wrong-size");
     }
 

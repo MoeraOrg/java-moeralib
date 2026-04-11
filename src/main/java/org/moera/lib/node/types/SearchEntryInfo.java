@@ -19,6 +19,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private String heading;
     private Integer imageCount;
     private Boolean videoPresent;
+    private Integer attachmentCount;
     private PublicMediaFileInfo mediaPreview;
     private String mediaPreviewId;
     private SearchRepliedTo repliedTo;
@@ -222,6 +223,24 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setVideoPresent(Boolean videoPresent) {
         this.videoPresent = videoPresent;
+    }
+
+    /**
+     * Retrieves number of file attachments the entry contains.
+     *
+     * @return the value
+     */
+    public Integer getAttachmentCount() {
+        return attachmentCount;
+    }
+
+    /**
+     * Sets number of file attachments the entry contains.
+     *
+     * @param attachmentCount the value to be set
+     */
+    public void setAttachmentCount(Integer attachmentCount) {
+        this.attachmentCount = attachmentCount;
     }
 
     /**

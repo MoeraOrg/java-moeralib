@@ -12,6 +12,7 @@ import org.moera.lib.node.types.principal.Principal;
 public class PrivateMediaFileOperations implements Cloneable {
 
     private Principal view;
+    private Principal edit;
 
     /**
      * Retrieves the permission to view the media file.
@@ -68,13 +69,68 @@ public class PrivateMediaFileOperations implements Cloneable {
     }
 
     /**
+     * Retrieves the permission to edit the media file attributes.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getEdit() {
+        return edit;
+    }
+
+    /**
+     * Retrieves the permission to edit the media file attributes,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getEdit(Principal defaultValue) {
+        return edit != null ? edit : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to edit the media file attributes,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getEdit(PrivateMediaFileOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getEdit(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to edit the media file attributes.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param edit the permission to set, may be {@code null}
+     */
+    public void setEdit(Principal edit) {
+        this.edit = edit;
+    }
+
+    /**
+     * Sets the permission to edit the media file attributes.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param edit the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setEdit(Principal edit, Principal defaultValue) {
+        this.edit = Objects.equals(edit, defaultValue) ? null : edit;
+    }
+
+    /**
      * Checks if all the permissions in the object are {@code null}.
      *
      * @return {@code true} if all the permissions are {@code null}, {@code false} otherwise.
      */
     @JsonIgnore
     public boolean isEmpty() {
-        return view == null;
+        return view == null
+            && edit == null;
     }
 
     /**

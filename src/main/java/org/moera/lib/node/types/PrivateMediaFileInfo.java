@@ -19,9 +19,12 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private Integer height;
     private Short orientation;
     private long size;
+    private String title;
     private String textContent;
     private String postingId;
     private List<MediaFilePreviewInfo> previews;
+    private Boolean attachment;
+    private Boolean malware;
     private PrivateMediaFileOperations operations;
 
     /**
@@ -219,6 +222,24 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves title of the media file, may be used as an alternative to the file name.
+     *
+     * @return the value
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets title of the media file, may be used as an alternative to the file name.
+     *
+     * @param title the value to be set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
      * Retrieves the text contained in the image, if any.
      *
      * @return the value
@@ -270,6 +291,49 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setPreviews(List<MediaFilePreviewInfo> previews) {
         this.previews = previews;
+    }
+
+    /**
+     * Retrieves <code>true</code> if the media cannot be displayed as an image or video and should be displayed as an
+     * attachment instead, <code>false</code> (default) otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getAttachment() {
+        return attachment;
+    }
+
+    /**
+     * Sets <code>true</code> if the media cannot be displayed as an image or video and should be displayed as an
+     * attachment instead, <code>false</code> (default) otherwise
+     * .
+     *
+     * @param attachment the value to be set
+     */
+    public void setAttachment(Boolean attachment) {
+        this.attachment = attachment;
+    }
+
+    /**
+     * Retrieves <code>true</code> if the media file is considered to be malware, <code>false</code> (default)
+     * otherwise
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getMalware() {
+        return malware;
+    }
+
+    /**
+     * Sets <code>true</code> if the media file is considered to be malware, <code>false</code> (default) otherwise
+     * .
+     *
+     * @param malware the value to be set
+     */
+    public void setMalware(Boolean malware) {
+        this.malware = malware;
     }
 
     /**

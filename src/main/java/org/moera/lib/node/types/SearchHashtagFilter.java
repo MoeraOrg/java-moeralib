@@ -18,6 +18,7 @@ public class SearchHashtagFilter extends Structure implements Cloneable {
     private Integer minImageCount;
     private Integer maxImageCount;
     private Boolean videoPresent;
+    private Boolean attachmentPresent;
     private String sheriffName;
     private Long after;
     private Long before;
@@ -174,6 +175,28 @@ public class SearchHashtagFilter extends Structure implements Cloneable {
      */
     public void setVideoPresent(Boolean videoPresent) {
         this.videoPresent = videoPresent;
+    }
+
+    /**
+     * Retrieves if <code>true</code>, return only the entries containing a file attachment, if <code>false</code>,
+     * return only the entries that do not contain a file attachment
+     * .
+     *
+     * @return the value
+     */
+    public Boolean getAttachmentPresent() {
+        return attachmentPresent;
+    }
+
+    /**
+     * Sets if <code>true</code>, return only the entries containing a file attachment, if <code>false</code>, return
+     * only the entries that do not contain a file attachment
+     * .
+     *
+     * @param attachmentPresent the value to be set
+     */
+    public void setAttachmentPresent(Boolean attachmentPresent) {
+        this.attachmentPresent = attachmentPresent;
     }
 
     /**
