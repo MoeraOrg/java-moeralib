@@ -54,7 +54,7 @@ public class ContactWithRelationships extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves information about the nodes's subscription to the contact's feeds.
+     * Retrieves information about the node's subscription to the contact's feeds.
      *
      * @return the value
      */
@@ -63,7 +63,7 @@ public class ContactWithRelationships extends Structure implements Cloneable {
     }
 
     /**
-     * Sets information about the nodes's subscription to the contact's feeds.
+     * Sets information about the node's subscription to the contact's feeds.
      *
      * @param subscription the value to be set
      */
