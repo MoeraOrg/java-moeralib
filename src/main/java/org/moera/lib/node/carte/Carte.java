@@ -17,8 +17,8 @@ import org.moera.lib.util.Util;
 
 /**
  * This class provides functionality for generating and handling a cryptographic "carte".
- * A carte is a signed token-like construct that incorporates specific user, node, and
- * time-related information to ensure security and authenticity.
+ * A carte is a signed short-living token that incorporates specific user, node, source IP addresses, permissions, and
+ * a period of time used for authentication.
  */
 public class Carte {
 
