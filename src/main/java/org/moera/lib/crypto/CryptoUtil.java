@@ -242,6 +242,25 @@ public class CryptoUtil {
     }
 
     /**
+     * Converts an {@link ECPrivateKey} instance to its corresponding {@link ECPublicKey}.
+     *
+     * @param privateKey the private key to be converted
+     * @return the public key derived from the provided private key
+     * @throws CryptoException if an error occurs during the conversion process, such as invalid key specification
+     *         or issues with the cryptographic provider
+     */
+    public static ECPublicKey privateToPublicKey(ECPrivateKey privateKey) {
+        ECParameterSpec parameterSpec = ECNamedCurveTable.getParameterSpec(Rules.EC_CURVE);
+        ECPublicKeySpec publicKeySpec =
+            new ECPublicKeySpec(parameterSpec.getG().multiply(privateKey.getS()), parameterSpec);
+        try {
+            return (ECPublicKey) KeyFactory.getInstance("EC", "BC").generatePublic(publicKeySpec);
+        } catch (GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
+    }
+
+    /**
      * Generates a secure random token encoded in Base64 URL format.
      *
      * @return Base64 URL-encoded token string
