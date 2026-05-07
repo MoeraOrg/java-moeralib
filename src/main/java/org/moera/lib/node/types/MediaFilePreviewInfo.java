@@ -9,6 +9,7 @@ public class MediaFilePreviewInfo extends Structure implements Cloneable {
 
     private int targetWidth;
     private String hash;
+    private String path;
     private String directPath;
     private Long directPathExpiresAt;
     private String mimeType;
@@ -50,6 +51,28 @@ public class MediaFilePreviewInfo extends Structure implements Cloneable {
      */
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    /**
+     * Retrieves virtual location of the preview, relative to the <code>/media</code> <a
+     * href="virtual-pages.html">virtual page</a>
+     * .
+     *
+     * @return the value
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * Sets virtual location of the preview, relative to the <code>/media</code> <a href="virtual-pages.html">virtual
+     * page</a>
+     * .
+     *
+     * @param path the value to be set
+     */
+    public void setPath(String path) {
+        this.path = path;
     }
 
     /**

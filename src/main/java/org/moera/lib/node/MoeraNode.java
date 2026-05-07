@@ -1309,17 +1309,20 @@ public class MoeraNode extends NodeApiClient {
      * size, but the best in quality variant of the media, according to the width provided
      * @param download if <code>true</code>, the node will add <code>Content-Disposition: attachment</code> header to
      * the output
+     * @param grant media grant allowing access to the media file
      * @param ignoremalware if <code>true</code>, the node will ignore malware detection and return the media file;
      * only admin may use this option
      * @param responseConsumer consumer of the data received
      */
     public void getPrivateMedia(
-        String id, Integer width, Boolean download, Boolean ignoremalware, ResponseConsumer responseConsumer
+        String id, Integer width, Boolean download, String grant, Boolean ignoremalware,
+        ResponseConsumer responseConsumer
     ) throws MoeraNodeException {
         var location = "/media/private/%s/data".formatted(ue(id));
         var params = new QueryParam[] {
             QueryParam.of("width", width),
             QueryParam.of("download", download),
+            QueryParam.of("grant", grant),
             QueryParam.of("ignoremalware", ignoremalware)
         };
         call(location, params, "GET", null, responseConsumer);
@@ -1329,12 +1332,16 @@ public class MoeraNode extends NodeApiClient {
      * Get media file details.
      *
      * @param id media file ID
+     * @param grant media grant allowing access to the media file
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo getPrivateMediaInfo(String id) throws MoeraNodeException {
+    public PrivateMediaFileInfo getPrivateMediaInfo(String id, String grant) throws MoeraNodeException {
         var location = "/media/private/%s/info".formatted(ue(id));
+        var params = new QueryParam[] {
+            QueryParam.of("grant", grant)
+        };
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
-        return call(location, null, "GET", null, returnTypeRef);
+        return call(location, params, "GET", null, returnTypeRef);
     }
 
     /**
@@ -1356,12 +1363,16 @@ public class MoeraNode extends NodeApiClient {
      * Get the list of all postings and comments the media file is attached to.
      *
      * @param id media file ID
+     * @param grant media grant allowing access to the media file
      * @return EntryInfo[]
      */
-    public EntryInfo[] getPrivateMediaParentEntry(String id) throws MoeraNodeException {
+    public EntryInfo[] getPrivateMediaParentEntry(String id, String grant) throws MoeraNodeException {
         var location = "/media/private/%s/parent".formatted(ue(id));
+        var params = new QueryParam[] {
+            QueryParam.of("grant", grant)
+        };
         var returnTypeRef = new TypeReference<EntryInfo[]>() {};
-        return call(location, null, "GET", null, returnTypeRef);
+        return call(location, params, "GET", null, returnTypeRef);
     }
 
     /**
@@ -2241,12 +2252,15 @@ public class MoeraNode extends NodeApiClient {
      *
      * @param nodeName name of the remote node
      * @param id id of the media file
+     * @param attributes attributes
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo downloadRemoteMedia(String nodeName, String id) throws MoeraNodeException {
+    public PrivateMediaFileInfo downloadRemoteMedia(
+        String nodeName, String id, MediaDownloadAttributes attributes
+    ) throws MoeraNodeException {
         var location = "/nodes/%s/media/private/%s/download".formatted(ue(nodeName), ue(id));
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
-        return call(location, null, "POST", Collections.emptyMap(), returnTypeRef);
+        return call(location, null, "POST", attributes, returnTypeRef);
     }
 
     /**

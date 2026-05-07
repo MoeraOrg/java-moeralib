@@ -21,10 +21,10 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private long size;
     private String title;
     private String textContent;
-    private String postingId;
     private List<MediaFilePreviewInfo> previews;
     private Boolean attachment;
     private Boolean malware;
+    private String grant;
     private PrivateMediaFileOperations operations;
 
     /**
@@ -258,24 +258,6 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves ID of the posting linked to the media.
-     *
-     * @return the value
-     */
-    public String getPostingId() {
-        return postingId;
-    }
-
-    /**
-     * Sets ID of the posting linked to the media.
-     *
-     * @param postingId the value to be set
-     */
-    public void setPostingId(String postingId) {
-        this.postingId = postingId;
-    }
-
-    /**
      * Retrieves list of media previews - downscaled versions of the media.
      *
      * @return the value
@@ -334,6 +316,24 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setMalware(Boolean malware) {
         this.malware = malware;
+    }
+
+    /**
+     * Retrieves media grant allowing access to the media.
+     *
+     * @return the value
+     */
+    public String getGrant() {
+        return grant;
+    }
+
+    /**
+     * Sets media grant allowing access to the media.
+     *
+     * @param grant the value to be set
+     */
+    public void setGrant(String grant) {
+        this.grant = grant;
     }
 
     /**

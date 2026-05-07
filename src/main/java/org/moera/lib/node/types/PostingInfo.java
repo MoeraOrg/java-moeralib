@@ -20,6 +20,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private AvatarImage receiverAvatar;
     private String receiverPostingId;
     private String parentMediaId;
+    private String parentMediaEntryId;
     private String ownerName;
     private String ownerFullName;
     private String ownerGender;
@@ -244,6 +245,24 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setParentMediaId(String parentMediaId) {
         this.parentMediaId = parentMediaId;
+    }
+
+    /**
+     * Retrieves ID of the entry that owns the attachment the posting is linked to, if any.
+     *
+     * @return the value
+     */
+    public String getParentMediaEntryId() {
+        return parentMediaEntryId;
+    }
+
+    /**
+     * Sets ID of the entry that owns the attachment the posting is linked to, if any.
+     *
+     * @param parentMediaEntryId the value to be set
+     */
+    public void setParentMediaEntryId(String parentMediaEntryId) {
+        this.parentMediaEntryId = parentMediaEntryId;
     }
 
     /**

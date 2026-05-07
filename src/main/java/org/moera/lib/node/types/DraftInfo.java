@@ -28,6 +28,7 @@ public class DraftInfo extends Structure implements Cloneable {
     private Body body;
     private BodyFormat bodyFormat;
     private List<MediaAttachment> media;
+    private List<MediaCaption> mediaCaptions;
     private String heading;
     private Long publishAt;
     private UpdateInfo updateInfo;
@@ -360,6 +361,24 @@ public class DraftInfo extends Structure implements Cloneable {
      */
     public void setMedia(List<MediaAttachment> media) {
         this.media = media;
+    }
+
+    /**
+     * Retrieves captions of the media attached to the draft.
+     *
+     * @return the value
+     */
+    public List<MediaCaption> getMediaCaptions() {
+        return mediaCaptions;
+    }
+
+    /**
+     * Sets captions of the media attached to the draft.
+     *
+     * @param mediaCaptions the value to be set
+     */
+    public void setMediaCaptions(List<MediaCaption> mediaCaptions) {
+        this.mediaCaptions = mediaCaptions;
     }
 
     /**

@@ -2,6 +2,8 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.body.Body;
 
@@ -15,6 +17,7 @@ public class CommentRevisionInfo extends Structure implements Cloneable {
     private SourceFormat bodySrcFormat;
     private Body body;
     private BodyFormat bodyFormat;
+    private List<MediaAttachment> media;
     private String heading;
     private String description;
     private long createdAt;
@@ -154,6 +157,24 @@ public class CommentRevisionInfo extends Structure implements Cloneable {
      */
     public void setBodyFormat(BodyFormat bodyFormat) {
         this.bodyFormat = bodyFormat;
+    }
+
+    /**
+     * Retrieves list of the media attached to the revision.
+     *
+     * @return the value
+     */
+    public List<MediaAttachment> getMedia() {
+        return media;
+    }
+
+    /**
+     * Sets list of the media attached to the revision.
+     *
+     * @param media the value to be set
+     */
+    public void setMedia(List<MediaAttachment> media) {
+        this.media = media;
     }
 
     /**

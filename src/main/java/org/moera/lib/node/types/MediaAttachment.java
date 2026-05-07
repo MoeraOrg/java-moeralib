@@ -9,6 +9,7 @@ public class MediaAttachment extends Structure implements Cloneable {
 
     private PrivateMediaFileInfo media;
     private RemoteMediaInfo remoteMedia;
+    private String postingId;
     private boolean embedded;
 
     /**
@@ -45,6 +46,24 @@ public class MediaAttachment extends Structure implements Cloneable {
      */
     public void setRemoteMedia(RemoteMediaInfo remoteMedia) {
         this.remoteMedia = remoteMedia;
+    }
+
+    /**
+     * Retrieves ID of the child posting linked to the attachment, if any.
+     *
+     * @return the value
+     */
+    public String getPostingId() {
+        return postingId;
+    }
+
+    /**
+     * Sets ID of the child posting linked to the attachment, if any.
+     *
+     * @param postingId the value to be set
+     */
+    public void setPostingId(String postingId) {
+        this.postingId = postingId;
     }
 
     /**

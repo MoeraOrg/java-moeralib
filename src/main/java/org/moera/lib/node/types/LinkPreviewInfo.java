@@ -12,6 +12,7 @@ public class LinkPreviewInfo extends Structure implements Cloneable {
     private String title;
     private String description;
     private String imageUrl;
+    private Long publishedAt;
 
     /**
      * Retrieves name of the site.
@@ -101,6 +102,24 @@ public class LinkPreviewInfo extends Structure implements Cloneable {
      */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    /**
+     * Retrieves timestamp of the page publication time.
+     *
+     * @return the value
+     */
+    public Long getPublishedAt() {
+        return publishedAt;
+    }
+
+    /**
+     * Sets timestamp of the page publication time.
+     *
+     * @param publishedAt the value to be set
+     */
+    public void setPublishedAt(Long publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
     /**

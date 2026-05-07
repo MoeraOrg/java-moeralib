@@ -94,6 +94,18 @@ public class Fingerprints {
         new FieldWithSchema("attachments", "byte[][]"),
     };
 
+    private static final FieldWithSchema[] MEDIA_GRANT0_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("posting_id", "String"),
+        new FieldWithSchema("comment_id", "String"),
+        new FieldWithSchema("media_id", "String"),
+        new FieldWithSchema("expires", "Timestamp"),
+        new FieldWithSchema("download", "boolean"),
+        new FieldWithSchema("file_name", "String"),
+        new FieldWithSchema("salt", "byte[]"),
+    };
+
     private static final FieldWithSchema[] NOTIFICATION_PACKET1_SCHEMA = new FieldWithSchema[] {
         new FieldWithSchema("object_type", "String"),
         new FieldWithSchema("id", "String"),
@@ -187,6 +199,10 @@ public class Fingerprints {
             case "COMMENT" -> switch (version) {
                 case 1 -> COMMENT1_SCHEMA;
                 case 0 -> COMMENT0_SCHEMA;
+                default -> null;
+            };
+            case "MEDIA_GRANT" -> switch (version) {
+                case 0 -> MEDIA_GRANT0_SCHEMA;
                 default -> null;
             };
             case "NOTIFICATION_PACKET" -> switch (version) {
@@ -357,6 +373,31 @@ public class Fingerprints {
         fingerprint.put("attachments", attachments);
 
         return CryptoUtil.fingerprint(fingerprint, COMMENT0_SCHEMA);
+    }
+
+    public static byte[] mediaGrant(
+        String nodeName, String postingId, String commentId, String mediaId, Timestamp expires, boolean download,
+        String fileName, byte[] salt
+    ) {
+        return mediaGrant0(nodeName, postingId, commentId, mediaId, expires, download, fileName, salt);
+    }
+
+    public static byte[] mediaGrant0(
+        String nodeName, String postingId, String commentId, String mediaId, Timestamp expires, boolean download,
+        String fileName, byte[] salt
+    ) {
+        Fingerprint fingerprint = new Fingerprint(0);
+        fingerprint.put("object_type", "MEDIA_GRANT");
+        fingerprint.put("node_name", nodeName);
+        fingerprint.put("posting_id", postingId);
+        fingerprint.put("comment_id", commentId);
+        fingerprint.put("media_id", mediaId);
+        fingerprint.put("expires", expires);
+        fingerprint.put("download", download);
+        fingerprint.put("file_name", fileName);
+        fingerprint.put("salt", salt);
+
+        return CryptoUtil.fingerprint(fingerprint, MEDIA_GRANT0_SCHEMA);
     }
 
     public static byte[] notificationPacket(
