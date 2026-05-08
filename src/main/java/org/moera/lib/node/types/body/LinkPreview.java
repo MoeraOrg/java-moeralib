@@ -23,6 +23,7 @@ public class LinkPreview {
     private String title;
     private String description;
     private String imageHash;
+    private Long publishedAt;
 
     /**
      * Sets the parent {@code Body} instance for the current {@code LinkPreview}.
@@ -123,11 +124,29 @@ public class LinkPreview {
     /**
      * Sets the hash of the image associated with the link preview.
      *
-     * @param imageHash the hash of the image to set
+     * @param imageHash the hash of the image to be set
      */
     public void setImageHash(String imageHash) {
         this.imageHash = imageHash;
         modified();
+    }
+
+    /**
+     * Retrieves timestamp of the page publication time
+     *
+     * @return the timestamp
+     */
+    public Long getPublishedAt() {
+        return publishedAt;
+    }
+
+    /**
+     * Sets timestamp of the page publication time
+     *
+     * @param publishedAt the timestamp to be set
+     */
+    public void setPublishedAt(Long publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
     private void modified() {
