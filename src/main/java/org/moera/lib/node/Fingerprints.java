@@ -94,6 +94,16 @@ public class Fingerprints {
         new FieldWithSchema("attachments", "byte[][]"),
     };
 
+    private static final FieldWithSchema[] MEDIA_GRANT1_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("media_id", "String"),
+        new FieldWithSchema("expires", "Timestamp"),
+        new FieldWithSchema("download", "boolean"),
+        new FieldWithSchema("file_name", "String"),
+        new FieldWithSchema("salt", "byte[]"),
+    };
+
     private static final FieldWithSchema[] MEDIA_GRANT0_SCHEMA = new FieldWithSchema[] {
         new FieldWithSchema("object_type", "String"),
         new FieldWithSchema("node_name", "String"),
@@ -202,6 +212,7 @@ public class Fingerprints {
                 default -> null;
             };
             case "MEDIA_GRANT" -> switch (version) {
+                case 1 -> MEDIA_GRANT1_SCHEMA;
                 case 0 -> MEDIA_GRANT0_SCHEMA;
                 default -> null;
             };
@@ -376,10 +387,24 @@ public class Fingerprints {
     }
 
     public static byte[] mediaGrant(
-        String nodeName, String postingId, String commentId, String mediaId, Timestamp expires, boolean download,
-        String fileName, byte[] salt
+        String nodeName, String mediaId, Timestamp expires, boolean download, String fileName, byte[] salt
     ) {
-        return mediaGrant0(nodeName, postingId, commentId, mediaId, expires, download, fileName, salt);
+        return mediaGrant1(nodeName, mediaId, expires, download, fileName, salt);
+    }
+
+    public static byte[] mediaGrant1(
+        String nodeName, String mediaId, Timestamp expires, boolean download, String fileName, byte[] salt
+    ) {
+        Fingerprint fingerprint = new Fingerprint(1);
+        fingerprint.put("object_type", "MEDIA_GRANT");
+        fingerprint.put("node_name", nodeName);
+        fingerprint.put("media_id", mediaId);
+        fingerprint.put("expires", expires);
+        fingerprint.put("download", download);
+        fingerprint.put("file_name", fileName);
+        fingerprint.put("salt", salt);
+
+        return CryptoUtil.fingerprint(fingerprint, MEDIA_GRANT1_SCHEMA);
     }
 
     public static byte[] mediaGrant0(
