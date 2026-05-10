@@ -232,14 +232,14 @@ public class SheriffComplaintDecidedNotification extends Notification {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(remoteNodeName, "sheriff-complaint.remote-node-name.empty");
-        ValidationUtil.maxSize(remoteNodeName, 63, "sheriff-complaint.remote-node-name.wrong-size");
+        ValidationUtil.maxSize(remoteNodeName, 135, "sheriff-complaint.remote-node-name.wrong-size");
         ValidationUtil.notBlank(remoteFeedName, "sheriff-complaint.remote-feed-name.empty");
         ValidationUtil.maxSize(remoteFeedName, 63, "sheriff-complaint.remote-feed-name.wrong-size");
-        ValidationUtil.maxSize(postingOwnerName, 63, "sheriff-complaint.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "sheriff-complaint.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-complaint.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-complaint.posting-heading.wrong-size");
         ValidationUtil.maxSize(postingId, 40, "sheriff-complaint.posting-id.wrong-size");
-        ValidationUtil.maxSize(commentOwnerName, 63, "sheriff-complaint.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 135, "sheriff-complaint.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "sheriff-complaint.comment-owner-full-name.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "sheriff-complaint.comment-heading.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "sheriff-complaint.comment-id.wrong-size");

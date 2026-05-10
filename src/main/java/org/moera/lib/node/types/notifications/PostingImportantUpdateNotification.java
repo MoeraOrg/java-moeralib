@@ -157,7 +157,7 @@ public class PostingImportantUpdateNotification extends SubscriberNotification i
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "posting.posting-id.wrong-size");
-        ValidationUtil.maxSize(postingOwnerName, 63, "posting.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "posting.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "posting.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "posting.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "posting.posting-heading.wrong-size");

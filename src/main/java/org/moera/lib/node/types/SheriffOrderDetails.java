@@ -269,7 +269,7 @@ public class SheriffOrderDetails extends Structure implements Cloneable {
         ValidationUtil.notBlank(id, "sheriff-order.id.blank");
         ValidationUtil.maxSize(id, 40, "sheriff-order.id.wrong-size");
         ValidationUtil.notBlank(sheriffName, "sheriff-order.sheriff-name.blank");
-        ValidationUtil.maxSize(sheriffName, 63, "sheriff-order.sheriff-name.wrong-size");
+        ValidationUtil.maxSize(sheriffName, 135, "sheriff-order.sheriff-name.wrong-size");
         ValidationUtil.notBlank(feedName, "sheriff-order.feed-name.blank");
         ValidationUtil.maxSize(feedName, 63, "sheriff-order.feed-name.wrong-size");
         ValidationUtil.maxSize(reasonDetails, 4096, "sheriff-order.reason-details.wrong-size");

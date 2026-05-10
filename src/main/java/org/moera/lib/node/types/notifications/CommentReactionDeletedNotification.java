@@ -158,7 +158,7 @@ public class CommentReactionDeletedNotification extends Notification {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "reaction.comment-id.wrong-size");
-        ValidationUtil.maxSize(ownerName, 63, "reaction.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
     }

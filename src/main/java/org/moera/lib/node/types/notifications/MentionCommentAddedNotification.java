@@ -311,11 +311,11 @@ public class MentionCommentAddedNotification extends Notification {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "mention.comment-id.wrong-size");
-        ValidationUtil.maxSize(postingOwnerName, 63, "mention.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "mention.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "mention.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "mention.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "mention.posting-heading.wrong-size");
-        ValidationUtil.maxSize(commentOwnerName, 63, "mention.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 135, "mention.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "mention.comment-owner-full-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerGender, 31, "mention.comment-owner-gender.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "mention.comment-heading.wrong-size");

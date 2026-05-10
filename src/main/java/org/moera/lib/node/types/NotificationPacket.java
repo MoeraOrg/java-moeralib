@@ -211,7 +211,7 @@ public class NotificationPacket extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(nodeName, "notification.node-name.blank");
-        ValidationUtil.maxSize(nodeName, 63, "notification.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 135, "notification.node-name.wrong-size");
         ValidationUtil.maxSize(fullName, 96, "notification.full-name.wrong-size");
         ValidationUtil.maxSize(gender, 31, "notification.gender.wrong-size");
         ValidationUtil.notBlank(type, "notification.type.blank");

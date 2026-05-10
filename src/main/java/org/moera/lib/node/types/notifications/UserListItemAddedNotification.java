@@ -61,7 +61,7 @@ public class UserListItemAddedNotification extends SubscriberNotification {
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(listName, 63, "user-list.list-name.wrong-size");
-        ValidationUtil.maxSize(nodeName, 63, "user-list.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 135, "user-list.node-name.wrong-size");
     }
 
     @Override

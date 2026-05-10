@@ -347,7 +347,7 @@ public class DraftText extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(receiverName, "draft.receiver-name.blank");
-        ValidationUtil.maxSize(receiverName, 63, "draft.receiver-name.wrong-size");
+        ValidationUtil.maxSize(receiverName, 135, "draft.receiver-name.wrong-size");
         ValidationUtil.maxSize(receiverPostingId, 40, "draft.receiver-posting-id.wrong-size");
         ValidationUtil.maxSize(receiverCommentId, 40, "draft.receiver-comment-id.wrong-size");
         ValidationUtil.maxSize(repliedToId, 40, "draft.replied-to-id.wrong-size");

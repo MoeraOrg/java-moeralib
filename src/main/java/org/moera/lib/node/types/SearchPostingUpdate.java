@@ -109,7 +109,7 @@ public class SearchPostingUpdate extends Structure implements Cloneable {
         super.validate();
         ValidationUtil.maxSize(feedName, 63, "search.feed-name.wrong-size");
         ValidationUtil.maxSize(storyId, 40, "search.story-id.wrong-size");
-        ValidationUtil.maxSize(nodeName, 63, "search.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 135, "search.node-name.wrong-size");
         ValidationUtil.maxSize(postingId, 40, "search.posting-id.wrong-size");
     }
 

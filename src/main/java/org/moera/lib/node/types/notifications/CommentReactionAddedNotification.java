@@ -291,10 +291,10 @@ public class CommentReactionAddedNotification extends Notification {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "reaction.comment-id.wrong-size");
-        ValidationUtil.maxSize(ownerName, 63, "reaction.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
-        ValidationUtil.maxSize(postingNodeName, 63, "reaction.posting-node-name.wrong-size");
+        ValidationUtil.maxSize(postingNodeName, 135, "reaction.posting-node-name.wrong-size");
         ValidationUtil.maxSize(postingFullName, 96, "reaction.posting-full-name.wrong-size");
         ValidationUtil.maxSize(postingGender, 31, "reaction.posting-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "reaction.posting-heading.wrong-size");

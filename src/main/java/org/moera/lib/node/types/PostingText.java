@@ -448,7 +448,7 @@ public class PostingText extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
-        ValidationUtil.maxSize(ownerName, 63, "posting.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "posting.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "posting.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "posting.owner-gender.wrong-size");
         if (rejectedReactions != null) {

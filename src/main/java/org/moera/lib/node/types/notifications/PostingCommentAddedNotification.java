@@ -329,12 +329,12 @@ public class PostingCommentAddedNotification extends SubscriberNotification impl
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "comment.posting-id.wrong-size");
-        ValidationUtil.maxSize(postingOwnerName, 63, "comment.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "comment.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "comment.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "comment.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "comment.posting-heading.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
-        ValidationUtil.maxSize(commentOwnerName, 63, "comment.comment-owner-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerName, 135, "comment.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "comment.comment-owner-full-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerGender, 31, "comment.comment-owner-gender.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "comment.comment-heading.wrong-size");

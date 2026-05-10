@@ -118,7 +118,7 @@ public class SheriffOrderForPostingAddedNotification extends Notification {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(remoteNodeName, "sheriff-order.remote-node-name.empty");
-        ValidationUtil.maxSize(remoteNodeName, 63, "sheriff-order.remote-node-name.wrong-size");
+        ValidationUtil.maxSize(remoteNodeName, 135, "sheriff-order.remote-node-name.wrong-size");
         ValidationUtil.notBlank(remoteFeedName, "sheriff-order.remote-feed-name.empty");
         ValidationUtil.maxSize(remoteFeedName, 63, "sheriff-order.remote-feed-name.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-order.posting-heading.wrong-size");

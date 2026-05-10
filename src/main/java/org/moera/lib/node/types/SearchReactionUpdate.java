@@ -71,7 +71,7 @@ public class SearchReactionUpdate extends Structure implements Cloneable {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "search.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "search.comment-id.wrong-size");
-        ValidationUtil.maxSize(ownerName, 63, "search.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "search.owner-name.wrong-size");
     }
 
     /**

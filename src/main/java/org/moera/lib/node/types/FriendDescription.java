@@ -53,7 +53,7 @@ public class FriendDescription extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(nodeName, "friend.node-name.blank");
-        ValidationUtil.maxSize(nodeName, 63, "friend.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 135, "friend.node-name.wrong-size");
     }
 
     /**

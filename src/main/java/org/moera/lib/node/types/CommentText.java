@@ -415,7 +415,7 @@ public class CommentText extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
-        ValidationUtil.maxSize(ownerName, 63, "comment.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "comment.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "comment.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "comment.owner-gender.wrong-size");
         if (rejectedReactions != null) {

@@ -235,7 +235,7 @@ public class PremoderatedCommentDecidedNotification extends Notification {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "comment.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
-        ValidationUtil.maxSize(postingOwnerName, 63, "comment.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "comment.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "comment.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "comment.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "comment.posting-heading.wrong-size");

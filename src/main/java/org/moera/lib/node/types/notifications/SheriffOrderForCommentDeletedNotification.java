@@ -194,11 +194,11 @@ public class SheriffOrderForCommentDeletedNotification extends Notification {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(remoteNodeName, "sheriff-order.remote-node-name.empty");
-        ValidationUtil.maxSize(remoteNodeName, 63, "sheriff-order.remote-node-name.wrong-size");
+        ValidationUtil.maxSize(remoteNodeName, 135, "sheriff-order.remote-node-name.wrong-size");
         ValidationUtil.notBlank(remoteFeedName, "sheriff-order.remote-feed-name.empty");
         ValidationUtil.maxSize(remoteFeedName, 63, "sheriff-order.remote-feed-name.wrong-size");
         ValidationUtil.notBlank(postingOwnerName, "sheriff-order.posting-owner-name.empty");
-        ValidationUtil.maxSize(postingOwnerName, 63, "sheriff-order.posting-owner-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerName, 135, "sheriff-order.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-order.posting-owner-full-name.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-order.posting-heading.wrong-size");
         ValidationUtil.notBlank(postingId, "sheriff-order.posting-id.empty");

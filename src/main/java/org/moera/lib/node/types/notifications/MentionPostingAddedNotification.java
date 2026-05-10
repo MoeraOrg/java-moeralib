@@ -177,7 +177,7 @@ public class MentionPostingAddedNotification extends Notification {
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
-        ValidationUtil.maxSize(ownerName, 63, "mention.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "mention.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "mention.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "mention.owner-gender.wrong-size");
         ValidationUtil.maxSize(heading, 255, "mention.heading.wrong-size");

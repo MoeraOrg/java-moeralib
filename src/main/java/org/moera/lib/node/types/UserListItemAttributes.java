@@ -32,7 +32,7 @@ public class UserListItemAttributes extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(nodeName, "user-list-item.node-name.blank");
-        ValidationUtil.maxSize(nodeName, 63, "user-list-item.node-name.wrong-size");
+        ValidationUtil.maxSize(nodeName, 135, "user-list-item.node-name.wrong-size");
     }
 
     /**

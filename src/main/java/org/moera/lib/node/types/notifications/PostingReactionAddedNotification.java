@@ -343,10 +343,10 @@ public class PostingReactionAddedNotification extends Notification {
         ValidationUtil.maxSize(parentCommentId, 40, "reaction.parent-comment-id.wrong-size");
         ValidationUtil.maxSize(parentMediaId, 40, "reaction.parent-media-id.wrong-size");
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
-        ValidationUtil.maxSize(ownerName, 63, "reaction.owner-name.wrong-size");
+        ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
-        ValidationUtil.maxSize(parentPostingNodeName, 63, "reaction.parent-posting-node-name.wrong-size");
+        ValidationUtil.maxSize(parentPostingNodeName, 135, "reaction.parent-posting-node-name.wrong-size");
         ValidationUtil.maxSize(parentPostingFullName, 96, "reaction.parent-posting-full-name.wrong-size");
         ValidationUtil.maxSize(parentPostingGender, 31, "reaction.parent-posting-gender.wrong-size");
         ValidationUtil.maxSize(parentHeading, 255, "reaction.parent-heading.wrong-size");

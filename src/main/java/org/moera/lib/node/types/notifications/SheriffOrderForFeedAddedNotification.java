@@ -80,7 +80,7 @@ public class SheriffOrderForFeedAddedNotification extends Notification {
     public void validate() {
         super.validate();
         ValidationUtil.notBlank(remoteNodeName, "sheriff-order.remote-node-name.empty");
-        ValidationUtil.maxSize(remoteNodeName, 63, "sheriff-order.remote-node-name.wrong-size");
+        ValidationUtil.maxSize(remoteNodeName, 135, "sheriff-order.remote-node-name.wrong-size");
         ValidationUtil.notBlank(remoteFeedName, "sheriff-order.remote-feed-name.empty");
         ValidationUtil.maxSize(remoteFeedName, 63, "sheriff-order.remote-feed-name.wrong-size");
         ValidationUtil.notBlank(orderId, "sheriff-order.order-id.empty");
