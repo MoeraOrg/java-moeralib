@@ -20,18 +20,6 @@ public class JsonRpcClient {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
-     * Constructs a new {@code JsonRpcClient} instance and initializes it with
-     * the specified server URL. This constructor creates an {@link OkHttpFetcher}
-     * for handling the communication with the JSON-RPC server.
-     *
-     * @param url the URL of the JSON-RPC server to connect to.
-     *            It must be a valid HTTP or HTTPS URL.
-     */
-    public JsonRpcClient(String url) {
-        this(new OkHttpFetcher(url));
-    }
-
-    /**
      * Constructs a new instance of {@code JsonRpcClient} with the specified fetcher function,
      * which handles sending JSON-RPC requests and receiving responses.
      *

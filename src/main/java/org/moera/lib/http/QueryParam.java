@@ -1,4 +1,4 @@
-package org.moera.lib.node;
+package org.moera.lib.http;
 
 /**
  * Represents a query parameter with a name and associated value.

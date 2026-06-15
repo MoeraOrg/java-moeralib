@@ -37,24 +37,6 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
     public static final String DEV_NAMING_SERVER = "https://naming-dev.moera.org/moera-naming";
 
     /**
-     * Constructs a new instance of the {@code MoeraNaming} class using the default naming server
-     * ({@link #MAIN_NAMING_SERVER}).
-     */
-    public MoeraNaming() {
-        this(MAIN_NAMING_SERVER);
-    }
-
-    /**
-     * Constructs a new instance of the {@code MoeraNaming} class and initializes it with
-     * the specified naming server.
-     *
-     * @param server the URL of the naming server to be used. It must be a valid HTTP or HTTPS URL.
-     */
-    public MoeraNaming(String server) {
-        super(server);
-    }
-
-    /**
      * Constructs a new instance of the {@code MoeraNaming} class using the provided fetcher function.
      *
      * @param fetcher a {@link Function} that takes a {@link JsonRpcRequest} as input and
@@ -66,25 +48,15 @@ public class MoeraNaming extends JsonRpcClient implements NamingApi {
     }
 
     /**
-     * Resolves the specified name using the default naming server.
+     * Resolves the given name using the provided fetcher function to communicate with the naming server.
      *
      * @param name the name to be resolved. It should be a valid Moera node name.
-     * @return the resolved node URI if the specified name exists, or {@code null} if no record is found.
-     */
-    public static String resolve(String name) {
-        return resolve(name, MAIN_NAMING_SERVER);
-    }
-
-    /**
-     * Resolves the given name using the specified naming server.
-     *
-     * @param name the name to be resolved. It should be a valid Moera node name.
-     * @param namingServer the URL of the naming server to be used for name resolution
+     * @param fetcher the fetcher function responsible for handling communication with the naming server
      * @return the node URI associated with the resolved name if it exists, or {@code null} if no record is found.
      */
-    public static String resolve(String name, String namingServer) {
+    public static String resolve(String name, Function<JsonRpcRequest, JsonRpcResponse> fetcher) {
         NodeName nodeName = NodeName.parse(name);
-        MoeraNaming naming = new MoeraNaming(namingServer);
+        MoeraNaming naming = new MoeraNaming(fetcher);
         RegisteredNameInfo nameInfo = naming.getCurrent(nodeName.getName(), nodeName.getGeneration());
         return nameInfo != null ? nameInfo.getNodeUri() : null;
     }

@@ -565,6 +565,10 @@ class Structure(BaseStructure):
 
 class Notification(BaseStructure):
     log_names: list[tuple[str, Any]]
+    base_fields = {
+        'subscriberId': 'SubscriberNotification',
+        'leaseId': 'LeaseNotification',
+    }
 
     def __init__(self, data: Any) -> None:
         super().__init__(data)
@@ -577,13 +581,14 @@ class Notification(BaseStructure):
         return "types.notifications"
 
     def get_extends(self) -> list[str]:
-        for field in self.data['fields']:
-            if field['name'] == 'subscriberId':
-                return ['SubscriberNotification']
+        for field_name, class_name in self.base_fields.items():
+            for field in self.data['fields']:
+                if field['name'] == field_name:
+                    return [class_name]
         return ['Notification']
 
     def get_fields(self) -> list[Any]:
-        return [field for field in self.data['fields'] if field['name'] != 'subscriberId']
+        return [field for field in self.data['fields'] if field['name'] not in self.base_fields]
 
     def add_imports(self, imports: set[str]) -> None:
         if self.log_names:
@@ -690,6 +695,8 @@ PREAMBLE_MOERA_NODE = '''package org.moera.lib.node;
 import java.nio.file.Path;
 import java.util.Collections;
 
+import org.moera.lib.http.HttpTransport;
+import org.moera.lib.http.QueryParam;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
 import tools.jackson.core.type.TypeReference;
@@ -701,17 +708,21 @@ public class MoeraNode extends NodeApiClient {
 
     /**
      * Constructs a new MoeraNode object.
+     *
+     * @param transport HTTP transport
      */
-    public MoeraNode() {
+    public MoeraNode(HttpTransport transport) {
+        super(transport);
     }
 
     /**
      * Constructs a new MoeraNode object with the specified node URL.
      *
+     * @param transport HTTP transport
      * @param nodeUrl node URL
      */
-    public MoeraNode(String nodeUrl) {
-        super(nodeUrl);
+    public MoeraNode(HttpTransport transport, String nodeUrl) {
+        super(transport, nodeUrl);
     }
 '''
 
@@ -892,7 +903,7 @@ def scan_structures(api: Any) -> dict[str, Structure]:
 
 def scan_notifications(notifications: Any, structs: dict[str, Structure]) -> List[Notification]:
     notifs: List[Notification] = [Notification(notif) for notif in notifications['notifications']]
-    scan_validation(notifs, structs, ['subscriberId'])
+    scan_validation(notifs, structs, ['subscriberId', 'leaseId'])
     return notifs
 
 

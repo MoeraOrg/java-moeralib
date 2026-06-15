@@ -21,17 +21,6 @@ import tools.jackson.core.type.TypeReference;
 public class PushRelay extends JsonRpcClient implements PushRelayApi {
 
     /**
-     * Constructs a new {@code PushRelay} instance and initializes it with
-     * the specified Push Relay server URL.
-     *
-     * @param url the URL of the Push Relay server to connect to.
-     *            It must be a valid HTTP or HTTPS URL.
-     */
-    public PushRelay(String url) {
-        super(url);
-    }
-
-    /**
      * Constructs a new {@code PushRelay} instance using a custom fetcher function
      * to handle JSON-RPC requests and responses.
      *

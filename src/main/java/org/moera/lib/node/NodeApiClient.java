@@ -1,20 +1,19 @@
 package org.moera.lib.node;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import org.moera.lib.http.Header;
+import org.moera.lib.http.HttpTransport;
+import org.moera.lib.http.QueryParam;
+import org.moera.lib.http.Response;
 import org.moera.lib.node.carte.CarteSource;
 import org.moera.lib.node.exception.MoeraNodeApiAuthenticationException;
 import org.moera.lib.node.exception.MoeraNodeApiException;
@@ -24,6 +23,7 @@ import org.moera.lib.node.exception.MoeraNodeApiValidationException;
 import org.moera.lib.node.exception.MoeraNodeCallException;
 import org.moera.lib.node.exception.MoeraNodeConnectionException;
 import org.moera.lib.node.exception.MoeraNodeException;
+import org.moera.lib.util.Util;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
@@ -36,11 +36,11 @@ import tools.jackson.databind.ObjectMapper;
 public class NodeApiClient {
 
     /**
-     * The interface provides a single method to process a {@link ResponseBody},
+     * The interface provides a single method to process a {@link Response},
      * allowing custom handling of API responses received from a node.
      * <p>
      * Implementations of this interface should define specific behavior for
-     * parsing, validating, or otherwise processing the {@link ResponseBody}.
+     * parsing, validating, or otherwise processing the {@link Response}.
      * <p>
      * If an error occurs during response processing, the method can throw a
      * {@link MoeraNodeException}.
@@ -48,14 +48,14 @@ public class NodeApiClient {
     public interface ResponseConsumer {
 
         /**
-         * Processes the provided {@link ResponseBody}. This method is intended to handle
+         * Processes the provided {@link Response}. This method is intended to handle
          * custom logic for parsing, validating, or processing the response received from
          * a node.
          *
          * @param responseBody the response body to be processed
          * @throws MoeraNodeException if an error occurs when processing the response
          */
-        void accept(ResponseBody responseBody) throws MoeraNodeException;
+        void accept(Response responseBody) throws MoeraNodeException;
 
     }
 
@@ -68,12 +68,13 @@ public class NodeApiClient {
     private String userAgent;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final OkHttpClient client = new OkHttpClient();
+    private final HttpTransport transport;
 
     /**
      * Default constructor for the {@code NodeApiClient} class.
      */
-    public NodeApiClient() {
+    public NodeApiClient(HttpTransport transport) {
+        this.transport = transport;
     }
 
     /**
@@ -81,7 +82,8 @@ public class NodeApiClient {
      *
      * @param nodeUrl the URL of the node to connect to
      */
-    public NodeApiClient(String nodeUrl) {
+    public NodeApiClient(HttpTransport transport, String nodeUrl) {
+        this.transport = transport;
         nodeUrl(nodeUrl);
     }
 
@@ -225,7 +227,7 @@ public class NodeApiClient {
         AtomicReference<T> result = new AtomicReference<>();
         call(location, params, method, body, responseBody -> {
             try {
-                result.set(objectMapper.readValue(responseBody.string(), resultClass));
+                result.set(objectMapper.readValue(responseBody.body(), resultClass));
             } catch (IOException e) {
                 throw new MoeraNodeException("Server returned incorrect response", e);
             }
@@ -248,16 +250,12 @@ public class NodeApiClient {
     public void call(
         String location, QueryParam[] params, String method, Object body, ResponseConsumer responseConsumer
     ) throws MoeraNodeException {
-        RequestBody requestBody;
         try {
-            requestBody = body != null
-                ? RequestBody.create(objectMapper.writeValueAsString(body), MediaType.parse("application/json"))
-                : null;
+            var requestBody = body != null ? objectMapper.writeValueAsString(body) : null;
+            call(location, params, method, requestBody, null, "application/json", responseConsumer);
         } catch (JacksonException e) {
             throw new MoeraNodeCallException("Cannot encode the request body", e);
         }
-
-        call(location, params, method, requestBody, responseConsumer);
     }
 
     /**
@@ -278,14 +276,12 @@ public class NodeApiClient {
     public <T> T call(
         String location, QueryParam[] params, String method, Path body, String contentType, TypeReference<T> resultClass
     ) throws MoeraNodeException {
-        RequestBody requestBody = body != null
-            ? RequestBody.create(body.toFile(), MediaType.parse(contentType))
-            : null;
+        var requestFile = body != null ? body.toFile() : null;
 
         AtomicReference<T> result = new AtomicReference<>();
-        call(location, params, method, requestBody, responseBody -> {
+        call(location, params, method, null, requestFile, contentType, responseBody -> {
             try {
-                result.set(objectMapper.readValue(responseBody.string(), resultClass));
+                result.set(objectMapper.readValue(responseBody.body(), resultClass));
             } catch (IOException e) {
                 throw new MoeraNodeException("Server returned incorrect response", e);
             }
@@ -300,20 +296,27 @@ public class NodeApiClient {
      * @param location the endpoint location of the API call, relative to the node's root URL
      * @param params an array of query parameters to be included in the API request, may be {@code null}
      * @param method the HTTP method to use for the request (e.g., {@code GET}, {@code POST}, {@code DELETE})
-     * @param requestBody the request body to include in the API request;
-     *                   can be {@code null} for methods like {@code GET}
+     * @param body the request body to include in the API request;
+     *             can be {@code null} for methods like {@code GET}
+     * @param file the file to include in the API request;
+     *             can be {@code null} for methods that do not support file uploads
+     * @param contentType the content type of the request body
      * @param responseConsumer a consumer that processes the response body received from the node
      * @throws MoeraNodeException if an error occurs during request processing or response handling
      */
     public void call(
-        String location, QueryParam[] params, String method, RequestBody requestBody, ResponseConsumer responseConsumer
+        String location,
+        QueryParam[] params,
+        String method,
+        String body,
+        File file,
+        String contentType,
+        ResponseConsumer responseConsumer
     ) throws MoeraNodeException {
-        var requestBuilder = new Request.Builder();
-
-        requestBuilder.method(method, requestBody);
-        requestBuilder.addHeader("Accept", "application/json");
+        var headers = new ArrayList<Header>();
+        headers.add(Header.of("Accept", "application/json"));
         if (userAgent != null) {
-            requestBuilder.addHeader("User-Agent", userAgent);
+            headers.add(Header.of("User-Agent", userAgent));
         }
 
         String bearer = null;
@@ -341,40 +344,34 @@ public class NodeApiClient {
                 break;
         }
         if (bearer != null) {
-            requestBuilder.addHeader("Authorization", "Bearer " + bearer);
+            headers.add(Header.of("Authorization", "Bearer " + bearer));
         }
 
         if (root == null) {
             throw new MoeraNodeCallException("Node URL is not set");
         }
 
-        var url = HttpUrl.parse(root + "/api" + location);
-        if (url == null) {
-            throw new MoeraNodeCallException("Node URL is not set");
-        }
+        var url = new StringBuilder(root).append("/api").append(location);
         if (params != null && params.length > 0) {
-            var builder = url.newBuilder();
+            var separator = url.indexOf("?") >= 0 ? '&' : '?';
             for (var param : params) {
                 if (param.value() != null) {
-                    builder.addQueryParameter(param.name(), param.value().toString());
+                    url.append(separator).append(Util.ue(param.name())).append('=').append(Util.ue(param.value()));
+                    separator = '&';
                 }
             }
-            url = builder.build();
         }
 
-        var request = requestBuilder.url(url).build();
-        try (Response response = client.newCall(request).execute()) {
-            if (response.body() == null) {
-                throw new MoeraNodeException("Server returned empty result");
-            }
-            validateResponseStatus(response.code(), response.body());
-            responseConsumer.accept(response.body());
+        try (Response response = transport.call(url.toString(), method, headers, body, file, contentType)) {
+            validateResponseStatus(response);
+            responseConsumer.accept(response);
         } catch (IOException e) {
             throw new MoeraNodeConnectionException(e);
         }
     }
 
-    private void validateResponseStatus(int status, ResponseBody body) throws MoeraNodeApiException {
+    private void validateResponseStatus(Response response) throws MoeraNodeApiException {
+        int status = response.code();
         switch (status) {
             case 403:
                 throw new MoeraNodeApiAuthenticationException();
@@ -385,22 +382,22 @@ public class NodeApiClient {
                 break;
 
             case 400:
-                throw new MoeraNodeApiValidationException(toString(body));
+                throw new MoeraNodeApiValidationException(toString(response));
 
             case 404:
-                throw new MoeraNodeApiNotFoundException(toString(body));
+                throw new MoeraNodeApiNotFoundException(toString(response));
 
             case 409:
-                throw new MoeraNodeApiOperationException(toString(body));
+                throw new MoeraNodeApiOperationException(toString(response));
 
             default:
-                throw new MoeraNodeApiException(status, toString(body));
+                throw new MoeraNodeApiException(status, toString(response));
         }
     }
 
-    private static String toString(ResponseBody body) {
+    private static String toString(Response response) {
         try {
-            return body != null ? body.string() : "";
+            return response != null ? response.body() : "";
         } catch (IOException e) {
             return "";
         }

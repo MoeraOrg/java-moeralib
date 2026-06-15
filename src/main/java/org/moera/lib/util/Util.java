@@ -1,5 +1,7 @@
 package org.moera.lib.util;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -86,6 +88,10 @@ public class Util {
      */
     public static String base64urlencode(byte[] bytes) {
         return bytes != null ? Base64.getUrlEncoder().withoutPadding().encodeToString(bytes) : null;
+    }
+
+    public static String ue(Object s) {
+        return URLEncoder.encode(s.toString(), StandardCharsets.UTF_8).replace("+", "%20");
     }
 
     /**
