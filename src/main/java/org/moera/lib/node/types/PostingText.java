@@ -20,7 +20,7 @@ public class PostingText extends Structure implements Cloneable {
     private SourceFormat bodySrcFormat;
     private Body body;
     private BodyFormat bodyFormat;
-    private List<String> media;
+    private List<MediaToAttach> media;
     private Long createdAt;
     private RejectedReactions rejectedReactions;
     private RejectedReactions commentRejectedReactions;
@@ -201,20 +201,20 @@ public class PostingText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves array of IDs of private media to be attached to the posting.
+     * Retrieves array of media to be attached to the posting.
      *
      * @return the value
      */
-    public List<String> getMedia() {
+    public List<MediaToAttach> getMedia() {
         return media;
     }
 
     /**
-     * Sets array of IDs of private media to be attached to the posting.
+     * Sets array of media to be attached to the posting.
      *
      * @param media the value to be set
      */
-    public void setMedia(List<String> media) {
+    public void setMedia(List<MediaToAttach> media) {
         this.media = media;
     }
 

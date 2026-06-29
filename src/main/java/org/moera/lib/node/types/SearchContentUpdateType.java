@@ -24,6 +24,10 @@ public enum SearchContentUpdateType {
      */
     COMMENT_UPDATE_HEADING,
     /**
+     * Location of a media attached to a comment was updated.
+     */
+    COMMENT_UPDATE_MEDIA,
+    /**
      * Text content of a media attached to a comment was updated.
      */
     COMMENT_UPDATE_MEDIA_TEXT,
@@ -51,6 +55,10 @@ public enum SearchContentUpdateType {
      * A posting's heading was updated; sent by the original node only.
      */
     POSTING_UPDATE_HEADING,
+    /**
+     * Location of a media attached to a posting was updated.
+     */
+    POSTING_UPDATE_MEDIA,
     /**
      * Text content of a media attached to a posting was updated; sent by the original node only.
      */

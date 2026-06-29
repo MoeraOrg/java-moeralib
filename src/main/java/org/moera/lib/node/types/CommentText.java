@@ -20,7 +20,7 @@ public class CommentText extends Structure implements Cloneable {
     private SourceFormat bodySrcFormat;
     private Body body;
     private BodyFormat bodyFormat;
-    private List<String> media;
+    private List<MediaToAttach> media;
     private Long createdAt;
     private RejectedReactions rejectedReactions;
     private RejectedReactions seniorRejectedReactions;
@@ -203,7 +203,7 @@ public class CommentText extends Structure implements Cloneable {
      *
      * @return the value
      */
-    public List<String> getMedia() {
+    public List<MediaToAttach> getMedia() {
         return media;
     }
 
@@ -212,7 +212,7 @@ public class CommentText extends Structure implements Cloneable {
      *
      * @param media the value to be set
      */
-    public void setMedia(List<String> media) {
+    public void setMedia(List<MediaToAttach> media) {
         this.media = media;
     }
 

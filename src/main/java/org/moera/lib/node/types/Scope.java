@@ -27,12 +27,7 @@ public enum Scope {
     OTHER                   (0x00000001, true),
 
     /**
-     * view any media file
-     */
-    VIEW_MEDIA              (0x00000002, true),
-
-    /**
-     * view any content (posts, comments, reactions), except media files
+     * view any content (posts, comments, reactions, media files)
      */
     VIEW_CONTENT            (0x00000004, true),
 
@@ -172,6 +167,11 @@ public enum Scope {
     UPLOAD_PRIVATE_MEDIA    (0x20000000, true),
 
     /**
+     * lease and release media
+     */
+    LEASE_MEDIA             (0x40000000, true),
+
+    /**
      * create posts owned by the node on remote nodes (combined scope)
      */
     REMOTE_ADD_POST         (0x00002008, false),
@@ -211,12 +211,12 @@ public enum Scope {
     /**
      * all view-only permissions (combined scope)
      */
-    VIEW_ALL                (0x00088406, false),
+    VIEW_ALL                (0x00088404, false),
 
     /**
      * all permissions (combined scope)
      */
-    ALL                     (0x3fffffff, false);
+    ALL                     (0x7ffffffd, false);
     //CHECKSTYLE:ON
 
     private final long mask;

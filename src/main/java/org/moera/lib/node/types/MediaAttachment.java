@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class MediaAttachment extends Structure implements Cloneable {
 
     private PrivateMediaFileInfo media;
+    private String mediaLeaseId;
     private RemoteMediaInfo remoteMedia;
     private String postingId;
     private boolean embedded;
@@ -28,6 +29,24 @@ public class MediaAttachment extends Structure implements Cloneable {
      */
     public void setMedia(PrivateMediaFileInfo media) {
         this.media = media;
+    }
+
+    /**
+     * Retrieves (drafts only) ID of the lease of the local media to the target node.
+     *
+     * @return the value
+     */
+    public String getMediaLeaseId() {
+        return mediaLeaseId;
+    }
+
+    /**
+     * Sets (drafts only) ID of the lease of the local media to the target node.
+     *
+     * @param mediaLeaseId the value to be set
+     */
+    public void setMediaLeaseId(String mediaLeaseId) {
+        this.mediaLeaseId = mediaLeaseId;
     }
 
     /**

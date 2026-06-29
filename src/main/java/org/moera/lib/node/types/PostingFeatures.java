@@ -12,7 +12,6 @@ public class PostingFeatures extends Structure implements Cloneable {
     private Boolean post;
     private boolean subjectPresent;
     private List<SourceFormat> sourceFormats;
-    private int mediaMaxSize;
     private int imageRecommendedSize;
     private int imageRecommendedPixels;
     private List<String> imageFormats;
@@ -69,24 +68,6 @@ public class PostingFeatures extends Structure implements Cloneable {
      */
     public void setSourceFormats(List<SourceFormat> sourceFormats) {
         this.sourceFormats = sourceFormats;
-    }
-
-    /**
-     * Retrieves maximal size of a media attachment in a post.
-     *
-     * @return the value
-     */
-    public int getMediaMaxSize() {
-        return mediaMaxSize;
-    }
-
-    /**
-     * Sets maximal size of a media attachment in a post.
-     *
-     * @param mediaMaxSize the value to be set
-     */
-    public void setMediaMaxSize(int mediaMaxSize) {
-        this.mediaMaxSize = mediaMaxSize;
     }
 
     /**

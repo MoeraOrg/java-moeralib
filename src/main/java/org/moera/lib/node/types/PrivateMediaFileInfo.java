@@ -11,6 +11,7 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
 
     private String id;
     private String hash;
+    private String digest;
     private String path;
     private String directPath;
     private Long directPathExpiresAt;
@@ -25,6 +26,7 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private Boolean attachment;
     private Boolean malware;
     private String grant;
+    private Long grantExpiresAt;
     private PrivateMediaFileOperations operations;
 
     /**
@@ -61,6 +63,24 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    /**
+     * Retrieves cryptographic digest of the media file.
+     *
+     * @return the value
+     */
+    public String getDigest() {
+        return digest;
+    }
+
+    /**
+     * Sets cryptographic digest of the media file.
+     *
+     * @param digest the value to be set
+     */
+    public void setDigest(String digest) {
+        this.digest = digest;
     }
 
     /**
@@ -334,6 +354,24 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setGrant(String grant) {
         this.grant = grant;
+    }
+
+    /**
+     * Retrieves grant expiration timestamp - the real time when the grant will not be valid anymore.
+     *
+     * @return the value
+     */
+    public Long getGrantExpiresAt() {
+        return grantExpiresAt;
+    }
+
+    /**
+     * Sets grant expiration timestamp - the real time when the grant will not be valid anymore.
+     *
+     * @param grantExpiresAt the value to be set
+     */
+    public void setGrantExpiresAt(Long grantExpiresAt) {
+        this.grantExpiresAt = grantExpiresAt;
     }
 
     /**

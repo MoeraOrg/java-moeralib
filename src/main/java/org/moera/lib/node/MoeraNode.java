@@ -5,6 +5,8 @@ package org.moera.lib.node;
 import java.nio.file.Path;
 import java.util.Collections;
 
+import org.moera.lib.http.HttpTransport;
+import org.moera.lib.http.QueryParam;
 import org.moera.lib.node.exception.MoeraNodeException;
 import org.moera.lib.node.types.*;
 import tools.jackson.core.type.TypeReference;
@@ -16,17 +18,21 @@ public class MoeraNode extends NodeApiClient {
 
     /**
      * Constructs a new MoeraNode object.
+     *
+     * @param transport HTTP transport
      */
-    public MoeraNode() {
+    public MoeraNode(HttpTransport transport) {
+        super(transport);
     }
 
     /**
      * Constructs a new MoeraNode object with the specified node URL.
      *
+     * @param transport HTTP transport
      * @param nodeUrl node URL
      */
-    public MoeraNode(String nodeUrl) {
-        super(nodeUrl);
+    public MoeraNode(HttpTransport transport, String nodeUrl) {
+        super(transport, nodeUrl);
     }
 
     /**
@@ -1273,30 +1279,14 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
-     * Upload a new media file owned by the node admin. The content of the file is passed in the request body.
+     * Upload a new private media file. The content of the file is passed in the request body.
      *
      * @param body body
      * @param contentType content-type of ``body``
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo uploadAdminMedia(Path body, String contentType) throws MoeraNodeException {
+    public PrivateMediaFileInfo uploadPrivateMedia(Path body, String contentType) throws MoeraNodeException {
         var location = "/media/private";
-        var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
-        return call(location, null, "POST", body, contentType, returnTypeRef);
-    }
-
-    /**
-     * Upload a new media file owned by the given node. The content of the file is passed in the request body.
-     *
-     * @param clientName name of the node owning the media file
-     * @param body body
-     * @param contentType content-type of ``body``
-     * @return PrivateMediaFileInfo
-     */
-    public PrivateMediaFileInfo uploadPrivateMedia(
-        String clientName, Path body, String contentType
-    ) throws MoeraNodeException {
-        var location = "/media/private/%s".formatted(ue(clientName));
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
         return call(location, null, "POST", body, contentType, returnTypeRef);
     }
@@ -1360,22 +1350,6 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
-     * Get the list of all postings and comments the media file is attached to.
-     *
-     * @param id media file ID
-     * @param grant media grant allowing access to the media file
-     * @return EntryInfo[]
-     */
-    public EntryInfo[] getPrivateMediaParentEntry(String id, String grant) throws MoeraNodeException {
-        var location = "/media/private/%s/parent".formatted(ue(id));
-        var params = new QueryParam[] {
-            QueryParam.of("grant", grant)
-        };
-        var returnTypeRef = new TypeReference<EntryInfo[]>() {};
-        return call(location, params, "GET", null, returnTypeRef);
-    }
-
-    /**
      * Upload a new media file. The content of the file is passed in the request body
      *
      * @param body body
@@ -1419,6 +1393,30 @@ public class MoeraNode extends NodeApiClient {
         var location = "/media/public/%s/info".formatted(ue(id));
         var returnTypeRef = new TypeReference<PublicMediaFileInfo>() {};
         return call(location, null, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Create a lease for a media file stored on the node.
+     *
+     * @param attributes attributes
+     * @return MediaLeaseInfo
+     */
+    public MediaLeaseInfo createMediaLease(MediaLeaseAttributes attributes) throws MoeraNodeException {
+        var location = "/media/leases";
+        var returnTypeRef = new TypeReference<MediaLeaseInfo>() {};
+        return call(location, null, "POST", attributes, returnTypeRef);
+    }
+
+    /**
+     * Delete the lease.
+     *
+     * @param id ID of the lease
+     * @return Result
+     */
+    public Result deleteMediaLease(String id) throws MoeraNodeException {
+        var location = "/media/leases/%s".formatted(ue(id));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "DELETE", null, returnTypeRef);
     }
 
     /**
@@ -2955,6 +2953,18 @@ public class MoeraNode extends NodeApiClient {
         var location = "/user-lists/%s/items/%s".formatted(ue(name), ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
+    }
+
+    /**
+     * Record a visit to a posting, comment or media.
+     *
+     * @param visit visit
+     * @return Result
+     */
+    public Result recordVisit(VisitDetails visit) throws MoeraNodeException {
+        var location = "/visits";
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", visit, returnTypeRef);
     }
 
     /**

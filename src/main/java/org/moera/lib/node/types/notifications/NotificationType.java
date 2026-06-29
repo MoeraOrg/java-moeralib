@@ -174,7 +174,11 @@ public enum NotificationType {
     /**
      * The comment authored by the receiver has been accepted or rejected after premoderation.
      */
-    PREMODERATED_COMMENT_DECIDED(PremoderatedCommentDecidedNotification.class); // 41
+    PREMODERATED_COMMENT_DECIDED(PremoderatedCommentDecidedNotification.class), // 41
+    /**
+     * Title of a media file leased by the receiver has been updated.
+     */
+    LEASED_MEDIA_TITLE_UPDATED(LeasedMediaTitleUpdatedNotification.class); // 42
 
     private final Class<? extends Notification> structure;
 

@@ -14,7 +14,8 @@ public class PostingSourceText extends Structure implements Cloneable {
     private AvatarDescription ownerAvatar;
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
-    private List<MediaWithDigest> media;
+    private List<MediaToAttach> media;
+    private List<MediaCaptionText> mediaCaptions;
     private RejectedReactions rejectedReactions;
     private RejectedReactions commentRejectedReactions;
     private PostingOperations operations;
@@ -81,21 +82,39 @@ public class PostingSourceText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves array of IDs and digests of private media to be attached to the posting.
+     * Retrieves array of media to be attached to the posting.
      *
      * @return the value
      */
-    public List<MediaWithDigest> getMedia() {
+    public List<MediaToAttach> getMedia() {
         return media;
     }
 
     /**
-     * Sets array of IDs and digests of private media to be attached to the posting.
+     * Sets array of media to be attached to the posting.
      *
      * @param media the value to be set
      */
-    public void setMedia(List<MediaWithDigest> media) {
+    public void setMedia(List<MediaToAttach> media) {
         this.media = media;
+    }
+
+    /**
+     * Retrieves captions of the media to be attached to the posting.
+     *
+     * @return the value
+     */
+    public List<MediaCaptionText> getMediaCaptions() {
+        return mediaCaptions;
+    }
+
+    /**
+     * Sets captions of the media to be attached to the posting.
+     *
+     * @param mediaCaptions the value to be set
+     */
+    public void setMediaCaptions(List<MediaCaptionText> mediaCaptions) {
+        this.mediaCaptions = mediaCaptions;
     }
 
     /**

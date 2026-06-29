@@ -22,7 +22,7 @@ public class DraftText extends Structure implements Cloneable {
     private RejectedReactions commentRejectedReactions;
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
-    private List<RemoteMedia> media;
+    private List<MediaToAttach> media;
     private List<MediaCaptionText> mediaCaptions;
     private Long publishAt;
     private UpdateInfo updateInfo;
@@ -232,20 +232,20 @@ public class DraftText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves list of the media attached to the draft, the media may be located on another node.
+     * Retrieves list of the media attached to the draft.
      *
      * @return the value
      */
-    public List<RemoteMedia> getMedia() {
+    public List<MediaToAttach> getMedia() {
         return media;
     }
 
     /**
-     * Sets list of the media attached to the draft, the media may be located on another node.
+     * Sets list of the media attached to the draft.
      *
      * @param media the value to be set
      */
-    public void setMedia(List<RemoteMedia> media) {
+    public void setMedia(List<MediaToAttach> media) {
         this.media = media;
     }
 

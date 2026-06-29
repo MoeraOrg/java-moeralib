@@ -19,8 +19,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private String receiverGender;
     private AvatarImage receiverAvatar;
     private String receiverPostingId;
-    private String parentMediaId;
-    private String parentMediaEntryId;
+    private ParentMediaInfo parentMedia;
     private String ownerName;
     private String ownerFullName;
     private String ownerGender;
@@ -64,6 +63,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private ReactionTotalsInfo reactions;
     private List<PostingSourceInfo> sources;
     private Integer totalComments;
+    private Integer viewCount;
     private Boolean recommended;
     private String externalSourceUri;
 
@@ -230,39 +230,23 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     }
 
     /**
-     * Retrieves ID of the media the posting is linked to, if any.
+     * Retrieves information about the media the posting is linked to, if any
+     * .
      *
      * @return the value
      */
-    public String getParentMediaId() {
-        return parentMediaId;
+    public ParentMediaInfo getParentMedia() {
+        return parentMedia;
     }
 
     /**
-     * Sets ID of the media the posting is linked to, if any.
+     * Sets information about the media the posting is linked to, if any
+     * .
      *
-     * @param parentMediaId the value to be set
+     * @param parentMedia the value to be set
      */
-    public void setParentMediaId(String parentMediaId) {
-        this.parentMediaId = parentMediaId;
-    }
-
-    /**
-     * Retrieves ID of the entry that owns the attachment the posting is linked to, if any.
-     *
-     * @return the value
-     */
-    public String getParentMediaEntryId() {
-        return parentMediaEntryId;
-    }
-
-    /**
-     * Sets ID of the entry that owns the attachment the posting is linked to, if any.
-     *
-     * @param parentMediaEntryId the value to be set
-     */
-    public void setParentMediaEntryId(String parentMediaEntryId) {
-        this.parentMediaEntryId = parentMediaEntryId;
+    public void setParentMedia(ParentMediaInfo parentMedia) {
+        this.parentMedia = parentMedia;
     }
 
     /**
@@ -1069,6 +1053,24 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setTotalComments(Integer totalComments) {
         this.totalComments = totalComments;
+    }
+
+    /**
+     * Retrieves number of posting views (for admin only).
+     *
+     * @return the value
+     */
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    /**
+     * Sets number of posting views (for admin only).
+     *
+     * @param viewCount the value to be set
+     */
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 
     /**

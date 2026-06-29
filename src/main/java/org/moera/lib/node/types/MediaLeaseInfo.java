@@ -5,13 +5,13 @@ package org.moera.lib.node.types;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MediaWithDigest extends Structure implements Cloneable {
+public class MediaLeaseInfo extends Structure implements Cloneable {
 
     private String id;
-    private String digest;
+    private PrivateMediaFileInfo media;
 
     /**
-     * Retrieves ID of the media file.
+     * Retrieves ID of the lease.
      *
      * @return the value
      */
@@ -20,7 +20,7 @@ public class MediaWithDigest extends Structure implements Cloneable {
     }
 
     /**
-     * Sets ID of the media file.
+     * Sets ID of the lease.
      *
      * @param id the value to be set
      */
@@ -29,32 +29,32 @@ public class MediaWithDigest extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves cryptographic digest of the media file.
+     * Retrieves details of the media.
      *
      * @return the value
      */
-    public String getDigest() {
-        return digest;
+    public PrivateMediaFileInfo getMedia() {
+        return media;
     }
 
     /**
-     * Sets cryptographic digest of the media file.
+     * Sets details of the media.
      *
-     * @param digest the value to be set
+     * @param media the value to be set
      */
-    public void setDigest(String digest) {
-        this.digest = digest;
+    public void setMedia(PrivateMediaFileInfo media) {
+        this.media = media;
     }
 
     /**
-     * Creates and returns a copy of this {@code MediaWithDigest} object.
+     * Creates and returns a copy of this {@code MediaLeaseInfo} object.
      *
      * @return a clone of this instance
      */
     @Override
-    public MediaWithDigest clone() {
+    public MediaLeaseInfo clone() {
         try {
-            return (MediaWithDigest) super.clone();
+            return (MediaLeaseInfo) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new IllegalArgumentException("Must implement Cloneable", e);
         }

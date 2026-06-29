@@ -21,6 +21,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private Boolean videoPresent;
     private Integer attachmentCount;
     private PublicMediaFileInfo mediaPreview;
+    private String mediaPreviewNodeName;
     private String mediaPreviewId;
     private SearchRepliedTo repliedTo;
     private long createdAt;
@@ -259,6 +260,28 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setMediaPreview(PublicMediaFileInfo mediaPreview) {
         this.mediaPreview = mediaPreview;
+    }
+
+    /**
+     * Retrieves Source node of the media attached to the entry that was chosen for the preview (<code>null</code>, if
+     * the media is located on the same node as the entry)
+     * .
+     *
+     * @return the value
+     */
+    public String getMediaPreviewNodeName() {
+        return mediaPreviewNodeName;
+    }
+
+    /**
+     * Sets Source node of the media attached to the entry that was chosen for the preview (<code>null</code>, if the
+     * media is located on the same node as the entry)
+     * .
+     *
+     * @param mediaPreviewNodeName the value to be set
+     */
+    public void setMediaPreviewNodeName(String mediaPreviewNodeName) {
+        this.mediaPreviewNodeName = mediaPreviewNodeName;
     }
 
     /**

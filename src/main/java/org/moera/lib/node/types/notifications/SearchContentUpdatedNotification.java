@@ -8,11 +8,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.moera.lib.node.types.SearchBlockUpdate;
 import org.moera.lib.node.types.SearchCommentHeadingUpdate;
 import org.moera.lib.node.types.SearchCommentMediaTextUpdate;
+import org.moera.lib.node.types.SearchCommentMediaUpdate;
 import org.moera.lib.node.types.SearchCommentUpdate;
 import org.moera.lib.node.types.SearchContentUpdateType;
 import org.moera.lib.node.types.SearchFriendUpdate;
 import org.moera.lib.node.types.SearchPostingHeadingUpdate;
 import org.moera.lib.node.types.SearchPostingMediaTextUpdate;
+import org.moera.lib.node.types.SearchPostingMediaUpdate;
 import org.moera.lib.node.types.SearchPostingUpdate;
 import org.moera.lib.node.types.SearchReactionUpdate;
 import org.moera.lib.node.types.SearchSubscriptionUpdate;
@@ -28,10 +30,12 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
     private SearchContentUpdateType updateType;
     private SearchBlockUpdate blockUpdate;
     private SearchCommentHeadingUpdate commentHeadingUpdate;
+    private SearchCommentMediaUpdate commentMediaUpdate;
     private SearchCommentMediaTextUpdate commentMediaTextUpdate;
     private SearchCommentUpdate commentUpdate;
     private SearchFriendUpdate friendUpdate;
     private SearchPostingHeadingUpdate postingHeadingUpdate;
+    private SearchPostingMediaUpdate postingMediaUpdate;
     private SearchPostingMediaTextUpdate postingMediaTextUpdate;
     private SearchPostingUpdate postingUpdate;
     private SearchReactionUpdate reactionUpdate;
@@ -93,6 +97,24 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
      */
     public void setCommentHeadingUpdate(SearchCommentHeadingUpdate commentHeadingUpdate) {
         this.commentHeadingUpdate = commentHeadingUpdate;
+    }
+
+    /**
+     * Retrieves details about the comment's media attachment.
+     *
+     * @return the value
+     */
+    public SearchCommentMediaUpdate getCommentMediaUpdate() {
+        return commentMediaUpdate;
+    }
+
+    /**
+     * Sets details about the comment's media attachment.
+     *
+     * @param commentMediaUpdate the value to be set
+     */
+    public void setCommentMediaUpdate(SearchCommentMediaUpdate commentMediaUpdate) {
+        this.commentMediaUpdate = commentMediaUpdate;
     }
 
     /**
@@ -165,6 +187,24 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
      */
     public void setPostingHeadingUpdate(SearchPostingHeadingUpdate postingHeadingUpdate) {
         this.postingHeadingUpdate = postingHeadingUpdate;
+    }
+
+    /**
+     * Retrieves details about the posting's media attachment.
+     *
+     * @return the value
+     */
+    public SearchPostingMediaUpdate getPostingMediaUpdate() {
+        return postingMediaUpdate;
+    }
+
+    /**
+     * Sets details about the posting's media attachment.
+     *
+     * @param postingMediaUpdate the value to be set
+     */
+    public void setPostingMediaUpdate(SearchPostingMediaUpdate postingMediaUpdate) {
+        this.postingMediaUpdate = postingMediaUpdate;
     }
 
     /**
@@ -249,6 +289,9 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
         if (commentHeadingUpdate != null) {
             commentHeadingUpdate.validate();
         }
+        if (commentMediaUpdate != null) {
+            commentMediaUpdate.validate();
+        }
         if (commentMediaTextUpdate != null) {
             commentMediaTextUpdate.validate();
         }
@@ -260,6 +303,9 @@ public class SearchContentUpdatedNotification extends SubscriberNotification {
         }
         if (postingHeadingUpdate != null) {
             postingHeadingUpdate.validate();
+        }
+        if (postingMediaUpdate != null) {
+            postingMediaUpdate.validate();
         }
         if (postingMediaTextUpdate != null) {
             postingMediaTextUpdate.validate();
