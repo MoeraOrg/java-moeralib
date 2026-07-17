@@ -1279,16 +1279,46 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
-     * Upload a new private media file. The content of the file is passed in the request body.
+     * Parse the page located at the URL and return the title, the description and the picture that may be used to
+     * build a preview of the page.
      *
-     * @param body body
-     * @param contentType content-type of ``body``
+     * @param url url
+     * @return LinkPreviewInfo
+     */
+    public LinkPreviewInfo createLinkPreview(String url) throws MoeraNodeException {
+        var location = "/link-preview";
+        var params = new QueryParam[] {
+            QueryParam.of("url", url)
+        };
+        var returnTypeRef = new TypeReference<LinkPreviewInfo>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Upload a new private media file. The content of the file is passed in the request body. Alternatively, the file
+     * can be uploaded using <a href="#Media%20upload%20object">Media upload API</a> and its ID passed in the `upload`
+     * query parameter. The second alternative is to pass the URL of the media in the `url` query parameter, the media
+     * will be downloaded to the node.
+     *
+     * @param upload ID of the media upload to be used instead of the request body
+     * @param url URL of the media to be used instead of the request body
+     * @param downsize `true` to scale the uploaded image down to the size recommended by the node, if possible; the
+     * default is `false`
+     * @param body optional body
+     * @param contentType optional content-type of ``body``
      * @return PrivateMediaFileInfo
      */
-    public PrivateMediaFileInfo uploadPrivateMedia(Path body, String contentType) throws MoeraNodeException {
+    public PrivateMediaFileInfo uploadPrivateMedia(
+        String upload, String url, Boolean downsize, Path body, String contentType
+    ) throws MoeraNodeException {
         var location = "/media/private";
+        var params = new QueryParam[] {
+            QueryParam.of("upload", upload),
+            QueryParam.of("url", url),
+            QueryParam.of("downsize", downsize)
+        };
         var returnTypeRef = new TypeReference<PrivateMediaFileInfo>() {};
-        return call(location, null, "POST", body, contentType, returnTypeRef);
+        return call(location, params, "POST", body, contentType, returnTypeRef);
     }
 
     /**
@@ -1415,6 +1445,59 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result deleteMediaLease(String id) throws MoeraNodeException {
         var location = "/media/leases/%s".formatted(ue(id));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "DELETE", null, returnTypeRef);
+    }
+
+    /**
+     * Create a new chunked upload of a private media source file.
+     *
+     * @param attributes attributes
+     * @return MediaUploadInfo
+     */
+    public MediaUploadInfo createMediaUpload(MediaUploadAttributes attributes) throws MoeraNodeException {
+        var location = "/media/upload";
+        var returnTypeRef = new TypeReference<MediaUploadInfo>() {};
+        return call(location, null, "POST", attributes, returnTypeRef);
+    }
+
+    /**
+     * Get chunked upload details.
+     *
+     * @param id upload ID
+     * @return MediaUploadInfo
+     */
+    public MediaUploadInfo getMediaUpload(String id) throws MoeraNodeException {
+        var location = "/media/upload/%s".formatted(ue(id));
+        var returnTypeRef = new TypeReference<MediaUploadInfo>() {};
+        return call(location, null, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Upload one chunk of a private media source file.
+     *
+     * @param id upload ID
+     * @param chunk zero-based chunk number
+     * @param body body
+     * @param contentType content-type of ``body``
+     * @return MediaUploadInfo
+     */
+    public MediaUploadInfo uploadMediaChunk(
+        String id, int chunk, Path body, String contentType
+    ) throws MoeraNodeException {
+        var location = "/media/upload/%s/%s".formatted(ue(id), ue(chunk));
+        var returnTypeRef = new TypeReference<MediaUploadInfo>() {};
+        return call(location, null, "PUT", body, contentType, returnTypeRef);
+    }
+
+    /**
+     * Delete a chunked media upload and the corresponding source file.
+     *
+     * @param id upload ID
+     * @return Result
+     */
+    public Result deleteMediaUpload(String id) throws MoeraNodeException {
+        var location = "/media/upload/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
     }
@@ -1917,36 +2000,6 @@ public class MoeraNode extends NodeApiClient {
         var location = "/provider/delete-node";
         var returnTypeRef = new TypeReference<DeleteNodeStatus>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
-    }
-
-    /**
-     * Open the URL passed in the parameters and pass to the client the media file returned by the server.
-     *
-     * @param url url
-     * @param responseConsumer consumer of the data received
-     */
-    public void proxyMedia(String url, ResponseConsumer responseConsumer) throws MoeraNodeException {
-        var location = "/proxy/media";
-        var params = new QueryParam[] {
-            QueryParam.of("url", url)
-        };
-        call(location, params, "GET", null, responseConsumer);
-    }
-
-    /**
-     * Parse the page located at the URL and return the title, the description and the picture that may be used to
-     * build a preview of the page.
-     *
-     * @param url url
-     * @return LinkPreviewInfo
-     */
-    public LinkPreviewInfo proxyLinkPreview(String url) throws MoeraNodeException {
-        var location = "/proxy/link-preview";
-        var params = new QueryParam[] {
-            QueryParam.of("url", url)
-        };
-        var returnTypeRef = new TypeReference<LinkPreviewInfo>() {};
-        return call(location, params, "GET", null, returnTypeRef);
     }
 
     /**
@@ -2951,6 +3004,50 @@ public class MoeraNode extends NodeApiClient {
      */
     public Result deleteUserListItem(String name, String nodeName) throws MoeraNodeException {
         var location = "/user-lists/%s/items/%s".formatted(ue(name), ue(nodeName));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "DELETE", null, returnTypeRef);
+    }
+
+    /**
+     * Search for visited nodes matching the search <code>query</code>. Every space-delimited word in the query must
+     * match case-insensitively a beginning of the node's name or a beginning of any space-delimited word in the node's
+     * full name. The order of words is not significant. <br><br> The node may decide to return fewer nodes than the
+     * given <code>limit</code>. <br><br> The nodes are sorted by <i>social distance</i> from the node.
+     *
+     * @param query the search query
+     * @param limit maximum number of nodes returned
+     * @return SearchNodeInfo[]
+     */
+    public SearchNodeInfo[] getVisitedNodes(String query, Integer limit) throws MoeraNodeException {
+        var location = "/people/visited";
+        var params = new QueryParam[] {
+            QueryParam.of("query", query),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<SearchNodeInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
+    }
+
+    /**
+     * Record a visit to the node.
+     *
+     * @param node node
+     * @return Result
+     */
+    public Result recordVisitedNode(VisitedNodeAttributes node) throws MoeraNodeException {
+        var location = "/people/visited";
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", node, returnTypeRef);
+    }
+
+    /**
+     * Delete all visits to the node.
+     *
+     * @param nodeName name of the visited node
+     * @return Result
+     */
+    public Result deleteVisitedNode(String nodeName) throws MoeraNodeException {
+        var location = "/people/visited/%s".formatted(ue(nodeName));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
     }

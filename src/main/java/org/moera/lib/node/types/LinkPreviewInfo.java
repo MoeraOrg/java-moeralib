@@ -11,7 +11,7 @@ public class LinkPreviewInfo extends Structure implements Cloneable {
     private String url;
     private String title;
     private String description;
-    private String imageUrl;
+    private PrivateMediaFileInfo image;
     private Long publishedAt;
 
     /**
@@ -87,21 +87,21 @@ public class LinkPreviewInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves URL of the image presenting the page.
+     * Retrieves image presenting the page.
      *
      * @return the value
      */
-    public String getImageUrl() {
-        return imageUrl;
+    public PrivateMediaFileInfo getImage() {
+        return image;
     }
 
     /**
-     * Sets URL of the image presenting the page.
+     * Sets image presenting the page.
      *
-     * @param imageUrl the value to be set
+     * @param image the value to be set
      */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(PrivateMediaFileInfo image) {
+        this.image = image;
     }
 
     /**

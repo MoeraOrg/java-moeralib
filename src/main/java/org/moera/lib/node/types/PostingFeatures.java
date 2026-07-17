@@ -12,8 +12,6 @@ public class PostingFeatures extends Structure implements Cloneable {
     private Boolean post;
     private boolean subjectPresent;
     private List<SourceFormat> sourceFormats;
-    private int imageRecommendedSize;
-    private int imageRecommendedPixels;
     private List<String> imageFormats;
 
     /**
@@ -68,42 +66,6 @@ public class PostingFeatures extends Structure implements Cloneable {
      */
     public void setSourceFormats(List<SourceFormat> sourceFormats) {
         this.sourceFormats = sourceFormats;
-    }
-
-    /**
-     * Retrieves maximal size of a compressed image in a post.
-     *
-     * @return the value
-     */
-    public int getImageRecommendedSize() {
-        return imageRecommendedSize;
-    }
-
-    /**
-     * Sets maximal size of a compressed image in a post.
-     *
-     * @param imageRecommendedSize the value to be set
-     */
-    public void setImageRecommendedSize(int imageRecommendedSize) {
-        this.imageRecommendedSize = imageRecommendedSize;
-    }
-
-    /**
-     * Retrieves maximal resolution of a compressed image in a post (in pixels).
-     *
-     * @return the value
-     */
-    public int getImageRecommendedPixels() {
-        return imageRecommendedPixels;
-    }
-
-    /**
-     * Sets maximal resolution of a compressed image in a post (in pixels).
-     *
-     * @param imageRecommendedPixels the value to be set
-     */
-    public void setImageRecommendedPixels(int imageRecommendedPixels) {
-        this.imageRecommendedPixels = imageRecommendedPixels;
     }
 
     /**

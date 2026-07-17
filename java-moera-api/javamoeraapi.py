@@ -284,6 +284,7 @@ def generate_operations(operations: Any, outdir: str) -> None:
 JAVA_TYPES = {
     'String': 'String',
     'String[]': 'List<String>',
+    'int[]': 'List<Integer>',
     'short': 'short',
     'int': 'int',
     'long': 'long',
@@ -298,6 +299,7 @@ JAVA_TYPES = {
 JAVA_OPTIONAL_TYPES = {
     'String': 'String',
     'String[]': 'List<String>',
+    'int[]': 'List<Integer>',
     'short': 'Short',
     'int': 'Integer',
     'long': 'Long',
@@ -775,7 +777,13 @@ def generate_calls(api: Any, afile: TextIO) -> None:
                         exit(1)
                     body = 'body, contentType'
                     params += ['Path body', 'String contentType']
-                    param_docs += [('body', '', 'Path'), ('contentType', 'content-type of ``body``', 'string')]
+                    if request['in'].get('optional', False):
+                        param_docs += [
+                            ('body', 'optional body', 'Path'),
+                            ('contentType', 'optional content-type of ``body``', 'string')
+                        ]
+                    else:
+                        param_docs += [('body', '', 'Path'), ('contentType', 'content-type of ``body``', 'string')]
                 else:
                     if 'name' not in request['in']:
                         print('Missing name of body of the request "{method} {url}"'
@@ -787,7 +795,10 @@ def generate_calls(api: Any, afile: TextIO) -> None:
                         java_type += '[]'
                     body = name
                     params.append(f'{java_type} {name}')
-                    param_docs += [(name, request['in'].get('description', ''), java_type)]
+                    body_description = request['in'].get('description', '')
+                    if request['in'].get('optional', False):
+                        body_description = 'optional' + (f' {body_description}' if body_description != '' else '')
+                    param_docs += [(name, body_description, java_type)]
             else:
                 if method == 'POST' or method == 'PUT':
                     body = 'Collections.emptyMap()'

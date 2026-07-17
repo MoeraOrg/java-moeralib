@@ -10,6 +10,7 @@ public class ContactInfo extends Structure implements Cloneable {
     private String nodeName;
     private String fullName;
     private String gender;
+    private String title;
     private AvatarImage avatar;
     private float distance;
     private Boolean hasFeedSubscriber;
@@ -74,6 +75,24 @@ public class ContactInfo extends Structure implements Cloneable {
      */
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    /**
+     * Retrieves .
+     *
+     * @return the value
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets .
+     *
+     * @param title the value to be set
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
