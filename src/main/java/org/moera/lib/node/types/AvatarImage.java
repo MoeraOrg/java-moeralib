@@ -57,8 +57,8 @@ public class AvatarImage extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves location of the media file, relative to the <code>/media</code>; points to a static image served
-     * directly from a filesystem or CDN
+     * Retrieves location of the media file, relative to the <code>/media</code> or an absolute URL; points to a static
+     * image served directly from a filesystem or CDN
      * .
      *
      * @return the value
@@ -68,8 +68,8 @@ public class AvatarImage extends Structure implements Cloneable {
     }
 
     /**
-     * Sets location of the media file, relative to the <code>/media</code>; points to a static image served directly
-     * from a filesystem or CDN
+     * Sets location of the media file, relative to the <code>/media</code> or an absolute URL; points to a static
+     * image served directly from a filesystem or CDN
      * .
      *
      * @param directPath the value to be set

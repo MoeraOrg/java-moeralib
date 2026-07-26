@@ -15,6 +15,8 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private String path;
     private String directPath;
     private Long directPathExpiresAt;
+    private String directDownloadPath;
+    private Long directDownloadPathExpiresAt;
     private String mimeType;
     private Integer width;
     private Integer height;
@@ -106,8 +108,8 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves location of the media file, relative to the <code>/media</code>; points to a static image served
-     * directly from a filesystem or CDN
+     * Retrieves location of the media file, relative to the <code>/media</code> or an absolute URL; points to the
+     * media served directly from a filesystem or CDN
      * .
      *
      * @return the value
@@ -117,8 +119,8 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     }
 
     /**
-     * Sets location of the media file, relative to the <code>/media</code>; points to a static image served directly
-     * from a filesystem or CDN
+     * Sets location of the media file, relative to the <code>/media</code> or an absolute URL; points to the media
+     * served directly from a filesystem or CDN
      * .
      *
      * @param directPath the value to be set
@@ -143,6 +145,50 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setDirectPathExpiresAt(Long directPathExpiresAt) {
         this.directPathExpiresAt = directPathExpiresAt;
+    }
+
+    /**
+     * Retrieves location of the original media file with attachment content disposition, relative to the
+     * <code>/media</code> or an absolute URL
+     * .
+     *
+     * @return the value
+     */
+    public String getDirectDownloadPath() {
+        return directDownloadPath;
+    }
+
+    /**
+     * Sets location of the original media file with attachment content disposition, relative to the
+     * <code>/media</code> or an absolute URL
+     * .
+     *
+     * @param directDownloadPath the value to be set
+     */
+    public void setDirectDownloadPath(String directDownloadPath) {
+        this.directDownloadPath = directDownloadPath;
+    }
+
+    /**
+     * Retrieves direct download path expiration timestamp - the real time when the direct download path will not be
+     * valid anymore
+     * .
+     *
+     * @return the value
+     */
+    public Long getDirectDownloadPathExpiresAt() {
+        return directDownloadPathExpiresAt;
+    }
+
+    /**
+     * Sets direct download path expiration timestamp - the real time when the direct download path will not be valid
+     * anymore
+     * .
+     *
+     * @param directDownloadPathExpiresAt the value to be set
+     */
+    public void setDirectDownloadPathExpiresAt(Long directDownloadPathExpiresAt) {
+        this.directDownloadPathExpiresAt = directDownloadPathExpiresAt;
     }
 
     /**
