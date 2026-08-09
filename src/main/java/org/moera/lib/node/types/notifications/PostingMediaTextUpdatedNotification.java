@@ -16,6 +16,7 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
 
     private String postingId;
     private String mediaId;
+    private String mediaNodeName;
     private String title;
     private String textContent;
 
@@ -60,6 +61,24 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
     }
 
     /**
+     * Retrieves name of the node where the media is located.
+     *
+     * @return the value
+     */
+    public String getMediaNodeName() {
+        return mediaNodeName;
+    }
+
+    /**
+     * Sets name of the node where the media is located.
+     *
+     * @param mediaNodeName the value to be set
+     */
+    public void setMediaNodeName(String mediaNodeName) {
+        this.mediaNodeName = mediaNodeName;
+    }
+
+    /**
      * Retrieves title of the media file, may be used as an alternative to the file name.
      *
      * @return the value
@@ -100,6 +119,7 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
         super.validate();
         ValidationUtil.maxSize(postingId, 40, "posting.posting-id.wrong-size");
         ValidationUtil.maxSize(mediaId, 40, "media.media-id.wrong-size");
+        ValidationUtil.maxSize(mediaNodeName, 135, "media.node-name.wrong-size");
         ValidationUtil.maxSize(title, 255, "media.title.wrong-size");
         ValidationUtil.maxSize(textContent, 16384, "media.text-content.wrong-size");
     }
@@ -109,6 +129,7 @@ public class PostingMediaTextUpdatedNotification extends SubscriberNotification 
         super.logParameters(parameters);
         parameters.add(LogPair.of("postingId", LogUtil.format(postingId)));
         parameters.add(LogPair.of("mediaId", LogUtil.format(mediaId)));
+        parameters.add(LogPair.of("mediaNodeName", LogUtil.format(mediaNodeName)));
         parameters.add(LogPair.of("textContent", LogUtil.format(textContent)));
     }
 

@@ -16,7 +16,9 @@ public class RemoteMediaInfo extends Structure implements Cloneable {
     private Integer width;
     private Integer height;
     private Long size;
+    private Float duration;
     private String title;
+    private String textContent;
     private Boolean attachment;
     private String grant;
 
@@ -183,6 +185,24 @@ public class RemoteMediaInfo extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @return the value
+     */
+    public Float getDuration() {
+        return duration;
+    }
+
+    /**
+     * Sets duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @param duration the value to be set
+     */
+    public void setDuration(Float duration) {
+        this.duration = duration;
+    }
+
+    /**
      * Retrieves title of the media file, may be used as an alternative to the file name.
      *
      * @return the value
@@ -198,6 +218,24 @@ public class RemoteMediaInfo extends Structure implements Cloneable {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Retrieves the text contained in the image, if any.
+     *
+     * @return the value
+     */
+    public String getTextContent() {
+        return textContent;
+    }
+
+    /**
+     * Sets the text contained in the image, if any.
+     *
+     * @param textContent the value to be set
+     */
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
     }
 
     /**

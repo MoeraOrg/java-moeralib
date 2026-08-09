@@ -11,6 +11,7 @@ import org.moera.lib.node.types.validate.ValidationUtil;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommentSourceText extends Structure implements Cloneable {
 
+    private String ownerFullName;
     private AvatarDescription ownerAvatar;
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
@@ -22,6 +23,24 @@ public class CommentSourceText extends Structure implements Cloneable {
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
+
+    /**
+     * Retrieves full name of the comment's owner.
+     *
+     * @return the value
+     */
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    /**
+     * Sets full name of the comment's owner.
+     *
+     * @param ownerFullName the value to be set
+     */
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
 
     /**
      * Retrieves avatar of the comment's owner.
@@ -236,6 +255,7 @@ public class CommentSourceText extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
+        ValidationUtil.maxSize(ownerFullName, 96, "comment.owner-full-name.wrong-size");
         ValidationUtil.notNull(bodySrc, "comment.body-src.blank");
         ValidationUtil.maxSize(bodySrc, 65535, "comment.body-src.wrong-size");
         if (rejectedReactions != null) {

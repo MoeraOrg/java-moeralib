@@ -22,6 +22,9 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
     private Integer height;
     private Short orientation;
     private long size;
+    private Float duration;
+    private Boolean uncompressed;
+    private String compressedMediaId;
     private String title;
     private String textContent;
     private List<MediaFilePreviewInfo> previews;
@@ -285,6 +288,60 @@ public class PrivateMediaFileInfo extends Structure implements Cloneable {
      */
     public void setSize(long size) {
         this.size = size;
+    }
+
+    /**
+     * Retrieves duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @return the value
+     */
+    public Float getDuration() {
+        return duration;
+    }
+
+    /**
+     * Sets duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @param duration the value to be set
+     */
+    public void setDuration(Float duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * Retrieves <code>true</code> if requested video compression is not complete.
+     *
+     * @return the value
+     */
+    public Boolean getUncompressed() {
+        return uncompressed;
+    }
+
+    /**
+     * Sets <code>true</code> if requested video compression is not complete.
+     *
+     * @param uncompressed the value to be set
+     */
+    public void setUncompressed(Boolean uncompressed) {
+        this.uncompressed = uncompressed;
+    }
+
+    /**
+     * Retrieves ID of the compressed media file, if compression is complete.
+     *
+     * @return the value
+     */
+    public String getCompressedMediaId() {
+        return compressedMediaId;
+    }
+
+    /**
+     * Sets ID of the compressed media file, if compression is complete.
+     *
+     * @param compressedMediaId the value to be set
+     */
+    public void setCompressedMediaId(String compressedMediaId) {
+        this.compressedMediaId = compressedMediaId;
     }
 
     /**

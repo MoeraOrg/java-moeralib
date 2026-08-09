@@ -1302,8 +1302,8 @@ public class MoeraNode extends NodeApiClient {
      *
      * @param upload ID of the media upload to be used instead of the request body
      * @param url URL of the media to be used instead of the request body
-     * @param downsize `true` to scale the uploaded image down to the size recommended by the node, if possible; the
-     * default is `false`
+     * @param downsize `true` to scale the uploaded image down to the size recommended by the node or asynchronously
+     * compress an uploaded video to the recommended playback format and size, if possible; the default is `false`
      * @param body optional body
      * @param contentType optional content-type of ``body``
      * @return PrivateMediaFileInfo

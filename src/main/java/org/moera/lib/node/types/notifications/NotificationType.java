@@ -178,7 +178,11 @@ public enum NotificationType {
     /**
      * Title of a media file leased by the receiver has been updated.
      */
-    LEASED_MEDIA_TITLE_UPDATED(LeasedMediaTitleUpdatedNotification.class); // 42
+    LEASED_MEDIA_TITLE_UPDATED(LeasedMediaTitleUpdatedNotification.class), // 42
+    /**
+     * Text content of a media file leased by the receiver has been updated.
+     */
+    LEASED_MEDIA_TEXT_UPDATED(LeasedMediaTextUpdatedNotification.class); // 43
 
     private final Class<? extends Notification> structure;
 

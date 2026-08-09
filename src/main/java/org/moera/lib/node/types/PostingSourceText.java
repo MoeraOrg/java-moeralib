@@ -11,6 +11,7 @@ import org.moera.lib.node.types.validate.ValidationUtil;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostingSourceText extends Structure implements Cloneable {
 
+    private String ownerFullName;
     private AvatarDescription ownerAvatar;
     private Body bodySrc;
     private SourceFormat bodySrcFormat;
@@ -18,10 +19,29 @@ public class PostingSourceText extends Structure implements Cloneable {
     private List<MediaCaptionText> mediaCaptions;
     private RejectedReactions rejectedReactions;
     private RejectedReactions commentRejectedReactions;
+    private List<StoryAttributes> publications;
     private PostingOperations operations;
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
+
+    /**
+     * Retrieves full name of the posting's owner.
+     *
+     * @return the value
+     */
+    public String getOwnerFullName() {
+        return ownerFullName;
+    }
+
+    /**
+     * Sets full name of the posting's owner.
+     *
+     * @param ownerFullName the value to be set
+     */
+    public void setOwnerFullName(String ownerFullName) {
+        this.ownerFullName = ownerFullName;
+    }
 
     /**
      * Retrieves avatar of the posting's owner.
@@ -154,6 +174,24 @@ public class PostingSourceText extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves list of publications in feeds that must be made after creating the posting (for new postings only).
+     *
+     * @return the value
+     */
+    public List<StoryAttributes> getPublications() {
+        return publications;
+    }
+
+    /**
+     * Sets list of publications in feeds that must be made after creating the posting (for new postings only).
+     *
+     * @param publications the value to be set
+     */
+    public void setPublications(List<StoryAttributes> publications) {
+        this.publications = publications;
+    }
+
+    /**
      * Retrieves the operations and the corresponding principals.
      *
      * @return the value
@@ -231,6 +269,7 @@ public class PostingSourceText extends Structure implements Cloneable {
     @Override
     public void validate() {
         super.validate();
+        ValidationUtil.maxSize(ownerFullName, 96, "posting.owner-full-name.wrong-size");
         ValidationUtil.maxSize(bodySrc, 65535, "posting.body-src.wrong-size");
         if (rejectedReactions != null) {
             rejectedReactions.validate();

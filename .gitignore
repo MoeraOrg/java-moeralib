@@ -3,3 +3,4 @@
 .idea/
 target/
 /.codex
+java-moera-api/.venv/

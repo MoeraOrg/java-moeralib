@@ -11,6 +11,7 @@ public class SearchCommentMediaTextUpdate extends Structure implements Cloneable
     private String postingId;
     private String commentId;
     private String mediaId;
+    private String mediaNodeName;
     private String title;
     private String textContent;
 
@@ -69,6 +70,24 @@ public class SearchCommentMediaTextUpdate extends Structure implements Cloneable
     }
 
     /**
+     * Retrieves name of the node where the media is located.
+     *
+     * @return the value
+     */
+    public String getMediaNodeName() {
+        return mediaNodeName;
+    }
+
+    /**
+     * Sets name of the node where the media is located.
+     *
+     * @param mediaNodeName the value to be set
+     */
+    public void setMediaNodeName(String mediaNodeName) {
+        this.mediaNodeName = mediaNodeName;
+    }
+
+    /**
      * Retrieves title of the media file, may be used as an alternative to the file name.
      *
      * @return the value
@@ -110,6 +129,7 @@ public class SearchCommentMediaTextUpdate extends Structure implements Cloneable
         ValidationUtil.maxSize(postingId, 40, "search.posting-id.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "search.comment-id.wrong-size");
         ValidationUtil.maxSize(mediaId, 40, "search.media-id.wrong-size");
+        ValidationUtil.maxSize(mediaNodeName, 135, "search.media-node-name.wrong-size");
         ValidationUtil.maxSize(title, 255, "search.title.wrong-size");
         ValidationUtil.maxSize(textContent, 16384, "search.text-content.wrong-size");
     }

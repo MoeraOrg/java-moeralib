@@ -198,7 +198,15 @@ public enum StoryType {
     /**
      * The user's comment was rejected after premoderation.
      */
-    PREMODERATED_COMMENT_REJECTED; // 47
+    PREMODERATED_COMMENT_REJECTED, // 47
+    /**
+     * The user's comment with a video was published after video compression.
+     */
+    VIDEO_COMMENT_PUBLISHED, // 48
+    /**
+     * The user's posting with a video was published after video compression.
+     */
+    VIDEO_POSTING_PUBLISHED; // 49
 
     /**
      * Retrieves the string representation of the enum constant.

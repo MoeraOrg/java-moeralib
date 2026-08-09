@@ -23,6 +23,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private PublicMediaFileInfo mediaPreview;
     private String mediaPreviewNodeName;
     private String mediaPreviewId;
+    private String mediaPreviewMimeType;
     private SearchRepliedTo repliedTo;
     private long createdAt;
     private SearchEntryOperations operations;
@@ -300,6 +301,24 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setMediaPreviewId(String mediaPreviewId) {
         this.mediaPreviewId = mediaPreviewId;
+    }
+
+    /**
+     * Retrieves MIME type of the media attached to the entry that was chosen for the preview.
+     *
+     * @return the value
+     */
+    public String getMediaPreviewMimeType() {
+        return mediaPreviewMimeType;
+    }
+
+    /**
+     * Sets MIME type of the media attached to the entry that was chosen for the preview.
+     *
+     * @param mediaPreviewMimeType the value to be set
+     */
+    public void setMediaPreviewMimeType(String mediaPreviewMimeType) {
+        this.mediaPreviewMimeType = mediaPreviewMimeType;
     }
 
     /**

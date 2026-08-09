@@ -13,6 +13,7 @@ public class PostingFeatures extends Structure implements Cloneable {
     private boolean subjectPresent;
     private List<SourceFormat> sourceFormats;
     private List<String> imageFormats;
+    private List<String> videoFormats;
 
     /**
      * Retrieves <code>true</code> if the client is allowed to create postings, <code>false</code> otherwise.
@@ -84,6 +85,24 @@ public class PostingFeatures extends Structure implements Cloneable {
      */
     public void setImageFormats(List<String> imageFormats) {
         this.imageFormats = imageFormats;
+    }
+
+    /**
+     * Retrieves list of video formats (in MIME type form) the node understands.
+     *
+     * @return the value
+     */
+    public List<String> getVideoFormats() {
+        return videoFormats;
+    }
+
+    /**
+     * Sets list of video formats (in MIME type form) the node understands.
+     *
+     * @param videoFormats the value to be set
+     */
+    public void setVideoFormats(List<String> videoFormats) {
+        this.videoFormats = videoFormats;
     }
 
     /**

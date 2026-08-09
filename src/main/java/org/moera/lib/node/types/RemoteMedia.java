@@ -15,6 +15,7 @@ public class RemoteMedia extends Structure implements Cloneable {
     private Integer width;
     private Integer height;
     private long size;
+    private Float duration;
     private String title;
     private Boolean attachment;
     private String leaseId;
@@ -161,6 +162,24 @@ public class RemoteMedia extends Structure implements Cloneable {
      */
     public void setSize(long size) {
         this.size = size;
+    }
+
+    /**
+     * Retrieves duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @return the value
+     */
+    public Float getDuration() {
+        return duration;
+    }
+
+    /**
+     * Sets duration of the media in seconds (<code>null</code>, if the media file is not an audio or video).
+     *
+     * @param duration the value to be set
+     */
+    public void setDuration(Float duration) {
+        this.duration = duration;
     }
 
     /**
