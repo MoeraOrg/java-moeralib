@@ -481,7 +481,20 @@ class BaseStructure:
                     tfile.write(f'{ind(2)}ValidationUtil.notBlank({field["name"]}, "{cons["error"]}");\n')
                 if 'length' in constraint:
                     cons = constraint['length']
-                    tfile.write(f'{ind(2)}ValidationUtil.maxSize({field["name"]}, {cons["max"]}, "{cons["error"]}");\n')
+                    if field.get('array', False) or field.get('type', '').endswith('[]'):
+                        tfile.write(
+                            f'{ind(2)}if ({field["name"]} != null) {{\n'
+                            f'{ind(3)}{field["name"]}.forEach(value ->\n'
+                            f'{ind(4)}ValidationUtil.maxSize('
+                            f'value, {cons["max"]}, "{cons["error"]}")\n'
+                            f'{ind(3)});\n'
+                            f'{ind(2)}}}\n'
+                        )
+                    else:
+                        tfile.write(
+                            f'{ind(2)}ValidationUtil.maxSize('
+                            f'{field["name"]}, {cons["max"]}, "{cons["error"]}");\n'
+                        )
                 if 'value' in constraint:
                     cons = constraint['value']
                     if 'min' in cons:

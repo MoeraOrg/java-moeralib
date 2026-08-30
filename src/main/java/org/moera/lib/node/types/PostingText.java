@@ -32,7 +32,7 @@ public class PostingText extends Structure implements Cloneable {
     private CommentOperations commentOperations;
     private ReactionOperations reactionOperations;
     private ReactionOperations commentReactionOperations;
-    private String externalSourceUri;
+    private List<String> externalSourceUri;
 
     /**
      * Retrieves node name of the posting's owner.
@@ -424,24 +424,24 @@ public class PostingText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves URI of the external source the posting was received from; used by software that automatically forwards
-     * postings from other social networks (for admin only)
+     * Retrieves URIs of the external sources the posting was received from; used by software that automatically
+     * forwards postings from other social networks (for admin only)
      * .
      *
      * @return the value
      */
-    public String getExternalSourceUri() {
+    public List<String> getExternalSourceUri() {
         return externalSourceUri;
     }
 
     /**
-     * Sets URI of the external source the posting was received from; used by software that automatically forwards
+     * Sets URIs of the external sources the posting was received from; used by software that automatically forwards
      * postings from other social networks (for admin only)
      * .
      *
      * @param externalSourceUri the value to be set
      */
-    public void setExternalSourceUri(String externalSourceUri) {
+    public void setExternalSourceUri(List<String> externalSourceUri) {
         this.externalSourceUri = externalSourceUri;
     }
 
@@ -460,7 +460,11 @@ public class PostingText extends Structure implements Cloneable {
         if (updateInfo != null) {
             updateInfo.validate();
         }
-        ValidationUtil.maxSize(externalSourceUri, 1024, "posting.external-source-uri.wrong-size");
+        if (externalSourceUri != null) {
+            externalSourceUri.forEach(value ->
+                ValidationUtil.maxSize(value, 1024, "posting.external-source-uri.wrong-size")
+            );
+        }
     }
 
     /**
