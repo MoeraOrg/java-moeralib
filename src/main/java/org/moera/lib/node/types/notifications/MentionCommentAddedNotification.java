@@ -20,6 +20,7 @@ public class MentionCommentAddedNotification extends Notification {
     private String commentId;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingOwnerGender;
     private AvatarImage postingOwnerAvatar;
     private String postingHeading;
@@ -27,6 +28,7 @@ public class MentionCommentAddedNotification extends Notification {
     private List<SheriffMark> postingSheriffMarks;
     private String commentOwnerName;
     private String commentOwnerFullName;
+    private String commentOwnerSourceUri;
     private String commentOwnerGender;
     private AvatarImage commentOwnerAvatar;
     private String commentHeading;
@@ -106,6 +108,24 @@ public class MentionCommentAddedNotification extends Notification {
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -235,6 +255,24 @@ public class MentionCommentAddedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getCommentOwnerSourceUri() {
+        return commentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param commentOwnerSourceUri the value to be set
+     */
+    public void setCommentOwnerSourceUri(String commentOwnerSourceUri) {
+        this.commentOwnerSourceUri = commentOwnerSourceUri;
+    }
+
+    /**
      * Retrieves gender of the comment's owner.
      *
      * @return the value
@@ -313,10 +351,12 @@ public class MentionCommentAddedNotification extends Notification {
         ValidationUtil.maxSize(commentId, 40, "mention.comment-id.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 135, "mention.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "mention.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "mention.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "mention.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "mention.posting-heading.wrong-size");
         ValidationUtil.maxSize(commentOwnerName, 135, "mention.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "mention.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerSourceUri, 1024, "mention.comment-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(commentOwnerGender, 31, "mention.comment-owner-gender.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "mention.comment-heading.wrong-size");
     }

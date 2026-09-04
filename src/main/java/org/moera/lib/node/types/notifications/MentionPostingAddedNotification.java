@@ -19,6 +19,7 @@ public class MentionPostingAddedNotification extends Notification {
     private String postingId;
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarImage ownerAvatar;
     private String heading;
@@ -81,6 +82,24 @@ public class MentionPostingAddedNotification extends Notification {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -179,6 +198,7 @@ public class MentionPostingAddedNotification extends Notification {
         ValidationUtil.maxSize(postingId, 40, "mention.posting-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 135, "mention.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "mention.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "mention.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "mention.owner-gender.wrong-size");
         ValidationUtil.maxSize(heading, 255, "mention.heading.wrong-size");
     }

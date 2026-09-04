@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class CredentialsCreated extends Structure implements Cloneable {
 
     private boolean created;
+    private Boolean loginDisabled;
 
     /**
      * Retrieves <code>true</code> if the credentials are initialized already, <code>false</code> otherwise.
@@ -25,6 +26,24 @@ public class CredentialsCreated extends Structure implements Cloneable {
      */
     public void setCreated(boolean created) {
         this.created = created;
+    }
+
+    /**
+     * Retrieves <code>true</code> if login and password reset are disabled.
+     *
+     * @return the value
+     */
+    public Boolean getLoginDisabled() {
+        return loginDisabled;
+    }
+
+    /**
+     * Sets <code>true</code> if login and password reset are disabled.
+     *
+     * @param loginDisabled the value to be set
+     */
+    public void setLoginDisabled(Boolean loginDisabled) {
+        this.loginDisabled = loginDisabled;
     }
 
     /**

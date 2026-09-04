@@ -19,6 +19,7 @@ public class StoryInfo extends Structure implements Cloneable {
     private Boolean satisfied;
     private String summaryNodeName;
     private String summaryFullName;
+    private String summarySourceUri;
     private AvatarImage summaryAvatar;
     private String summary;
     private StorySummaryData summaryData;
@@ -28,6 +29,7 @@ public class StoryInfo extends Structure implements Cloneable {
     private String commentId;
     private String remoteNodeName;
     private String remoteFullName;
+    private String remoteSourceUri;
     private String remotePostingId;
     private String remoteCommentId;
     private String remoteMediaId;
@@ -259,6 +261,24 @@ public class StoryInfo extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getSummarySourceUri() {
+        return summarySourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param summarySourceUri the value to be set
+     */
+    public void setSummarySourceUri(String summarySourceUri) {
+        this.summarySourceUri = summarySourceUri;
+    }
+
+    /**
      * Retrieves avatar of the summary of the story.
      *
      * @return the value
@@ -421,6 +441,24 @@ public class StoryInfo extends Structure implements Cloneable {
      */
     public void setRemoteFullName(String remoteFullName) {
         this.remoteFullName = remoteFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getRemoteSourceUri() {
+        return remoteSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param remoteSourceUri the value to be set
+     */
+    public void setRemoteSourceUri(String remoteSourceUri) {
+        this.remoteSourceUri = remoteSourceUri;
     }
 
     /**

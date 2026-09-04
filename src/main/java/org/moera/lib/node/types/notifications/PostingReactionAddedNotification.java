@@ -21,12 +21,14 @@ public class PostingReactionAddedNotification extends Notification {
     private String postingId;
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarImage ownerAvatar;
     private boolean negative;
     private int emoji;
     private String parentPostingNodeName;
     private String parentPostingFullName;
+    private String parentPostingSourceUri;
     private String parentPostingGender;
     private AvatarImage parentPostingAvatar;
     private String parentHeading;
@@ -157,6 +159,24 @@ public class PostingReactionAddedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
+    }
+
+    /**
      * Retrieves gender of the reaction owner.
      *
      * @return the value
@@ -265,6 +285,24 @@ public class PostingReactionAddedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getParentPostingSourceUri() {
+        return parentPostingSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param parentPostingSourceUri the value to be set
+     */
+    public void setParentPostingSourceUri(String parentPostingSourceUri) {
+        this.parentPostingSourceUri = parentPostingSourceUri;
+    }
+
+    /**
      * Retrieves parent's owner gender (see <code>parentPostingId</code> and <code>parentCommentId</code> above).
      *
      * @return the value
@@ -345,9 +383,11 @@ public class PostingReactionAddedNotification extends Notification {
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "reaction.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
         ValidationUtil.maxSize(parentPostingNodeName, 135, "reaction.parent-posting-node-name.wrong-size");
         ValidationUtil.maxSize(parentPostingFullName, 96, "reaction.parent-posting-full-name.wrong-size");
+        ValidationUtil.maxSize(parentPostingSourceUri, 1024, "reaction.parent-posting-source-uri.wrong-size");
         ValidationUtil.maxSize(parentPostingGender, 31, "reaction.parent-posting-gender.wrong-size");
         ValidationUtil.maxSize(parentHeading, 255, "reaction.parent-heading.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "reaction.posting-heading.wrong-size");

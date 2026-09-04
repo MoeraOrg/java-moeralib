@@ -491,10 +491,20 @@ class BaseStructure:
                             f'{ind(2)}}}\n'
                         )
                     else:
-                        tfile.write(
+                        call = (
                             f'{ind(2)}ValidationUtil.maxSize('
                             f'{field["name"]}, {cons["max"]}, "{cons["error"]}");\n'
                         )
+                        if len(call.rstrip()) <= 122:
+                            tfile.write(call)
+                        else:
+                            tfile.write(
+                                f'{ind(2)}ValidationUtil.maxSize(\n'
+                                f'{ind(3)}{field["name"]},\n'
+                                f'{ind(3)}{cons["max"]},\n'
+                                f'{ind(3)}"{cons["error"]}"\n'
+                                f'{ind(2)});\n'
+                            )
                 if 'value' in constraint:
                     cons = constraint['value']
                     if 'min' in cons:

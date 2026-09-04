@@ -11,6 +11,7 @@ public class NotificationPacket extends Structure implements Cloneable {
     private String id;
     private String nodeName;
     private String fullName;
+    private String nodeSourceUri;
     private String gender;
     private AvatarImage avatar;
     private long createdAt;
@@ -71,6 +72,24 @@ public class NotificationPacket extends Structure implements Cloneable {
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getNodeSourceUri() {
+        return nodeSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param nodeSourceUri the value to be set
+     */
+    public void setNodeSourceUri(String nodeSourceUri) {
+        this.nodeSourceUri = nodeSourceUri;
     }
 
     /**
@@ -213,6 +232,7 @@ public class NotificationPacket extends Structure implements Cloneable {
         ValidationUtil.notBlank(nodeName, "notification.node-name.blank");
         ValidationUtil.maxSize(nodeName, 135, "notification.node-name.wrong-size");
         ValidationUtil.maxSize(fullName, 96, "notification.full-name.wrong-size");
+        ValidationUtil.maxSize(nodeSourceUri, 1024, "notification.source-uri.wrong-size");
         ValidationUtil.maxSize(gender, 31, "notification.gender.wrong-size");
         ValidationUtil.notBlank(type, "notification.type.blank");
         ValidationUtil.notBlank(notification, "notification.notification.blank");

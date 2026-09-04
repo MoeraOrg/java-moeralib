@@ -10,17 +10,20 @@ public class SheriffComplaintGroupInfo extends Structure implements Cloneable {
     private String id;
     private String remoteNodeName;
     private String remoteNodeFullName;
+    private String remoteNodeSourceUri;
     private String remoteFeedName;
     private String remotePostingId;
     private String remotePostingRevisionId;
     private String remotePostingOwnerName;
     private String remotePostingOwnerFullName;
+    private String remotePostingOwnerSourceUri;
     private String remotePostingOwnerGender;
     private String remotePostingHeading;
     private String remoteCommentId;
     private String remoteCommentRevisionId;
     private String remoteCommentOwnerName;
     private String remoteCommentOwnerFullName;
+    private String remoteCommentOwnerSourceUri;
     private String remoteCommentOwnerGender;
     private String remoteCommentHeading;
     private long createdAt;
@@ -83,6 +86,24 @@ public class SheriffComplaintGroupInfo extends Structure implements Cloneable {
      */
     public void setRemoteNodeFullName(String remoteNodeFullName) {
         this.remoteNodeFullName = remoteNodeFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getRemoteNodeSourceUri() {
+        return remoteNodeSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param remoteNodeSourceUri the value to be set
+     */
+    public void setRemoteNodeSourceUri(String remoteNodeSourceUri) {
+        this.remoteNodeSourceUri = remoteNodeSourceUri;
     }
 
     /**
@@ -173,6 +194,24 @@ public class SheriffComplaintGroupInfo extends Structure implements Cloneable {
      */
     public void setRemotePostingOwnerFullName(String remotePostingOwnerFullName) {
         this.remotePostingOwnerFullName = remotePostingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getRemotePostingOwnerSourceUri() {
+        return remotePostingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param remotePostingOwnerSourceUri the value to be set
+     */
+    public void setRemotePostingOwnerSourceUri(String remotePostingOwnerSourceUri) {
+        this.remotePostingOwnerSourceUri = remotePostingOwnerSourceUri;
     }
 
     /**
@@ -281,6 +320,24 @@ public class SheriffComplaintGroupInfo extends Structure implements Cloneable {
      */
     public void setRemoteCommentOwnerFullName(String remoteCommentOwnerFullName) {
         this.remoteCommentOwnerFullName = remoteCommentOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getRemoteCommentOwnerSourceUri() {
+        return remoteCommentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param remoteCommentOwnerSourceUri the value to be set
+     */
+    public void setRemoteCommentOwnerSourceUri(String remoteCommentOwnerSourceUri) {
+        this.remoteCommentOwnerSourceUri = remoteCommentOwnerSourceUri;
     }
 
     /**

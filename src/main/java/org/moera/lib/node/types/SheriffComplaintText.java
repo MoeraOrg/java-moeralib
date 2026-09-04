@@ -9,18 +9,22 @@ import org.moera.lib.node.types.validate.ValidationUtil;
 public class SheriffComplaintText extends Structure implements Cloneable {
 
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private String nodeName;
     private String fullName;
+    private String nodeSourceUri;
     private String feedName;
     private String postingId;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingOwnerGender;
     private String postingHeading;
     private String commentId;
     private String commentOwnerName;
     private String commentOwnerFullName;
+    private String commentOwnerSourceUri;
     private String commentOwnerGender;
     private String commentHeading;
     private SheriffOrderReason reasonCode;
@@ -43,6 +47,24 @@ public class SheriffComplaintText extends Structure implements Cloneable {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -97,6 +119,24 @@ public class SheriffComplaintText extends Structure implements Cloneable {
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getNodeSourceUri() {
+        return nodeSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param nodeSourceUri the value to be set
+     */
+    public void setNodeSourceUri(String nodeSourceUri) {
+        this.nodeSourceUri = nodeSourceUri;
     }
 
     /**
@@ -169,6 +209,24 @@ public class SheriffComplaintText extends Structure implements Cloneable {
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -259,6 +317,24 @@ public class SheriffComplaintText extends Structure implements Cloneable {
      */
     public void setCommentOwnerFullName(String commentOwnerFullName) {
         this.commentOwnerFullName = commentOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getCommentOwnerSourceUri() {
+        return commentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param commentOwnerSourceUri the value to be set
+     */
+    public void setCommentOwnerSourceUri(String commentOwnerSourceUri) {
+        this.commentOwnerSourceUri = commentOwnerSourceUri;
     }
 
     /**
@@ -359,20 +435,24 @@ public class SheriffComplaintText extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(ownerFullName, 96, "sheriff-complaint.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "sheriff-complaint.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "sheriff-complaint.owner-gender.wrong-size");
         ValidationUtil.notBlank(nodeName, "sheriff-complaint.node-name.blank");
         ValidationUtil.maxSize(nodeName, 135, "sheriff-complaint.node-name.wrong-size");
         ValidationUtil.maxSize(fullName, 96, "sheriff-complaint.full-name.wrong-size");
+        ValidationUtil.maxSize(nodeSourceUri, 1024, "sheriff-complaint.source-uri.wrong-size");
         ValidationUtil.notBlank(feedName, "sheriff-complaint.feed-name.blank");
         ValidationUtil.maxSize(feedName, 63, "sheriff-complaint.feed-name.wrong-size");
         ValidationUtil.maxSize(postingId, 40, "sheriff-complaint.posting-id.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 135, "sheriff-complaint.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-complaint.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "sheriff-complaint.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "sheriff-complaint.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-complaint.posting-heading.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "sheriff-complaint.comment-id.wrong-size");
         ValidationUtil.maxSize(commentOwnerName, 135, "sheriff-complaint.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "sheriff-complaint.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerSourceUri, 1024, "sheriff-complaint.comment-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(commentOwnerGender, 31, "sheriff-complaint.comment-owner-gender.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "sheriff-complaint.comment-heading.wrong-size");
         ValidationUtil.maxSize(reasonDetails, 4096, "sheriff-complaint.reason-details.wrong-size");

@@ -21,6 +21,7 @@ public class PostingReactionDeletedNotification extends Notification {
     private String postingId;
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarImage ownerAvatar;
     private boolean negative;
@@ -150,6 +151,24 @@ public class PostingReactionDeletedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
+    }
+
+    /**
      * Retrieves gender of the reaction owner.
      *
      * @return the value
@@ -212,6 +231,7 @@ public class PostingReactionDeletedNotification extends Notification {
         ValidationUtil.maxSize(postingId, 40, "reaction.posting-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "reaction.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
     }
 

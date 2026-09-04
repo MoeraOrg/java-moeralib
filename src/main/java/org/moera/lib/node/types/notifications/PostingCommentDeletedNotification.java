@@ -19,6 +19,7 @@ public class PostingCommentDeletedNotification extends SubscriberNotification im
     private String commentId;
     private String commentOwnerName;
     private String commentOwnerFullName;
+    private String commentOwnerSourceUri;
     private String commentOwnerGender;
     private AvatarImage commentOwnerAvatar;
 
@@ -99,6 +100,24 @@ public class PostingCommentDeletedNotification extends SubscriberNotification im
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getCommentOwnerSourceUri() {
+        return commentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param commentOwnerSourceUri the value to be set
+     */
+    public void setCommentOwnerSourceUri(String commentOwnerSourceUri) {
+        this.commentOwnerSourceUri = commentOwnerSourceUri;
+    }
+
+    /**
      * Retrieves gender of the comment owner.
      *
      * @return the value
@@ -141,6 +160,7 @@ public class PostingCommentDeletedNotification extends SubscriberNotification im
         ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
         ValidationUtil.maxSize(commentOwnerName, 135, "comment.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "comment.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerSourceUri, 1024, "comment.comment-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(commentOwnerGender, 31, "comment.comment-owner-gender.wrong-size");
     }
 

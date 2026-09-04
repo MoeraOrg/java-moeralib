@@ -13,6 +13,7 @@ public class CommentText extends Structure implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarDescription ownerAvatar;
     private Body bodyPreview;
@@ -66,6 +67,24 @@ public class CommentText extends Structure implements Cloneable {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -417,6 +436,7 @@ public class CommentText extends Structure implements Cloneable {
         super.validate();
         ValidationUtil.maxSize(ownerName, 135, "comment.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "comment.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "comment.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "comment.owner-gender.wrong-size");
         if (rejectedReactions != null) {
             rejectedReactions.validate();

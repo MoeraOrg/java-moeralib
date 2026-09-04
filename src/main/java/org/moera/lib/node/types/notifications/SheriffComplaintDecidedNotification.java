@@ -18,10 +18,12 @@ public class SheriffComplaintDecidedNotification extends Notification {
     private String remoteFeedName;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingHeading;
     private String postingId;
     private String commentOwnerName;
     private String commentOwnerFullName;
+    private String commentOwnerSourceUri;
     private String commentHeading;
     private String commentId;
     private String complaintGroupId;
@@ -103,6 +105,24 @@ public class SheriffComplaintDecidedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
+    }
+
+    /**
      * Retrieves heading of the posting.
      *
      * @return the value
@@ -175,6 +195,24 @@ public class SheriffComplaintDecidedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getCommentOwnerSourceUri() {
+        return commentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param commentOwnerSourceUri the value to be set
+     */
+    public void setCommentOwnerSourceUri(String commentOwnerSourceUri) {
+        this.commentOwnerSourceUri = commentOwnerSourceUri;
+    }
+
+    /**
      * Retrieves heading of the comment.
      *
      * @return the value
@@ -237,10 +275,12 @@ public class SheriffComplaintDecidedNotification extends Notification {
         ValidationUtil.maxSize(remoteFeedName, 63, "sheriff-complaint.remote-feed-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 135, "sheriff-complaint.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-complaint.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "sheriff-complaint.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-complaint.posting-heading.wrong-size");
         ValidationUtil.maxSize(postingId, 40, "sheriff-complaint.posting-id.wrong-size");
         ValidationUtil.maxSize(commentOwnerName, 135, "sheriff-complaint.comment-owner-name.wrong-size");
         ValidationUtil.maxSize(commentOwnerFullName, 96, "sheriff-complaint.comment-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(commentOwnerSourceUri, 1024, "sheriff-complaint.comment-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "sheriff-complaint.comment-heading.wrong-size");
         ValidationUtil.maxSize(commentId, 40, "sheriff-complaint.comment-id.wrong-size");
         ValidationUtil.notBlank(complaintGroupId, "sheriff-complaint.complaint-group-id.empty");

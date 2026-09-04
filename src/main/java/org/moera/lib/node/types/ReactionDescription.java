@@ -3,12 +3,14 @@ package org.moera.lib.node.types;
 // This file is generated
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReactionDescription extends Structure implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarDescription ownerAvatar;
     private boolean negative;
@@ -51,6 +53,24 @@ public class ReactionDescription extends Structure implements Cloneable {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -181,6 +201,12 @@ public class ReactionDescription extends Structure implements Cloneable {
      */
     public void setOperations(ReactionOperations operations) {
         this.operations = operations;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "reaction-description.owner-source-uri.wrong-size");
     }
 
     /**

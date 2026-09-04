@@ -12,17 +12,20 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
     private String sheriffName;
     private String nodeName;
     private String nodeFullName;
+    private String nodeSourceUri;
     private String feedName;
     private String postingId;
     private String postingRevisionId;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingOwnerGender;
     private String postingHeading;
     private String commentId;
     private String commentRevisionId;
     private String commentOwnerName;
     private String commentOwnerFullName;
+    private String commentOwnerSourceUri;
     private String commentOwnerGender;
     private String commentHeading;
     private SheriffOrderCategory category;
@@ -128,6 +131,24 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getNodeSourceUri() {
+        return nodeSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param nodeSourceUri the value to be set
+     */
+    public void setNodeSourceUri(String nodeSourceUri) {
+        this.nodeSourceUri = nodeSourceUri;
+    }
+
+    /**
      * Retrieves name of the feed the order is related to.
      *
      * @return the value
@@ -215,6 +236,24 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -323,6 +362,24 @@ public class SheriffOrderInfo extends Structure implements Cloneable {
      */
     public void setCommentOwnerFullName(String commentOwnerFullName) {
         this.commentOwnerFullName = commentOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getCommentOwnerSourceUri() {
+        return commentOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param commentOwnerSourceUri the value to be set
+     */
+    public void setCommentOwnerSourceUri(String commentOwnerSourceUri) {
+        this.commentOwnerSourceUri = commentOwnerSourceUri;
     }
 
     /**

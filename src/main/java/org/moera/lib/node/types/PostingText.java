@@ -13,6 +13,7 @@ public class PostingText extends Structure implements Cloneable {
 
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarDescription ownerAvatar;
     private Body bodyPreview;
@@ -53,7 +54,9 @@ public class PostingText extends Structure implements Cloneable {
     }
 
     /**
-     * Retrieves full name of the posting's owner.
+     * Retrieves full name of the posting's owner; if omitted, the node profile value is used when creating a posting
+     * and the current posting value is preserved when updating it; an explicitly empty string is stored as empty
+     * .
      *
      * @return the value
      */
@@ -62,12 +65,38 @@ public class PostingText extends Structure implements Cloneable {
     }
 
     /**
-     * Sets full name of the posting's owner.
+     * Sets full name of the posting's owner; if omitted, the node profile value is used when creating a posting and
+     * the current posting value is preserved when updating it; an explicitly empty string is stored as empty
+     * .
      *
      * @param ownerFullName the value to be set
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the posting owner's identity; if omitted, the node profile value is used when creating a
+     * posting and the current posting value is preserved when updating it; an explicitly empty string is stored as
+     * empty
+     * .
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the posting owner's identity; if omitted, the node profile value is used when creating a
+     * posting and the current posting value is preserved when updating it; an explicitly empty string is stored as
+     * empty
+     * .
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -450,6 +479,7 @@ public class PostingText extends Structure implements Cloneable {
         super.validate();
         ValidationUtil.maxSize(ownerName, 135, "posting.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "posting.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "posting.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "posting.owner-gender.wrong-size");
         if (rejectedReactions != null) {
             rejectedReactions.validate();

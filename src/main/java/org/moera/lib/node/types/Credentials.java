@@ -10,6 +10,7 @@ public class Credentials extends Structure implements Cloneable {
 
     private String login;
     private String password;
+    private Boolean loginDisabled;
 
     /**
      * Retrieves .
@@ -45,6 +46,24 @@ public class Credentials extends Structure implements Cloneable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Retrieves if <code>true</code>, disable login and password reset.
+     *
+     * @return the value
+     */
+    public Boolean getLoginDisabled() {
+        return loginDisabled;
+    }
+
+    /**
+     * Sets if <code>true</code>, disable login and password reset.
+     *
+     * @param loginDisabled the value to be set
+     */
+    public void setLoginDisabled(Boolean loginDisabled) {
+        this.loginDisabled = loginDisabled;
     }
 
     @Override

@@ -17,6 +17,7 @@ public class DraftText extends Structure implements Cloneable {
     private String receiverCommentId;
     private String repliedToId;
     private String ownerFullName;
+    private String ownerSourceUri;
     private AvatarDescription ownerAvatar;
     private RejectedReactions rejectedReactions;
     private RejectedReactions commentRejectedReactions;
@@ -135,6 +136,24 @@ public class DraftText extends Structure implements Cloneable {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -352,6 +371,7 @@ public class DraftText extends Structure implements Cloneable {
         ValidationUtil.maxSize(receiverCommentId, 40, "draft.receiver-comment-id.wrong-size");
         ValidationUtil.maxSize(repliedToId, 40, "draft.replied-to-id.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "draft.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "draft.owner-source-uri.wrong-size");
         if (rejectedReactions != null) {
             rejectedReactions.validate();
         }

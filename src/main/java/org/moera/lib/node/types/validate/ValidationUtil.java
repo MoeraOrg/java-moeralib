@@ -14,7 +14,7 @@ public class ValidationUtil {
     private static final Pattern DOMAIN_NAME_PATTERN =
         Pattern.compile("^[a-z][a-z0-9-]*[a-z0-9](\\.[a-z][a-z0-9-]*[a-z0-9])*$", Pattern.CASE_INSENSITIVE);
     private static final Pattern EMAIL_PATTERN =
-        Pattern.compile("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,}$", Pattern.CASE_INSENSITIVE);
+        Pattern.compile("^[\\w-.+]+@([\\w-]+\\.)+[\\w-]{2,}$", Pattern.CASE_INSENSITIVE);
 
     /**
      * Asserts that the given condition is {@code true}. If the condition is {@code false}, a {@code ValidationFailure}

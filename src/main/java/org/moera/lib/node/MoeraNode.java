@@ -1614,54 +1614,6 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
-     * Register the plugin. If the plugin authenticates as root admin, the plugin is registered at the server level. If
-     * the plugin authenticates as node admin, the plugin is registered at the node level.
-     *
-     * @param plugin plugin
-     * @return PluginInfo
-     */
-    public PluginInfo registerPlugin(PluginDescription plugin) throws MoeraNodeException {
-        var location = "/plugins";
-        var returnTypeRef = new TypeReference<PluginInfo>() {};
-        return call(location, null, "POST", plugin, returnTypeRef);
-    }
-
-    /**
-     * Get information about all plugins registered for the node and server.
-     *
-     * @return PluginInfo[]
-     */
-    public PluginInfo[] getPlugins() throws MoeraNodeException {
-        var location = "/plugins";
-        var returnTypeRef = new TypeReference<PluginInfo[]>() {};
-        return call(location, null, "GET", null, returnTypeRef);
-    }
-
-    /**
-     * Get information about the plugin.
-     *
-     * @param pluginName name of the plugin
-     * @return PluginInfo
-     */
-    public PluginInfo getPlugin(String pluginName) throws MoeraNodeException {
-        var location = "/plugins/%s".formatted(ue(pluginName));
-        var returnTypeRef = new TypeReference<PluginInfo>() {};
-        return call(location, null, "GET", null, returnTypeRef);
-    }
-
-    /**
-     * Unregister the plugin.
-     *
-     * @param pluginName name of the plugin
-     * @return Result
-     */
-    public Result unregisterPlugin(String pluginName) throws MoeraNodeException {
-        var location = "/plugins/%s".formatted(ue(pluginName));
-        var returnTypeRef = new TypeReference<Result>() {};
-        return call(location, null, "DELETE", null, returnTypeRef);
-    }
-
-    /**
      * Create a new posting from the text given and publish it in the given feeds (if any). The heading and the preview
      * of the posting are created automatically, if needed. The posting owner must authenticate in some way. If the
      * posting is not signed, it will be kept for a limited period of time and then erased. If authenticated as admin,
@@ -1945,8 +1897,9 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
-     * Update the profile. Fields that are not set in the request body are left intact. Fields that are set to an empty
-     * value are reset to their defaults.
+     * To update a profile attribute, include the field with its new value. For a partial update, include only the
+     * fields to be changed; omitted fields remain unchanged. To delete an attribute, include the field with an empty
+     * value, which resets it to its default.
      *
      * @param profile profile
      * @return ProfileInfo

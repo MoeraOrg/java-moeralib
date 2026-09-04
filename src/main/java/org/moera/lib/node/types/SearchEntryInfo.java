@@ -13,6 +13,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private String commentId;
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private AvatarImage ownerAvatar;
     private Body bodyPreview;
     private BodyFormat bodyFormat;
@@ -117,6 +118,24 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**

@@ -30,6 +30,9 @@ public abstract class Notification implements Cloneable {
     private String senderFullName;
 
     @JsonIgnore
+    private String senderSourceUri;
+
+    @JsonIgnore
     private String senderGender;
 
     @JsonIgnore
@@ -87,6 +90,24 @@ public abstract class Notification implements Cloneable {
      */
     public void setSenderFullName(String senderFullName) {
         this.senderFullName = senderFullName;
+    }
+
+    /**
+     * Retrieves the source URI of the notification sender's identity.
+     *
+     * @return the sender's source URI
+     */
+    public String getSenderSourceUri() {
+        return senderSourceUri;
+    }
+
+    /**
+     * Sets the source URI of the notification sender's identity.
+     *
+     * @param senderSourceUri the source URI to be set
+     */
+    public void setSenderSourceUri(String senderSourceUri) {
+        this.senderSourceUri = senderSourceUri;
     }
 
     /**

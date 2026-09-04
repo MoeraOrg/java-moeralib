@@ -13,7 +13,6 @@ public class TokenInfo extends Structure implements Cloneable {
     private String token;
     private String name;
     private List<String> permissions;
-    private String pluginName;
     private long createdAt;
     private Long deadline;
     private Long lastUsedAt;
@@ -90,24 +89,6 @@ public class TokenInfo extends Structure implements Cloneable {
      */
     public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
-    }
-
-    /**
-     * Retrieves a plugin the token belongs to; if set, only this plugin may use the token.
-     *
-     * @return the value
-     */
-    public String getPluginName() {
-        return pluginName;
-    }
-
-    /**
-     * Sets a plugin the token belongs to; if set, only this plugin may use the token.
-     *
-     * @param pluginName the value to be set
-     */
-    public void setPluginName(String pluginName) {
-        this.pluginName = pluginName;
     }
 
     /**

@@ -9,6 +9,7 @@ public class ActivityReactionInfo extends Structure implements Cloneable {
 
     private String remoteNodeName;
     private String remoteFullName;
+    private String remoteSourceUri;
     private AvatarImage remoteAvatar;
     private String remotePostingId;
     private boolean negative;
@@ -49,6 +50,24 @@ public class ActivityReactionInfo extends Structure implements Cloneable {
      */
     public void setRemoteFullName(String remoteFullName) {
         this.remoteFullName = remoteFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getRemoteSourceUri() {
+        return remoteSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param remoteSourceUri the value to be set
+     */
+    public void setRemoteSourceUri(String remoteSourceUri) {
+        this.remoteSourceUri = remoteSourceUri;
     }
 
     /**

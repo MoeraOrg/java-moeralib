@@ -18,6 +18,7 @@ public class PostingImportantUpdateNotification extends SubscriberNotification i
     private String postingId;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingOwnerGender;
     private AvatarImage postingOwnerAvatar;
     private String postingHeading;
@@ -79,6 +80,24 @@ public class PostingImportantUpdateNotification extends SubscriberNotification i
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -159,6 +178,7 @@ public class PostingImportantUpdateNotification extends SubscriberNotification i
         ValidationUtil.maxSize(postingId, 40, "posting.posting-id.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 135, "posting.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "posting.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "posting.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "posting.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "posting.posting-heading.wrong-size");
         ValidationUtil.maxSize(description, 255, "posting.description.wrong-size");

@@ -11,6 +11,7 @@ public class SearchRepliedTo extends Structure implements Cloneable {
     private String revisionId;
     private String name;
     private String fullName;
+    private String sourceUri;
     private AvatarImage avatar;
     private String heading;
 
@@ -84,6 +85,24 @@ public class SearchRepliedTo extends Structure implements Cloneable {
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getSourceUri() {
+        return sourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param sourceUri the value to be set
+     */
+    public void setSourceUri(String sourceUri) {
+        this.sourceUri = sourceUri;
     }
 
     /**

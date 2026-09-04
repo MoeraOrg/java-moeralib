@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Features extends Structure implements Cloneable {
 
     private PostingFeatures posting;
-    private List<String> plugins;
     private int feedWidth;
     private FriendGroupsFeatures friendGroups;
     private List<AskSubject> ask;
@@ -32,24 +31,6 @@ public class Features extends Structure implements Cloneable {
      */
     public void setPosting(PostingFeatures posting) {
         this.posting = posting;
-    }
-
-    /**
-     * Retrieves list of names of plugins enabled for the node.
-     *
-     * @return the value
-     */
-    public List<String> getPlugins() {
-        return plugins;
-    }
-
-    /**
-     * Sets list of names of plugins enabled for the node.
-     *
-     * @param plugins the value to be set
-     */
-    public void setPlugins(List<String> plugins) {
-        this.plugins = plugins;
     }
 
     /**

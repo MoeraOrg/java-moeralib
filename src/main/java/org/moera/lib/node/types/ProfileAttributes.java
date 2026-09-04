@@ -11,6 +11,7 @@ import org.moera.lib.node.types.validate.ValidationUtil;
 public class ProfileAttributes extends Structure implements Cloneable {
 
     private String fullName;
+    private String sourceUri;
     private String gender;
     private String email;
     private String title;
@@ -36,6 +37,24 @@ public class ProfileAttributes extends Structure implements Cloneable {
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getSourceUri() {
+        return sourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param sourceUri the value to be set
+     */
+    public void setSourceUri(String sourceUri) {
+        this.sourceUri = sourceUri;
     }
 
     /**
@@ -190,6 +209,7 @@ public class ProfileAttributes extends Structure implements Cloneable {
     public void validate() {
         super.validate();
         ValidationUtil.maxSize(fullName, 96, "profile.full-name.wrong-size");
+        ValidationUtil.maxSize(sourceUri, 1024, "profile.source-uri.wrong-size");
         ValidationUtil.maxSize(gender, 31, "profile.gender.wrong-size");
         ValidationUtil.maxSize(email, 63, "profile.email.wrong-size");
         ValidationUtil.email(email, "profile.email.invalid");

@@ -20,6 +20,7 @@ public class PremoderatedCommentDecidedNotification extends Notification {
     private String commentId;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingOwnerGender;
     private AvatarImage postingOwnerAvatar;
     private String postingHeading;
@@ -102,6 +103,24 @@ public class PremoderatedCommentDecidedNotification extends Notification {
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -237,6 +256,7 @@ public class PremoderatedCommentDecidedNotification extends Notification {
         ValidationUtil.maxSize(commentId, 40, "comment.comment-id.wrong-size");
         ValidationUtil.maxSize(postingOwnerName, 135, "comment.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "comment.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "comment.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingOwnerGender, 31, "comment.posting-owner-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "comment.posting-heading.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "comment.comment-heading.wrong-size");

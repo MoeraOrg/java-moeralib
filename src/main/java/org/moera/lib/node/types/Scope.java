@@ -107,11 +107,6 @@ public enum Scope {
     NAME                    (0x00020000, true),
 
     /**
-     * administrate plugins
-     */
-    PLUGINS                 (0x00040000, true),
-
-    /**
      * view all fields of the profile
      */
     VIEW_PROFILE            (0x00080000, true),
@@ -216,7 +211,7 @@ public enum Scope {
     /**
      * all permissions (combined scope)
      */
-    ALL                     (0x7ffffffd, false);
+    ALL                     (0x7ffbfffd, false);
     //CHECKSTYLE:ON
 
     private final long mask;

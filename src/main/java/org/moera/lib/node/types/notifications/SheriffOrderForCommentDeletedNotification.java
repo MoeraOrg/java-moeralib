@@ -18,6 +18,7 @@ public class SheriffOrderForCommentDeletedNotification extends Notification {
     private String remoteFeedName;
     private String postingOwnerName;
     private String postingOwnerFullName;
+    private String postingOwnerSourceUri;
     private String postingHeading;
     private String postingId;
     private String commentHeading;
@@ -98,6 +99,24 @@ public class SheriffOrderForCommentDeletedNotification extends Notification {
      */
     public void setPostingOwnerFullName(String postingOwnerFullName) {
         this.postingOwnerFullName = postingOwnerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingOwnerSourceUri() {
+        return postingOwnerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingOwnerSourceUri the value to be set
+     */
+    public void setPostingOwnerSourceUri(String postingOwnerSourceUri) {
+        this.postingOwnerSourceUri = postingOwnerSourceUri;
     }
 
     /**
@@ -200,6 +219,7 @@ public class SheriffOrderForCommentDeletedNotification extends Notification {
         ValidationUtil.notBlank(postingOwnerName, "sheriff-order.posting-owner-name.empty");
         ValidationUtil.maxSize(postingOwnerName, 135, "sheriff-order.posting-owner-name.wrong-size");
         ValidationUtil.maxSize(postingOwnerFullName, 96, "sheriff-order.posting-owner-full-name.wrong-size");
+        ValidationUtil.maxSize(postingOwnerSourceUri, 1024, "sheriff-order.posting-owner-source-uri.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "sheriff-order.posting-heading.wrong-size");
         ValidationUtil.notBlank(postingId, "sheriff-order.posting-id.empty");
         ValidationUtil.maxSize(postingId, 40, "sheriff-order.posting-id.wrong-size");

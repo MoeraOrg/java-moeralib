@@ -19,12 +19,14 @@ public class CommentReactionAddedNotification extends Notification {
     private String commentId;
     private String ownerName;
     private String ownerFullName;
+    private String ownerSourceUri;
     private String ownerGender;
     private AvatarImage ownerAvatar;
     private boolean negative;
     private int emoji;
     private String postingNodeName;
     private String postingFullName;
+    private String postingSourceUri;
     private String postingGender;
     private AvatarImage postingAvatar;
     private String postingHeading;
@@ -104,6 +106,24 @@ public class CommentReactionAddedNotification extends Notification {
      */
     public void setOwnerFullName(String ownerFullName) {
         this.ownerFullName = ownerFullName;
+    }
+
+    /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getOwnerSourceUri() {
+        return ownerSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param ownerSourceUri the value to be set
+     */
+    public void setOwnerSourceUri(String ownerSourceUri) {
+        this.ownerSourceUri = ownerSourceUri;
     }
 
     /**
@@ -215,6 +235,24 @@ public class CommentReactionAddedNotification extends Notification {
     }
 
     /**
+     * Retrieves source URI of the node identity.
+     *
+     * @return the value
+     */
+    public String getPostingSourceUri() {
+        return postingSourceUri;
+    }
+
+    /**
+     * Sets source URI of the node identity.
+     *
+     * @param postingSourceUri the value to be set
+     */
+    public void setPostingSourceUri(String postingSourceUri) {
+        this.postingSourceUri = postingSourceUri;
+    }
+
+    /**
      * Retrieves posting owner's gender.
      *
      * @return the value
@@ -293,9 +331,11 @@ public class CommentReactionAddedNotification extends Notification {
         ValidationUtil.maxSize(commentId, 40, "reaction.comment-id.wrong-size");
         ValidationUtil.maxSize(ownerName, 135, "reaction.owner-name.wrong-size");
         ValidationUtil.maxSize(ownerFullName, 96, "reaction.owner-full-name.wrong-size");
+        ValidationUtil.maxSize(ownerSourceUri, 1024, "reaction.owner-source-uri.wrong-size");
         ValidationUtil.maxSize(ownerGender, 31, "reaction.owner-gender.wrong-size");
         ValidationUtil.maxSize(postingNodeName, 135, "reaction.posting-node-name.wrong-size");
         ValidationUtil.maxSize(postingFullName, 96, "reaction.posting-full-name.wrong-size");
+        ValidationUtil.maxSize(postingSourceUri, 1024, "reaction.posting-source-uri.wrong-size");
         ValidationUtil.maxSize(postingGender, 31, "reaction.posting-gender.wrong-size");
         ValidationUtil.maxSize(postingHeading, 255, "reaction.posting-heading.wrong-size");
         ValidationUtil.maxSize(commentHeading, 255, "reaction.comment-heading.wrong-size");

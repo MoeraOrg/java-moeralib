@@ -116,6 +116,17 @@ public class Fingerprints {
         new FieldWithSchema("salt", "byte[]"),
     };
 
+    private static final FieldWithSchema[] NOTIFICATION_PACKET2_SCHEMA = new FieldWithSchema[] {
+        new FieldWithSchema("object_type", "String"),
+        new FieldWithSchema("id", "String"),
+        new FieldWithSchema("node_name", "String"),
+        new FieldWithSchema("full_name", "String"),
+        new FieldWithSchema("node_source_uri", "String"),
+        new FieldWithSchema("created_at", "Timestamp"),
+        new FieldWithSchema("type", "String"),
+        new FieldWithSchema("notification", "String"),
+    };
+
     private static final FieldWithSchema[] NOTIFICATION_PACKET1_SCHEMA = new FieldWithSchema[] {
         new FieldWithSchema("object_type", "String"),
         new FieldWithSchema("id", "String"),
@@ -217,6 +228,7 @@ public class Fingerprints {
                 default -> null;
             };
             case "NOTIFICATION_PACKET" -> switch (version) {
+                case 2 -> NOTIFICATION_PACKET2_SCHEMA;
                 case 1 -> NOTIFICATION_PACKET1_SCHEMA;
                 case 0 -> NOTIFICATION_PACKET0_SCHEMA;
                 default -> null;
@@ -426,9 +438,27 @@ public class Fingerprints {
     }
 
     public static byte[] notificationPacket(
-        String id, String nodeName, String fullName, Timestamp createdAt, String type, String notification
+        String id, String nodeName, String fullName, String nodeSourceUri, Timestamp createdAt, String type,
+        String notification
     ) {
-        return notificationPacket1(id, nodeName, fullName, createdAt, type, notification);
+        return notificationPacket2(id, nodeName, fullName, nodeSourceUri, createdAt, type, notification);
+    }
+
+    public static byte[] notificationPacket2(
+        String id, String nodeName, String fullName, String nodeSourceUri, Timestamp createdAt, String type,
+        String notification
+    ) {
+        Fingerprint fingerprint = new Fingerprint(2);
+        fingerprint.put("object_type", "NOTIFICATION_PACKET");
+        fingerprint.put("id", id);
+        fingerprint.put("node_name", nodeName);
+        fingerprint.put("full_name", fullName);
+        fingerprint.put("node_source_uri", nodeSourceUri);
+        fingerprint.put("created_at", createdAt);
+        fingerprint.put("type", type);
+        fingerprint.put("notification", notification);
+
+        return CryptoUtil.fingerprint(fingerprint, NOTIFICATION_PACKET2_SCHEMA);
     }
 
     public static byte[] notificationPacket1(
