@@ -293,6 +293,7 @@ JAVA_TYPES = {
     'timestamp': 'long',
     'byte[]': 'byte[]',
     'UUID': 'UUID',
+    'principal': 'Principal',
     'String -> int': 'Map<String, Integer>',
 }
 
@@ -308,6 +309,7 @@ JAVA_OPTIONAL_TYPES = {
     'timestamp': 'Long',
     'byte[]': 'byte[]',
     'UUID': 'UUID',
+    'principal': 'Principal',
     'String -> int': 'Map<String, Integer>',
 }
 
@@ -377,6 +379,8 @@ class BaseStructure:
                 imports.add('java.sql.Timestamp')
             if t == 'UUID':
                 imports.add('java.util.UUID')
+            if t == 'Principal':
+                imports.add('org.moera.lib.node.types.principal.Principal')
             description = field.get('description', field.get('comment', ''))
             fields.append((t, field['name'], description))
 

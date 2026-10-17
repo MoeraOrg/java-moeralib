@@ -19,6 +19,8 @@ public class StorySummaryData extends Structure implements Cloneable {
     private StorySummaryReaction reaction;
     private List<StorySummaryReaction> reactions;
     private Integer totalReactions;
+    private List<StorySummaryNode> sharings;
+    private Integer totalSharings;
     private String feedName;
     private SubscriptionReason subscriptionReason;
     private StorySummaryFriendGroup friendGroup;
@@ -205,6 +207,42 @@ public class StorySummaryData extends Structure implements Cloneable {
      */
     public void setTotalReactions(Integer totalReactions) {
         this.totalReactions = totalReactions;
+    }
+
+    /**
+     * Retrieves nodes that shared the posting, newest first.
+     *
+     * @return the value
+     */
+    public List<StorySummaryNode> getSharings() {
+        return sharings;
+    }
+
+    /**
+     * Sets nodes that shared the posting, newest first.
+     *
+     * @param sharings the value to be set
+     */
+    public void setSharings(List<StorySummaryNode> sharings) {
+        this.sharings = sharings;
+    }
+
+    /**
+     * Retrieves total number of sharings in the instant group.
+     *
+     * @return the value
+     */
+    public Integer getTotalSharings() {
+        return totalSharings;
+    }
+
+    /**
+     * Sets total number of sharings in the instant group.
+     *
+     * @param totalSharings the value to be set
+     */
+    public void setTotalSharings(Integer totalSharings) {
+        this.totalSharings = totalSharings;
     }
 
     /**

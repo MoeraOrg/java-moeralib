@@ -1645,7 +1645,8 @@ public class MoeraNode extends NodeApiClient {
 
     /**
      * Update the posting, creating a new revision of it. The text is processed just like in the <code>POST</code>
-     * request.
+     * request. If the posting is not original (a cached copy of a remote posting), only its permissions can be
+     * changed; all other fields are ignored and no new revision is created.
      *
      * @param id ID of the posting
      * @param posting posting
@@ -1685,6 +1686,19 @@ public class MoeraNode extends NodeApiClient {
         var location = "/postings/%s".formatted(ue(id));
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "DELETE", null, returnTypeRef);
+    }
+
+    /**
+     * Update the posting visibility if requested and publish it in the specified feeds.
+     *
+     * @param id ID of the posting
+     * @param attributes attributes
+     * @return Result
+     */
+    public Result republishPosting(String id, PostingRepublishAttributes attributes) throws MoeraNodeException {
+        var location = "/postings/%s/republish".formatted(ue(id));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", attributes, returnTypeRef);
     }
 
     /**
@@ -1878,6 +1892,30 @@ public class MoeraNode extends NodeApiClient {
         var location = "/postings/reaction-totals/search";
         var returnTypeRef = new TypeReference<ReactionTotalsInfo[]>() {};
         return call(location, null, "POST", filter, returnTypeRef);
+    }
+
+    /**
+     * Get a slice of the sharings of the posting, delimited by the <code>before</code> moment and the given
+     * <code>limit</code>. If <code>before</code> is not provided, the latest sharings are returned. The node may
+     * decide to return fewer sharings than the given <code>limit</code>. The sharings are always sorted by moment,
+     * descending. The list is empty when viewing sharings is not permitted. The total is zero when viewing the sharing
+     * counter is not permitted.
+     *
+     * @param postingId ID of the posting
+     * @param before filter sharings created at or before this moment
+     * @param limit maximum number of sharings returned
+     * @return SharingsSliceInfo
+     */
+    public SharingsSliceInfo getPostingSharings(
+        String postingId, Long before, Integer limit
+    ) throws MoeraNodeException {
+        var location = "/postings/%s/sharings".formatted(ue(postingId));
+        var params = new QueryParam[] {
+            QueryParam.of("before", before),
+            QueryParam.of("limit", limit)
+        };
+        var returnTypeRef = new TypeReference<SharingsSliceInfo>() {};
+        return call(location, params, "GET", null, returnTypeRef);
     }
 
     /**
@@ -2310,6 +2348,22 @@ public class MoeraNode extends NodeApiClient {
     }
 
     /**
+     * Download the posting from the remote node and publish it in the specified feeds.
+     *
+     * @param nodeName name of the remote node
+     * @param id ID of the posting on the remote node
+     * @param attributes attributes
+     * @return Result
+     */
+    public Result republishRemotePosting(
+        String nodeName, String id, RemotePostingRepublishAttributes attributes
+    ) throws MoeraNodeException {
+        var location = "/nodes/%s/postings/%s/republish".formatted(ue(nodeName), ue(id));
+        var returnTypeRef = new TypeReference<Result>() {};
+        return call(location, null, "POST", attributes, returnTypeRef);
+    }
+
+    /**
      * Verify the signature of the given posting.
      *
      * @param nodeName name of the remote node
@@ -2645,6 +2699,21 @@ public class MoeraNode extends NodeApiClient {
         var location = "/sheriff/orders";
         var returnTypeRef = new TypeReference<Result>() {};
         return call(location, null, "POST", sheriffOrder, returnTypeRef);
+    }
+
+    /**
+     * Get all stories coming from the given external source.
+     *
+     * @param external URI of the external source of the story
+     * @return StoryInfo[]
+     */
+    public StoryInfo[] getStoriesByExternalSource(String external) throws MoeraNodeException {
+        var location = "/stories";
+        var params = new QueryParam[] {
+            QueryParam.of("external", external)
+        };
+        var returnTypeRef = new TypeReference<StoryInfo[]>() {};
+        return call(location, params, "GET", null, returnTypeRef);
     }
 
     /**

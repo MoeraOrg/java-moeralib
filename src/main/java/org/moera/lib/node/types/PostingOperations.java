@@ -14,7 +14,10 @@ public class PostingOperations implements Cloneable {
     private Principal view;
     private Principal edit;
     private Principal delete;
+    private Principal viewExternalSource;
     private Principal viewComments;
+    private Principal viewSharings;
+    private Principal viewTotalSharings;
     private Principal addComment;
     private Principal trustComment;
     private Principal overrideComment;
@@ -192,6 +195,60 @@ public class PostingOperations implements Cloneable {
     }
 
     /**
+     * Retrieves the permission to view the posting's external source URIs.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getViewExternalSource() {
+        return viewExternalSource;
+    }
+
+    /**
+     * Retrieves the permission to view the posting's external source URIs,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getViewExternalSource(Principal defaultValue) {
+        return viewExternalSource != null ? viewExternalSource : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to view the posting's external source URIs,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getViewExternalSource(PostingOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getViewExternalSource(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to view the posting's external source URIs.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param viewExternalSource the permission to set, may be {@code null}
+     */
+    public void setViewExternalSource(Principal viewExternalSource) {
+        this.viewExternalSource = viewExternalSource;
+    }
+
+    /**
+     * Sets the permission to view the posting's external source URIs.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param viewExternalSource the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setViewExternalSource(Principal viewExternalSource, Principal defaultValue) {
+        this.viewExternalSource = Objects.equals(viewExternalSource, defaultValue) ? null : viewExternalSource;
+    }
+
+    /**
      * Retrieves the permission to view the posting's comments.
      * If {@code null}, the default permission is in effect.
      *
@@ -243,6 +300,114 @@ public class PostingOperations implements Cloneable {
      */
     public void setViewComments(Principal viewComments, Principal defaultValue) {
         this.viewComments = Objects.equals(viewComments, defaultValue) ? null : viewComments;
+    }
+
+    /**
+     * Retrieves the permission to view the posting's sharings.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getViewSharings() {
+        return viewSharings;
+    }
+
+    /**
+     * Retrieves the permission to view the posting's sharings,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getViewSharings(Principal defaultValue) {
+        return viewSharings != null ? viewSharings : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to view the posting's sharings,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getViewSharings(PostingOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getViewSharings(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to view the posting's sharings.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param viewSharings the permission to set, may be {@code null}
+     */
+    public void setViewSharings(Principal viewSharings) {
+        this.viewSharings = viewSharings;
+    }
+
+    /**
+     * Sets the permission to view the posting's sharings.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param viewSharings the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setViewSharings(Principal viewSharings, Principal defaultValue) {
+        this.viewSharings = Objects.equals(viewSharings, defaultValue) ? null : viewSharings;
+    }
+
+    /**
+     * Retrieves the permission to view the number of the posting's sharings.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getViewTotalSharings() {
+        return viewTotalSharings;
+    }
+
+    /**
+     * Retrieves the permission to view the number of the posting's sharings,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getViewTotalSharings(Principal defaultValue) {
+        return viewTotalSharings != null ? viewTotalSharings : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to view the number of the posting's sharings,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getViewTotalSharings(PostingOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getViewTotalSharings(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to view the number of the posting's sharings.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param viewTotalSharings the permission to set, may be {@code null}
+     */
+    public void setViewTotalSharings(Principal viewTotalSharings) {
+        this.viewTotalSharings = viewTotalSharings;
+    }
+
+    /**
+     * Sets the permission to view the number of the posting's sharings.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param viewTotalSharings the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setViewTotalSharings(Principal viewTotalSharings, Principal defaultValue) {
+        this.viewTotalSharings = Objects.equals(viewTotalSharings, defaultValue) ? null : viewTotalSharings;
     }
 
     /**
@@ -961,7 +1126,10 @@ public class PostingOperations implements Cloneable {
         return view == null
             && edit == null
             && delete == null
+            && viewExternalSource == null
             && viewComments == null
+            && viewSharings == null
+            && viewTotalSharings == null
             && addComment == null
             && trustComment == null
             && overrideComment == null

@@ -39,9 +39,11 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private long createdAt;
     private Long editedAt;
     private Long deletedAt;
+    private Long earliestPublishedAt;
     private Long receiverCreatedAt;
     private Long receiverEditedAt;
     private Long receiverDeletedAt;
+    private Long receiverPublishedAt;
     private long revisionCreatedAt;
     private Long receiverRevisionCreatedAt;
     private Long deadline;
@@ -65,6 +67,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     private ReactionTotalsInfo reactions;
     private List<PostingSourceInfo> sources;
     private Integer totalComments;
+    private Integer totalSharings;
     private Integer viewCount;
     private Boolean recommended;
     private List<String> externalSourceUri;
@@ -605,6 +608,24 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     }
 
     /**
+     * Retrieves earliest publication timestamp of the posting in the timeline feed.
+     *
+     * @return the value
+     */
+    public Long getEarliestPublishedAt() {
+        return earliestPublishedAt;
+    }
+
+    /**
+     * Sets earliest publication timestamp of the posting in the timeline feed.
+     *
+     * @param earliestPublishedAt the value to be set
+     */
+    public void setEarliestPublishedAt(Long earliestPublishedAt) {
+        this.earliestPublishedAt = earliestPublishedAt;
+    }
+
+    /**
      * Retrieves original posting creation timestamp (for cached copies of remote postings only).
      *
      * @return the value
@@ -656,6 +677,26 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setReceiverDeletedAt(Long receiverDeletedAt) {
         this.receiverDeletedAt = receiverDeletedAt;
+    }
+
+    /**
+     * Retrieves earliest timeline publication timestamp of the original posting (for cached copies of remote postings
+     * only).
+     *
+     * @return the value
+     */
+    public Long getReceiverPublishedAt() {
+        return receiverPublishedAt;
+    }
+
+    /**
+     * Sets earliest timeline publication timestamp of the original posting (for cached copies of remote postings
+     * only).
+     *
+     * @param receiverPublishedAt the value to be set
+     */
+    public void setReceiverPublishedAt(Long receiverPublishedAt) {
+        this.receiverPublishedAt = receiverPublishedAt;
     }
 
     /**
@@ -1094,6 +1135,24 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
     }
 
     /**
+     * Retrieves total number of sharings of the posting; zero if absent.
+     *
+     * @return the value
+     */
+    public Integer getTotalSharings() {
+        return totalSharings;
+    }
+
+    /**
+     * Sets total number of sharings of the posting; zero if absent.
+     *
+     * @param totalSharings the value to be set
+     */
+    public void setTotalSharings(Integer totalSharings) {
+        this.totalSharings = totalSharings;
+    }
+
+    /**
      * Retrieves number of posting views (for admin only).
      *
      * @return the value
@@ -1135,7 +1194,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
 
     /**
      * Retrieves URIs of the external sources the posting was received from; used by software that automatically
-     * forwards postings from other social networks (for admin only)
+     * forwards postings from other social networks
      * .
      *
      * @return the value
@@ -1146,7 +1205,7 @@ public class PostingInfo extends Structure implements Cloneable, MediaInfo {
 
     /**
      * Sets URIs of the external sources the posting was received from; used by software that automatically forwards
-     * postings from other social networks (for admin only)
+     * postings from other social networks
      * .
      *
      * @param externalSourceUri the value to be set

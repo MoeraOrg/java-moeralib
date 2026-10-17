@@ -32,6 +32,7 @@ public class CommentText extends Structure implements Cloneable {
     private CommentOperations operations;
     private ReactionOperations reactionOperations;
     private CommentOperations seniorOperations;
+    private List<String> externalSourceUri;
 
     /**
      * Retrieves node name of the comment's owner.
@@ -431,6 +432,28 @@ public class CommentText extends Structure implements Cloneable {
         this.seniorOperations = seniorOperations;
     }
 
+    /**
+     * Retrieves URIs of the external sources the comment was received from; used by software that automatically
+     * forwards comments from other social networks
+     * .
+     *
+     * @return the value
+     */
+    public List<String> getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URIs of the external sources the comment was received from; used by software that automatically forwards
+     * comments from other social networks
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(List<String> externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
+    }
+
     @Override
     public void validate() {
         super.validate();
@@ -443,6 +466,11 @@ public class CommentText extends Structure implements Cloneable {
         }
         if (seniorRejectedReactions != null) {
             seniorRejectedReactions.validate();
+        }
+        if (externalSourceUri != null) {
+            externalSourceUri.forEach(value ->
+                ValidationUtil.maxSize(value, 1024, "comment.external-source-uri.wrong-size")
+            );
         }
     }
 

@@ -206,7 +206,11 @@ public enum StoryType {
     /**
      * The user's posting with a video was published after video compression.
      */
-    VIDEO_POSTING_PUBLISHED; // 49
+    VIDEO_POSTING_PUBLISHED, // 49
+    /**
+     * The user's posting was shared on another node.
+     */
+    POSTING_SHARED; // 50
 
     /**
      * Retrieves the string representation of the enum constant.

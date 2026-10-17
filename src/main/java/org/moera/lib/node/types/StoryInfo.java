@@ -2,6 +2,8 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -30,10 +32,12 @@ public class StoryInfo extends Structure implements Cloneable {
     private String remoteNodeName;
     private String remoteFullName;
     private String remoteSourceUri;
+    private Long remoteStoryMoment;
     private String remotePostingId;
     private String remoteCommentId;
     private String remoteMediaId;
     private StoryOperations operations;
+    private List<String> externalSourceUri;
 
     /**
      * Retrieves .
@@ -462,6 +466,28 @@ public class StoryInfo extends Structure implements Cloneable {
     }
 
     /**
+     * Retrieves moment of the story containing the shared posting on the remote node; set only for
+     * <code>posting-shared</code> stories associated with a sharing
+     * .
+     *
+     * @return the value
+     */
+    public Long getRemoteStoryMoment() {
+        return remoteStoryMoment;
+    }
+
+    /**
+     * Sets moment of the story containing the shared posting on the remote node; set only for
+     * <code>posting-shared</code> stories associated with a sharing
+     * .
+     *
+     * @param remoteStoryMoment the value to be set
+     */
+    public void setRemoteStoryMoment(Long remoteStoryMoment) {
+        this.remoteStoryMoment = remoteStoryMoment;
+    }
+
+    /**
      * Retrieves ID of the posting at remote node this story is about.
      *
      * @return the value
@@ -531,6 +557,28 @@ public class StoryInfo extends Structure implements Cloneable {
      */
     public void setOperations(StoryOperations operations) {
         this.operations = operations;
+    }
+
+    /**
+     * Retrieves URIs of the external sources the story was received from; used by software that automatically forwards
+     * stories from other social networks; visible only to administrators with <code>view-content</code> scope
+     * .
+     *
+     * @return the value
+     */
+    public List<String> getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URIs of the external sources the story was received from; used by software that automatically forwards
+     * stories from other social networks; visible only to administrators with <code>view-content</code> scope
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(List<String> externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
     }
 
     @Override

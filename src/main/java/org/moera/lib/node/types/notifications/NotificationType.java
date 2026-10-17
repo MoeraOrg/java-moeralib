@@ -182,7 +182,22 @@ public enum NotificationType {
     /**
      * Text content of a media file leased by the receiver has been updated.
      */
-    LEASED_MEDIA_TEXT_UPDATED(LeasedMediaTextUpdatedNotification.class); // 43
+    LEASED_MEDIA_TEXT_UPDATED(LeasedMediaTextUpdatedNotification.class), // 43
+    /**
+     * A remote node shared a posting owned by the receiving node. A story is identified by its ID; feed name and story
+     * moment do not participate in deduplication.
+     */
+    POSTING_SHARED(PostingSharedNotification.class), // 44
+    /**
+     * A remote node removed a sharing. Sharing type, posting ID, sender node name, posting revision ID, remote story
+     * ID, and remote posting ID must match, including null for omitted fields. A story is identified solely by its ID;
+     * remote feed name and story moment do not participate in matching.
+     */
+    POSTING_UNSHARED(PostingUnsharedNotification.class), // 45
+    /**
+     * The number of sharings of a subscribed posting changed.
+     */
+    POSTING_SHARINGS_UPDATED(PostingSharingsUpdatedNotification.class); // 46
 
     private final Class<? extends Notification> structure;
 

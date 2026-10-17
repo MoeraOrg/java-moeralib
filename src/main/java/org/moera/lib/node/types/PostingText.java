@@ -454,7 +454,7 @@ public class PostingText extends Structure implements Cloneable {
 
     /**
      * Retrieves URIs of the external sources the posting was received from; used by software that automatically
-     * forwards postings from other social networks (for admin only)
+     * forwards postings from other social networks
      * .
      *
      * @return the value
@@ -465,7 +465,7 @@ public class PostingText extends Structure implements Cloneable {
 
     /**
      * Sets URIs of the external sources the posting was received from; used by software that automatically forwards
-     * postings from other social networks (for admin only)
+     * postings from other social networks
      * .
      *
      * @param externalSourceUri the value to be set
@@ -486,6 +486,9 @@ public class PostingText extends Structure implements Cloneable {
         }
         if (commentRejectedReactions != null) {
             commentRejectedReactions.validate();
+        }
+        if (publications != null) {
+            publications.forEach(StoryAttributes::validate);
         }
         if (updateInfo != null) {
             updateInfo.validate();

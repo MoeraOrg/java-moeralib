@@ -14,6 +14,7 @@ public class CommentOperations implements Cloneable {
     private Principal view;
     private Principal edit;
     private Principal delete;
+    private Principal viewExternalSource;
     private Principal viewReactions;
     private Principal viewNegativeReactions;
     private Principal viewReactionTotals;
@@ -184,6 +185,60 @@ public class CommentOperations implements Cloneable {
      */
     public void setDelete(Principal delete, Principal defaultValue) {
         this.delete = Objects.equals(delete, defaultValue) ? null : delete;
+    }
+
+    /**
+     * Retrieves the permission to view the comment's external source URIs.
+     * If {@code null}, the default permission is in effect.
+     *
+     * @return the permission, may be {@code null}
+     */
+    public Principal getViewExternalSource() {
+        return viewExternalSource;
+    }
+
+    /**
+     * Retrieves the permission to view the comment's external source URIs,
+     * or {@code defaultValue} if the permission is {@code null}.
+     *
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public Principal getViewExternalSource(Principal defaultValue) {
+        return viewExternalSource != null ? viewExternalSource : defaultValue;
+    }
+
+    /**
+     * Retrieves the permission to view the comment's external source URIs,
+     * or {@code defaultValue} if {@code operations} is {@code null} or the permission is {@code null}.
+     *
+     * @param operations permissions data
+     * @param defaultValue the default permission
+     * @return the permission
+     */
+    public static Principal getViewExternalSource(CommentOperations operations, Principal defaultValue) {
+        return operations != null ? operations.getViewExternalSource(defaultValue) : defaultValue;
+    }
+
+    /**
+     * Sets the permission to view the comment's external source URIs.
+     * If set to {@code null}, the default permission should be used.
+     *
+     * @param viewExternalSource the permission to set, may be {@code null}
+     */
+    public void setViewExternalSource(Principal viewExternalSource) {
+        this.viewExternalSource = viewExternalSource;
+    }
+
+    /**
+     * Sets the permission to view the comment's external source URIs.
+     * If the value is equal to {@code defaultValue}, the permission is set to {@code null}.
+     *
+     * @param viewExternalSource the permission to set
+     * @param defaultValue the default permission
+     */
+    public void setViewExternalSource(Principal viewExternalSource, Principal defaultValue) {
+        this.viewExternalSource = Objects.equals(viewExternalSource, defaultValue) ? null : viewExternalSource;
     }
 
     /**
@@ -685,6 +740,7 @@ public class CommentOperations implements Cloneable {
         return view == null
             && edit == null
             && delete == null
+            && viewExternalSource == null
             && viewReactions == null
             && viewNegativeReactions == null
             && viewReactionTotals == null

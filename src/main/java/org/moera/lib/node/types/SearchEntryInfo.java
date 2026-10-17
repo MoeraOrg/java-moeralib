@@ -27,6 +27,7 @@ public class SearchEntryInfo extends Structure implements Cloneable {
     private String mediaPreviewMimeType;
     private SearchRepliedTo repliedTo;
     private long createdAt;
+    private Long earliestPublishedAt;
     private SearchEntryOperations operations;
     private long moment;
 
@@ -374,6 +375,24 @@ public class SearchEntryInfo extends Structure implements Cloneable {
      */
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Retrieves earliest timeline publication timestamp of the posting at its source node (postings only).
+     *
+     * @return the value
+     */
+    public Long getEarliestPublishedAt() {
+        return earliestPublishedAt;
+    }
+
+    /**
+     * Sets earliest timeline publication timestamp of the posting at its source node (postings only).
+     *
+     * @param earliestPublishedAt the value to be set
+     */
+    public void setEarliestPublishedAt(Long earliestPublishedAt) {
+        this.earliestPublishedAt = earliestPublishedAt;
     }
 
     /**

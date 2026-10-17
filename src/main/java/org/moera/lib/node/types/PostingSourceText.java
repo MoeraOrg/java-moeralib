@@ -297,6 +297,9 @@ public class PostingSourceText extends Structure implements Cloneable {
         if (commentRejectedReactions != null) {
             commentRejectedReactions.validate();
         }
+        if (publications != null) {
+            publications.forEach(StoryAttributes::validate);
+        }
     }
 
     /**

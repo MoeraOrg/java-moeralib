@@ -52,6 +52,7 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
     private ClientReactionInfo clientReaction;
     private ClientReactionInfo seniorReaction;
     private ReactionTotalsInfo reactions;
+    private List<String> externalSourceUri;
 
     /**
      * Retrieves .
@@ -832,6 +833,28 @@ public class CommentInfo extends Structure implements Cloneable, MediaInfo {
      */
     public void setReactions(ReactionTotalsInfo reactions) {
         this.reactions = reactions;
+    }
+
+    /**
+     * Retrieves URIs of the external sources the comment was received from; used by software that automatically
+     * forwards comments from other social networks
+     * .
+     *
+     * @return the value
+     */
+    public List<String> getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URIs of the external sources the comment was received from; used by software that automatically forwards
+     * comments from other social networks
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(List<String> externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
     }
 
     @Override

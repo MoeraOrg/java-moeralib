@@ -2,7 +2,10 @@ package org.moera.lib.node.types;
 
 // This file is generated
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.moera.lib.node.types.validate.ValidationUtil;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoryAttributes extends Structure implements Cloneable {
@@ -13,6 +16,7 @@ public class StoryAttributes extends Structure implements Cloneable {
     private Boolean viewed;
     private Boolean read;
     private Boolean satisfied;
+    private List<String> externalSourceUri;
 
     /**
      * Retrieves name of the feed.
@@ -124,6 +128,38 @@ public class StoryAttributes extends Structure implements Cloneable {
      */
     public void setSatisfied(Boolean satisfied) {
         this.satisfied = satisfied;
+    }
+
+    /**
+     * Retrieves URIs of the external sources the story was received from; used by software that automatically forwards
+     * stories from other social networks
+     * .
+     *
+     * @return the value
+     */
+    public List<String> getExternalSourceUri() {
+        return externalSourceUri;
+    }
+
+    /**
+     * Sets URIs of the external sources the story was received from; used by software that automatically forwards
+     * stories from other social networks
+     * .
+     *
+     * @param externalSourceUri the value to be set
+     */
+    public void setExternalSourceUri(List<String> externalSourceUri) {
+        this.externalSourceUri = externalSourceUri;
+    }
+
+    @Override
+    public void validate() {
+        super.validate();
+        if (externalSourceUri != null) {
+            externalSourceUri.forEach(value ->
+                ValidationUtil.maxSize(value, 1024, "story.external-source-uri.wrong-size")
+            );
+        }
     }
 
     /**
